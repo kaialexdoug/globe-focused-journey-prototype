@@ -1,0 +1,68 @@
+.title {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: white;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: white;
+  font-size: 12px
+}
+
+.mainHook {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  line-height: 1.0;
+  margin-bottom: 5px;
+}
+
+.subHook {
+  color: rgb(195, 195, 195);
+  font-size: 11px;
+}
+
+.introBtnContainer {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.introBtn {
+  padding: 10px 10px;
+  background-color: rgb(214, 48, 48);
+  color: rgb(240, 235, 245);
+  border-radius: 5px;
+  border: none;
+  font-size: 11px;
+  margin-top: 10px;
+}
+
+.topMain {
+  text-align: left;
+  padding-left: 15px;
+  padding-top: 50px;
+  width: 55%;
+}
+
+.header {
+  padding: 10px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.top {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 70%,
+    var(--bg) 100%
+  ), url('./assets/chureito-pagoda-sunset.jpeg');
+  background-size: cover;
+  padding-bottom: 20px;
+}
+
+.body {
+  padding: 15px;
+  background-color: var(--bg);
+}
