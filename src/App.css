@@ -173,3 +173,166 @@
   display: flex;
   justify-content: space-between;
 }
+
+.answerBtn:hover {
+  cursor: pointer;
+  box-shadow: inset 0 0 18px var(--globe-salmon);
+}
+
+.answerBtn:active {
+  box-shadow: inset 0 0 26px var(--globe-salmon);
+}
+
+/* Keeps the question readable on a wide desktop window without changing how
+   it looks on a phone. */
+.questionContainer,
+.resultContainer {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* --- Progress indicator --- */
+
+.progress {
+  padding: 0 30px 30px;
+}
+
+.progressLabel {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgb(116, 119, 144);
+  margin-bottom: 8px;
+}
+
+.progressBar {
+  height: 3px;
+  border-radius: 2px;
+  background-color: rgb(52, 49, 59);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--globe-salmon);
+  box-shadow: 0 0 8px var(--globe-salmon);
+  transition: width 0.3s ease;
+}
+
+/* --- Results --- */
+
+.resultContainer {
+  padding: 10px 20px 20px;
+}
+
+.resultLabel {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--globe-salmon);
+  margin-top: 20px;
+}
+
+.resultContainer .mainHook {
+  margin-top: 5px;
+}
+
+.resultTagline {
+  font-size: 13px;
+  color: rgb(195, 195, 195);
+  margin-bottom: 20px;
+}
+
+.resultText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(160, 160, 175);
+  padding: 0 10px;
+}
+
+.resultExamples {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--globe-salmon);
+  margin: 20px 0 25px;
+}
+
+.resultContainer .testTakeBtnContainer .introBtn {
+  width: 100%;
+}
+
+/* --- Trait breakdown --- */
+
+.traitList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 30px 10px 10px;
+}
+
+.traitName {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: white;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.traitTrack {
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+  background-color: rgb(52, 49, 59);
+}
+
+/* The faint line down the middle is the neutral point of each axis. */
+.traitTrack::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  bottom: -3px;
+  width: 1px;
+  background-color: rgb(80, 77, 90);
+}
+
+.traitFill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  min-width: 2px;
+  border-radius: 2px;
+  background-color: var(--globe-salmon);
+  box-shadow: 0 0 8px var(--globe-salmon);
+}
+
+.traitEnds {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgb(116, 119, 144);
+  margin-top: 5px;
+}
+
+/* --- Small screens --- */
+
+@media (max-width: 480px) {
+  .questionText {
+    font-size: 20px;
+  }
+
+  .answerBtnContainer {
+    gap: 14px;
+    padding: 15px 12px;
+  }
+
+  .answerBtn {
+    width: 100%;
+    padding: 15px;
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .progress {
+    padding: 0 20px 25px;
+  }
+}
