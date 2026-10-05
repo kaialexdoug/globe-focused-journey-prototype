@@ -1,183 +1,180 @@
-// All of the questionnaire's data lives here, so Questionnaire.jsx only has to
-// deal with showing it. Nothing in this file is React-specific.
+// All of the quiz's data lives here, so Questionnaire.jsx only has to deal
+// with showing it. Everything comes straight off the flow chart: eight
+// "this vs. that" picture pairs, and three traveler types built out of them.
+//
+// Photos are from Unsplash — see assets/quiz/CREDITS.md.
 
-// The seven traits we are measuring. `low` and `high` are the two ends of each
-// axis: a negative score leans towards `low`, a positive score towards `high`.
-export const CATEGORIES = [
-  { id: 'extraversion', name: 'Extraversion', low: 'solitary', high: 'social' },
-  { id: 'openness', name: 'Openness', low: 'familiar', high: 'novel' },
-  { id: 'discovery', name: 'Sense of Discovery', low: 'iconic', high: 'hidden' },
-  { id: 'walking', name: 'Walking Tolerance', low: 'short', high: 'long' },
-  { id: 'environment', name: 'Environment', low: 'urban', high: 'nature' },
-  { id: 'food', name: 'Food & Comfort', low: 'simple', high: 'indulgent' },
-  { id: 'pace', name: 'Pace & Structure', low: 'spontaneous', high: 'planned' },
-]
+import hiddenPhoto from './assets/quiz/hidden.jpg'
+import famousPhoto from './assets/quiz/famous.jpg'
+import naturePhoto from './assets/quiz/nature.jpg'
+import cityPhoto from './assets/quiz/city.jpg'
+import relaxedPhoto from './assets/quiz/relaxed.jpg'
+import adventurousPhoto from './assets/quiz/adventurous.jpg'
+import foodPhoto from './assets/quiz/food.jpg'
+import historyPhoto from './assets/quiz/history.jpg'
+import beautifulPhoto from './assets/quiz/beautiful.jpg'
+import weirdPhoto from './assets/quiz/weird.jpg'
+import planPhoto from './assets/quiz/plan.jpg'
+import surprisePhoto from './assets/quiz/surprise.jpg'
+import dayPhoto from './assets/quiz/day.jpg'
+import nightPhoto from './assets/quiz/night.jpg'
+import socialPhoto from './assets/quiz/social.jpg'
+import soloPhoto from './assets/quiz/solo.jpg'
 
-// Each answer carries a small `scores` object. Categories an answer says
-// nothing about are simply left out. Values are always between -2 and +2.
-export const QUESTIONS = [
-  {
-    text: 'Would you consider yourself a "people person?"',
-    answers: [
-      { text: 'Yes, absolutely!', scores: { extraversion: 2 } },
-      { text: 'Mostly, yeah.', scores: { extraversion: 1 } },
-      { text: "I don't really mind either way.", scores: { extraversion: 0 } },
-      { text: 'Not really.', scores: { extraversion: -1 } },
-      { text: 'Definitely not.', scores: { extraversion: -2 } },
-    ],
-  },
-  {
-    text: "You're exploring a small town and come across a local festival you've never heard of. How would you react?",
-    answers: [
-      { text: "I'd love to check it out!", scores: { openness: 2, extraversion: 1, discovery: 1 } },
-      { text: "I'd probably give it a try.", scores: { openness: 1, extraversion: 1 } },
-      { text: "I'd be happy either way.", scores: { openness: 0 } },
-      { text: "I'd probably keep to my original plans.", scores: { openness: -1, extraversion: -1 } },
-      { text: "I'd rather stick with what I know.", scores: { openness: -2, extraversion: -1, discovery: -1 } },
-    ],
-  },
-  {
-    text: 'How would you feel about walking 15 km during a journey?',
-    answers: [
-      { text: 'That sounds like a great day!', scores: { walking: 2 } },
-      { text: "I'd be pretty comfortable with that.", scores: { walking: 1 } },
-      { text: "I don't really mind.", scores: { walking: 0 } },
-      { text: "I'd prefer something shorter.", scores: { walking: -1 } },
-      { text: "That's way too much walking for me.", scores: { walking: -2 } },
-    ],
-  },
-  {
-    text: 'Which sounds more appealing for a day of exploring?',
-    answers: [
-      { text: 'A quiet coastal town', scores: { environment: 2, extraversion: -1 } },
-      { text: 'Somewhere with a mix of nature and town', scores: { environment: 1 } },
-      { text: 'Either sounds good to me', scores: { environment: 0 } },
-      { text: 'A quieter urban neighborhood', scores: { environment: -1 } },
-      { text: 'A lively city center', scores: { environment: -2, extraversion: 1 } },
-    ],
-  },
-  {
-    text: "Imagine you're visiting a new city. Which experience would excite you more?",
-    answers: [
-      { text: 'Seeing something truly spectacular and famous', scores: { discovery: -2, openness: -1 } },
-      { text: 'Visiting a famous place, then exploring nearby', scores: { discovery: -1 } },
-      { text: 'Either sounds great', scores: { discovery: 0 } },
-      { text: 'Finding a small place most visitors overlook', scores: { discovery: 1 } },
-      { text: 'Discovering somewhere almost nobody seems to know about', scores: { discovery: 2, openness: 1 } },
-    ],
-  },
-  {
-    text: 'After a long day of exploring, what kind of meal would you prefer?',
-    answers: [
-      { text: 'Something cheap, simple, and local', scores: { food: -2 } },
-      { text: 'A casual local restaurant', scores: { food: -1 } },
-      { text: 'Either is fine', scores: { food: 0 } },
-      { text: 'Somewhere a little nicer', scores: { food: 1 } },
-      { text: "I'd like to treat myself to something special", scores: { food: 2 } },
-    ],
-  },
-  {
-    text: "You've got a full day ahead of you in a place you've never visited. Which sounds more like your ideal day?",
-    answers: [
-      { text: "No plan at all — I'll see where the day takes me.", scores: { pace: -2, openness: 1, discovery: 1 } },
-      { text: "A rough idea of what I'd like to see, but lots of freedom.", scores: { pace: -1, openness: 1 } },
-      { text: 'Somewhere in between.', scores: { pace: 0 } },
-      { text: "I'd like a fairly clear plan.", scores: { pace: 1 } },
-      { text: "I want to know exactly where I'm going and what I'll be doing.", scores: { pace: 2, openness: -1, discovery: -1 } },
-    ],
-  },
-]
-
-// The journeys we can recommend. `ideal` describes the traveller each journey
-// suits best, on a -1 (low end of the axis) to +1 (high end) scale.
-export const ROUTES = [
-  {
-    name: 'The Quiet Coast',
-    tagline: 'Sea air, small harbours, and time to think.',
-    description:
-      'Slow days along the water, where the loudest thing is the tide. Fishing towns, ferry rides and long empty beaches, with very few other travellers around.',
-    examples: 'Noto Peninsula · the Setouchi islands · the Izu coast',
-    ideal: { extraversion: -0.8, openness: 0.3, discovery: 0.6, walking: 0.3, environment: 0.9, food: -0.2, pace: -0.4 },
-  },
-  {
-    name: 'The Neon Current',
-    tagline: 'The city at full volume, and you in the middle of it.',
-    description:
-      'Crowded crossings, rooftop views and late-night streets that never quite switch off. The famous sights, done properly, with people around you the whole way.',
-    examples: 'Shinjuku & Shibuya · Dotonbori · Fukuoka after dark',
-    ideal: { extraversion: 0.9, openness: 0.2, discovery: -0.7, walking: 0.2, environment: -0.9, food: 0.5, pace: 0.2 },
-  },
-  {
-    name: 'The Long Trail',
-    tagline: 'Distance on foot, and a view that earns it.',
-    description:
-      'Old post roads, forest paths and mountain passes walked end to end. The kind of journey where the walking is the point, and the towns are what you find in between.',
-    examples: 'The Nakasendo · Kumano Kodo · the Japan Alps',
-    ideal: { extraversion: -0.4, openness: 0.5, discovery: 0.4, walking: 0.9, environment: 0.7, food: -0.3, pace: 0.3 },
-  },
-  {
-    name: 'The Backstreet Drift',
-    tagline: 'No plan, no map, just whichever alley looks interesting.',
-    description:
-      'Wandering the parts of the city that never make the guidebooks. Standing bars, tiny shrines between apartment blocks, and whatever the day happens to turn up.',
-    examples: 'Shitamachi Tokyo · Osaka backstreets · Nakazakicho',
-    ideal: { extraversion: 0.2, openness: 0.8, discovery: 0.9, walking: 0.4, environment: -0.6, food: -0.6, pace: -0.9 },
-  },
-  {
-    name: 'The Grand Circuit',
-    tagline: 'The landmarks you came for, in the right order.',
-    description:
-      'A clear, well-paced route through the places Japan is famous for. Everything booked, nothing rushed, and a comfortable meal waiting at the end of each day.',
-    examples: 'Kyoto · Nara · Hakone · Mount Fuji',
-    ideal: { extraversion: 0.4, openness: -0.5, discovery: -0.9, walking: -0.4, environment: 0, food: 0.6, pace: 0.9 },
-  },
-  {
-    name: 'The Slow Table',
-    tagline: 'A journey measured in meals rather than kilometres.',
-    description:
-      'Short distances, long dinners. Morning markets, sake breweries and ryokan kitchens, with the rest of the day left deliberately open.',
-    examples: 'Kanazawa · Takayama · Kyushu onsen towns',
-    ideal: { extraversion: 0.1, openness: 0.4, discovery: 0.3, walking: -0.6, environment: 0.2, food: 0.9, pace: -0.2 },
-  },
-]
-
-// The biggest score each category can reach, used to turn a raw score into a
-// -1 to +1 value. Worked out from the questions above, so it stays correct if
-// you add, remove or re-weight a question.
-export function getMaxScores() {
-  const max = {}
-
-  for (const category of CATEGORIES) {
-    max[category.id] = 0
-    for (const question of QUESTIONS) {
-      let biggest = 0
-      for (const answer of question.answers) {
-        biggest = Math.max(biggest, Math.abs(answer.scores[category.id] || 0))
-      }
-      max[category.id] += biggest
-    }
-  }
-
-  return max
+// The sixteen traits, two per question. These are the words used on the flow
+// chart, so the two can be read side by side.
+export const TRAITS = {
+  hidden: 'Hidden',
+  famous: 'Famous',
+  nature: 'Nature',
+  city: 'City',
+  relaxed: 'Relaxed',
+  adventurous: 'Adventurous',
+  food: 'Food',
+  history: 'History',
+  beautiful: 'Beautiful',
+  weird: 'Weird',
+  plan: 'Know the Plan',
+  surprise: 'Surprise Me',
+  day: 'Daytime',
+  night: 'Nighttime',
+  social: 'Social',
+  solo: 'Solo',
 }
 
-// Prototype recommendation: normalise the scores, then pick whichever journey
-// sits closest to them. No backend, no clever algorithm — just a nearest match.
-export function pickRoute(scores, maxScores) {
-  let best = ROUTES[0]
-  let bestDistance = Infinity
+// One question per pair. The order, and which side goes on top, are mixed up
+// on purpose so that no one type is always "the top picture".
+export const QUESTIONS = [
+  {
+    prompt: 'Where would you rather spend the afternoon?',
+    options: [
+      { trait: 'nature', caption: 'A forest path', photo: naturePhoto },
+      { trait: 'city', caption: 'A neon skyline', photo: cityPhoto },
+    ],
+  },
+  {
+    prompt: 'Which would you rather stumble into?',
+    options: [
+      { trait: 'famous', caption: 'An iconic landmark', photo: famousPhoto },
+      { trait: 'hidden', caption: 'A quiet, unmarked alley', photo: hiddenPhoto },
+    ],
+  },
+  {
+    prompt: 'What pulls you in first?',
+    options: [
+      { trait: 'food', caption: 'A bowl of street food', photo: foodPhoto },
+      { trait: 'history', caption: 'An old temple gate', photo: historyPhoto },
+    ],
+  },
+  {
+    prompt: 'Pick your pace for the day.',
+    options: [
+      { trait: 'adventurous', caption: 'Climbing a steep trail', photo: adventurousPhoto },
+      { trait: 'relaxed', caption: 'Sitting by a calm river', photo: relaxedPhoto },
+    ],
+  },
+  {
+    prompt: 'Which would you stop to photograph?',
+    options: [
+      { trait: 'weird', caption: 'Something wonderfully odd', photo: weirdPhoto },
+      { trait: 'beautiful', caption: 'A scenic view', photo: beautifulPhoto },
+    ],
+  },
+  {
+    prompt: 'When would you rather wander?',
+    options: [
+      { trait: 'day', caption: 'A bright, bustling street', photo: dayPhoto },
+      { trait: 'night', caption: 'A quiet street, lit up at night', photo: nightPhoto },
+    ],
+  },
+  {
+    prompt: 'How do you like to set off?',
+    options: [
+      { trait: 'plan', caption: 'With the route mapped out', photo: planPhoto },
+      { trait: 'surprise', caption: 'Into the fog. Surprise me.', photo: surprisePhoto },
+    ],
+  },
+  {
+    prompt: "Who's there with you?",
+    options: [
+      { trait: 'solo', caption: 'Just me and the view', photo: soloPhoto },
+      { trait: 'social', caption: 'A group, laughing together', photo: socialPhoto },
+    ],
+  },
+]
 
-  for (const route of ROUTES) {
-    let distance = 0
-    for (const category of CATEGORIES) {
-      const normalised = scores[category.id] / maxScores[category.id]
-      distance += Math.abs(normalised - route.ideal[category.id])
+// The three traveler types. `traits` is the type's line on the flow chart —
+// one side of every pair. `color` is the colour of its box there, softened a
+// little to sit on the dark background.
+export const PERSONALITIES = [
+  {
+    id: 'naturalist',
+    name: 'The Naturalist',
+    color: 'rgb(116, 191, 63)',
+    photo: naturePhoto,
+    traits: ['hidden', 'nature', 'adventurous', 'history', 'beautiful', 'surprise', 'day', 'social'],
+    description:
+      "You'd rather earn a view than be driven to it. Give you a trail, a hill, or a quiet stretch of nature most people skip, and you're in your element — especially if there's a story behind it, an old shrine tucked into the trees or a path that's older than it looks. You don't need to know exactly where you're headed, just that it's beautiful when you get there, and you're happiest when there's someone beside you to see it too.",
+  },
+  {
+    id: 'collector',
+    name: 'The Collector',
+    color: 'rgb(240, 182, 58)',
+    photo: famousPhoto,
+    traits: ['famous', 'city', 'adventurous', 'history', 'beautiful', 'plan', 'day', 'social'],
+    description:
+      "You want to see the things worth seeing, and you want to actually understand them. The famous landmark, the well-known historic site — you're not too cool for it, you just want to experience it properly, with enough of a plan that you're not wasting daylight figuring out where to go next. A full day covering real ground with people you like is exactly your kind of day.",
+  },
+  {
+    id: 'wanderer',
+    name: 'The Wanderer',
+    color: 'rgb(151, 102, 255)',
+    photo: nightPhoto,
+    traits: ['hidden', 'nature', 'relaxed', 'food', 'weird', 'surprise', 'night', 'solo'],
+    description:
+      "You like the city best when it's quiet and a little strange. A back alley nobody photographs, a late-night bowl of something simple, a shop with no sign — that's more interesting to you than anywhere in a guidebook. You don't need a plan, and you'd honestly rather go alone, following whatever catches your eye until something surprising finds you.",
+  },
+]
+
+// Every quiz photo, so the screen before the quiz can start loading them and
+// the pictures are ready by the time each question appears.
+export function preloadQuizPhotos() {
+  for (const question of QUESTIONS) {
+    for (const option of question.options) {
+      const image = new Image()
+      image.src = option.photo
     }
-    if (distance < bestDistance) {
-      bestDistance = distance
-      best = route
+  }
+}
+
+// How many of each type's eight traits the picks share, highest first.
+// `picks` is the list of trait ids the person chose, one per question.
+export function scoreTypes(picks) {
+  const scored = PERSONALITIES.map((personality) => ({
+    personality,
+    matches: personality.traits.filter((trait) => picks.includes(trait)).length,
+  }))
+  scored.sort((a, b) => b.matches - a.matches)
+  return scored
+}
+
+// The single type the quiz lands on: whichever shares the most traits.
+//
+// The Naturalist can never tie for first, but the Collector and the Wanderer
+// can (they are exact opposites, so their scores always add up to 8). When
+// they do, Hidden vs. Famous decides it — the flow chart calls that pair the
+// core "off the beaten path" signal.
+export function pickType(picks) {
+  const scored = scoreTypes(picks)
+  const tied = scored.filter((entry) => entry.matches === scored[0].matches)
+
+  if (tied.length > 1) {
+    const decider = picks.includes('hidden') ? 'hidden' : 'famous'
+    const winner = tied.find((entry) => entry.personality.traits.includes(decider))
+    if (winner) {
+      return winner.personality
     }
   }
 
-  return best
+  return scored[0].personality
 }

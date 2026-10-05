@@ -1,0 +1,984 @@
+.title { 
+  font-size: 18px; 
+  color: white; 
+  font-weight: 300; 
+  letter-spacing: 2px; 
+  margin: 5px 0;
+} 
+
+.subtitle { 
+  color: white; 
+  font-size: 12px;
+}
+
+.mainHook {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  line-height: 1.0;
+  margin-bottom: 5px;
+}
+
+.subHook {
+  color: rgb(195, 195, 195);
+  font-size: 11px;
+}
+
+.introBtnContainer {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.introBtn {
+  padding: 10px 10px;
+  background-color: var(--globe-salmon);
+  color: rgb(240, 235, 245);
+  border-radius: 5px;
+  border: none;
+  font-size: 11px;
+  margin-top: 10px;
+}
+
+.topMain {
+  text-align: left;
+  padding-left: 15px;
+  padding-top: 50px;
+  width: 55%;
+}
+
+.header {
+  padding: 10px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.top {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 70%,
+    var(--bg) 100%
+  ), url('./assets/chureito-pagoda-sunset.jpeg');
+  background-size: cover;
+  padding-bottom: 20px;
+}
+
+.body {
+  padding: 15px;
+  background-color: var(--bg);
+}
+
+.main {
+  background: linear-gradient(
+    to bottom,
+    rgb(48, 48, 60) 0%,
+    var(--bg) 100%
+  );
+}
+
+.msg {
+  margin-top: 10px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 50px;
+}
+
+.iconContainer {
+  width: 80px;
+  text-align: center;
+  flex-shrink: 0;
+  font-size:11px;
+}
+
+.iconContainer img {
+  width: 60px;
+  height: 60px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.divider {
+  width: 90%;
+  border-bottom: 2px solid rgb(52, 49, 59);
+  margin: 0 auto;
+}
+
+.testTakeBtnContainer {
+  padding: 20px;
+}
+
+.testTakeBtnContainer .mainHook {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.testTakeBtnContainer .introBtn {
+  width: 90%;
+}
+
+.testHeaderContainer {
+  position: relative;
+}
+
+.testHeader {
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  background-color: var(--bg);
+  padding: 10px;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  margin: 0;
+  color: rgb(116, 119, 144)
+}
+
+.testHeaderContainer .divider {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+}
+
+.questionText {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 24px;
+  margin-top: 10px;
+  color: white;
+  padding: 10px;
+}
+
+.answerBtnContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 20px;
+}
+
+.answerBtn {
+  padding: 17px;
+  width: 85%;
+  font-size: 15px;
+  background-color: transparent;
+  border: 2px solid var(--globe-salmon);
+  border-radius: 10px;
+  color: white;
+  box-shadow: inset 0 0 10px var(--globe-salmon);
+  text-align: left;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.answerBtn:hover {
+  cursor: pointer;
+  box-shadow: inset 0 0 18px var(--globe-salmon);
+}
+
+.answerBtn:active {
+  box-shadow: inset 0 0 26px var(--globe-salmon);
+}
+
+/* Keeps the question readable on a wide desktop window without changing how
+   it looks on a phone. */
+.questionContainer,
+.resultContainer,
+.journeyList,
+.previewScreen,
+.activeScreen,
+.completeScreen {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* --- Progress indicator --- */
+
+.progress {
+  padding: 0 30px 30px;
+}
+
+.progressLabel {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgb(116, 119, 144);
+  margin-bottom: 8px;
+}
+
+.progressBar {
+  height: 3px;
+  border-radius: 2px;
+  background-color: rgb(52, 49, 59);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--globe-salmon);
+  box-shadow: 0 0 8px var(--globe-salmon);
+  transition: width 0.3s ease;
+}
+
+/* --- Results --- */
+
+.resultContainer {
+  padding: 10px 20px 20px;
+}
+
+.resultLabel {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--globe-salmon);
+  margin-top: 20px;
+}
+
+.resultContainer .mainHook {
+  margin-top: 5px;
+}
+
+.resultTagline {
+  font-size: 13px;
+  color: rgb(195, 195, 195);
+  margin-bottom: 20px;
+}
+
+.resultText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(160, 160, 175);
+  padding: 0 10px;
+}
+
+.resultExamples {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--globe-salmon);
+  margin: 20px 0 25px;
+}
+
+.resultContainer .testTakeBtnContainer .introBtn {
+  width: 100%;
+}
+
+/* --- Trait breakdown --- */
+
+.traitList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 30px 10px 10px;
+}
+
+.traitName {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: white;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.traitTrack {
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+  background-color: rgb(52, 49, 59);
+}
+
+/* The faint line down the middle is the neutral point of each axis. */
+.traitTrack::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  bottom: -3px;
+  width: 1px;
+  background-color: rgb(80, 77, 90);
+}
+
+.traitFill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  min-width: 2px;
+  border-radius: 2px;
+  background-color: var(--globe-salmon);
+  box-shadow: 0 0 8px var(--globe-salmon);
+}
+
+.traitEnds {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgb(116, 119, 144);
+  margin-top: 5px;
+}
+
+/* --- Journey list (the journeys on offer) --- */
+
+.journeyList,
+.previewScreen,
+.completeScreen {
+  padding: 10px 20px 20px;
+}
+
+.journeyListNote {
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgb(116, 119, 144);
+  margin: 10px 0 25px;
+}
+
+/* Same language as the answer buttons: transparent, salmon border, inner
+   glow, text on the left. */
+.journeyCard {
+  display: block;
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 18px;
+  background-color: transparent;
+  border: 2px solid var(--globe-salmon);
+  border-radius: 15px;
+  box-shadow: inset 0 0 10px var(--globe-salmon);
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.journeyCard:hover {
+  box-shadow: inset 0 0 18px var(--globe-salmon);
+}
+
+.journeyBadge {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--globe-salmon);
+}
+
+.journeyCardTitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: white;
+  margin: 0 0 6px;
+}
+
+.journeyTags {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: rgb(140, 140, 158);
+}
+
+.journeyCardText {
+  margin: 12px 0 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgb(160, 160, 175);
+}
+
+.journeyCardGo {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--globe-salmon);
+}
+
+/* --- Journey preview and its map --- */
+
+.moodTags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 18px 0 22px;
+}
+
+.moodTag {
+  padding: 5px 12px;
+  border: 1px solid rgb(82, 78, 94);
+  border-radius: 20px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgb(160, 160, 175);
+}
+
+.journeyMap {
+  height: 340px;
+  border: 2px solid var(--globe-salmon);
+  border-radius: 15px;
+  /* --globe-salmon at low opacity, as an outer glow — an inset one would sit
+     under the map tiles and never be seen. */
+  box-shadow: 0 0 14px rgba(214, 48, 48, 0.35);
+  overflow: hidden;
+}
+
+.mapHint {
+  margin: 10px 0 0;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgb(116, 119, 144);
+}
+
+/* Leaflet builds its own DOM, so these rules reach into it to keep the map
+   inside the app's palette rather than its own default blue-and-white. */
+.leaflet-container {
+  background: var(--bg);
+  font-family: var(--sans);
+}
+
+/* OpenStreetMap only serves light tiles, so they are inverted here into a dark
+   map. The hue-rotate puts the colours back the right way round after the
+   invert, otherwise green parks come out pink. This only touches the tile
+   images — the route and the pins sit in their own layer and are untouched. */
+.leaflet-tile {
+  filter: invert(1) hue-rotate(180deg) brightness(0.82) contrast(1.05)
+    saturate(0.55);
+}
+
+.leaflet-control-attribution {
+  background: rgba(22, 23, 29, 0.75) !important;
+  color: rgb(116, 119, 144);
+  font-size: 9px;
+}
+
+.leaflet-control-attribution a {
+  color: rgb(150, 150, 168);
+}
+
+.leaflet-control-zoom a {
+  background-color: var(--bg);
+  border-color: rgb(52, 49, 59);
+  color: white;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: rgb(40, 38, 48);
+  color: white;
+}
+
+/* The traced walking route: a soft wide line underneath for the glow, the
+   sharp one on top. */
+.journeyPathGlow {
+  fill: none;
+  stroke: var(--globe-salmon);
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.25;
+}
+
+.journeyPath {
+  fill: none;
+  stroke: var(--globe-salmon);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* A beat's pin on the map. Built from the HTML in JourneyMap.jsx. */
+.beatPin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--globe-salmon);
+  border-radius: 50%;
+  background-color: var(--bg);
+  box-shadow: inset 0 0 6px var(--globe-salmon), 0 0 6px rgba(214, 48, 48, 0.6);
+  font-size: 12px;
+  color: white;
+}
+
+.beatPinWrap.isSelected .beatPin {
+  background-color: var(--globe-salmon);
+  box-shadow: 0 0 12px var(--globe-salmon);
+}
+
+/* --- The key points along the route --- */
+
+.stopList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 30px 0 10px;
+}
+
+.stopItem {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  border-left: 2px solid rgb(52, 49, 59);
+  border-radius: 0 10px 10px 0;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.stopItem.isSelected {
+  border-left-color: var(--globe-salmon);
+  /* --globe-salmon at low opacity. */
+  box-shadow: inset 0 0 14px rgba(214, 48, 48, 0.22);
+}
+
+.stopNum {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--globe-salmon);
+  border-radius: 50%;
+  box-shadow: inset 0 0 6px var(--globe-salmon);
+  font-size: 11px;
+  line-height: 22px;
+  text-align: center;
+}
+
+.stopBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stopName {
+  font-size: 14px;
+  color: white;
+}
+
+.stopNote {
+  font-size: 12px;
+  line-height: 1.45;
+  color: rgb(140, 140, 158);
+}
+
+.stopTag {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--globe-salmon);
+}
+
+.backBtn {
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  color: rgb(116, 119, 144);
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.backBtn:hover {
+  color: white;
+}
+
+/* --- The journey itself ---
+   This screen is meant to be mostly empty. Almost everything here is about
+   holding space rather than filling it. */
+
+.activeScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 75svh;
+  padding: 20px;
+}
+
+.beatDots {
+  display: flex;
+  gap: 8px;
+  padding: 10px 0 0;
+}
+
+.beatDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid rgb(82, 78, 94);
+}
+
+.beatDot.isDone {
+  background-color: var(--globe-salmon);
+  border-color: var(--globe-salmon);
+  box-shadow: 0 0 6px var(--globe-salmon);
+}
+
+/* The quiet state. Nothing but a word and a lot of room. */
+.walkingPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 30px;
+  width: 100%;
+}
+
+.walkingWord {
+  font-size: 12px;
+  letter-spacing: 6px;
+  color: rgb(78, 76, 92);
+}
+
+.cueLine {
+  max-width: 300px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgb(160, 160, 175);
+}
+
+.arriveBtn {
+  padding: 12px 26px;
+  background-color: transparent;
+  border: 1px solid rgb(82, 78, 94);
+  border-radius: 25px;
+  color: rgb(140, 140, 158);
+  font-size: 10px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.arriveBtn:hover {
+  border-color: var(--globe-salmon);
+  color: white;
+}
+
+/* A beat: the one moment the app speaks. */
+.beatPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 18px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.beatWhere {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--globe-salmon);
+}
+
+.beatLine {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 23px;
+  line-height: 1.35;
+  color: white;
+}
+
+.audioBtn {
+  padding: 8px 18px;
+  background-color: transparent;
+  border: 1px solid rgb(82, 78, 94);
+  border-radius: 20px;
+  color: rgb(140, 140, 158);
+  font-size: 10px;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.audioNote,
+.asideLine {
+  max-width: 340px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgb(116, 119, 144);
+}
+
+.asideLine {
+  padding: 15px 10px 0;
+}
+
+.beatPanel .introBtn {
+  padding: 12px 24px;
+  margin-top: 10px;
+}
+
+.journeyControls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 30px 0 10px;
+}
+
+.controlBtn {
+  padding: 8px 14px;
+  background-color: transparent;
+  border: 1px solid rgb(52, 49, 59);
+  border-radius: 20px;
+  color: rgb(116, 119, 144);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+}
+
+.controlBtn:hover {
+  border-color: var(--globe-salmon);
+  color: white;
+}
+
+/* The peek: one corner button, and nothing else, so the phone can stay in a
+   pocket until it is actually needed. */
+.peekBtn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  background-color: var(--bg);
+  border: 1px solid var(--globe-salmon);
+  border-radius: 50%;
+  box-shadow: inset 0 0 8px var(--globe-salmon);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.activeScreen.isPaused {
+  justify-content: center;
+  gap: 20px;
+}
+
+.pausedLabel {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--globe-salmon);
+}
+
+.pausedText {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 22px;
+  color: white;
+}
+
+/* --- Journey complete --- */
+
+.completeStats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 25px 0;
+}
+
+.completeStat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.completeNum {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 22px;
+  color: var(--globe-salmon);
+}
+
+.completeCaption {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgb(116, 119, 144);
+}
+
+.reflectPrompt {
+  padding: 14px 10px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 19px;
+  color: rgb(190, 190, 205);
+}
+
+.payQuestion {
+  padding: 22px 10px 14px;
+  font-size: 13px;
+  color: rgb(160, 160, 175);
+}
+
+.payChoices {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.payBtn {
+  padding: 10px 22px;
+  background-color: transparent;
+  border: 1px solid rgb(82, 78, 94);
+  border-radius: 20px;
+  color: rgb(160, 160, 175);
+  font-size: 11px;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.payBtn.isSelected {
+  border-color: var(--globe-salmon);
+  box-shadow: inset 0 0 10px var(--globe-salmon);
+  color: white;
+}
+
+.payThanks {
+  padding-top: 14px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: rgb(116, 119, 144);
+}
+
+/* --- The Map tab --- */
+
+.mapTab {
+  padding: 20px 20px 10px;
+}
+
+.cityMap {
+  height: 380px;
+  border: 2px solid var(--globe-salmon);
+  border-radius: 15px;
+  /* --globe-salmon at low opacity, as an outer glow — an inset one would sit
+     under the map tiles and never be seen. */
+  box-shadow: 0 0 14px rgba(214, 48, 48, 0.35);
+  overflow: hidden;
+}
+
+/* A route that isn't the one being looked at. */
+.journeyPath.isDimmed,
+.journeyPathGlow.isDimmed {
+  opacity: 0.18;
+}
+
+/* --- The bar along the bottom --- */
+
+.navBar {
+  position: fixed;
+  bottom: 0;
+  /* #root is a centred column on a wide window, so the bar is pinned to match
+     it rather than to the whole screen. */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1126px;
+  z-index: 1000;
+
+  display: flex;
+  background-color: rgba(18, 19, 24, 0.94);
+  border-top: 1px solid rgb(45, 43, 53);
+  /* Clears the home indicator on a phone. */
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.navItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 11px 0 12px;
+  background-color: transparent;
+  border: none;
+  color: rgb(104, 106, 128);
+  cursor: pointer;
+}
+
+.navItem.isActive {
+  color: var(--globe-salmon);
+}
+
+.navIcon {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The two dots on the journeys icon and the one on the map pin are solid. */
+.navIcon circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+.navItem.isActive .navIcon {
+  filter: drop-shadow(0 0 5px var(--globe-salmon));
+}
+
+.navLabel {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+/* Every screen the bar appears on leaves room for it, so nothing ends up
+   hidden underneath. The active journey is not in this list: the bar is out of
+   the way there. */
+.homePage,
+.discoverPage,
+.testPage,
+.mapTab,
+.journeyList,
+.previewScreen,
+.completeScreen {
+  padding-bottom: 72px;
+}
+
+/* --- Small screens --- */
+
+@media (max-width: 480px) {
+  .questionText {
+    font-size: 20px;
+  }
+
+  .answerBtnContainer {
+    gap: 14px;
+    padding: 15px 12px;
+  }
+
+  .answerBtn {
+    width: 100%;
+    padding: 15px;
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .progress {
+    padding: 0 20px 25px;
+  }
+
+  .stopItem {
+    gap: 10px;
+    padding: 10px 8px;
+  }
+
+  .journeyList,
+  .previewScreen,
+  .completeScreen {
+    padding: 10px 12px 72px;
+  }
+
+  .journeyMap {
+    height: 300px;
+  }
+
+  .beatLine {
+    font-size: 20px;
+  }
+
+  .completeStats {
+    gap: 20px;
+  }
+
+  .mapTab {
+    padding: 15px 12px 72px;
+  }
+
+  .cityMap {
+    height: 340px;
+  }
+}

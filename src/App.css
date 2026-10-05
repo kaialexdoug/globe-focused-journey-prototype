@@ -1,22 +1,68 @@
-.title { 
-  font-size: 18px; 
-  color: white; 
-  font-weight: 300; 
-  letter-spacing: 2px; 
-  margin: 5px 0;
-} 
+/* --- Shared pieces --- */
 
-.subtitle { 
-  color: white; 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* --frame-top clears the camera on the laptop phone frame, or the notch on
+     a real phone. See the bottom of this file. */
+  padding: calc(14px + var(--frame-top)) 10px 10px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-align: left;
+}
+
+.headerLogo {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.logoFrame,
+.logoLine {
+  fill: none;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.logoFrame {
+  stroke-width: 1.6;
+  opacity: 0.6;
+}
+
+.logoLine {
+  stroke-width: 1.2;
+}
+
+.logoSun {
+  fill: var(--globe-salmon);
+  filter: drop-shadow(0 0 3px var(--globe-salmon));
+}
+
+.title {
+  font-size: 18px;
+  color: white;
+  font-weight: 300;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: white;
   font-size: 12px;
+  letter-spacing: 4px;
 }
 
 .mainHook {
   font-family: 'Times New Roman', Times, serif;
   font-size: 30px;
+  font-weight: 400;
   letter-spacing: 1px;
-  line-height: 1.0;
-  margin-bottom: 5px;
+  line-height: 1.05;
+  color: var(--text-h);
+  margin: 0 0 5px;
 }
 
 .subHook {
@@ -24,81 +70,39 @@
   font-size: 11px;
 }
 
-.introBtnContainer {
-  display: flex;
-  margin-bottom: 30px;
-}
-
 .introBtn {
-  padding: 10px 10px;
+  padding: 10px;
   background-color: var(--globe-salmon);
   color: rgb(240, 235, 245);
   border-radius: 5px;
   border: none;
   font-size: 11px;
+  letter-spacing: 1.5px;
   margin-top: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
 }
 
-.topMain {
-  text-align: left;
-  padding-left: 15px;
-  padding-top: 50px;
-  width: 55%;
+.introBtn:hover {
+  box-shadow: 0 0 18px rgba(214, 48, 48, 0.65);
 }
 
-.header {
+.backBtn {
   padding: 10px;
-  font-weight: 300;
+  background-color: transparent;
+  border: none;
+  color: rgb(116, 119, 144);
+  font-size: 11px;
   letter-spacing: 2px;
+  cursor: pointer;
 }
 
-.top {
-  background-image: linear-gradient(
-    to bottom,
-    transparent 70%,
-    var(--bg) 100%
-  ), url('./assets/chureito-pagoda-sunset.jpeg');
-  background-size: cover;
-  padding-bottom: 20px;
+.backBtn:hover {
+  color: white;
 }
 
-.body {
-  padding: 15px;
-  background-color: var(--bg);
-}
-
-.main {
-  background: linear-gradient(
-    to bottom,
-    rgb(48, 48, 60) 0%,
-    var(--bg) 100%
-  );
-}
-
-.msg {
-  margin-top: 10px;
-}
-
-.icons {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  padding: 50px;
-}
-
-.iconContainer {
-  width: 80px;
-  text-align: center;
-  flex-shrink: 0;
-  font-size:11px;
-}
-
-.iconContainer img {
-  width: 60px;
-  height: 60px;
-  border: 2px solid white;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+.backBtn:disabled {
+  visibility: hidden;
 }
 
 .divider {
@@ -107,19 +111,7 @@
   margin: 0 auto;
 }
 
-.testTakeBtnContainer {
-  padding: 20px;
-}
-
-.testTakeBtnContainer .mainHook {
-  font-size: 20px;
-  margin-bottom: 15px;
-}
-
-.testTakeBtnContainer .introBtn {
-  width: 90%;
-}
-
+/* The strapline with a line running through it. */
 .testHeaderContainer {
   position: relative;
 }
@@ -134,7 +126,7 @@
   display: inline-block;
   z-index: 1;
   margin: 0;
-  color: rgb(116, 119, 144)
+  color: rgb(116, 119, 144);
 }
 
 .testHeaderContainer .divider {
@@ -143,58 +135,360 @@
   left: 5%;
 }
 
-.questionText {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 24px;
-  margin-top: 10px;
-  color: white;
-  padding: 10px;
+.testTakeBtnContainer {
+  padding: 20px 20px 30px;
 }
 
-.answerBtnContainer {
+.testTakeBtnContainer .mainHook {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.testTakeBtnContainer .introBtn {
+  width: 100%;
+  padding: 14px;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Opening screen ---
+   The chureito pagoda fills the whole screen. The top and bottom are darkened
+   so the name and the hook can sit on it. */
+
+.homePage {
+  position: relative;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  align-items: center;
-  padding: 20px;
-}
-
-.answerBtn {
-  padding: 17px;
-  width: 85%;
-  font-size: 15px;
-  background-color: transparent;
-  border: 2px solid var(--globe-salmon);
-  border-radius: 10px;
-  color: white;
-  box-shadow: inset 0 0 10px var(--globe-salmon);
-  text-align: left;
-
-  display: flex;
   justify-content: space-between;
+  overflow: hidden;
+  isolation: isolate;
 }
 
-.answerBtn:hover {
+.homeBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(10, 10, 16, 0.65) 0%,
+      rgba(10, 10, 16, 0) 22%,
+      rgba(10, 10, 16, 0) 42%,
+      rgba(22, 23, 29, 0.85) 76%,
+      var(--bg) 100%
+    ),
+    url('./assets/chureito-pagoda-sunset.jpeg');
+  background-size: cover;
+  /* Keeps the pagoda and the setting sun in view on a tall, narrow screen. */
+  background-position: 74% center;
+  transform-origin: 70% 55%;
+  /* A very slow push in, so the opening screen doesn't feel like a still. */
+  animation: slowDrift 26s ease-in-out infinite alternate;
+}
+
+@keyframes slowDrift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.homePage .header {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+.homeHook {
+  text-align: left;
+  padding: 0 24px calc(44px + var(--frame-bottom));
+  animation: fadeUp 0.9s ease both;
+}
+
+.homeHook .mainHook {
+  font-size: 38px;
+  margin-bottom: 10px;
+  color: white;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+
+.homeHook .subHook {
+  color: rgb(215, 215, 220);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 22px;
+}
+
+.homeHook .introBtn {
+  width: 100%;
+  padding: 15px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  border-radius: 8px;
+  box-shadow: 0 0 22px rgba(214, 48, 48, 0.45);
+}
+
+/* --- Find My Journey --- */
+
+.findPage {
+  animation: fadeUp 0.5s ease both;
+}
+
+.findPage .main {
+  background: linear-gradient(to bottom, rgb(48, 48, 60) 0%, var(--bg) 100%);
+}
+
+.findPage .backBtn {
+  display: block;
+  margin-left: 8px;
+}
+
+.findPage .main .mainHook {
+  font-size: 34px;
+  margin: 8px 0 14px;
+}
+
+.msg {
+  max-width: 320px;
+  margin: 10px auto 0;
+  padding: 0 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.msgQuote {
+  max-width: 360px;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgb(205, 205, 215);
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  padding: 30px 10px 34px;
+}
+
+.iconContainer {
+  width: 84px;
+  text-align: center;
+  flex-shrink: 0;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.iconContainer img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.howSteps {
+  list-style: none;
+  margin: 0;
+  padding: 26px 24px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.howSteps li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgb(160, 160, 175);
+}
+
+.howSteps strong {
+  color: white;
+  font-weight: 500;
+}
+
+.howNum {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--globe-salmon);
+  border-radius: 50%;
+  box-shadow: inset 0 0 6px var(--globe-salmon);
+  font-size: 11px;
+  line-height: 22px;
+  text-align: center;
+  color: white;
+}
+
+/* --- The quiz --- */
+
+.quizPage {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.questionContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  animation: fadeUp 0.35s ease both;
+}
+
+.questionContainer .backBtn {
+  align-self: flex-start;
+  padding: 2px 4px 6px;
+}
+
+.questionText {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 23px;
+  line-height: 1.25;
+  color: white;
+  margin: 6px 0 14px;
+  padding: 0 6px;
+}
+
+.photoChoices {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.photoChoice {
+  position: relative;
+  flex: 1;
+  min-height: 140px;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: rgb(30, 30, 38);
   cursor: pointer;
-  box-shadow: inset 0 0 18px var(--globe-salmon);
+  transition:
+    transform 0.25s ease,
+    opacity 0.3s ease,
+    filter 0.3s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.answerBtn:active {
-  box-shadow: inset 0 0 26px var(--globe-salmon);
+.photoChoice img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-/* Keeps the question readable on a wide desktop window without changing how
-   it looks on a phone. */
-.questionContainer,
-.resultContainer {
-  max-width: 680px;
-  margin: 0 auto;
+/* Darkens the bottom of the picture so the caption reads. */
+.photoChoice::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 16, 0.9) 0%,
+    rgba(10, 10, 16, 0.3) 42%,
+    rgba(10, 10, 16, 0) 68%
+  );
 }
 
-/* --- Progress indicator --- */
+.photoCaption {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 13px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.photoTrait {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  /* A lighter --globe-salmon, so it still reads on top of a busy photo. */
+  color: rgb(255, 122, 112);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.photoText {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 21px;
+  line-height: 1.15;
+  color: white;
+}
+
+@media (hover: hover) {
+  .photoChoice:hover {
+    border-color: var(--globe-salmon);
+    box-shadow: 0 0 16px rgba(214, 48, 48, 0.45);
+  }
+
+  .photoChoice:hover img {
+    transform: scale(1.04);
+  }
+}
+
+.photoChoice:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.photoChoice.isChosen {
+  border-color: var(--globe-salmon);
+  box-shadow: 0 0 24px rgba(214, 48, 48, 0.75);
+  transform: scale(1.02);
+}
+
+.photoChoice.isFaded {
+  opacity: 0.35;
+  filter: grayscale(0.7);
+  transform: scale(0.97);
+}
+
+.orDivider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 7px 30px;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgb(116, 119, 144);
+}
+
+.orDivider::before,
+.orDivider::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid rgb(52, 49, 59);
+}
 
 .progress {
-  padding: 0 30px 30px;
+  padding: 16px 14px calc(18px + var(--frame-bottom));
 }
 
 .progressLabel {
@@ -218,121 +512,265 @@
   transition: width 0.3s ease;
 }
 
-/* --- Results --- */
+/* --- Your traveler type ---
+   --type-color is set on the container from the type's flow chart colour. */
 
 .resultContainer {
-  padding: 10px 20px 20px;
+  padding: 0 18px calc(20px + var(--frame-bottom));
+  animation: fadeUp 0.5s ease both;
+}
+
+.resultHero {
+  position: relative;
+  height: 230px;
+  margin-top: 12px;
+  border: 2px solid var(--type-color);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--type-color) 45%, transparent);
+}
+
+.resultHero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.resultHero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 16, 0.92) 0%,
+    rgba(10, 10, 16, 0.3) 50%,
+    rgba(10, 10, 16, 0) 75%
+  );
+}
+
+.resultHeroText {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  z-index: 1;
+  text-align: left;
 }
 
 .resultLabel {
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 600;
   letter-spacing: 3px;
-  color: var(--globe-salmon);
-  margin-top: 20px;
+  /* Lifted towards white so it reads on top of the photo. */
+  color: color-mix(in srgb, var(--type-color) 65%, white);
+  margin-bottom: 4px;
 }
 
-.resultContainer .mainHook {
-  margin-top: 5px;
+.resultHero .mainHook {
+  font-size: 36px;
+  margin: 0;
+  color: white;
 }
 
-.resultTagline {
-  font-size: 13px;
-  color: rgb(195, 195, 195);
-  margin-bottom: 20px;
+.traitChips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  margin: 18px 0 20px;
+}
+
+.traitChip {
+  padding: 5px 11px;
+  border: 1px solid var(--type-color);
+  border-radius: 20px;
+  box-shadow: inset 0 0 8px color-mix(in srgb, var(--type-color) 40%, transparent);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.traitChip.isMissed {
+  border-color: rgb(62, 60, 72);
+  box-shadow: none;
+  color: rgb(100, 100, 118);
 }
 
 .resultText {
-  font-size: 14px;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-size: 17px;
   line-height: 1.5;
-  color: rgb(160, 160, 175);
-  padding: 0 10px;
+  color: rgb(205, 205, 215);
+  padding: 0 6px 26px;
 }
 
-.resultExamples {
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: var(--globe-salmon);
-  margin: 20px 0 25px;
-}
-
-.resultContainer .testTakeBtnContainer .introBtn {
-  width: 100%;
-}
-
-/* --- Trait breakdown --- */
-
-.traitList {
+.matchScore {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 30px 10px 10px;
+  gap: 14px;
+  padding: 24px 6px 6px;
 }
 
-.traitName {
+.matchHeadline {
+  font-size: 14px;
+  color: rgb(195, 195, 205);
+  margin-bottom: 4px;
+}
+
+.matchHeadline strong {
+  color: var(--type-color);
+  font-weight: 600;
+}
+
+.matchRow {
+  text-align: left;
+  opacity: 0.55;
+}
+
+.matchRow.isYours {
+  opacity: 1;
+}
+
+.matchRowTop {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
   font-size: 12px;
   letter-spacing: 1px;
   color: white;
-  text-align: left;
-  margin-bottom: 6px;
 }
 
-.traitTrack {
-  position: relative;
-  height: 4px;
-  border-radius: 2px;
+.matchCount {
+  color: rgb(140, 140, 158);
+}
+
+.matchTrack {
+  height: 5px;
+  border-radius: 3px;
   background-color: rgb(52, 49, 59);
+  overflow: hidden;
 }
 
-/* The faint line down the middle is the neutral point of each axis. */
-.traitTrack::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: -3px;
-  bottom: -3px;
-  width: 1px;
-  background-color: rgb(80, 77, 90);
-}
-
-.traitFill {
-  position: absolute;
-  top: 0;
+.matchFill {
   height: 100%;
-  min-width: 2px;
-  border-radius: 2px;
-  background-color: var(--globe-salmon);
-  box-shadow: 0 0 8px var(--globe-salmon);
+  border-radius: 3px;
+  transform-origin: left;
+  animation: growBar 0.9s ease 0.2s both;
 }
 
-.traitEnds {
+.matchRow.isYours .matchFill {
+  box-shadow: 0 0 10px var(--type-color);
+}
+
+@keyframes growBar {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.resultContainer .testTakeBtnContainer {
   display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: rgb(116, 119, 144);
-  margin-top: 5px;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 26px 0 10px;
 }
 
-/* --- Small screens --- */
+@media (prefers-reduced-motion: reduce) {
+  .homeBackdrop,
+  .homeHook,
+  .findPage,
+  .questionContainer,
+  .resultContainer,
+  .matchFill {
+    animation: none;
+  }
+}
 
-@media (max-width: 480px) {
-  .questionText {
-    font-size: 20px;
+/* --- The phone ---
+   On a phone the app is simply the whole screen. On a laptop or projector it
+   is drawn as a phone in the middle of the window, so it still reads as a
+   mobile app when presented. */
+
+:root {
+  --frame-top: env(safe-area-inset-top, 0px);
+  --frame-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.phone {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  background-color: var(--bg);
+}
+
+/* The one thing that scrolls. */
+.screen {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+@media (min-width: 700px) and (min-height: 560px) {
+  :root {
+    --frame-top: 34px;
+    --frame-bottom: 12px;
   }
 
-  .answerBtnContainer {
-    gap: 14px;
-    padding: 15px 12px;
+  body {
+    overflow: hidden;
   }
 
-  .answerBtn {
-    width: 100%;
-    padding: 15px;
-    font-size: 14px;
-    gap: 10px;
+  #root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100svh;
   }
 
-  .progress {
-    padding: 0 20px 25px;
+  /* The same sunset, blurred right out, behind the phone. */
+  #root::before {
+    content: '';
+    position: fixed;
+    inset: -80px;
+    z-index: -1;
+    background: url('./assets/chureito-pagoda-sunset.jpeg') center / cover;
+    filter: blur(50px) brightness(0.3) saturate(1.3);
+  }
+
+  .phone {
+    width: 390px;
+    height: min(844px, calc(100svh - 48px));
+    border: 11px solid rgb(8, 8, 11);
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgb(62, 60, 72),
+      0 30px 80px rgba(0, 0, 0, 0.65),
+      0 0 120px rgba(214, 48, 48, 0.14);
+  }
+
+  /* The camera. */
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 104px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: black;
+  }
+
+  .screen {
+    scrollbar-width: none;
+  }
+
+  .screen::-webkit-scrollbar {
+    display: none;
   }
 }

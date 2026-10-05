@@ -1,85 +1,135 @@
-import { useState } from 'react'
-import chureitoImg from './assets/chureito-pagoda-sunset.jpeg'
-import sceneryLogo from './assets/nature_icon.svg';
-import exploreLogo from './assets/scenic_routes_icon.svg';
-import experienceLogo from './assets/weird_and_wonderful_icon.svg';
+import { useEffect, useState } from 'react'
+import sceneryLogo from './assets/nature_icon.svg'
+import exploreLogo from './assets/scenic_routes_icon.svg'
+import experienceLogo from './assets/weird_and_wonderful_icon.svg'
+import Header from './Header.jsx'
 import Questionnaire from './Questionnaire.jsx'
+import { preloadQuizPhotos } from './quizData'
 import './App.css'
 
+// The prototype covers the start of the flow chart only:
+//   Opening Screen → Find My Journey → the quiz → your traveler type.
+// Journeys come after that, once they've been planned.
 function App() {
-  const [page, setPage] = useState("home")
-  
-  if (page === "test") {
-    return <Questionnaire />
-  }
+  // Which screen is showing: "home", "find" or "quiz".
+  const [page, setPage] = useState('home')
 
-  if (page === "discover") {
-    return (
-      <div className="discoverPage">
-        <div className="main">
-          <div className="header">
-            <h1 className="title">GLOBE FOCUSED</h1>    
-            <p className="subtitle">JAPAN</p>
-          </div>
-          <h1 className="mainHook">Discover Your Journey</h1>
-          <p className="msg">"Every traveler experiences Japan differently."</p>
-          <p className="msg">
-            Answer a few simple questions, and we'll find the kind of journey that fits you.
-          </p>
-          <div className="icons">
-            <div className="iconContainer">
-              <img src={sceneryLogo}></img>
-              <p>What kind of scenery?</p>
-            </div>
-            <div className="iconContainer">
-              <img src={exploreLogo}></img>
-              <p>How do you like to explore?</p>
-            </div>
-            <div className="iconContainer">
-              <img src={experienceLogo}></img>
-              <p>What kind of experience?</p>
-            </div>
-          </div>
-          <div className="divider"></div>
-        </div>
-        <div className="testTakeBtnContainer">
-          <h1 className="mainHook">Ready to discover yours?</h1>
-          <button
-          className="introBtn"
-          onClick={() => setPage("test")}
-          >
-            TAKE THE TEST ➜
-          </button>
-        </div>
-      </div>
+  let content
+  if (page === 'quiz') {
+    content = (
+      <Questionnaire
+        onExit={() => setPage('find')}
+        onHome={() => setPage('home')}
+      />
     )
+  } else if (page === 'find') {
+    content = (
+      <FindJourneyPage
+        onStart={() => setPage('quiz')}
+        onBack={() => setPage('home')}
+      />
+    )
+  } else {
+    content = <HomePage onFindJourney={() => setPage('find')} />
   }
 
+  // On a phone this is the whole screen. On a laptop it's drawn as a phone
+  // in the middle of the window — see the bottom of App.css.
+  return (
+    <div className="phone">
+      {/* Keyed by page so each screen starts scrolled to the top. */}
+      <div className="screen" key={page}>
+        {content}
+      </div>
+    </div>
+  )
+}
+
+function HomePage({ onFindJourney }) {
   return (
     <div className="homePage">
-      <div className="top">
-        <div className="header">
-          <h1 className="title">GLOBE FOCUSED</h1>    
-          <p className="subtitle">JAPAN</p>
-        </div>
-        <div className="topMain">
-          <h1 className="mainHook">Unforgettable experiences <br/>in Japan</h1>
-          <p className="subHook">Curated. Authentic. Unforgettable.</p>
-          <div className="introBtnContainer">
-            <button 
-            className="introBtn"
-            onClick={() => setPage("discover")}
-            >
-              DISCOVER ROUTES FOR YOU ➜
-            </button>
+      <div className="homeBackdrop" aria-hidden="true"></div>
+      <Header />
+      <div className="homeHook">
+        <h1 className="mainHook">
+          Unforgettable experiences <br />
+          in Japan
+        </h1>
+        <p className="subHook">Curated. Authentic. Unforgettable.</p>
+        <button className="introBtn" onClick={onFindJourney}>
+          FIND MY JOURNEY ➜
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Explains what the quiz is before anyone starts it.
+function FindJourneyPage({ onStart, onBack }) {
+  // The quiz is next, so start fetching its pictures now.
+  useEffect(() => {
+    preloadQuizPhotos()
+  }, [])
+
+  return (
+    <div className="findPage">
+      <div className="main">
+        <Header />
+        <button className="backBtn" onClick={onBack}>
+          ‹ BACK
+        </button>
+        <h1 className="mainHook">Find My Journey</h1>
+        <p className="msg msgQuote">“Every traveler experiences Japan differently.”</p>
+        <p className="msg">
+          Answer eight quick questions and we'll tell you what kind of traveler you
+          are. Then we'll match you with journeys that fit.
+        </p>
+        <div className="icons">
+          <div className="iconContainer">
+            <img src={sceneryLogo} alt="" />
+            <p>What kind of scenery?</p>
+          </div>
+          <div className="iconContainer">
+            <img src={exploreLogo} alt="" />
+            <p>How do you like to explore?</p>
+          </div>
+          <div className="iconContainer">
+            <img src={experienceLogo} alt="" />
+            <p>What kind of experience?</p>
           </div>
         </div>
+        <div className="divider"></div>
       </div>
-      <div className="body">
-        
-      </div>
-      <div className="bottom">
 
+      <ol className="howSteps">
+        <li>
+          <span className="howNum">1</span>
+          <span>
+            <strong>Pick a picture.</strong> Each question shows two places. Tap the
+            one that pulls you in.
+          </span>
+        </li>
+        <li>
+          <span className="howNum">2</span>
+          <span>
+            <strong>Go with your gut.</strong> There are no wrong answers, and it
+            takes about a minute.
+          </span>
+        </li>
+        <li>
+          <span className="howNum">3</span>
+          <span>
+            <strong>Meet your traveler type.</strong> The Naturalist, the Collector
+            or the Wanderer.
+          </span>
+        </li>
+      </ol>
+
+      <div className="testTakeBtnContainer">
+        <h2 className="mainHook">Ready to discover yours?</h2>
+        <button className="introBtn" onClick={onStart}>
+          START QUIZ ➜
+        </button>
       </div>
     </div>
   )
