@@ -17,12 +17,14 @@ import './App.css'
 function App() {
   // Which screen is showing: "home", "find" or "quiz".
   const [page, setPage] = useState('home')
+  const [travelerType, setTravelerType] = useState(null);
 
   let content
   if (page === 'seeJourney') {
     content = (
       <SeeJourneyPage
         onHome={() => setPage('home')}
+        travelerType={travelerType}
       />
     )
   } else if (page === 'quiz') {
@@ -31,6 +33,7 @@ function App() {
         onExit={() => setPage('find')}
         onHome={() => setPage('home')}
         onSeeJourney={() => setPage('seeJourney')}
+        onSetTravelerType={setTravelerType}
       />
     )
   } else if (page === 'find') {
@@ -146,16 +149,37 @@ function FindJourneyPage({ onStart, onBack }) {
   )
 }
 
-function SeeJourneyPage({ onHome }) {
+const journeys = {
+  "The Naturalist": "Adventure in Kawagoe",
+  "The Wanderer": "Adventure in Kawagoe",
+  "The Collector": "Adventure in Kawagoe"
+}
+
+function SeeJourneyPage({ onHome, travelerType }) {
   return (
     <div className="journeyPage">
       <Header />
 
-      <h1 className="mainHook">Your Journey</h1>
+      <div className="journeyHero">
+        <img src={emaTunnel} />
 
-      <img className="journeyHero" src={emaTunnel} />
+        <div className="journeyHeroText">
+          <p>Your Journey:</p>
+          <h1>{journeys[travelerType.name]}</h1>
+        </div>
+      </div>
       
-      <p>Journey page coming soon.</p>
+      <div className="summaryContainer">
+        <p className="msgQuote">~5 stops · ~2 hours · Flat walking</p>
+        <p className="summaryTitle">Why we recommend this Journey:</p>
+        <p className="summary">
+          Everyone who comes to Kawagoe sees the same bell tower, the same warehouse street, the same photo. This journey starts there too — but it doesn't end there.
+
+Past the crowds, down streets most visitors never think to turn down, there's a reason the locals still call this town "Koedo," (little Edo) A gate that's marked time here for over a century. A quiet shrine tucked away from the noise, holding something most people walk straight past.
+
+We won't tell you what it is. You'll have to go see for yourself.
+        </p>
+      </div>
       
       <button className="backBtn" onClick={onHome}>
         BACK TO HOME
