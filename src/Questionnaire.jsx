@@ -6,7 +6,7 @@ import Header from './Header.jsx'
 // slides in. Long enough to see what you tapped, short enough not to drag.
 const PICK_DELAY = 420
 
-function Questionnaire({ onExit, onHome }) {
+function Questionnaire({ onExit, onHome, onSeeJourney }) {
   // One trait id per answered question. Its length is also which question
   // we're on, so going back is just dropping the last pick.
   const [picks, setPicks] = useState([])
@@ -31,7 +31,7 @@ function Questionnaire({ onExit, onHome }) {
     <div className="quizPage" ref={pageRef}>
       <Header />
       {finished ? (
-        <Results picks={picks} onRetake={() => setPicks([])} onHome={onHome} />
+        <Results picks={picks} onRetake={() => setPicks([])} onHome={onHome} onSeeJourney={onSeeJourney}/>
       ) : (
         <Question
           // A new key per question, so the highlighted pick doesn't carry over.
@@ -121,7 +121,7 @@ function PhotoChoice({ option, state, showOr, onChoose }) {
 
 // The traveler type the quiz landed on, and how closely each of the three
 // matched — so the scoring is visible while this is still a prototype.
-function Results({ picks, onRetake, onHome }) {
+function Results({ picks, onRetake, onHome, onSeeJourney }) {
   const type = pickType(picks)
   const scores = scoreTypes(picks)
   const matches = scores.find((entry) => entry.personality === type).matches
@@ -169,8 +169,8 @@ function Results({ picks, onRetake, onHome }) {
       </div>
 
       <div className="testTakeBtnContainer">
-        <button className="introBtn" onClick={onRetake}>
-          TAKE THE QUIZ AGAIN ➜
+        <button className="introBtn" onClick={onSeeJourney}>
+          SEE YOUR JOURNEY ➜
         </button>
         <button className="backBtn" onClick={onHome}>
           BACK TO HOME

@@ -528,6 +528,7 @@
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 0 22px color-mix(in srgb, var(--type-color) 45%, transparent);
+  z-index: 2;
 }
 
 .resultHero img {
@@ -772,5 +773,9 @@
 
   .screen::-webkit-scrollbar {
     display: none;
+  }
+
+  .journeyHero {
+    width: 100%;
   }
 }

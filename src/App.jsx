@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
+
 import sceneryLogo from './assets/nature_icon.svg'
 import exploreLogo from './assets/scenic_routes_icon.svg'
 import experienceLogo from './assets/weird_and_wonderful_icon.svg'
+
+import emaTunnel from './assets/journey/ema-tunnel.jpg'
+
 import Header from './Header.jsx'
 import Questionnaire from './Questionnaire.jsx'
 import { preloadQuizPhotos } from './quizData'
@@ -15,11 +19,18 @@ function App() {
   const [page, setPage] = useState('home')
 
   let content
-  if (page === 'quiz') {
+  if (page === 'seeJourney') {
+    content = (
+      <SeeJourneyPage
+        onHome={() => setPage('home')}
+      />
+    )
+  } else if (page === 'quiz') {
     content = (
       <Questionnaire
         onExit={() => setPage('find')}
         onHome={() => setPage('home')}
+        onSeeJourney={() => setPage('seeJourney')}
       />
     )
   } else if (page === 'find') {
@@ -131,6 +142,24 @@ function FindJourneyPage({ onStart, onBack }) {
           START QUIZ ➜
         </button>
       </div>
+    </div>
+  )
+}
+
+function SeeJourneyPage({ onHome }) {
+  return (
+    <div className="journeyPage">
+      <Header />
+
+      <h1 className="mainHook">Your Journey</h1>
+
+      <img className="journeyHero" src={emaTunnel} />
+      
+      <p>Journey page coming soon.</p>
+      
+      <button className="backBtn" onClick={onHome}>
+        BACK TO HOME
+      </button>
     </div>
   )
 }
