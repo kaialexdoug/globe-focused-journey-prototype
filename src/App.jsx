@@ -171,7 +171,8 @@ function SeeJourneyPage({ onHome, travelerType }) {
       
       <div className="summaryContainer">
         <p className="msgQuote">~5 stops · ~2 hours · Flat walking</p>
-        <p className="summaryTitle">Why we recommend this Journey:</p>
+        <div className="divider"></div>
+        <p className="summaryTitle"><strong>Why we recommend this Journey:</strong></p>
         <p className="summary">
           Everyone who comes to Kawagoe sees the same bell tower, the same warehouse street, the same photo. This journey starts there too — but it doesn't end there.
 
@@ -179,6 +180,16 @@ Past the crowds, down streets most visitors never think to turn down, there's a 
 
 We won't tell you what it is. You'll have to go see for yourself.
         </p>
+
+        <div className="divider"></div>
+
+        <div className="readyBtnContainer">
+          <p><strong>Are you ready to embark on this adventure?</strong></p>
+
+          <button className="introBtn">
+            BEGIN JOURNEY ➜
+          </button>
+        </div>
       </div>
       
       <button className="backBtn" onClick={onHome}>
