@@ -5,6 +5,7 @@ import exploreLogo from './assets/scenic_routes_icon.svg'
 import experienceLogo from './assets/weird_and_wonderful_icon.svg'
 
 import emaTunnel from './assets/journey/ema-tunnel.jpg'
+import kawagoeStation from './assets/journey/kawagoe-station.jpg'
 
 import Header from './Header.jsx'
 import Questionnaire from './Questionnaire.jsx'
@@ -20,10 +21,14 @@ function App() {
   const [travelerType, setTravelerType] = useState(null);
 
   let content
-  if (page === 'seeJourney') {
+  if (page === 'departure') {
+    content = <DeparturePage/>
+  }
+  else if (page === 'seeJourney') {
     content = (
       <SeeJourneyPage
         onHome={() => setPage('home')}
+        onBeginJourney={() => setPage('departure')}
         travelerType={travelerType}
       />
     )
@@ -155,7 +160,7 @@ const journeys = {
   "The Collector": "Adventure in Kawagoe"
 }
 
-function SeeJourneyPage({ onHome, travelerType }) {
+function SeeJourneyPage({ onHome, onBeginJourney, travelerType }) {
   return (
     <div className="journeyPage">
       <Header />
@@ -186,7 +191,7 @@ We won't tell you what it is. You'll have to go see for yourself.
         <div className="readyBtnContainer">
           <p><strong>Are you ready to embark on this adventure?</strong></p>
 
-          <button className="introBtn">
+          <button className="introBtn" onClick={onBeginJourney}>
             BEGIN JOURNEY ➜
           </button>
         </div>
@@ -195,6 +200,34 @@ We won't tell you what it is. You'll have to go see for yourself.
       <button className="backBtn" onClick={onHome}>
         BACK TO HOME
       </button>
+    </div>
+  )
+}
+
+function DeparturePage() {
+  return (
+    <div className="departurePage">
+      <Header />
+      <h1>DEPARTURE</h1>
+      <div className="summaryTitle">
+        <p>Your journey begins at:</p>
+      </div>
+      <div>
+        <div className="resultHero">
+          <div className="resultHeroText">
+            <h2>Kawagoe Station</h2>
+          </div>
+          <img src={kawagoeStation} />
+        </div>
+        <a
+          className="introBtn"
+          href="https://www.google.com/maps/dir/?api=1&destination=Kawagoe%20Station&travelmode=walking"
+          target="_blank"
+          rel="noreferrer"
+        >
+        GET DIRECTIONS ➜
+      </a>
+      </div>
     </div>
   )
 }
