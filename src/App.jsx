@@ -8,6 +8,7 @@ import emaTunnel from './assets/journey/ema-tunnel.jpg'
 import kawagoeStation from './assets/journey/kawagoe-station.jpg'
 
 import Header from './Header.jsx'
+import StopConfirmation from './StopConfirmation.jsx'
 import Questionnaire from './Questionnaire.jsx'
 import { preloadQuizPhotos } from './quizData'
 import './App.css'
@@ -19,12 +20,24 @@ function App() {
   // Which screen is showing: "home", "find" or "quiz".
   const [page, setPage] = useState('home')
   const [travelerType, setTravelerType] = useState(null);
+  const [showStopConfirmation, setShowStopConfirmation] = useState(false);
 
   let content
-  if (page === 'departure') {
-    content = <DeparturePage/>
-  }
-  else if (page === 'seeJourney') {
+  if (page === 'departureInfo') {
+    content = (
+      <DepartureInfoPage />
+    )
+  } else if (page === 'departure') {
+      content = (
+      <DeparturePage
+        onStopJourney={() => {
+          console.log("stop button pressed")
+          setShowStopConfirmation(true)
+        }}
+        onImHere={() => setPage('departureInfo')}
+      />
+    )
+  } else if (page === 'seeJourney') {
     content = (
       <SeeJourneyPage
         onHome={() => setPage('home')}
@@ -48,23 +61,52 @@ function App() {
         onBack={() => setPage('home')}
       />
     )
+  } else if (page === 'browse') {
+    content = (
+      <BrowseJourneyPage 
+        onBack={() => setPage('home')}
+        onSelect={() => setPage('seeJourney')}
+      />
+    )
   } else {
-    content = <HomePage onFindJourney={() => setPage('find')} />
+    content = (
+      <HomePage 
+        onFindJourney={() => setPage('find')} 
+        onBrowseJourney={() => setPage('browse')}
+      />
+    )
   }
 
   // On a phone this is the whole screen. On a laptop it's drawn as a phone
   // in the middle of the window — see the bottom of App.css.
+
   return (
     <div className="phone">
       {/* Keyed by page so each screen starts scrolled to the top. */}
       <div className="screen" key={page}>
         {content}
       </div>
+      
+      <div style={{ color: 'red' }}>
+        Confirmation state: {String(showStopConfirmation)}
+      </div>
+
+      {showStopConfirmation && (
+        <StopConfirmation 
+          onConfirm={() => {
+            setPage('home')
+            setShowStopConfirmation(false)
+          }}
+          onCancel={() => {
+            setShowStopConfirmation(false)
+          }}
+        />
+      )}
     </div>
   )
 }
 
-function HomePage({ onFindJourney }) {
+function HomePage({ onFindJourney, onBrowseJourney }) {
   return (
     <div className="homePage">
       <div className="homeBackdrop" aria-hidden="true"></div>
@@ -75,8 +117,34 @@ function HomePage({ onFindJourney }) {
           in Japan
         </h1>
         <p className="subHook">Curated. Authentic. Unforgettable.</p>
-        <button className="introBtn" onClick={onFindJourney}>
-          FIND MY JOURNEY ➜
+        <div className="introBtnContainer">
+          <button className="introBtn" onClick={onFindJourney}>
+            FIND MY JOURNEY ➜
+          </button>
+          <button className="introBtn" onClick={onBrowseJourney}>
+            BROWSE JOURNEYS ➜
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function BrowseJourneyPage({ onBack, onSelect }) {
+  return (
+    <div className="browseJourneyPage">
+      <Header />
+      <button className="backBtn" onClick={onBack}>
+        ‹ BACK
+      </button>
+      <h1>Browse Journeys</h1>
+      <div className="journeyListContainer">
+        <button className="resultHero" onClick={onSelect}>
+          <div className="resultHeroText">
+            <p>Explore the historic streets of Kawagoe.</p>
+            <h2>Adventure in Kawagoe</h2>
+          </div>
+          <img src={emaTunnel} />
         </button>
       </div>
     </div>
@@ -161,6 +229,8 @@ const journeys = {
 }
 
 function SeeJourneyPage({ onHome, onBeginJourney, travelerType }) {
+  let journeyName = travelerType ? journeys[travelerType.name] : "Adventure in Kawagoe"
+
   return (
     <div className="journeyPage">
       <Header />
@@ -170,7 +240,7 @@ function SeeJourneyPage({ onHome, onBeginJourney, travelerType }) {
 
         <div className="journeyHeroText">
           <p>Your Journey:</p>
-          <h1>{journeys[travelerType.name]}</h1>
+          <h1>{journeyName}</h1>
         </div>
       </div>
       
@@ -204,7 +274,42 @@ We won't tell you what it is. You'll have to go see for yourself.
   )
 }
 
-function DeparturePage() {
+function DeparturePage({ onStopJourney, onImHere }) {
+  const [origin, setOrigin] = useState(null)
+  const [dots, setDots] = useState("")
+
+  function getCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setOrigin({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        })
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
+  }
+
+  useEffect(() => {
+    getCurrentLocation()
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDots((previousDots) => {
+        if (previousDots.length >= 3) {
+          return ""
+        }
+
+        return previousDots + "."
+      })
+    }, 500)
+
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="departurePage">
       <Header />
@@ -219,15 +324,34 @@ function DeparturePage() {
           </div>
           <img src={kawagoeStation} />
         </div>
-        <a
-          className="introBtn"
-          href="https://www.google.com/maps/dir/?api=1&destination=Kawagoe%20Station&travelmode=walking"
-          target="_blank"
-          rel="noreferrer"
-        >
-        GET DIRECTIONS ➜
-      </a>
+        {origin ? (
+          <div className="mapContainer">
+            <iframe
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+              src={`https://www.google.com/maps/embed/v1/directions?key=AIzaSyCma7dzNflY-77W4PfTIr9M9wr3KcQtyO4&origin=${origin.lat},${origin.lng}&destination=Kawagoe+Station&mode=transit`}>
+            </iframe>
+            <button className="introBtn" onClick={onImHere}>I'M HERE</button>
+          </div>
+        ) : (
+          <p className="loadingText">
+            Loading your location and map<span className="loadingDots">{dots}</span>
+          </p>
+        )}
       </div>
+      <button className="backBtn" onClick={onStopJourney}>
+        STOP JOURNEY
+      </button>
+    </div>
+  )
+}
+
+function DepartureInfoPage() {
+  return (
+    <div className="departureInfoPage">
+      <Header />
+      <p>this is the departure info page.</p>
     </div>
   )
 }
