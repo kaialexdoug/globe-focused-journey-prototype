@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { QUESTIONS, TRAITS, PERSONALITIES, scoreTypes, pickType } from './quizData'
-import Header from './Header.jsx'
+import Header, { SectionHeader } from './Header.jsx'
 
 // How long the chosen picture stays highlighted before the next question
 // slides in. Long enough to see what you tapped, short enough not to drag.
@@ -47,16 +47,6 @@ function Questionnaire({ onExit, onHome, onSeeJourney, onSetTravelerType }) {
           onBack={goBack}
         />
       )}
-    </div>
-  )
-}
-
-// The strapline with the line running through it, above a screen's content.
-function SectionHeader({ text }) {
-  return (
-    <div className="testHeaderContainer">
-      <h2 className="testHeader">{text}</h2>
-      <div className="divider"></div>
     </div>
   )
 }

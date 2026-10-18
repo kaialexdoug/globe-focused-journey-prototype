@@ -70,28 +70,52 @@
   font-size: 11px;
 }
 
+/* The one main button. Every red call to action in the app is this size. */
 .introBtn {
-  padding: 10px;
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
   background-color: var(--globe-salmon);
   color: rgb(240, 235, 245);
-  border-radius: 5px;
-  border: none;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  margin-top: 10px;
+  border: 1px solid var(--globe-salmon);
+  border-radius: 8px;
+  font-size: 12px;
+  letter-spacing: 2px;
   cursor: pointer;
-  transition: box-shadow 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
 }
 
 .introBtn:hover {
   box-shadow: 0 0 18px rgba(214, 48, 48, 0.65);
 }
 
+.introBtn:active {
+  transform: scale(0.98);
+}
+
+/* The second choice next to a main button: the same shape, just outlined. */
+.introBtn.isGhost {
+  background-color: transparent;
+  color: white;
+  box-shadow: inset 0 0 10px rgba(214, 48, 48, 0.35);
+}
+
+.introBtn.isGhost:hover {
+  box-shadow:
+    inset 0 0 10px rgba(214, 48, 48, 0.35),
+    0 0 18px rgba(214, 48, 48, 0.45);
+}
+
 .backBtn {
   padding: 10px;
   background-color: transparent;
   border: none;
-  color: rgb(116, 119, 144);
+  border-radius: 4px;
+  /* Light enough to read at this size on --bg. */
+  color: rgb(132, 135, 160);
   font-size: 11px;
   letter-spacing: 2px;
   cursor: pointer;
@@ -103,6 +127,12 @@
 
 .backBtn:disabled {
   visibility: hidden;
+}
+
+/* So you can see where you are when moving around with the keyboard. */
+button:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 
 .divider {
@@ -142,13 +172,7 @@
 .testTakeBtnContainer .mainHook {
   font-size: 20px;
   margin-bottom: 15px;
-}
-
-.testTakeBtnContainer .introBtn {
-  width: 100%;
-  padding: 14px;
-  font-size: 12px;
-  letter-spacing: 2px;
+  text-wrap: balance;
 }
 
 @keyframes fadeUp {
@@ -160,6 +184,186 @@
     opacity: 1;
     transform: none;
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/* --- Page layout ---
+   The top of a page that has a title (Find My Journey), and the padded
+   column underneath the header on every other page. */
+
+.pageTop {
+  background: linear-gradient(to bottom, rgb(48, 48, 60) 0%, var(--bg) 100%);
+}
+
+.pageBack {
+  display: block;
+  margin-left: 8px;
+}
+
+.pageTitle {
+  font-size: 34px;
+  margin: 8px 0 14px;
+}
+
+.pageBody {
+  padding: 0 18px calc(24px + var(--frame-bottom));
+}
+
+.pageBody .testTakeBtnContainer {
+  padding: 0;
+}
+
+.pageBody .testTakeBtnContainer .backBtn {
+  display: block;
+  margin: 8px auto 0;
+}
+
+/* A quiet link at the very end of a page, like STOP JOURNEY. */
+.pageEndLink {
+  display: block;
+  margin: 14px auto 0;
+}
+
+/* A full-width line between two parts of a page. */
+.divider.sectionBreak {
+  width: 100%;
+  margin: 24px 0;
+}
+
+.sectionTitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  color: var(--text-h);
+  text-align: left;
+  margin: 0 0 12px;
+}
+
+/* Longer reading: the journey write-up and the narration. */
+.bodyText {
+  text-align: left;
+}
+
+.bodyText p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgb(190, 190, 202);
+  margin-bottom: 14px;
+}
+
+.bodyText p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Photo header ---
+   A photo right across the top of a journey screen, with the header sitting
+   on it and a title on its bottom edge (PhotoHero in Header.jsx). */
+
+.photoHero {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.photoHero.isShort {
+  height: 300px;
+}
+
+.photoHero.isTall {
+  height: 420px;
+}
+
+.photoHeroImg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Darkened at the top so the header reads, and at the bottom for the title,
+   where it fades into the page. */
+.photoHero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 16, 0.72) 0%,
+    rgba(10, 10, 16, 0) 32%,
+    rgba(10, 10, 16, 0) 42%,
+    rgba(22, 23, 29, 0.8) 76%,
+    var(--bg) 100%
+  );
+}
+
+.photoHero .header {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+.photoHeroText {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 14px;
+  text-align: left;
+}
+
+/* The small red heading: the phase of the journey, or "Your journey". */
+.heroKicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  /* A lighter --globe-salmon, so it still reads on top of a photo. */
+  color: rgb(255, 122, 112);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+/* The same glowing red dot as the sun in the logo. */
+.heroKicker::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--globe-salmon);
+  box-shadow: 0 0 6px var(--globe-salmon);
+}
+
+.heroLabel {
+  margin-bottom: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1.05;
+  color: white;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  /* Two even lines rather than one long one and a word on its own. */
+  text-wrap: balance;
 }
 
 /* --- Opening screen ---
@@ -217,11 +421,12 @@
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Sits on the darkened bottom of the photo, whatever the screen's height. */
 .homeHook {
   text-align: left;
-  padding: 0 24px calc(44px + var(--frame-bottom));
+  margin-top: auto;
+  padding: 40px 24px calc(44px + var(--frame-bottom));
   animation: fadeUp 0.9s ease both;
-  margin-top: 200px;
 }
 
 .homeHook .mainHook {
@@ -239,32 +444,20 @@
 }
 
 .homeHook .introBtn {
-  width: 100%;
-  padding: 15px;
-  font-size: 12px;
-  letter-spacing: 2px;
-  border-radius: 8px;
   box-shadow: 0 0 22px rgba(214, 48, 48, 0.45);
+}
+
+/* Darkened a little behind, so the outline still reads on the photo. */
+.homeHook .introBtn.isGhost {
+  background-color: rgba(10, 10, 16, 0.4);
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 12px rgba(214, 48, 48, 0.35);
 }
 
 /* --- Find My Journey --- */
 
 .findPage {
   animation: fadeUp 0.5s ease both;
-}
-
-.findPage .main {
-  background: linear-gradient(to bottom, rgb(48, 48, 60) 0%, var(--bg) 100%);
-}
-
-.findPage .backBtn {
-  display: block;
-  margin-left: 8px;
-}
-
-.findPage .main .mainHook {
-  font-size: 34px;
-  margin: 8px 0 14px;
 }
 
 .msg {
@@ -342,6 +535,132 @@
   line-height: 22px;
   text-align: center;
   color: white;
+}
+
+/* --- Browse Journeys --- */
+
+.browseJourneyPage {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* A journey as one big photo card. Tapping anywhere on it opens the journey. */
+.featureCard {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 2px solid var(--globe-salmon);
+  border-radius: 18px;
+  box-shadow: 0 0 22px rgba(214, 48, 48, 0.45);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.15s ease;
+}
+
+.featureCard img {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* Darkened at the top for the tag, and heavily at the bottom for the text. */
+.featureCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 16, 0.55) 0%,
+    rgba(10, 10, 16, 0) 20%,
+    rgba(10, 10, 16, 0) 36%,
+    rgba(10, 10, 16, 0.78) 62%,
+    rgba(10, 10, 16, 0.95) 100%
+  );
+}
+
+.featureCard:active {
+  transform: scale(0.99);
+}
+
+@media (hover: hover) {
+  .featureCard:hover {
+    box-shadow: 0 0 26px rgba(214, 48, 48, 0.7);
+  }
+
+  .featureCard:hover img {
+    transform: scale(1.04);
+  }
+}
+
+/* "CHOSEN FOR YOU" or "FEATURED JOURNEY", in the top corner. */
+.featureCardTag {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: white;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.featureCardText {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+}
+
+.featureCardBlurb {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgb(215, 215, 225);
+}
+
+/* Why it was picked for you, after a short red line. */
+.featureCardReason {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgb(190, 190, 202);
+}
+
+.featureCardReason::before {
+  content: '';
+  flex-shrink: 0;
+  width: 22px;
+  border-top: 1px solid var(--globe-salmon);
+}
+
+.featureCard .introBtn {
+  margin-top: 16px;
+}
+
+.comingSoonCard {
+  margin-top: 16px;
+  padding: 22px 18px;
+  border: 1px dashed rgb(62, 60, 72);
+  border-radius: 15px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgb(140, 140, 158);
+}
+
+.comingSoonTitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 19px;
+  color: rgb(205, 205, 215);
+  margin-bottom: 4px;
 }
 
 /* --- The quiz --- */
@@ -459,11 +778,6 @@
   }
 }
 
-.photoChoice:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 2px;
-}
-
 .photoChoice.isChosen {
   border-color: var(--globe-salmon);
   box-shadow: 0 0 24px rgba(214, 48, 48, 0.75);
@@ -527,6 +841,7 @@
   animation: fadeUp 0.5s ease both;
 }
 
+/* The photo card with a label and a title on its darkened bottom edge. */
 .resultHero {
   position: relative;
   height: 230px;
@@ -539,6 +854,7 @@
 }
 
 .resultHero img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -566,6 +882,7 @@
 }
 
 .resultLabel {
+  display: block;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
@@ -685,13 +1002,406 @@
   padding: 26px 0 10px;
 }
 
+/* --- Your journey ---
+   The pages that open on a full-width photo fade in without sliding up, so
+   the photo stays against the top of the screen. */
+
+.journeyPage {
+  animation: fadeIn 0.5s ease both;
+}
+
+.heroTagline {
+  margin: 4px 0 18px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 23px;
+  line-height: 1.25;
+  color: var(--text-h);
+  text-align: left;
+  text-wrap: balance;
+}
+
+/* Time, walking and stops, each with its icon, split by thin lines. */
+.factsRow {
+  display: flex;
+  margin-bottom: 22px;
+}
+
+.fact {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  color: rgb(205, 205, 215);
+}
+
+.fact + .fact {
+  border-left: 1px solid rgb(52, 49, 59);
+}
+
+.fact svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--globe-salmon);
+}
+
+.startCard {
+  margin-bottom: 28px;
+  padding: 16px 18px 18px;
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 15px;
+  text-align: left;
+}
+
+.startCardLabel {
+  margin-bottom: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: rgb(140, 140, 158);
+}
+
+.startCardRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.startCardRow svg {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  color: var(--globe-salmon);
+}
+
+.startCardName {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--text-h);
+}
+
+.startCardArea {
+  margin-top: 2px;
+  font-size: 13px;
+  color: rgb(140, 140, 158);
+}
+
+.startCardNote {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgb(190, 190, 202);
+}
+
+/* A main button with an icon before its words, like GET DIRECTIONS. */
+.introBtn.hasIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.introBtn.hasIcon svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.alreadyThere {
+  margin-top: 18px;
+}
+
+.alreadyThere p {
+  font-size: 13px;
+  color: rgb(160, 160, 175);
+}
+
+/* A second way forward: a link in red rather than a whole button. */
+.textLink {
+  margin-top: 2px;
+  padding: 8px 10px;
+  background-color: transparent;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgb(255, 122, 112);
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+  .textLink:hover {
+    color: white;
+    text-shadow: 0 0 12px rgba(214, 48, 48, 0.8);
+  }
+}
+
+/* --- A stop: getting there ---
+   The stop, then a map from wherever you are to it. Every stop on the
+   journey uses this screen (see StopPages.jsx). */
+
+.directionsPage {
+  animation: fadeIn 0.5s ease both;
+}
+
+.mapNote {
+  margin: 14px 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgb(190, 190, 202);
+  text-align: left;
+}
+
+.mapContainer {
+  margin-top: 14px;
+}
+
+.mapContainer iframe {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 300px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+}
+
+.mapPlaceholder {
+  box-sizing: border-box;
+  height: 300px;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  font-size: 13px;
+  color: rgb(140, 140, 158);
+  animation: placeholderPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes placeholderPulse {
+  0%,
+  100% {
+    background-color: rgb(28, 28, 36);
+  }
+  50% {
+    background-color: rgb(38, 38, 48);
+  }
+}
+
+/* --- A stop: being there ---
+   What you hear (or read) once you've reached a stop. */
+
+.arrivedPage {
+  animation: fadeIn 0.5s ease both;
+}
+
+/* CONTINUE, with some room after the last line of the narration. */
+.arrivedPage .introBtn {
+  margin-top: 28px;
+}
+
+/* Play/pause and restart in a row, lined up with the start of the text. */
+.narrationControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 22px;
+}
+
+.narrationPlay,
+.narrationRestart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.narrationPlay:active,
+.narrationRestart:active {
+  transform: scale(0.94);
+}
+
+/* The same ringed circle as the numbers on Find My Journey. */
+.narrationPlay {
+  border: 1px solid var(--globe-salmon);
+  box-shadow: inset 0 0 8px var(--globe-salmon);
+  color: white;
+}
+
+.narrationPlay svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
+/* Breathes gently while the narration is on. */
+.narrationPlay.isPlaying {
+  animation: narrationGlow 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes narrationGlow {
+  from {
+    box-shadow:
+      inset 0 0 8px var(--globe-salmon),
+      0 0 6px rgba(214, 48, 48, 0.25);
+  }
+  to {
+    box-shadow:
+      inset 0 0 8px var(--globe-salmon),
+      0 0 22px rgba(214, 48, 48, 0.6);
+  }
+}
+
+.narrationRestart {
+  border: 1px solid rgb(62, 60, 72);
+  color: rgb(160, 160, 175);
+}
+
+.narrationRestart svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (hover: hover) {
+  .narrationPlay:hover {
+    box-shadow:
+      inset 0 0 8px var(--globe-salmon),
+      0 0 16px rgba(214, 48, 48, 0.5);
+  }
+
+  .narrationRestart:hover {
+    border-color: var(--globe-salmon);
+    color: white;
+  }
+}
+
+/* The word being said. Fades up to white, and back down once it's passed. */
+.narration span {
+  transition:
+    color 0.15s ease,
+    text-shadow 0.15s ease;
+}
+
+.narration span.isSpoken {
+  color: white;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+/* For voices that don't say which word they're on: the whole paragraph. */
+.narration p.isSpoken {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.narration .narrationLead {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 28px;
+  line-height: 1.15;
+  color: white;
+}
+
+.narration .narrationClose {
+  font-family: 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-size: 19px;
+  color: rgb(205, 205, 215);
+}
+
+/* --- Build ---
+   A stand-in until the branching routes are planned. */
+
+.buildPage {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* --- Stop journey ---
+   Dims the whole screen, with the question in a box in the middle. */
+
+.modalScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: rgba(8, 8, 12, 0.6);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease both;
+}
+
+.stopConfirmation {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 320px;
+  padding: 26px 22px 14px;
+  background-color: rgb(30, 30, 38);
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 15px;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(214, 48, 48, 0.2);
+  text-align: center;
+  animation: fadeUp 0.3s ease both;
+}
+
+.stopConfirmation .mainHook {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.stopConfirmation p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(190, 190, 202);
+  margin-bottom: 14px;
+}
+
+.stopConfirmation .backBtn {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .homeBackdrop,
   .homeHook,
   .findPage,
+  .browseJourneyPage,
   .questionContainer,
   .resultContainer,
-  .matchFill {
+  .matchFill,
+  .journeyPage,
+  .directionsPage,
+  .arrivedPage,
+  .buildPage,
+  .mapPlaceholder,
+  .narrationPlay.isPlaying,
+  .modalScrim,
+  .stopConfirmation {
     animation: none;
   }
 }
@@ -720,220 +1430,6 @@
   overflow-y: auto;
   overscroll-behavior: contain;
 }
-
-.journeyPage {
-  animation: fadeUp 0.5s ease both;
-}
-
-.journeyHero {
-    position: relative;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-  }
-
-  .journeyHero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .journeyHeroText {
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
-    width: 100%;
-    z-index: 1;
-    text-align: left;
-    color: white;
-    font-family: 'Times New Roman', Times, serif;
-    background: rgba(60, 60, 60, 0.65);
-    padding: 15px 20px;
-  }
-
-  .journeyHeroText h1 {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 1.1;
-    margin: 5px 0;
-  }
-
-  .summaryContainer {
-    text-align: left;
-    margin: 15px;
-  }
-
-   .summaryContainer .divider {
-    margin: 20px 0px;
-    width: 100%;
-  }
-
-  .summaryTitle {
-    font-size: 20px;
-  }
-
-  .summary {
-    font-size: 18px;
-    margin-top: 10px;
-    color: gray;
-  }
-
-  .readyBtnContainer {
-    text-align: center;
-    margin: 20px 0;
-  }
-
-  .readyBtnContainer p {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  .readyBtnContainer button {
-    width: 100%;
-  }
-
-  .departurePage {
-    animation: fadeUp 0.5s ease both;
-    padding: 20px;
-  }
-
-  .departurePage .backBtn {
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  .departurePage h1 {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
-  }
-
-  .departurePage a {
-    text-decoration: none;
-  }
-
-  .departurePage .resultHero {
-    width: 100%;
-    box-sizing: border-box;
-    margin: 12px auto;
-    border: 2px solid #888888;
-    box-shadow: 0 0 12px rgba(136, 136, 136, 0.6);
-  }
-  
-  .departurePage .resultHero::after {
-    background: linear-gradient(
-      to bottom,
-      rgba(10, 10, 16, 0.85) 0%,
-      rgba(10, 10, 16, 0.25) 45%,
-      rgba(10, 10, 16, 0) 75%
-    );
-  }
-
-  .departurePage .resultHeroText {
-    top: 16px;
-    bottom: auto;
-    left: 16px;
-    right: 16px;
-    text-align: left;
-  }
-
-  .departurePage .resultHeroText h2 {
-    font-family: 'Times New Roman', Times, serif;
-  }
-
-  .departurePage .summaryTitle {
-    text-align: left;
-  }
-
-  .departurePage .resultHero h2 {
-    text-align: left;
-  }
-
-  .loadingText {
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  .mapContainer iframe {
-    box-sizing: border-box;
-    width: 100%;
-    height: 400px;
-    border: 2px solid rgb(50, 50, 50);
-    border-radius: 12px;
-  }
-  
-  .mapContainer .introBtn {
-    width: 100%;
-    font-size: 18px;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-
-  .stopConfirmation {
-    position: absolute;
-    z-index: 20;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    padding: 24px;
-    box-sizing: border-box;
-    background-color: rgb(30, 27, 28);
-    border: 4px solid rgb(255, 64, 64);
-    border-radius: 16px;
-    color: white;
-    text-align: center;
-    /* animation: fadeUp 0.5s ease both; */
-  }
-  
-  .browseJourneyPage {
-    animation: fadeUp 0.5s ease both;
-  }
-
-  .browseJourneyPage .backBtn {
-    display: block;
-    margin-left: 8px;
-  }
-
-  .browseJourneyPage h1 {
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 36px;
-    margin: 0;
-    background-color: rgb(13, 15, 19);
-    padding: 30px;
-  }
-  
-  .journeyListContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px;
-  }
-
-  .journeyListContainer .resultHero {
-    background: none;
-    padding: 0;
-    appearance: none;
-    width: 90%;
-    box-sizing: border-box;
-    border: 2px solid var(--globe-salmon);
-    transition: box-shadow 0.3s ease;
-  }
-
-  .journeyListContainer .resultHero:hover {
-    box-shadow: 0 0 20px color-mix(in srgb, var(--globe-salmon) 70%, transparent);
-  }
-
-  .journeyListContainer p {
-    color: white;
-  }
 
 @media (min-width: 700px) and (min-height: 560px) {
   :root {

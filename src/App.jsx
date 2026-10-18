@@ -4,37 +4,65 @@ import sceneryLogo from './assets/nature_icon.svg'
 import exploreLogo from './assets/scenic_routes_icon.svg'
 import experienceLogo from './assets/weird_and_wonderful_icon.svg'
 
-import emaTunnel from './assets/journey/ema-tunnel.jpg'
-import kawagoeStation from './assets/journey/kawagoe-station.jpg'
-
-import Header from './Header.jsx'
+import Header, { PhotoHero, SectionHeader } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import Questionnaire from './Questionnaire.jsx'
+import { DirectionsPage, ArrivedPage } from './StopPages.jsx'
+import { ClockIcon, NavigateIcon, PinIcon, RouteIcon, WalkIcon } from './Icons.jsx'
+import { kawagoeStation, imofukudo, kawagoeJourney } from './journeyStops'
 import { preloadQuizPhotos } from './quizData'
 import './App.css'
 
-// The prototype covers the start of the flow chart only:
-//   Opening Screen → Find My Journey → the quiz → your traveler type.
-// Journeys come after that, once they've been planned.
+// The prototype follows the flow chart:
+//   Opening Screen → Find My Journey → the quiz → your traveler type
+//   → your journey → Departure (Kawagoe Station) → Discovery (Imofukudo)
+//   → Build, which is still to come.
+// Browse Journeys is the shortcut from the opening screen straight to a journey.
 function App() {
-  // Which screen is showing: "home", "find" or "quiz".
+  // Which screen is showing: "home", "find", "quiz", "browse", "seeJourney",
+  // "departure", "departureInfo", "discovery", "discoveryInfo" or "build".
   const [page, setPage] = useState('home')
   const [travelerType, setTravelerType] = useState(null);
   const [showStopConfirmation, setShowStopConfirmation] = useState(false);
 
+  const stopJourney = () => setShowStopConfirmation(true)
+
   let content
-  if (page === 'departureInfo') {
+
+  if (page === 'build') {
     content = (
-      <DepartureInfoPage />
+      <BuildPage onStopJourney={stopJourney} />
+    )
+  } else if (page === 'discoveryInfo') {
+    content = (
+      <ArrivedPage
+        stop={imofukudo}
+        onContinue={() => setPage('build')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'discovery') {
+    content = (
+      <DirectionsPage
+        stop={imofukudo}
+        onImHere={() => setPage('discoveryInfo')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'departureInfo') {
+    content = (
+      <ArrivedPage
+        stop={kawagoeStation}
+        onContinue={() => setPage('discovery')}
+        onStopJourney={stopJourney}
+      />
     )
   } else if (page === 'departure') {
-      content = (
-      <DeparturePage
-        onStopJourney={() => {
-          console.log("stop button pressed")
-          setShowStopConfirmation(true)
-        }}
+    content = (
+      <DirectionsPage
+        stop={kawagoeStation}
         onImHere={() => setPage('departureInfo')}
+        onStopJourney={stopJourney}
       />
     )
   } else if (page === 'seeJourney') {
@@ -42,6 +70,8 @@ function App() {
       <SeeJourneyPage
         onHome={() => setPage('home')}
         onBeginJourney={() => setPage('departure')}
+        // Already at the start: skip Kawagoe Station and head for the first stop.
+        onSkipToFirstStop={() => setPage('discovery')}
         travelerType={travelerType}
       />
     )
@@ -63,15 +93,16 @@ function App() {
     )
   } else if (page === 'browse') {
     content = (
-      <BrowseJourneyPage 
+      <BrowseJourneyPage
         onBack={() => setPage('home')}
         onSelect={() => setPage('seeJourney')}
+        travelerType={travelerType}
       />
     )
   } else {
     content = (
-      <HomePage 
-        onFindJourney={() => setPage('find')} 
+      <HomePage
+        onFindJourney={() => setPage('find')}
         onBrowseJourney={() => setPage('browse')}
       />
     )
@@ -82,17 +113,14 @@ function App() {
 
   return (
     <div className="phone">
-      {/* Keyed by page so each screen starts scrolled to the top. */}
-      <div className="screen" key={page}>
+      {/* Keyed by page so each screen starts scrolled to the top. Inert while
+          the stop box is up, so nothing behind it can be tapped or tabbed to. */}
+      <div className="screen" key={page} inert={showStopConfirmation}>
         {content}
-      </div>
-      
-      <div style={{ color: 'red' }}>
-        Confirmation state: {String(showStopConfirmation)}
       </div>
 
       {showStopConfirmation && (
-        <StopConfirmation 
+        <StopConfirmation
           onConfirm={() => {
             setPage('home')
             setShowStopConfirmation(false)
@@ -121,7 +149,7 @@ function HomePage({ onFindJourney, onBrowseJourney }) {
           <button className="introBtn" onClick={onFindJourney}>
             FIND MY JOURNEY ➜
           </button>
-          <button className="introBtn" onClick={onBrowseJourney}>
+          <button className="introBtn isGhost" onClick={onBrowseJourney}>
             BROWSE JOURNEYS ➜
           </button>
         </div>
@@ -130,22 +158,37 @@ function HomePage({ onFindJourney, onBrowseJourney }) {
   )
 }
 
-function BrowseJourneyPage({ onBack, onSelect }) {
+function BrowseJourneyPage({ onBack, onSelect, travelerType }) {
+  const journey = kawagoeJourney
+  // Once you've taken the quiz, it's been picked for you, and says why.
+  const reason = travelerType ? journey.reasons[travelerType.name] : null
+
   return (
     <div className="browseJourneyPage">
       <Header />
-      <button className="backBtn" onClick={onBack}>
+      <button className="backBtn pageBack" onClick={onBack}>
         ‹ BACK
       </button>
-      <h1>Browse Journeys</h1>
-      <div className="journeyListContainer">
-        <button className="resultHero" onClick={onSelect}>
-          <div className="resultHeroText">
-            <p>Explore the historic streets of Kawagoe.</p>
-            <h2>Adventure in Kawagoe</h2>
+
+      <div className="pageBody">
+        {/* The whole card opens the journey. Its button is there to make that
+            obvious, and for the keyboard; its click reaches the card too. */}
+        <div className="featureCard" onClick={onSelect}>
+          <img src={journey.photo} alt="" />
+          <p className="featureCardTag">{travelerType ? 'CHOSEN FOR YOU' : 'FEATURED JOURNEY'}</p>
+          <div className="featureCardText">
+            <p className="heroLabel">{journey.location}</p>
+            <h1 className="heroTitle">{journey.name}</h1>
+            <p className="featureCardBlurb">{journey.blurb}</p>
+            {reason && <p className="featureCardReason">{reason}</p>}
+            <button className="introBtn">EXPLORE THIS JOURNEY ➜</button>
           </div>
-          <img src={emaTunnel} />
-        </button>
+        </div>
+
+        <div className="comingSoonCard">
+          <p className="comingSoonTitle">More journeys coming soon</p>
+          <p>New routes across Japan are on their way.</p>
+        </div>
       </div>
     </div>
   )
@@ -160,12 +203,12 @@ function FindJourneyPage({ onStart, onBack }) {
 
   return (
     <div className="findPage">
-      <div className="main">
+      <div className="pageTop">
         <Header />
-        <button className="backBtn" onClick={onBack}>
+        <button className="backBtn pageBack" onClick={onBack}>
           ‹ BACK
         </button>
-        <h1 className="mainHook">Find My Journey</h1>
+        <h1 className="mainHook pageTitle">Find My Journey</h1>
         <p className="msg msgQuote">“Every traveler experiences Japan differently.”</p>
         <p className="msg">
           Answer eight quick questions and we'll tell you what kind of traveler you
@@ -222,136 +265,104 @@ function FindJourneyPage({ onStart, onBack }) {
   )
 }
 
+// Which journey each traveler type is matched with.
 const journeys = {
-  "The Naturalist": "Adventure in Kawagoe",
-  "The Wanderer": "Adventure in Kawagoe",
-  "The Collector": "Adventure in Kawagoe"
+  "The Naturalist": kawagoeJourney,
+  "The Wanderer": kawagoeJourney,
+  "The Collector": kawagoeJourney
 }
 
-function SeeJourneyPage({ onHome, onBeginJourney, travelerType }) {
-  let journeyName = travelerType ? journeys[travelerType.name] : "Adventure in Kawagoe"
+function SeeJourneyPage({ onHome, onBeginJourney, onSkipToFirstStop, travelerType }) {
+  const journey = travelerType ? journeys[travelerType.name] : kawagoeJourney
 
   return (
     <div className="journeyPage">
-      <Header />
+      <PhotoHero
+        photo={journey.photo}
+        photoAlt={journey.photoAlt}
+        kicker="Your journey"
+        label={journey.location}
+        title={journey.name}
+        size="isTall"
+      />
 
-      <div className="journeyHero">
-        <img src={emaTunnel} />
+      <div className="pageBody">
+        <p className="heroTagline">{journey.tagline}</p>
 
-        <div className="journeyHeroText">
-          <p>Your Journey:</p>
-          <h1>{journeyName}</h1>
+        <div className="factsRow">
+          <span className="fact">
+            <ClockIcon />
+            {journey.time}
+          </span>
+          <span className="fact">
+            <WalkIcon />
+            {journey.walking}
+          </span>
+          <span className="fact">
+            <RouteIcon />
+            {journey.stops}
+          </span>
         </div>
-      </div>
-      
-      <div className="summaryContainer">
-        <p className="msgQuote">~5 stops · ~2 hours · Flat walking</p>
-        <div className="divider"></div>
-        <p className="summaryTitle"><strong>Why we recommend this Journey:</strong></p>
-        <p className="summary">
-          Everyone who comes to Kawagoe sees the same bell tower, the same warehouse street, the same photo. This journey starts there too — but it doesn't end there.
 
-Past the crowds, down streets most visitors never think to turn down, there's a reason the locals still call this town "Koedo," (little Edo) A gate that's marked time here for over a century. A quiet shrine tucked away from the noise, holding something most people walk straight past.
+        <div className="startCard">
+          <p className="startCardLabel">START HERE</p>
+          <div className="startCardRow">
+            <PinIcon />
+            <div>
+              <p className="startCardName">{journey.start.name}</p>
+              <p className="startCardArea">{journey.startArea}</p>
+              <p className="startCardNote">{journey.startNote}</p>
+            </div>
+          </div>
+        </div>
 
-We won't tell you what it is. You'll have to go see for yourself.
-        </p>
+        <h2 className="sectionTitle">Why we recommend this journey</h2>
+        <div className="bodyText">
+          {journey.why.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </div>
 
-        <div className="divider"></div>
+        <div className="divider sectionBreak"></div>
 
-        <div className="readyBtnContainer">
-          <p><strong>Are you ready to embark on this adventure?</strong></p>
-
-          <button className="introBtn" onClick={onBeginJourney}>
-            BEGIN JOURNEY ➜
+        <div className="testTakeBtnContainer">
+          <h2 className="mainHook">Are you ready to embark on this adventure?</h2>
+          <button className="introBtn hasIcon" onClick={onBeginJourney}>
+            <NavigateIcon />
+            GET DIRECTIONS TO THE START
+          </button>
+          <div className="alreadyThere">
+            <p>Already at the starting point?</p>
+            <button className="textLink" onClick={onSkipToFirstStop}>
+              BEGIN JOURNEY ➜
+            </button>
+          </div>
+          <button className="backBtn" onClick={onHome}>
+            BACK TO HOME
           </button>
         </div>
       </div>
-      
-      <button className="backBtn" onClick={onHome}>
-        BACK TO HOME
-      </button>
     </div>
   )
 }
 
-function DeparturePage({ onStopJourney, onImHere }) {
-  const [origin, setOrigin] = useState(null)
-  const [dots, setDots] = useState("")
-
-  function getCurrentLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setOrigin({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        })
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
-  }
-
-  useEffect(() => {
-    getCurrentLocation()
-  }, [])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDots((previousDots) => {
-        if (previousDots.length >= 3) {
-          return ""
-        }
-
-        return previousDots + "."
-      })
-    }, 500)
-
-    return () => clearInterval(interval)
-  }, [])
-
+// A stand-in for the Build phase, where the route branches. Still to come.
+function BuildPage({ onStopJourney }) {
   return (
-    <div className="departurePage">
+    <div className="buildPage">
       <Header />
-      <h1>DEPARTURE</h1>
-      <div className="summaryTitle">
-        <p>Your journey begins at:</p>
-      </div>
-      <div>
-        <div className="resultHero">
-          <div className="resultHeroText">
-            <h2>Kawagoe Station</h2>
-          </div>
-          <img src={kawagoeStation} />
+      <div className="pageBody">
+        <SectionHeader text="Build" />
+
+        <div className="comingSoonCard">
+          <p className="comingSoonTitle">The next part of your journey is on its way</p>
+          <p>This stretch of the route is still being planned.</p>
         </div>
-        {origin ? (
-          <div className="mapContainer">
-            <iframe
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
-              src={`https://www.google.com/maps/embed/v1/directions?key=AIzaSyCma7dzNflY-77W4PfTIr9M9wr3KcQtyO4&origin=${origin.lat},${origin.lng}&destination=Kawagoe+Station&mode=transit`}>
-            </iframe>
-            <button className="introBtn" onClick={onImHere}>I'M HERE</button>
-          </div>
-        ) : (
-          <p className="loadingText">
-            Loading your location and map<span className="loadingDots">{dots}</span>
-          </p>
-        )}
-      </div>
-      <button className="backBtn" onClick={onStopJourney}>
-        STOP JOURNEY
-      </button>
-    </div>
-  )
-}
 
-function DepartureInfoPage() {
-  return (
-    <div className="departureInfoPage">
-      <Header />
-      <p>this is the departure info page.</p>
+        <button className="backBtn pageEndLink" onClick={onStopJourney}>
+          STOP JOURNEY
+        </button>
+      </div>
     </div>
   )
 }

@@ -25,4 +25,37 @@ function Header() {
   )
 }
 
+// A photo right across the top of the screen, with the header sitting on it
+// and a title on its darkened bottom edge. The journey screens open with it.
+// `kicker` is the small red heading, `label` the line above the title, and
+// `size` is "isShort", "isTall" or left out.
+export function PhotoHero({ photo, photoAlt, photoPosition, kicker, label, title, size }) {
+  return (
+    <div className={size ? `photoHero ${size}` : 'photoHero'}>
+      <img
+        className="photoHeroImg"
+        src={photo}
+        alt={photoAlt}
+        style={{ objectPosition: photoPosition }}
+      />
+      <Header />
+      <div className="photoHeroText">
+        {kicker && <p className="heroKicker">{kicker}</p>}
+        {label && <p className="heroLabel">{label}</p>}
+        <h1 className="heroTitle">{title}</h1>
+      </div>
+    </div>
+  )
+}
+
+// The strapline with the line running through it, above a screen's content.
+export function SectionHeader({ text }) {
+  return (
+    <div className="testHeaderContainer">
+      <h2 className="testHeader">{text}</h2>
+      <div className="divider"></div>
+    </div>
+  )
+}
+
 export default Header

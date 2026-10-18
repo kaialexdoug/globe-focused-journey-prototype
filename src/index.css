@@ -32,6 +32,12 @@ body {
   margin: 0;
 }
 
+/* Browsers don't pass the page font down to buttons, so without this they
+   fall back to Arial. */
+button {
+  font-family: inherit;
+}
+
 #root {
   min-height: 100svh;
   text-align: center;
