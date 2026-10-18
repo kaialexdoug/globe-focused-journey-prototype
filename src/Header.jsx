@@ -18,7 +18,7 @@ function Header() {
     <div className="header">
       <Logo className="headerLogo" />
       <div>
-        <p className="title">GLOBE FOCUSED</p>
+        <p className="title">UNFOLD</p>
         <p className="subtitle">JAPAN</p>
       </div>
     </div>

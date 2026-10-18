@@ -1208,6 +1208,36 @@ button:focus-visible {
   margin-top: 28px;
 }
 
+/* A stop's optional detours: what they are and SEE DETOURS, in an outlined
+   card like START HERE. Then CONTINUE underneath, for skipping them. */
+.detourCard {
+  margin-top: 28px;
+  padding: 16px 18px 18px;
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 15px;
+  text-align: left;
+}
+
+.detourCardText {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgb(190, 190, 202);
+}
+
+.arrivedPage .detourCard .introBtn {
+  margin-top: 16px;
+}
+
+.detourSkip {
+  margin-top: 22px;
+  font-size: 13px;
+  color: rgb(160, 160, 175);
+}
+
+.arrivedPage .detourSkip + .introBtn {
+  margin-top: 10px;
+}
+
 /* Play/pause and restart in a row, lined up with the start of the text. */
 .narrationControls {
   display: flex;
@@ -1330,15 +1360,348 @@ button:focus-visible {
   color: rgb(205, 205, 215);
 }
 
-/* --- Build ---
-   A stand-in until the branching routes are planned. */
+/* SKIP THIS DETOUR, under I'M HERE on a detour's directions screen. */
+.pageTextLink {
+  display: block;
+  margin: 12px auto 0;
+}
 
-.buildPage {
+/* --- Detours ---
+   The detours from a stop, one card each: photo and name, what it's about,
+   and TAKE THIS DETOUR. Taken ones are greyed out. */
+
+.detoursPage {
   animation: fadeUp 0.5s ease both;
 }
 
-/* --- Stop journey ---
-   Dims the whole screen, with the question in a box in the middle. */
+.detoursIntro {
+  max-width: 320px;
+  margin: 4px auto 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(190, 190, 202);
+}
+
+.detourOption {
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 15px;
+  text-align: left;
+  transition: opacity 0.3s ease;
+}
+
+.detourOptionPhoto {
+  position: relative;
+  height: 170px;
+  isolation: isolate;
+}
+
+.detourOptionPhoto img {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+
+/* Darkened at the bottom for the name, and a little at the top for the
+   VISITED tag. */
+.detourOptionPhoto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 16, 0.45) 0%,
+    rgba(10, 10, 16, 0) 30%,
+    rgba(10, 10, 16, 0) 45%,
+    rgba(10, 10, 16, 0.85) 100%
+  );
+}
+
+.detourOptionPhoto .heroTitle {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 12px;
+  font-size: 27px;
+}
+
+.detourTakenTag {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: white;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.detourOptionBody {
+  padding: 14px 16px 16px;
+}
+
+.detourOptionTeaser {
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgb(190, 190, 202);
+}
+
+.detourOption .introBtn {
+  margin-top: 14px;
+}
+
+/* Already taken on this run of the journey. */
+.detourOption.isTaken {
+  opacity: 0.55;
+}
+
+.detourOption.isTaken img {
+  filter: grayscale(1);
+}
+
+/* DETOUR TAKEN: shaped like a button, but nothing to press. */
+.introBtn.isDone {
+  background-color: transparent;
+  border-color: rgb(62, 60, 72);
+  color: rgb(140, 140, 158);
+  box-shadow: none;
+  cursor: default;
+  transform: none;
+}
+
+/* --- Memory ---
+   The end of the journey: the day as a short story, then a timeline of
+   every stop, with detours branching off (MemoryPage.jsx). */
+
+.memoryPage {
+  animation: fadeIn 0.5s ease both;
+}
+
+.memoryStory {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.memoryStory p {
+  margin-bottom: 14px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgb(190, 190, 202);
+}
+
+.memoryStory p:last-child {
+  margin-bottom: 0;
+}
+
+/* The peak, made the most of: larger, in serif, with a red line beside it. */
+.memoryStory .memoryStoryPeak {
+  margin: 22px 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--globe-salmon);
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 21px;
+  line-height: 1.4;
+  color: var(--text-h);
+}
+
+/* The timeline: a red line down the left, with a dot for each stop. */
+.memoryTimeline,
+.timelineBranch ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+/* Each stop (and the branch of detours) fades in a moment after the last. */
+.memoryTimeline > li {
+  position: relative;
+  padding: 0 0 24px 30px;
+  animation: fadeUp 0.5s ease both;
+  animation-delay: calc(var(--i, 0) * 90ms + 200ms);
+}
+
+/* The line, running from each stop down to the next. It starts at the first
+   dot and stops at the last. */
+.memoryTimeline > li::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  border-left: 2px solid rgba(214, 48, 48, 0.5);
+}
+
+.memoryTimeline > li:first-child::before {
+  top: 10px;
+}
+
+.memoryTimeline > li:last-child::before {
+  bottom: auto;
+  height: 10px;
+}
+
+.timelineStop {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.timelineDot {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--globe-salmon);
+  border-radius: 50%;
+  background-color: var(--bg);
+  box-shadow: 0 0 8px rgba(214, 48, 48, 0.6);
+}
+
+.timelinePhoto {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.timelineText {
+  min-width: 0;
+}
+
+.timelinePhase {
+  margin-bottom: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgb(255, 122, 112);
+}
+
+.timelineName {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 19px;
+  line-height: 1.2;
+  color: var(--text-h);
+}
+
+.timelineNote {
+  margin-top: 3px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: rgb(160, 160, 175);
+}
+
+/* The peak: a wide photo above its words, and a bigger, filled dot. */
+.timelineStop.isPeak {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timelineStop.isPeak .timelinePhoto {
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  border: 2px solid var(--globe-salmon);
+  border-radius: 14px;
+  box-shadow: 0 0 22px rgba(214, 48, 48, 0.45);
+}
+
+.timelineStop.isPeak .timelineDot {
+  left: -3px;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background-color: var(--globe-salmon);
+  box-shadow: 0 0 14px var(--globe-salmon);
+}
+
+.timelineStop.isPeak .timelineName {
+  font-size: 24px;
+}
+
+/* The detours off a stop, set in from the line, each joined to it by a
+   dashed branch. */
+.memoryTimeline > .timelineBranch {
+  padding-bottom: 8px;
+}
+
+.timelineBranch .timelineStop {
+  position: relative;
+  padding: 0 0 16px 22px;
+}
+
+.timelineBranch .timelineStop::before {
+  content: '';
+  position: absolute;
+  left: -22px;
+  top: 9px;
+  width: 22px;
+  border-top: 2px dashed rgba(214, 48, 48, 0.45);
+}
+
+.timelineBranch .timelineDot {
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  box-shadow: none;
+}
+
+.timelineBranch .timelinePhoto {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.timelineBranch .timelineName {
+  font-size: 16px;
+}
+
+/* A detour you didn't take. */
+.timelineStop.isSkipped {
+  opacity: 0.5;
+}
+
+.timelineStop.isSkipped .timelinePhoto {
+  filter: grayscale(1);
+}
+
+.timelineStop.isSkipped .timelineDot {
+  border-color: rgb(90, 88, 100);
+}
+
+.timelineStop.isSkipped::before {
+  border-top-color: rgb(70, 68, 80);
+}
+
+.timelineStop.isSkipped .timelinePhase {
+  color: rgb(140, 140, 158);
+}
+
+.memoryPage .divider.sectionBreak {
+  margin-top: 8px;
+}
+
+/* --- Still to come ---
+   A stand-in for things still being planned, like the survey. */
+
+.comingSoonPage {
+  animation: fadeUp 0.5s ease both;
+}
+
+/* --- Boxes over the screen ---
+   Stop Journey and Skip This Detour (PromptBox.jsx): the whole screen
+   dimmed, with the question in a box in the middle. */
 
 .modalScrim {
   position: absolute;
@@ -1353,7 +1716,7 @@ button:focus-visible {
   animation: fadeIn 0.2s ease both;
 }
 
-.stopConfirmation {
+.promptBox {
   box-sizing: border-box;
   width: 100%;
   max-width: 320px;
@@ -1368,19 +1731,19 @@ button:focus-visible {
   animation: fadeUp 0.3s ease both;
 }
 
-.stopConfirmation .mainHook {
+.promptBox .mainHook {
   font-size: 26px;
   margin-bottom: 10px;
 }
 
-.stopConfirmation p {
+.promptBox p {
   font-size: 14px;
   line-height: 1.5;
   color: rgb(190, 190, 202);
   margin-bottom: 14px;
 }
 
-.stopConfirmation .backBtn {
+.promptBox .backBtn {
   display: block;
   width: 100%;
   margin-top: 6px;
@@ -1397,11 +1760,14 @@ button:focus-visible {
   .journeyPage,
   .directionsPage,
   .arrivedPage,
-  .buildPage,
+  .comingSoonPage,
+  .memoryPage,
+  .memoryTimeline > li,
+  .detoursPage,
   .mapPlaceholder,
   .narrationPlay.isPlaying,
   .modalScrim,
-  .stopConfirmation {
+  .promptBox {
     animation: none;
   }
 }

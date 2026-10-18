@@ -6,32 +6,159 @@ import experienceLogo from './assets/weird_and_wonderful_icon.svg'
 
 import Header, { PhotoHero, SectionHeader } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
+import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import Questionnaire from './Questionnaire.jsx'
-import { DirectionsPage, ArrivedPage } from './StopPages.jsx'
+import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
+import MemoryPage from './MemoryPage.jsx'
 import { ClockIcon, NavigateIcon, PinIcon, RouteIcon, WalkIcon } from './Icons.jsx'
-import { kawagoeStation, imofukudo, kawagoeJourney } from './journeyStops'
+import { kawagoeStation, imofukudo, tokiNoKane, hikawaShrine, maruya, kawagoeJourney } from './journeyStops'
 import { preloadQuizPhotos } from './quizData'
 import './App.css'
 
 // The prototype follows the flow chart:
 //   Opening Screen → Find My Journey → the quiz → your traveler type
 //   → your journey → Departure (Kawagoe Station) → Discovery (Imofukudo)
-//   → Build, which is still to come.
+//   → Build (Toki no Kane), with optional detours from there (Kawagoe City
+//   Museum, Kawagoe Castle) → Peak (Hikawa Shrine) → Afterglow (MARUYA)
+//   → Memory, looking back on the day → the survey, still to come.
 // Browse Journeys is the shortcut from the opening screen straight to a journey.
 function App() {
   // Which screen is showing: "home", "find", "quiz", "browse", "seeJourney",
-  // "departure", "departureInfo", "discovery", "discoveryInfo" or "build".
+  // "departure", "departureInfo", "discovery", "discoveryInfo", "build",
+  // "buildInfo", "detours", "detour", "detourInfo", "peak", "peakInfo",
+  // "afterglow", "afterglowInfo", "memory" or "survey".
   const [page, setPage] = useState('home')
   const [travelerType, setTravelerType] = useState(null);
   const [showStopConfirmation, setShowStopConfirmation] = useState(false);
 
+  // The detour you're on (its card from journeyStops.js), and the ids of the
+  // ones you've taken. A detour counts as taken once you press I'M HERE.
+  const [detour, setDetour] = useState(null)
+  const [detoursTaken, setDetoursTaken] = useState([])
+  const [showSkipDetour, setShowSkipDetour] = useState(false)
+
   const stopJourney = () => setShowStopConfirmation(true)
+
+  // Every run of the journey starts with no detours taken.
+  function beginJourney(firstPage) {
+    setDetour(null)
+    setDetoursTaken([])
+    setPage(firstPage)
+  }
+
+  // Toki no Kane's detours you haven't taken yet, and of those, the ones
+  // other than the detour you're on.
+  const detoursLeft = tokiNoKane.detours.filter((each) => !detoursTaken.includes(each.id))
+  const otherDetoursLeft = detoursLeft.filter((each) => each !== detour)
 
   let content
 
-  if (page === 'build') {
+  if (page === 'survey') {
     content = (
-      <BuildPage onStopJourney={stopJourney} />
+      <ComingSoonPage
+        heading="Survey"
+        title="Survey coming soon"
+        text="We’d love to hear how your day went. The survey will be ready here soon."
+        onBack={() => setPage('memory')}
+        onHome={() => setPage('home')}
+      />
+    )
+  } else if (page === 'memory') {
+    content = (
+      <MemoryPage
+        journey={kawagoeJourney}
+        detoursTaken={detoursTaken}
+        onSurvey={() => setPage('survey')}
+        onHome={() => setPage('home')}
+      />
+    )
+  } else if (page === 'afterglowInfo') {
+    content = (
+      <ArrivedPage
+        stop={maruya}
+        continueLabel="FINISH JOURNEY ➜"
+        onContinue={() => setPage('memory')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'afterglow') {
+    content = (
+      <DirectionsPage
+        stop={maruya}
+        onImHere={() => setPage('afterglowInfo')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'peakInfo') {
+    content = (
+      <ArrivedPage
+        stop={hikawaShrine}
+        onContinue={() => setPage('afterglow')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'peak') {
+    content = (
+      <DirectionsPage
+        stop={hikawaShrine}
+        onImHere={() => setPage('peakInfo')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'detourInfo') {
+    content = (
+      <ArrivedPage
+        stop={detour}
+        detoursLeft={detoursLeft}
+        detoursFrom={tokiNoKane}
+        onSeeDetours={() => setPage('detours')}
+        onContinue={() => setPage('peak')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'detour') {
+    content = (
+      <DirectionsPage
+        stop={detour}
+        onImHere={() => {
+          setDetoursTaken([...detoursTaken, detour.id])
+          setPage('detourInfo')
+        }}
+        onSkip={() => setShowSkipDetour(true)}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'detours') {
+    content = (
+      <DetoursPage
+        from={tokiNoKane}
+        done={detoursTaken}
+        onTakeDetour={(chosen) => {
+          setDetour(chosen)
+          setPage('detour')
+        }}
+        onContinue={() => setPage('peak')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'buildInfo') {
+    content = (
+      <ArrivedPage
+        stop={tokiNoKane}
+        detoursLeft={detoursLeft}
+        onSeeDetours={() => setPage('detours')}
+        // Skipping the detours.
+        onContinue={() => setPage('peak')}
+        onStopJourney={stopJourney}
+      />
+    )
+  } else if (page === 'build') {
+    content = (
+      <DirectionsPage
+        stop={tokiNoKane}
+        onImHere={() => setPage('buildInfo')}
+        onStopJourney={stopJourney}
+      />
     )
   } else if (page === 'discoveryInfo') {
     content = (
@@ -69,9 +196,9 @@ function App() {
     content = (
       <SeeJourneyPage
         onHome={() => setPage('home')}
-        onBeginJourney={() => setPage('departure')}
+        onBeginJourney={() => beginJourney('departure')}
         // Already at the start: skip Kawagoe Station and head for the first stop.
-        onSkipToFirstStop={() => setPage('discovery')}
+        onSkipToFirstStop={() => beginJourney('discovery')}
         travelerType={travelerType}
       />
     )
@@ -114,10 +241,25 @@ function App() {
   return (
     <div className="phone">
       {/* Keyed by page so each screen starts scrolled to the top. Inert while
-          the stop box is up, so nothing behind it can be tapped or tabbed to. */}
-      <div className="screen" key={page} inert={showStopConfirmation}>
+          a box is up over it, so nothing behind can be tapped or tabbed to. */}
+      <div className="screen" key={page} inert={showStopConfirmation || showSkipDetour}>
         {content}
       </div>
+
+      {showSkipDetour && (
+        <SkipDetourPrompt
+          hasOtherDetours={otherDetoursLeft.length > 0}
+          onSeeOtherDetours={() => {
+            setShowSkipDetour(false)
+            setPage('detours')
+          }}
+          onContinueJourney={() => {
+            setShowSkipDetour(false)
+            setPage('peak')
+          }}
+          onStay={() => setShowSkipDetour(false)}
+        />
+      )}
 
       {showStopConfirmation && (
         <StopConfirmation
@@ -346,22 +488,36 @@ function SeeJourneyPage({ onHome, onBeginJourney, onSkipToFirstStop, travelerTyp
   )
 }
 
-// A stand-in for the Build phase, where the route branches. Still to come.
-function BuildPage({ onStopJourney }) {
+// A stand-in for something still being planned, like the survey. Each way out
+// is optional: ‹ BACK (`onBack`), STOP JOURNEY partway through a journey
+// (`onStopJourney`), or BACK TO HOME once it's over (`onHome`).
+function ComingSoonPage({ heading, title, text, onBack, onStopJourney, onHome }) {
   return (
-    <div className="buildPage">
+    <div className="comingSoonPage">
       <Header />
+      {onBack && (
+        <button className="backBtn pageBack" onClick={onBack}>
+          ‹ BACK
+        </button>
+      )}
       <div className="pageBody">
-        <SectionHeader text="Build" />
+        <SectionHeader text={heading} />
 
         <div className="comingSoonCard">
-          <p className="comingSoonTitle">The next part of your journey is on its way</p>
-          <p>This stretch of the route is still being planned.</p>
+          <p className="comingSoonTitle">{title}</p>
+          <p>{text}</p>
         </div>
 
-        <button className="backBtn pageEndLink" onClick={onStopJourney}>
-          STOP JOURNEY
-        </button>
+        {onStopJourney && (
+          <button className="backBtn pageEndLink" onClick={onStopJourney}>
+            STOP JOURNEY
+          </button>
+        )}
+        {onHome && (
+          <button className="backBtn pageEndLink" onClick={onHome}>
+            BACK TO HOME
+          </button>
+        )}
       </div>
     </div>
   )
