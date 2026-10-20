@@ -68,3 +68,23 @@ export function NavigateIcon({ className }) {
     </Icon>
   )
 }
+
+// The navbar's Home tab.
+export function HomeIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M4 10.5 12 4l8 6.5" />
+      <path d="M6 9v10.5h4.5V14h3v5.5H18V9" />
+    </Icon>
+  )
+}
+
+// The navbar's Profile tab.
+export function PersonIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="8" r="3.6" />
+      <path d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6" />
+    </Icon>
+  )
+}

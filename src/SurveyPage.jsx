@@ -35,10 +35,13 @@ const QUESTIONS = [
   },
 ]
 
-function SurveyPage({ journey, travelerType, detoursTaken, onBack, onHome }) {
+// With a profile (`profileName`), it already knows the name, so it starts
+// straight at the first question.
+function SurveyPage({ journey, travelerType, detoursTaken, profileName, onBack, onHome }) {
   // 0 is the name; 1 onwards are the questions.
-  const [step, setStep] = useState(0)
-  const [name, setName] = useState('')
+  const firstStep = profileName ? 1 : 0
+  const [step, setStep] = useState(firstStep)
+  const [name, setName] = useState(profileName ?? '')
   const [answers, setAnswers] = useState({})
   // "ready", "sending", "failed" (try again) or "sent".
   const [status, setStatus] = useState('ready')
@@ -58,7 +61,7 @@ function SurveyPage({ journey, travelerType, detoursTaken, onBack, onHome }) {
 
   function goBack() {
     setStatus('ready')
-    if (step === 0) {
+    if (step === firstStep) {
       onBack()
     } else {
       setStep(step - 1)
@@ -209,7 +212,7 @@ function SurveyPage({ journey, travelerType, detoursTaken, onBack, onHome }) {
             </p>
           )}
 
-          {/* From the name, ← PREVIOUS goes back to the Memory page. */}
+          {/* From the first step, ← PREVIOUS goes back to the Memory page. */}
           <div className="surveyNav">
             <button className="introBtn isGhost" onClick={goBack} disabled={status === 'sending'}>
               ← PREVIOUS

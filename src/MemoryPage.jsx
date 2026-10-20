@@ -1,5 +1,6 @@
 import { PhotoHero } from './Header.jsx'
 import { ClockIcon, PinIcon, RouteIcon } from './Icons.jsx'
+import { SignUpCard } from './ProfilePages.jsx'
 
 // The end of the journey: the day told as a short story, then a timeline of
 // every stop with its detours branching off. Detours you skipped are still
@@ -41,7 +42,10 @@ function TimelineStop({ stop, phase, className, style }) {
   )
 }
 
-function MemoryPage({ journey, detoursTaken, onSurvey, onHome }) {
+// Straight after finishing, it offers the survey (`onSurvey`) and, without a
+// profile, to make one (`onCreateProfile`). Looking back from My Journeys,
+// it's just the memory. `doneLabel` and `onDone` are the way out.
+function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSurvey, doneLabel, onDone }) {
   const allDetours = journey.route.flatMap((stop) => stop.detours ?? [])
   const taken = allDetours.filter((detour) => detoursTaken.includes(detour.id)).map((detour) => detour.id)
   const stopCount = journey.route.length + taken.length
@@ -128,11 +132,24 @@ function MemoryPage({ journey, detoursTaken, onSurvey, onHome }) {
 
         <div className="divider sectionBreak"></div>
 
-        <button className="introBtn" onClick={onSurvey}>
-          TAKE THE SURVEY ➜
-        </button>
-        <button className="introBtn isGhost" onClick={onHome}>
-          BACK TO HOME
+        {onCreateProfile && (
+          <SignUpCard
+            label="SAVE THIS JOURNEY"
+            text="Add your name to make a profile, and this journey will be kept in My Journeys, with your traveler type and stats. No password needed."
+            onCreate={onCreateProfile}
+          />
+        )}
+        {!onCreateProfile && profileName && onSurvey && (
+          <p className="savedNote">✓ Saved to {profileName}’s profile</p>
+        )}
+
+        {onSurvey && (
+          <button className="introBtn" onClick={onSurvey}>
+            TAKE THE SURVEY ➜
+          </button>
+        )}
+        <button className="introBtn isGhost" onClick={onDone}>
+          {doneLabel}
         </button>
       </div>
     </div>

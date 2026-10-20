@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { QUESTIONS, TRAITS, PERSONALITIES, scoreTypes, pickType } from './quizData'
 import Header, { SectionHeader } from './Header.jsx'
+import { SignUpCard } from './ProfilePages.jsx'
 
 // How long the chosen picture stays highlighted before the next question
 // slides in. Long enough to see what you tapped, short enough not to drag.
 const PICK_DELAY = 420
 
-function Questionnaire({ onExit, onHome, onSeeJourney, onSetTravelerType }) {
+// With a profile (`profileName`), the result is saved to it. Without one,
+// the result offers to make one (`onCreateProfile`).
+function Questionnaire({ onExit, onHome, onSeeJourney, onSetTravelerType, profileName, onCreateProfile }) {
   // One trait id per answered question. Its length is also which question
   // we're on, so going back is just dropping the last pick.
   const [picks, setPicks] = useState([])
@@ -34,8 +37,10 @@ function Questionnaire({ onExit, onHome, onSeeJourney, onSetTravelerType }) {
         <Results 
           picks={picks} 
           onRetake={() => setPicks([])} 
-          onHome={onHome} onSeeJourney={onSeeJourney} 
+          onHome={onHome} onSeeJourney={onSeeJourney}
           onSetTravelerType={onSetTravelerType}
+          profileName={profileName}
+          onCreateProfile={onCreateProfile}
         />
       ) : (
         <Question
@@ -116,7 +121,7 @@ function PhotoChoice({ option, state, showOr, onChoose }) {
 
 // The traveler type the quiz landed on, and how closely each of the three
 // matched — so the scoring is visible while this is still a prototype.
-function Results({ picks, onRetake, onHome, onSeeJourney, onSetTravelerType }) {
+function Results({ picks, onRetake, onHome, onSeeJourney, onSetTravelerType, profileName, onCreateProfile }) {
   const type = pickType(picks)
 
   useEffect(() => {
@@ -167,6 +172,16 @@ function Results({ picks, onRetake, onHome, onSeeJourney, onSetTravelerType }) {
           />
         ))}
       </div>
+
+      {profileName ? (
+        <p className="savedNote">✓ Saved to {profileName}’s profile</p>
+      ) : (
+        <SignUpCard
+          label="SAVE YOUR RESULT"
+          text="Add your name to make a profile, and you won’t need to take the quiz again. No password, it’s just your name."
+          onCreate={onCreateProfile}
+        />
+      )}
 
       <div className="testTakeBtnContainer">
         <button className="introBtn" onClick={onSeeJourney}>

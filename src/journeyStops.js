@@ -258,6 +258,8 @@ export const maruya = {
 // The journey as a whole, for Browse Journeys, See Your Journey and the
 // Memory page at the end.
 export const kawagoeJourney = {
+  // A short name the app uses for it, like a stop's id.
+  id: 'kawagoe',
   name: 'Adventure in Kawagoe',
   location: 'KAWAGOE · SAITAMA, JAPAN',
   photo: emaTunnelPhoto,

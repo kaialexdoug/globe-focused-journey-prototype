@@ -1846,6 +1846,398 @@ button:focus-visible {
   margin-top: 24px;
 }
 
+/* --- Profile ---
+   The navbar along the bottom of Home, My Journeys and Profile, those two
+   pages, and making a profile (ProfilePages.jsx). */
+
+/* The screen stops above the navbar, so nothing hides behind it. */
+.screen.hasNavBar {
+  box-sizing: border-box;
+  padding-bottom: calc(60px + var(--frame-bottom));
+}
+
+.hasNavBar .homeHook {
+  padding-bottom: 24px;
+}
+
+.navBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 15;
+  display: flex;
+  box-sizing: border-box;
+  height: calc(60px + var(--frame-bottom));
+  padding-bottom: var(--frame-bottom);
+  background-color: rgba(14, 15, 20, 0.94);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgb(46, 48, 58);
+}
+
+.navTab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: rgb(140, 140, 158);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.navIcon {
+  width: 23px;
+  height: 23px;
+  transition: filter 0.2s ease;
+}
+
+/* The tab you're on lights up red. */
+.navTab.isCurrent {
+  color: rgb(255, 122, 112);
+}
+
+.navTab.isCurrent .navIcon {
+  filter: drop-shadow(0 0 6px rgba(214, 48, 48, 0.7));
+}
+
+@media (hover: hover) {
+  .navTab:not(.isCurrent):hover {
+    color: white;
+  }
+}
+
+/* IN PROGRESS, in green with a glowing dot, wherever a journey is under
+   way. On a photo it sits in a dark pill so it still reads. */
+.inProgressTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--globe-green);
+}
+
+.inProgressTag::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--globe-green);
+  box-shadow: 0 0 8px var(--globe-green);
+}
+
+.featureCard .inProgressTag {
+  padding: 6px 11px;
+  background-color: rgba(10, 10, 16, 0.75);
+  border: 1px solid rgba(116, 191, 63, 0.6);
+  border-radius: 999px;
+}
+
+/* Home, with a profile: hello, your traveler type, and the journey you
+   left partway. */
+.homeWelcome {
+  margin-bottom: 14px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+}
+
+.homeGreeting {
+  font-size: 14px;
+  color: rgb(225, 225, 232);
+}
+
+.homeType {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--type-color) 65%, white);
+}
+
+.homeType::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--type-color);
+  box-shadow: 0 0 8px var(--type-color);
+}
+
+.homeResume {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  background-color: rgba(10, 10, 16, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(116, 191, 63, 0.55);
+  border-radius: 12px;
+  box-shadow: 0 0 18px rgba(116, 191, 63, 0.2);
+  text-align: left;
+  color: white;
+  cursor: pointer;
+}
+
+.homeResume .inProgressTag {
+  margin-bottom: 4px;
+}
+
+.homeResumeName {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 19px;
+}
+
+.homeResumeWhere {
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: rgb(190, 190, 202);
+}
+
+.homeResumeGo {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: center;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--globe-green);
+}
+
+.homeHook .textLink {
+  align-self: center;
+}
+
+.myJourneysPage,
+.profilePage {
+  animation: fadeUp 0.5s ease both;
+}
+
+.myJourneysPage .pageTitle,
+.profilePage .pageTitle {
+  margin: 6px 0 18px;
+}
+
+.journeyProgress {
+  margin-top: 12px;
+}
+
+/* A journey you've finished, or started and left. */
+.ownedJourney {
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 15px;
+  text-align: left;
+}
+
+.ownedJourney .introBtn {
+  margin-top: 12px;
+}
+
+.ownedJourney .introBtn + .introBtn {
+  margin-top: 10px;
+}
+
+.detourTakenTag.completedTag {
+  color: var(--globe-green);
+}
+
+/* Making a profile: just a name. */
+.signUpCard {
+  margin-top: 24px;
+  padding: 16px 18px 18px;
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 15px;
+  text-align: left;
+}
+
+.signUpCard .detourCardText {
+  margin-bottom: 14px;
+}
+
+.nameForm .introBtn {
+  margin-top: 10px;
+}
+
+.nameFormButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.nameFormButtons .introBtn {
+  flex: 1 1 0;
+  width: auto;
+}
+
+.promptBox .nameForm {
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.savedNote {
+  margin-top: 20px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--globe-green);
+}
+
+/* See Your Journey, for a journey that's under way or finished. */
+.testTakeBtnContainer .inProgressTag {
+  margin-bottom: 10px;
+}
+
+.seeJourneyWhere {
+  margin: -6px 0 6px;
+  font-size: 14px;
+  color: rgb(190, 190, 202);
+}
+
+.completedNote {
+  margin-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--globe-green);
+}
+
+/* The Profile page. */
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 22px 18px 16px;
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 15px;
+}
+
+.profileCard .nameForm {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Your initial, in the same ringed circle as the narration's play button. */
+.profileAvatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 8px;
+  border: 1px solid var(--globe-salmon);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 10px var(--globe-salmon),
+    0 0 14px rgba(214, 48, 48, 0.35);
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 30px;
+  color: white;
+}
+
+.profileName {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 26px;
+  color: var(--text-h);
+}
+
+.profileSince {
+  font-size: 13px;
+  color: rgb(140, 140, 158);
+}
+
+.profileCard .textLink {
+  margin-top: 6px;
+}
+
+/* Your traveler type, outlined in its own colour. */
+.profileType {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 28px;
+  padding: 14px;
+  border: 1px solid var(--type-color, rgb(62, 60, 72));
+  border-radius: 15px;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--type-color, transparent) 30%, transparent);
+  text-align: left;
+}
+
+.profileType img {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.profileType .startCardLabel {
+  margin-bottom: 4px;
+}
+
+.profileTypeName {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 22px;
+  color: var(--text-h);
+}
+
+.profileType .textLink {
+  margin: 0;
+  padding: 6px 0 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.statTile {
+  padding: 14px;
+  background-color: rgb(24, 25, 32);
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.statValue {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 30px;
+  line-height: 1;
+  color: white;
+}
+
+.statLabel {
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgb(140, 140, 158);
+}
+
+.backBtn.deleteLink {
+  color: rgb(255, 122, 112);
+}
+
+.profilePage .deleteLink {
+  margin-top: 30px;
+}
+
+@media (hover: hover) {
+  .backBtn.deleteLink:hover {
+    color: white;
+  }
+}
+
 /* --- Boxes over the screen ---
    Stop Journey and Skip This Detour (PromptBox.jsx): the whole screen
    dimmed, with the question in a box in the middle. */
@@ -1908,6 +2300,8 @@ button:focus-visible {
   .directionsPage,
   .arrivedPage,
   .surveyPage,
+  .myJourneysPage,
+  .profilePage,
   .surveyStep,
   .surveyDone,
   .memoryPage,
