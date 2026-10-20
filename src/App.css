@@ -109,6 +109,16 @@
     0 0 18px rgba(214, 48, 48, 0.45);
 }
 
+/* Greyed out until it can be used, like NEXT before there's an answer. */
+.introBtn:disabled {
+  background-color: rgb(52, 49, 59);
+  border-color: rgb(52, 49, 59);
+  color: rgb(130, 130, 148);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .backBtn {
   padding: 10px;
   background-color: transparent;
@@ -1692,11 +1702,148 @@ button:focus-visible {
   margin-top: 8px;
 }
 
-/* --- Still to come ---
-   A stand-in for things still being planned, like the survey. */
+/* --- Survey ---
+   The name, then one question at a time, then a thank-you
+   (SurveyPage.jsx). */
 
-.comingSoonPage {
+.surveyPage {
   animation: fadeUp 0.5s ease both;
+}
+
+.surveyStep {
+  margin-top: 18px;
+  text-align: left;
+  animation: fadeUp 0.35s ease both;
+}
+
+.surveyLabel {
+  margin-bottom: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: rgb(140, 140, 158);
+}
+
+.surveyStep .progressBar {
+  margin-bottom: 20px;
+}
+
+.surveyPrompt {
+  display: block;
+  margin-bottom: 16px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--text-h);
+  text-wrap: balance;
+}
+
+/* 16px text, so phones don't zoom in when you tap into it. */
+.surveyInput {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px 14px;
+  background-color: rgb(30, 30, 38);
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: white;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.surveyInput::placeholder {
+  color: rgb(110, 110, 128);
+}
+
+.surveyInput:focus {
+  outline: none;
+  border-color: var(--globe-salmon);
+  box-shadow: 0 0 0 3px rgba(214, 48, 48, 0.2);
+}
+
+.surveyTextarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* Yes / Maybe / No, side by side. The picked one lights up red. */
+.surveyChoices {
+  display: flex;
+  gap: 10px;
+}
+
+.surveyChoice {
+  flex: 1;
+  padding: 14px 8px;
+  background-color: rgb(30, 30, 38);
+  border: 1px solid rgb(62, 60, 72);
+  border-radius: 10px;
+  font-size: 15px;
+  color: rgb(205, 205, 215);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+.surveyChoice.isChosen {
+  border-color: var(--globe-salmon);
+  color: white;
+  box-shadow:
+    inset 0 0 10px rgba(214, 48, 48, 0.35),
+    0 0 14px rgba(214, 48, 48, 0.35);
+}
+
+@media (hover: hover) {
+  .surveyChoice:hover {
+    border-color: rgba(214, 48, 48, 0.6);
+  }
+}
+
+/* ← PREVIOUS and NEXT →, side by side under the answer. */
+.surveyNav {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.surveyNav .introBtn {
+  flex: 1 1 0;
+  width: auto;
+  margin-top: 0;
+}
+
+.surveyError {
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgb(255, 122, 112);
+}
+
+.surveyDone {
+  margin-top: 28px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.surveyDone .mainHook {
+  margin-bottom: 10px;
+  font-size: 32px;
+}
+
+.surveyDone p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgb(190, 190, 202);
+}
+
+.surveyDone .introBtn {
+  margin-top: 24px;
 }
 
 /* --- Boxes over the screen ---
@@ -1760,7 +1907,9 @@ button:focus-visible {
   .journeyPage,
   .directionsPage,
   .arrivedPage,
-  .comingSoonPage,
+  .surveyPage,
+  .surveyStep,
+  .surveyDone,
   .memoryPage,
   .memoryTimeline > li,
   .detoursPage,

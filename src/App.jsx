@@ -4,12 +4,13 @@ import sceneryLogo from './assets/nature_icon.svg'
 import exploreLogo from './assets/scenic_routes_icon.svg'
 import experienceLogo from './assets/weird_and_wonderful_icon.svg'
 
-import Header, { PhotoHero, SectionHeader } from './Header.jsx'
+import Header, { PhotoHero } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import Questionnaire from './Questionnaire.jsx'
 import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
 import MemoryPage from './MemoryPage.jsx'
+import SurveyPage from './SurveyPage.jsx'
 import { ClockIcon, NavigateIcon, PinIcon, RouteIcon, WalkIcon } from './Icons.jsx'
 import { kawagoeStation, imofukudo, tokiNoKane, hikawaShrine, maruya, kawagoeJourney } from './journeyStops'
 import { preloadQuizPhotos } from './quizData'
@@ -20,7 +21,7 @@ import './App.css'
 //   → your journey → Departure (Kawagoe Station) → Discovery (Imofukudo)
 //   → Build (Toki no Kane), with optional detours from there (Kawagoe City
 //   Museum, Kawagoe Castle) → Peak (Hikawa Shrine) → Afterglow (MARUYA)
-//   → Memory, looking back on the day → the survey, still to come.
+//   → Memory, looking back on the day → the survey.
 // Browse Journeys is the shortcut from the opening screen straight to a journey.
 function App() {
   // Which screen is showing: "home", "find", "quiz", "browse", "seeJourney",
@@ -55,10 +56,10 @@ function App() {
 
   if (page === 'survey') {
     content = (
-      <ComingSoonPage
-        heading="Survey"
-        title="Survey coming soon"
-        text="We’d love to hear how your day went. The survey will be ready here soon."
+      <SurveyPage
+        journey={kawagoeJourney}
+        travelerType={travelerType}
+        detoursTaken={detoursTaken}
         onBack={() => setPage('memory')}
         onHome={() => setPage('home')}
       />
@@ -483,41 +484,6 @@ function SeeJourneyPage({ onHome, onBeginJourney, onSkipToFirstStop, travelerTyp
             BACK TO HOME
           </button>
         </div>
-      </div>
-    </div>
-  )
-}
-
-// A stand-in for something still being planned, like the survey. Each way out
-// is optional: ‹ BACK (`onBack`), STOP JOURNEY partway through a journey
-// (`onStopJourney`), or BACK TO HOME once it's over (`onHome`).
-function ComingSoonPage({ heading, title, text, onBack, onStopJourney, onHome }) {
-  return (
-    <div className="comingSoonPage">
-      <Header />
-      {onBack && (
-        <button className="backBtn pageBack" onClick={onBack}>
-          ‹ BACK
-        </button>
-      )}
-      <div className="pageBody">
-        <SectionHeader text={heading} />
-
-        <div className="comingSoonCard">
-          <p className="comingSoonTitle">{title}</p>
-          <p>{text}</p>
-        </div>
-
-        {onStopJourney && (
-          <button className="backBtn pageEndLink" onClick={onStopJourney}>
-            STOP JOURNEY
-          </button>
-        )}
-        {onHome && (
-          <button className="backBtn pageEndLink" onClick={onHome}>
-            BACK TO HOME
-          </button>
-        )}
       </div>
     </div>
   )
