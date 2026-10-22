@@ -56,6 +56,16 @@
     rgba(22, 23, 29, 0.8) 76%,
     rgb(22, 23, 29) 100%
   );
+  /* A journey stop's photo fills the screen, so it's shaded only at the very
+     top, for the header, and lower down, for the title above the panel. */
+  --stop-fade: linear-gradient(
+    to bottom,
+    rgba(10, 10, 16, 0.6) 0%,
+    rgba(10, 10, 16, 0) 16%,
+    rgba(10, 10, 16, 0) 52%,
+    rgba(10, 10, 16, 0.55) 74%,
+    rgba(10, 10, 16, 0.85) 100%
+  );
   /* The photo cards (Browse, My Journeys, Detours) are shaded the same way:
      the big journey cards, and the smaller photo strips. */
   --card-fade: linear-gradient(
@@ -153,6 +163,14 @@
     rgba(246, 244, 240, 0) 40%,
     rgba(246, 244, 240, 0.88) 74%,
     rgb(246, 244, 240) 100%
+  );
+  --stop-fade: linear-gradient(
+    to bottom,
+    rgba(246, 244, 240, 0.75) 0%,
+    rgba(246, 244, 240, 0) 16%,
+    rgba(246, 244, 240, 0) 52%,
+    rgba(246, 244, 240, 0.7) 74%,
+    rgba(246, 244, 240, 0.95) 100%
   );
   --card-fade: linear-gradient(
     to bottom,

@@ -107,3 +107,21 @@ export function MoonIcon({ className }) {
     </Icon>
   )
 }
+
+// On the handle of a pull-up panel. It turns over once the panel is open.
+export function ChevronUpIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="m6 15 6-6 6 6" />
+    </Icon>
+  )
+}
+
+// The ✕ in the corner of a journey stop, for stopping the journey.
+export function CloseIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M6 6l12 12M18 6 6 18" />
+    </Icon>
+  )
+}

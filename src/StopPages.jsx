@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import Header, { PhotoHero, SectionHeader } from './Header.jsx'
+import Header, { SectionHeader } from './Header.jsx'
 import Narration from './Narration.jsx'
+import BottomSheet from './BottomSheet.jsx'
+import { CloseIcon } from './Icons.jsx'
 
 // The two screens every stop on the journey uses, and the Detours page for a
 // stop with detours. Each one is filled in from the cards in journeyStops.js.
@@ -15,19 +17,40 @@ function numberWord(count) {
   return NUMBER_WORDS[count] ?? String(count)
 }
 
-// The stop's photo across the top of the screen, with its heading, label and
-// name on it.
-function StopHero({ stop, heading, label, size }) {
+// A stop, like a Reel: its photo fills the screen, with its heading, label
+// and name small in the corner, and ✕ for stopping the journey. What to do
+// there (`children`) is in a panel pulled up from the bottom, its handle
+// saying `sheetLabel`, with the stop's name again at the top of it.
+function StopScreen({ className, stop, heading, label, sheetLabel, onStopJourney, children }) {
   return (
-    <PhotoHero
-      photo={stop.photo}
-      photoAlt={stop.photoAlt}
-      photoPosition={stop.photoPosition}
-      kicker={heading}
-      label={label}
-      title={stop.name}
-      size={size}
-    />
+    <div className={`stopScreen ${className}`}>
+      <img
+        className="stopPhoto"
+        src={stop.photo}
+        alt={stop.photoAlt}
+        style={{ objectPosition: stop.photoPosition }}
+      />
+      <Header />
+      <button className="stopClose" onClick={onStopJourney} aria-label="Stop journey">
+        <CloseIcon />
+      </button>
+
+      <div className="stopTitle">
+        <p className="heroKicker">{heading}</p>
+        <p className="heroLabel">{label}</p>
+        <h1 className="heroTitle">{stop.name}</h1>
+      </div>
+
+      <BottomSheet label={sheetLabel}>
+        <div className="sheetHeading">
+          <p className="sheetKicker">
+            {heading} · {label}
+          </p>
+          <h2 className="sheetTitle">{stop.name}</h2>
+        </div>
+        {children}
+      </BottomSheet>
+    </div>
   )
 }
 
@@ -64,51 +87,46 @@ export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
   }
 
   return (
-    <div className="directionsPage">
-      {/* Kept short, so the map and I'M HERE fit without scrolling. */}
-      <StopHero
-        stop={stop}
-        heading={stop.directionsHeading}
-        label={stop.directionsLabel}
-        size="isShort"
-      />
-      <div className="pageBody">
-        {mapSrc ? (
-          <>
-            {locationFailed && (
-              <p className="mapNote">
-                We couldn't find your location — here's {stop.name}.
-              </p>
-            )}
-            <div className="mapContainer">
-              <iframe
-                title={`Map to ${stop.name}`}
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="strict-origin-when-cross-origin"
-                src={mapSrc}>
-              </iframe>
-            </div>
-            <button className="introBtn" onClick={onImHere}>I'M HERE</button>
-          </>
-        ) : (
-          // The same size as the map, so nothing jumps when it arrives.
-          <div className="mapPlaceholder" role="status">
-            Loading your location and map…
+    <StopScreen
+      className="directionsPage"
+      stop={stop}
+      heading={stop.directionsHeading}
+      label={stop.directionsLabel}
+      sheetLabel="SEE DIRECTIONS"
+      onStopJourney={onStopJourney}
+    >
+      {mapSrc ? (
+        <>
+          {locationFailed && (
+            <p className="mapNote">
+              We couldn't find your location — here's {stop.name}.
+            </p>
+          )}
+          {/* Loads straight away, though the panel starts closed, so the map's
+              ready by the time it's pulled up. */}
+          <div className="mapContainer">
+            <iframe
+              title={`Map to ${stop.name}`}
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+              src={mapSrc}>
+            </iframe>
           </div>
-        )}
+          <button className="introBtn" onClick={onImHere}>I'M HERE</button>
+        </>
+      ) : (
+        // The same size as the map, so nothing jumps when it arrives.
+        <div className="mapPlaceholder" role="status">
+          Loading your location and map…
+        </div>
+      )}
 
-        {onSkip && (
-          <button className="textLink pageTextLink" onClick={onSkip}>
-            SKIP THIS DETOUR
-          </button>
-        )}
-
-        <button className="backBtn pageEndLink" onClick={onStopJourney}>
-          STOP JOURNEY
+      {onSkip && (
+        <button className="textLink pageTextLink" onClick={onSkip}>
+          SKIP THIS DETOUR
         </button>
-      </div>
-    </div>
+      )}
+    </StopScreen>
   )
 }
 
@@ -154,33 +172,33 @@ export function ArrivedPage({
   const offer = onSeeDetours ? detourOffer(stop, detoursLeft, detoursFrom) : null
 
   return (
-    <div className="arrivedPage">
-      <StopHero stop={stop} heading={stop.arrivedHeading} label={stop.arrivedLabel} />
-      <div className="pageBody">
-        <Narration paragraphs={stop.narration} />
+    <StopScreen
+      className="arrivedPage"
+      stop={stop}
+      heading={stop.arrivedHeading}
+      label={stop.arrivedLabel}
+      sheetLabel="SEE INFORMATION"
+      onStopJourney={onStopJourney}
+    >
+      <Narration paragraphs={stop.narration} />
 
-        {offer && (
-          <>
-            <div className="detourCard">
-              <p className="startCardLabel">{offer.label}</p>
-              <p className="detourCardText">{offer.text}</p>
-              <button className="introBtn isGhost" onClick={onSeeDetours}>
-                SEE DETOURS ➜
-              </button>
-            </div>
-            <p className="detourSkip">{offer.skip}</p>
-          </>
-        )}
+      {offer && (
+        <>
+          <div className="detourCard">
+            <p className="startCardLabel">{offer.label}</p>
+            <p className="detourCardText">{offer.text}</p>
+            <button className="introBtn isGhost" onClick={onSeeDetours}>
+              SEE DETOURS ➜
+            </button>
+          </div>
+          <p className="detourSkip">{offer.skip}</p>
+        </>
+      )}
 
-        <button className="introBtn" onClick={onContinue}>
-          {continueLabel}
-        </button>
-
-        <button className="backBtn pageEndLink" onClick={onStopJourney}>
-          STOP JOURNEY
-        </button>
-      </div>
-    </div>
+      <button className="introBtn" onClick={onContinue}>
+        {continueLabel}
+      </button>
+    </StopScreen>
   )
 }
 

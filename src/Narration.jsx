@@ -41,6 +41,13 @@ function pickVoice(voices) {
 
 const START = { paragraph: 0, word: 0 }
 
+// What scrolls the narration: the pull-up panel it's in on a journey stop
+// (BottomSheet.jsx), or otherwise the page, which scrolls inside .screen
+// (see App.jsx) rather than the window.
+function scrollerAround(element) {
+  return element.closest('.sheetBody') ?? element.closest('.screen')
+}
+
 function Narration({ paragraphs }) {
   const words = useMemo(() => paragraphs.map((paragraph) => splitWords(paragraph.text)), [paragraphs])
 
@@ -178,8 +185,7 @@ function Narration({ paragraphs }) {
       return
     }
     const lit = textRef.current.querySelector('.isSpoken')
-    // The page scrolls inside .screen (see App.jsx), not the window.
-    const screen = lit?.closest('.screen')
+    const screen = lit && scrollerAround(lit)
     if (!screen) {
       return
     }
@@ -204,7 +210,7 @@ function Narration({ paragraphs }) {
     if (status !== 'playing') {
       return
     }
-    const screen = textRef.current.closest('.screen')
+    const screen = scrollerAround(textRef.current)
     if (!screen) {
       return
     }

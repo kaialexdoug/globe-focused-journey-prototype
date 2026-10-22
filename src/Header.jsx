@@ -26,9 +26,10 @@ function Header() {
 }
 
 // A photo right across the top of the screen, with the header sitting on it
-// and a title on its darkened bottom edge. The journey screens open with it.
+// and a title on its shaded bottom edge. See Your Journey and Memory open
+// with it.
 // `kicker` is the small red heading, `label` the line above the title, and
-// `size` is "isShort", "isTall" or left out.
+// `size` is "isTall" or left out.
 export function PhotoHero({ photo, photoAlt, photoPosition, kicker, label, title, size }) {
   return (
     <div className={size ? `photoHero ${size}` : 'photoHero'}>
