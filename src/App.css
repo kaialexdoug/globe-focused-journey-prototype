@@ -22,7 +22,7 @@
 .logoFrame,
 .logoLine {
   fill: none;
-  stroke: white;
+  stroke: var(--ink);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -43,14 +43,14 @@
 
 .title {
   font-size: 18px;
-  color: white;
+  color: var(--ink);
   font-weight: 300;
   letter-spacing: 2px;
   line-height: 1.2;
 }
 
 .subtitle {
-  color: white;
+  color: var(--ink);
   font-size: 12px;
   letter-spacing: 4px;
 }
@@ -99,7 +99,7 @@
 /* The second choice next to a main button: the same shape, just outlined. */
 .introBtn.isGhost {
   background-color: transparent;
-  color: white;
+  color: var(--ink);
   box-shadow: inset 0 0 10px rgba(214, 48, 48, 0.35);
 }
 
@@ -111,9 +111,9 @@
 
 /* Greyed out until it can be used, like NEXT before there's an answer. */
 .introBtn:disabled {
-  background-color: rgb(52, 49, 59);
-  border-color: rgb(52, 49, 59);
-  color: rgb(130, 130, 148);
+  background-color: var(--line);
+  border-color: var(--line);
+  color: var(--ink-faint);
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
@@ -125,14 +125,14 @@
   border: none;
   border-radius: 4px;
   /* Light enough to read at this size on --bg. */
-  color: rgb(132, 135, 160);
+  color: var(--ink-link);
   font-size: 11px;
   letter-spacing: 2px;
   cursor: pointer;
 }
 
 .backBtn:hover {
-  color: white;
+  color: var(--ink);
 }
 
 .backBtn:disabled {
@@ -141,13 +141,13 @@
 
 /* So you can see where you are when moving around with the keyboard. */
 button:focus-visible {
-  outline: 2px solid white;
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 
 .divider {
   width: 90%;
-  border-bottom: 2px solid rgb(52, 49, 59);
+  border-bottom: 2px solid var(--line);
   margin: 0 auto;
 }
 
@@ -166,7 +166,7 @@ button:focus-visible {
   display: inline-block;
   z-index: 1;
   margin: 0;
-  color: rgb(116, 119, 144);
+  color: var(--ink-label);
 }
 
 .testHeaderContainer .divider {
@@ -207,7 +207,7 @@ button:focus-visible {
    column underneath the header on every other page. */
 
 .pageTop {
-  background: linear-gradient(to bottom, rgb(48, 48, 60) 0%, var(--bg) 100%);
+  background: linear-gradient(to bottom, var(--page-top) 0%, var(--bg) 100%);
 }
 
 .pageBack {
@@ -264,7 +264,7 @@ button:focus-visible {
 .bodyText p {
   font-size: 15px;
   line-height: 1.65;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
   margin-bottom: 14px;
 }
 
@@ -300,25 +300,18 @@ button:focus-visible {
   object-fit: cover;
 }
 
-/* Darkened at the top so the header reads, and at the bottom for the title,
-   where it fades into the page. */
+/* Shaded at the top so the header reads, and at the bottom for the title,
+   where it fades into the page: dark or light, with the theme. */
 .photoHero::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 16, 0.72) 0%,
-    rgba(10, 10, 16, 0) 32%,
-    rgba(10, 10, 16, 0) 42%,
-    rgba(22, 23, 29, 0.8) 76%,
-    var(--bg) 100%
-  );
+  background: var(--hero-fade);
 }
 
 .photoHero .header {
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: var(--photo-glow);
 }
 
 .photoHeroText {
@@ -339,9 +332,9 @@ button:focus-visible {
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  /* A lighter --globe-salmon, so it still reads on top of a photo. */
-  color: rgb(255, 122, 112);
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  /* A lighter --globe-salmon on the dark fade, a deeper one on the light. */
+  color: var(--photo-accent);
+  text-shadow: var(--photo-glow-strong);
 }
 
 /* The same glowing red dot as the sun in the logo. */
@@ -359,8 +352,8 @@ button:focus-visible {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.8);
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  color: var(--photo-ink-soft);
+  text-shadow: var(--photo-glow-strong);
 }
 
 .heroTitle {
@@ -370,8 +363,8 @@ button:focus-visible {
   font-weight: 400;
   letter-spacing: 0.5px;
   line-height: 1.05;
-  color: white;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  color: var(--photo-ink);
+  text-shadow: var(--photo-shadow);
   /* Two even lines rather than one long one and a word on its own. */
   text-wrap: balance;
 }
@@ -395,14 +388,7 @@ button:focus-visible {
   inset: 0;
   z-index: -1;
   background-image:
-    linear-gradient(
-      to bottom,
-      rgba(10, 10, 16, 0.65) 0%,
-      rgba(10, 10, 16, 0) 22%,
-      rgba(10, 10, 16, 0) 42%,
-      rgba(22, 23, 29, 0.85) 76%,
-      var(--bg) 100%
-    ),
+    var(--home-fade),
     url('./assets/chureito-pagoda-sunset.jpeg');
   background-size: cover;
   /* Keeps the pagoda and the setting sun in view on a tall, narrow screen. */
@@ -428,7 +414,7 @@ button:focus-visible {
 }
 
 .homePage .header {
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: var(--photo-glow);
 }
 
 /* Sits on the darkened bottom of the photo, whatever the screen's height. */
@@ -442,12 +428,12 @@ button:focus-visible {
 .homeHook .mainHook {
   font-size: 38px;
   margin-bottom: 10px;
-  color: white;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  color: var(--photo-ink);
+  text-shadow: var(--photo-shadow);
 }
 
 .homeHook .subHook {
-  color: rgb(215, 215, 220);
+  color: var(--photo-ink-soft);
   font-size: 12px;
   letter-spacing: 2px;
   margin-bottom: 22px;
@@ -457,9 +443,9 @@ button:focus-visible {
   box-shadow: 0 0 22px rgba(214, 48, 48, 0.45);
 }
 
-/* Darkened a little behind, so the outline still reads on the photo. */
+/* Shaded a little behind, so the outline still reads on the photo. */
 .homeHook .introBtn.isGhost {
-  background-color: rgba(10, 10, 16, 0.4);
+  background-color: var(--photo-panel-soft);
   backdrop-filter: blur(6px);
   box-shadow: inset 0 0 12px rgba(214, 48, 48, 0.35);
 }
@@ -483,7 +469,7 @@ button:focus-visible {
   font-family: 'Times New Roman', Times, serif;
   font-style: italic;
   font-size: 16px;
-  color: rgb(205, 205, 215);
+  color: var(--ink-soft);
 }
 
 .icons {
@@ -505,9 +491,10 @@ button:focus-visible {
   width: 60px;
   height: 60px;
   margin-bottom: 8px;
-  border: 2px solid white;
+  border: 2px solid var(--ink);
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  box-shadow: var(--icon-glow);
+  filter: var(--icon-filter);
 }
 
 .howSteps {
@@ -526,11 +513,11 @@ button:focus-visible {
   align-items: flex-start;
   font-size: 13px;
   line-height: 1.5;
-  color: rgb(160, 160, 175);
+  color: var(--ink-muted);
 }
 
 .howSteps strong {
-  color: white;
+  color: var(--ink);
   font-weight: 500;
 }
 
@@ -544,7 +531,7 @@ button:focus-visible {
   font-size: 11px;
   line-height: 22px;
   text-align: center;
-  color: white;
+  color: var(--ink);
 }
 
 /* --- Browse Journeys --- */
@@ -579,20 +566,14 @@ button:focus-visible {
   transition: transform 0.6s ease;
 }
 
-/* Darkened at the top for the tag, and heavily at the bottom for the text. */
+/* Shaded at the top for the tag, and heavily at the bottom for the text:
+   dark or light, with the theme. */
 .featureCard::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 16, 0.55) 0%,
-    rgba(10, 10, 16, 0) 20%,
-    rgba(10, 10, 16, 0) 36%,
-    rgba(10, 10, 16, 0.78) 62%,
-    rgba(10, 10, 16, 0.95) 100%
-  );
+  background: var(--card-fade);
 }
 
 .featureCard:active {
@@ -617,8 +598,8 @@ button:focus-visible {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
-  color: white;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  color: var(--photo-ink);
+  text-shadow: var(--photo-glow-strong);
 }
 
 .featureCardText {
@@ -632,7 +613,7 @@ button:focus-visible {
   margin-top: 8px;
   font-size: 14px;
   line-height: 1.45;
-  color: rgb(215, 215, 225);
+  color: var(--photo-ink-soft);
 }
 
 /* Why it was picked for you, after a short red line. */
@@ -642,7 +623,7 @@ button:focus-visible {
   gap: 10px;
   margin-top: 10px;
   font-size: 13px;
-  color: rgb(190, 190, 202);
+  color: var(--photo-ink-faint);
 }
 
 .featureCardReason::before {
@@ -659,17 +640,17 @@ button:focus-visible {
 .comingSoonCard {
   margin-top: 16px;
   padding: 22px 18px;
-  border: 1px dashed rgb(62, 60, 72);
+  border: 1px dashed var(--outline);
   border-radius: 15px;
   font-size: 13px;
   line-height: 1.5;
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
 }
 
 .comingSoonTitle {
   font-family: 'Times New Roman', Times, serif;
   font-size: 19px;
-  color: rgb(205, 205, 215);
+  color: var(--ink-soft);
   margin-bottom: 4px;
 }
 
@@ -698,7 +679,7 @@ button:focus-visible {
   font-family: 'Times New Roman', Times, serif;
   font-size: 23px;
   line-height: 1.25;
-  color: white;
+  color: var(--ink);
   margin: 6px 0 14px;
   padding: 0 6px;
 }
@@ -714,10 +695,10 @@ button:focus-visible {
   flex: 1;
   min-height: 140px;
   padding: 0;
-  border: 2px solid rgba(255, 255, 255, 0.14);
+  border: 2px solid var(--photo-outline);
   border-radius: 15px;
   overflow: hidden;
-  background-color: rgb(30, 30, 38);
+  background-color: var(--surface);
   cursor: pointer;
   transition:
     transform 0.25s ease,
@@ -808,14 +789,14 @@ button:focus-visible {
   font-family: 'Times New Roman', Times, serif;
   font-style: italic;
   font-size: 15px;
-  color: rgb(116, 119, 144);
+  color: var(--ink-label);
 }
 
 .orDivider::before,
 .orDivider::after {
   content: '';
   flex: 1;
-  border-top: 1px solid rgb(52, 49, 59);
+  border-top: 1px solid var(--line);
 }
 
 .progress {
@@ -825,14 +806,14 @@ button:focus-visible {
 .progressLabel {
   font-size: 11px;
   letter-spacing: 2px;
-  color: rgb(116, 119, 144);
+  color: var(--ink-label);
   margin-bottom: 8px;
 }
 
 .progressBar {
   height: 3px;
   border-radius: 2px;
-  background-color: rgb(52, 49, 59);
+  background-color: var(--line);
   overflow: hidden;
 }
 
@@ -922,13 +903,13 @@ button:focus-visible {
   box-shadow: inset 0 0 8px color-mix(in srgb, var(--type-color) 40%, transparent);
   font-size: 10px;
   letter-spacing: 1px;
-  color: white;
+  color: var(--ink);
 }
 
 .traitChip.isMissed {
-  border-color: rgb(62, 60, 72);
+  border-color: var(--outline);
   box-shadow: none;
-  color: rgb(100, 100, 118);
+  color: var(--ink-placeholder);
 }
 
 .resultText {
@@ -936,7 +917,7 @@ button:focus-visible {
   font-style: italic;
   font-size: 17px;
   line-height: 1.5;
-  color: rgb(205, 205, 215);
+  color: var(--ink-soft);
   padding: 0 6px 26px;
 }
 
@@ -949,13 +930,18 @@ button:focus-visible {
 
 .matchHeadline {
   font-size: 14px;
-  color: rgb(195, 195, 205);
+  color: var(--ink-soft);
   margin-bottom: 4px;
 }
 
 .matchHeadline strong {
   color: var(--type-color);
   font-weight: 600;
+}
+
+/* On light paper, the type's colour is darkened to stay readable as text. */
+:root[data-theme='light'] .matchHeadline strong {
+  color: color-mix(in srgb, var(--type-color) 60%, black);
 }
 
 .matchRow {
@@ -973,17 +959,17 @@ button:focus-visible {
   margin-bottom: 6px;
   font-size: 12px;
   letter-spacing: 1px;
-  color: white;
+  color: var(--ink);
 }
 
 .matchCount {
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
 }
 
 .matchTrack {
   height: 5px;
   border-radius: 3px;
-  background-color: rgb(52, 49, 59);
+  background-color: var(--line);
   overflow: hidden;
 }
 
@@ -1044,11 +1030,11 @@ button:focus-visible {
   gap: 8px;
   font-size: 13px;
   white-space: nowrap;
-  color: rgb(205, 205, 215);
+  color: var(--ink-soft);
 }
 
 .fact + .fact {
-  border-left: 1px solid rgb(52, 49, 59);
+  border-left: 1px solid var(--line);
 }
 
 .fact svg {
@@ -1061,7 +1047,7 @@ button:focus-visible {
 .startCard {
   margin-bottom: 28px;
   padding: 16px 18px 18px;
-  border: 1px solid rgb(62, 60, 72);
+  border: 1px solid var(--outline);
   border-radius: 15px;
   text-align: left;
 }
@@ -1071,7 +1057,7 @@ button:focus-visible {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
 }
 
 .startCardRow {
@@ -1097,14 +1083,14 @@ button:focus-visible {
 .startCardArea {
   margin-top: 2px;
   font-size: 13px;
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
 }
 
 .startCardNote {
   margin-top: 10px;
   font-size: 13px;
   line-height: 1.5;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
 }
 
 /* A main button with an icon before its words, like GET DIRECTIONS. */
@@ -1127,7 +1113,7 @@ button:focus-visible {
 
 .alreadyThere p {
   font-size: 13px;
-  color: rgb(160, 160, 175);
+  color: var(--ink-muted);
 }
 
 /* A second way forward: a link in red rather than a whole button. */
@@ -1139,7 +1125,7 @@ button:focus-visible {
   border-radius: 4px;
   font-size: 12px;
   letter-spacing: 2px;
-  color: rgb(255, 122, 112);
+  color: var(--accent-ink);
   cursor: pointer;
   transition:
     color 0.2s ease,
@@ -1148,7 +1134,7 @@ button:focus-visible {
 
 @media (hover: hover) {
   .textLink:hover {
-    color: white;
+    color: var(--ink);
     text-shadow: 0 0 12px rgba(214, 48, 48, 0.8);
   }
 }
@@ -1165,7 +1151,7 @@ button:focus-visible {
   margin: 14px 4px 0;
   font-size: 13px;
   line-height: 1.5;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
   text-align: left;
 }
 
@@ -1192,17 +1178,17 @@ button:focus-visible {
   border: 1px solid var(--border);
   border-radius: 15px;
   font-size: 13px;
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
   animation: placeholderPulse 1.6s ease-in-out infinite;
 }
 
 @keyframes placeholderPulse {
   0%,
   100% {
-    background-color: rgb(28, 28, 36);
+    background-color: var(--placeholder-dim);
   }
   50% {
-    background-color: rgb(38, 38, 48);
+    background-color: var(--placeholder-lit);
   }
 }
 
@@ -1223,7 +1209,7 @@ button:focus-visible {
 .detourCard {
   margin-top: 28px;
   padding: 16px 18px 18px;
-  border: 1px solid rgb(62, 60, 72);
+  border: 1px solid var(--outline);
   border-radius: 15px;
   text-align: left;
 }
@@ -1231,7 +1217,7 @@ button:focus-visible {
 .detourCardText {
   font-size: 14px;
   line-height: 1.55;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
 }
 
 .arrivedPage .detourCard .introBtn {
@@ -1241,7 +1227,7 @@ button:focus-visible {
 .detourSkip {
   margin-top: 22px;
   font-size: 13px;
-  color: rgb(160, 160, 175);
+  color: var(--ink-muted);
 }
 
 .arrivedPage .detourSkip + .introBtn {
@@ -1283,7 +1269,7 @@ button:focus-visible {
 .narrationPlay {
   border: 1px solid var(--globe-salmon);
   box-shadow: inset 0 0 8px var(--globe-salmon);
-  color: white;
+  color: var(--ink);
 }
 
 .narrationPlay svg {
@@ -1311,8 +1297,8 @@ button:focus-visible {
 }
 
 .narrationRestart {
-  border: 1px solid rgb(62, 60, 72);
-  color: rgb(160, 160, 175);
+  border: 1px solid var(--outline);
+  color: var(--ink-muted);
 }
 
 .narrationRestart svg {
@@ -1334,7 +1320,7 @@ button:focus-visible {
 
   .narrationRestart:hover {
     border-color: var(--globe-salmon);
-    color: white;
+    color: var(--ink);
   }
 }
 
@@ -1342,17 +1328,20 @@ button:focus-visible {
 .narration span {
   transition:
     color 0.15s ease,
-    text-shadow 0.15s ease;
+    text-shadow 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .narration span.isSpoken {
-  color: white;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+  color: var(--ink);
+  text-shadow: var(--spoken-glow);
+  background-color: var(--spoken-bg);
+  border-radius: 3px;
 }
 
 /* For voices that don't say which word they're on: the whole paragraph. */
 .narration p.isSpoken {
-  color: white;
+  color: var(--ink);
   transition: color 0.3s ease;
 }
 
@@ -1360,14 +1349,14 @@ button:focus-visible {
   font-family: 'Times New Roman', Times, serif;
   font-size: 28px;
   line-height: 1.15;
-  color: white;
+  color: var(--ink);
 }
 
 .narration .narrationClose {
   font-family: 'Times New Roman', Times, serif;
   font-style: italic;
   font-size: 19px;
-  color: rgb(205, 205, 215);
+  color: var(--ink-soft);
 }
 
 /* SKIP THIS DETOUR, under I'M HERE on a detour's directions screen. */
@@ -1389,13 +1378,13 @@ button:focus-visible {
   margin: 4px auto 0;
   font-size: 14px;
   line-height: 1.5;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
 }
 
 .detourOption {
   margin-top: 18px;
   overflow: hidden;
-  border: 1px solid rgb(62, 60, 72);
+  border: 1px solid var(--outline);
   border-radius: 15px;
   text-align: left;
   transition: opacity 0.3s ease;
@@ -1417,20 +1406,14 @@ button:focus-visible {
   transition: filter 0.3s ease;
 }
 
-/* Darkened at the bottom for the name, and a little at the top for the
-   VISITED tag. */
+/* Shaded at the bottom for the name, and a little at the top for the
+   VISITED tag: dark or light, with the theme. */
 .detourOptionPhoto::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 16, 0.45) 0%,
-    rgba(10, 10, 16, 0) 30%,
-    rgba(10, 10, 16, 0) 45%,
-    rgba(10, 10, 16, 0.85) 100%
-  );
+  background: var(--thumb-fade);
 }
 
 .detourOptionPhoto .heroTitle {
@@ -1448,8 +1431,19 @@ button:focus-visible {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
-  color: white;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  color: var(--photo-ink);
+  text-shadow: var(--photo-glow-strong);
+}
+
+/* On the light fade, the tag sits in a frosted pill so it reads over a busy
+   photo, like IN PROGRESS. Moved in a touch, so its words stay put. */
+:root[data-theme='light'] .detourTakenTag {
+  top: 8px;
+  left: 8px;
+  padding: 4px 9px;
+  background-color: var(--photo-pill);
+  border-radius: 999px;
+  text-shadow: none;
 }
 
 .detourOptionBody {
@@ -1459,7 +1453,7 @@ button:focus-visible {
 .detourOptionTeaser {
   font-size: 14px;
   line-height: 1.55;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
 }
 
 .detourOption .introBtn {
@@ -1478,8 +1472,8 @@ button:focus-visible {
 /* DETOUR TAKEN: shaped like a button, but nothing to press. */
 .introBtn.isDone {
   background-color: transparent;
-  border-color: rgb(62, 60, 72);
-  color: rgb(140, 140, 158);
+  border-color: var(--outline);
+  color: var(--ink-faint);
   box-shadow: none;
   cursor: default;
   transform: none;
@@ -1502,7 +1496,7 @@ button:focus-visible {
   margin-bottom: 14px;
   font-size: 15px;
   line-height: 1.65;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
 }
 
 .memoryStory p:last-child {
@@ -1595,7 +1589,7 @@ button:focus-visible {
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgb(255, 122, 112);
+  color: var(--accent-ink);
 }
 
 .timelineName {
@@ -1609,7 +1603,7 @@ button:focus-visible {
   margin-top: 3px;
   font-size: 13px;
   line-height: 1.45;
-  color: rgb(160, 160, 175);
+  color: var(--ink-muted);
 }
 
 /* The peak: a wide photo above its words, and a bigger, filled dot. */
@@ -1687,15 +1681,15 @@ button:focus-visible {
 }
 
 .timelineStop.isSkipped .timelineDot {
-  border-color: rgb(90, 88, 100);
+  border-color: var(--ink-placeholder);
 }
 
 .timelineStop.isSkipped::before {
-  border-top-color: rgb(70, 68, 80);
+  border-top-color: var(--outline);
 }
 
 .timelineStop.isSkipped .timelinePhase {
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
 }
 
 .memoryPage .divider.sectionBreak {
@@ -1721,7 +1715,7 @@ button:focus-visible {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
 }
 
 .surveyStep .progressBar {
@@ -1744,20 +1738,20 @@ button:focus-visible {
   box-sizing: border-box;
   width: 100%;
   padding: 13px 14px;
-  background-color: rgb(30, 30, 38);
-  border: 1px solid rgb(62, 60, 72);
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
   border-radius: 10px;
   font: inherit;
   font-size: 16px;
   line-height: 1.5;
-  color: white;
+  color: var(--ink);
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .surveyInput::placeholder {
-  color: rgb(110, 110, 128);
+  color: var(--ink-placeholder);
 }
 
 .surveyInput:focus {
@@ -1780,11 +1774,11 @@ button:focus-visible {
 .surveyChoice {
   flex: 1;
   padding: 14px 8px;
-  background-color: rgb(30, 30, 38);
-  border: 1px solid rgb(62, 60, 72);
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
   border-radius: 10px;
   font-size: 15px;
-  color: rgb(205, 205, 215);
+  color: var(--ink-soft);
   cursor: pointer;
   transition:
     border-color 0.2s ease,
@@ -1794,7 +1788,7 @@ button:focus-visible {
 
 .surveyChoice.isChosen {
   border-color: var(--globe-salmon);
-  color: white;
+  color: var(--ink);
   box-shadow:
     inset 0 0 10px rgba(214, 48, 48, 0.35),
     0 0 14px rgba(214, 48, 48, 0.35);
@@ -1823,7 +1817,7 @@ button:focus-visible {
   margin-top: 16px;
   font-size: 13px;
   line-height: 1.5;
-  color: rgb(255, 122, 112);
+  color: var(--accent-ink);
 }
 
 .surveyDone {
@@ -1839,7 +1833,7 @@ button:focus-visible {
 .surveyDone p {
   font-size: 15px;
   line-height: 1.6;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
 }
 
 .surveyDone .introBtn {
@@ -1870,9 +1864,9 @@ button:focus-visible {
   box-sizing: border-box;
   height: calc(60px + var(--frame-bottom));
   padding-bottom: var(--frame-bottom);
-  background-color: rgba(14, 15, 20, 0.94);
+  background-color: var(--nav-bg);
   backdrop-filter: blur(10px);
-  border-top: 1px solid rgb(46, 48, 58);
+  border-top: 1px solid var(--nav-line);
 }
 
 .navTab {
@@ -1887,7 +1881,7 @@ button:focus-visible {
   border: none;
   font-size: 11px;
   letter-spacing: 0.5px;
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
   cursor: pointer;
   transition: color 0.2s ease;
 }
@@ -1900,7 +1894,7 @@ button:focus-visible {
 
 /* The tab you're on lights up red. */
 .navTab.isCurrent {
-  color: rgb(255, 122, 112);
+  color: var(--accent-ink);
 }
 
 .navTab.isCurrent .navIcon {
@@ -1909,7 +1903,7 @@ button:focus-visible {
 
 @media (hover: hover) {
   .navTab:not(.isCurrent):hover {
-    color: white;
+    color: var(--ink);
   }
 }
 
@@ -1922,7 +1916,7 @@ button:focus-visible {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 3px;
-  color: var(--globe-green);
+  color: var(--green-ink);
 }
 
 .inProgressTag::before {
@@ -1936,7 +1930,7 @@ button:focus-visible {
 
 .featureCard .inProgressTag {
   padding: 6px 11px;
-  background-color: rgba(10, 10, 16, 0.75);
+  background-color: var(--photo-pill);
   border: 1px solid rgba(116, 191, 63, 0.6);
   border-radius: 999px;
 }
@@ -1945,12 +1939,12 @@ button:focus-visible {
    left partway. */
 .homeWelcome {
   margin-bottom: 14px;
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: var(--photo-glow);
 }
 
 .homeGreeting {
   font-size: 14px;
-  color: rgb(225, 225, 232);
+  color: var(--photo-ink-soft);
 }
 
 .homeType {
@@ -1962,7 +1956,7 @@ button:focus-visible {
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: color-mix(in srgb, var(--type-color) 65%, white);
+  color: color-mix(in srgb, var(--type-color) 65%, var(--photo-mix));
 }
 
 .homeType::before {
@@ -1982,13 +1976,13 @@ button:focus-visible {
   width: 100%;
   margin-bottom: 14px;
   padding: 12px 14px;
-  background-color: rgba(10, 10, 16, 0.6);
+  background-color: var(--photo-panel);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(116, 191, 63, 0.55);
   border-radius: 12px;
   box-shadow: 0 0 18px rgba(116, 191, 63, 0.2);
   text-align: left;
-  color: white;
+  color: var(--photo-ink);
   cursor: pointer;
 }
 
@@ -2004,7 +1998,7 @@ button:focus-visible {
 .homeResumeWhere {
   margin-top: 2px;
   font-size: 12.5px;
-  color: rgb(190, 190, 202);
+  color: var(--photo-ink-faint);
 }
 
 .homeResumeGo {
@@ -2013,7 +2007,7 @@ button:focus-visible {
   align-self: center;
   font-size: 11px;
   letter-spacing: 2px;
-  color: var(--globe-green);
+  color: var(--green-ink);
 }
 
 .homeHook .textLink {
@@ -2038,7 +2032,7 @@ button:focus-visible {
 .ownedJourney {
   margin-top: 18px;
   overflow: hidden;
-  border: 1px solid rgb(62, 60, 72);
+  border: 1px solid var(--outline);
   border-radius: 15px;
   text-align: left;
 }
@@ -2052,14 +2046,14 @@ button:focus-visible {
 }
 
 .detourTakenTag.completedTag {
-  color: var(--globe-green);
+  color: var(--green-ink);
 }
 
 /* Making a profile: just a name. */
 .signUpCard {
   margin-top: 24px;
   padding: 16px 18px 18px;
-  border: 1px solid rgb(62, 60, 72);
+  border: 1px solid var(--outline);
   border-radius: 15px;
   text-align: left;
 }
@@ -2091,7 +2085,7 @@ button:focus-visible {
   margin-top: 20px;
   font-size: 13px;
   text-align: center;
-  color: var(--globe-green);
+  color: var(--green-ink);
 }
 
 /* See Your Journey, for a journey that's under way or finished. */
@@ -2102,14 +2096,14 @@ button:focus-visible {
 .seeJourneyWhere {
   margin: -6px 0 6px;
   font-size: 14px;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
 }
 
 .completedNote {
   margin-bottom: 10px;
   font-size: 11px;
   letter-spacing: 2px;
-  color: var(--globe-green);
+  color: var(--green-ink);
 }
 
 /* The Profile page. */
@@ -2119,7 +2113,7 @@ button:focus-visible {
   align-items: center;
   gap: 4px;
   padding: 22px 18px 16px;
-  border: 1px solid rgb(62, 60, 72);
+  border: 1px solid var(--outline);
   border-radius: 15px;
 }
 
@@ -2143,7 +2137,7 @@ button:focus-visible {
     0 0 14px rgba(214, 48, 48, 0.35);
   font-family: 'Times New Roman', Times, serif;
   font-size: 30px;
-  color: white;
+  color: var(--ink);
 }
 
 .profileName {
@@ -2154,7 +2148,7 @@ button:focus-visible {
 
 .profileSince {
   font-size: 13px;
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
 }
 
 .profileCard .textLink {
@@ -2168,7 +2162,7 @@ button:focus-visible {
   gap: 14px;
   margin: 16px 0 28px;
   padding: 14px;
-  border: 1px solid var(--type-color, rgb(62, 60, 72));
+  border: 1px solid var(--type-color, var(--outline));
   border-radius: 15px;
   box-shadow: 0 0 18px color-mix(in srgb, var(--type-color, transparent) 30%, transparent);
   text-align: left;
@@ -2205,8 +2199,8 @@ button:focus-visible {
 
 .statTile {
   padding: 14px;
-  background-color: rgb(24, 25, 32);
-  border: 1px solid rgb(62, 60, 72);
+  background-color: var(--surface-low);
+  border: 1px solid var(--outline);
   border-radius: 12px;
   text-align: left;
 }
@@ -2215,17 +2209,88 @@ button:focus-visible {
   font-family: 'Times New Roman', Times, serif;
   font-size: 30px;
   line-height: 1;
-  color: white;
+  color: var(--ink);
 }
 
 .statLabel {
   margin-top: 6px;
   font-size: 12px;
-  color: rgb(140, 140, 158);
+  color: var(--ink-faint);
+}
+
+/* Settings: a row per setting, with its choice on the right. */
+.settingsTitle {
+  margin-top: 30px;
+}
+
+.settingsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  background-color: var(--surface-low);
+  border: 1px solid var(--outline);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.settingsName {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.settingsHint {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+/* Dark | Light, side by side in one pill. The chosen one is filled red. */
+.themeSwitch {
+  display: flex;
+  flex-shrink: 0;
+  padding: 3px;
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+}
+
+.themeOption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  background-color: transparent;
+  border: none;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.themeOption.isChosen {
+  background-color: var(--globe-salmon);
+  color: white;
+  box-shadow: 0 0 12px rgba(214, 48, 48, 0.45);
+}
+
+.themeIcon {
+  width: 15px;
+  height: 15px;
+}
+
+@media (hover: hover) {
+  .themeOption:not(.isChosen):hover {
+    color: var(--ink);
+  }
 }
 
 .backBtn.deleteLink {
-  color: rgb(255, 122, 112);
+  color: var(--accent-ink);
 }
 
 .profilePage .deleteLink {
@@ -2234,7 +2299,7 @@ button:focus-visible {
 
 @media (hover: hover) {
   .backBtn.deleteLink:hover {
-    color: white;
+    color: var(--ink);
   }
 }
 
@@ -2260,8 +2325,8 @@ button:focus-visible {
   width: 100%;
   max-width: 320px;
   padding: 26px 22px 14px;
-  background-color: rgb(30, 30, 38);
-  border: 1px solid rgb(62, 60, 72);
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
   border-radius: 15px;
   box-shadow:
     0 20px 50px rgba(0, 0, 0, 0.5),
@@ -2278,7 +2343,7 @@ button:focus-visible {
 .promptBox p {
   font-size: 14px;
   line-height: 1.5;
-  color: rgb(190, 190, 202);
+  color: var(--ink-body);
   margin-bottom: 14px;
 }
 

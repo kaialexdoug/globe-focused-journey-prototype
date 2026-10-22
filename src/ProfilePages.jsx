@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import Header from './Header.jsx'
 import PromptBox from './PromptBox.jsx'
-import { HomeIcon, PersonIcon, RouteIcon } from './Icons.jsx'
+import { HomeIcon, MoonIcon, PersonIcon, RouteIcon, SunIcon } from './Icons.jsx'
 import { PERSONALITIES } from './quizData'
 
 // Everything for the profile: the navbar along the bottom of Home, My
@@ -255,7 +255,41 @@ export function MyJourneysPage({
 
 // --- Profile ---
 
-export function ProfilePage({ profile, onCreateProfile, onRename, onTakeQuiz, onDelete }) {
+const THEMES = [
+  { value: 'dark', label: 'Dark', Icon: MoonIcon },
+  { value: 'light', label: 'Light', Icon: SunIcon },
+]
+
+// Settings for this device. They work with or without a profile.
+function SettingsSection({ theme, onThemeChange }) {
+  return (
+    <>
+      <h2 className="sectionTitle settingsTitle">Settings</h2>
+      <div className="settingsRow">
+        <div>
+          <p className="settingsName" id="appearanceLabel">Appearance</p>
+          <p className="settingsHint">For this device</p>
+        </div>
+        <div className="themeSwitch" role="radiogroup" aria-labelledby="appearanceLabel">
+          {THEMES.map(({ value, label, Icon }) => (
+            <button
+              key={value}
+              className={theme === value ? 'themeOption isChosen' : 'themeOption'}
+              role="radio"
+              aria-checked={theme === value}
+              onClick={() => onThemeChange(value)}
+            >
+              <Icon className="themeIcon" />
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </>
+  )
+}
+
+export function ProfilePage({ profile, theme, onThemeChange, onCreateProfile, onRename, onTakeQuiz, onDelete }) {
   const [editingName, setEditingName] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
 
@@ -270,6 +304,7 @@ export function ProfilePage({ profile, onCreateProfile, onRename, onTakeQuiz, on
             text="Just a name, no password. Your traveler type and journeys are then kept on this device, so you won’t need to retake the quiz."
             onCreate={onCreateProfile}
           />
+          <SettingsSection theme={theme} onThemeChange={onThemeChange} />
         </div>
       </div>
     )
@@ -336,6 +371,8 @@ export function ProfilePage({ profile, onCreateProfile, onRename, onTakeQuiz, on
             </div>
           ))}
         </div>
+
+        <SettingsSection theme={theme} onThemeChange={onThemeChange} />
 
         <button className="backBtn pageEndLink deleteLink" onClick={() => setConfirmDelete(true)}>
           DELETE PROFILE

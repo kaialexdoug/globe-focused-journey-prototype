@@ -11,10 +11,87 @@
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
+  /* The colours of the page itself. Dark by default, whatever the device is
+     set to, so the app looks the same wherever it's opened. Light mode
+     (Profile → Settings) swaps them for the ones further down. Words and
+     marks on top of a photo keep their own white-on-dark colours. */
+  --ink: white;
+  --ink-soft: rgb(205, 205, 215);
+  --ink-body: rgb(190, 190, 202);
+  --ink-muted: rgb(160, 160, 175);
+  --ink-faint: rgb(140, 140, 158);
+  --ink-label: rgb(116, 119, 144);
+  --ink-link: rgb(132, 135, 160);
+  --ink-placeholder: rgb(110, 110, 128);
+  --accent-ink: rgb(255, 122, 112);
+  --green-ink: var(--globe-green);
+  --surface: rgb(30, 30, 38);
+  --surface-low: rgb(24, 25, 32);
+  --line: rgb(52, 49, 59);
+  --outline: rgb(62, 60, 72);
+  --page-top: rgb(48, 48, 60);
+  --nav-bg: rgba(14, 15, 20, 0.94);
+  --nav-line: rgb(46, 48, 58);
+  --placeholder-dim: rgb(28, 28, 36);
+  --placeholder-lit: rgb(38, 38, 48);
+  --photo-outline: rgba(255, 255, 255, 0.14);
+
+  /* The full-width photos (Home, and the tops of the journey screens) fade
+     into the page in the theme's own colour, shaded at the top for the
+     header and at the bottom for the title. The words on them follow suit:
+     light on the dark fade, dark on the light one. */
+  --home-fade: linear-gradient(
+    to bottom,
+    rgba(10, 10, 16, 0.65) 0%,
+    rgba(10, 10, 16, 0) 22%,
+    rgba(10, 10, 16, 0) 42%,
+    rgba(22, 23, 29, 0.85) 76%,
+    rgb(22, 23, 29) 100%
+  );
+  --hero-fade: linear-gradient(
+    to bottom,
+    rgba(10, 10, 16, 0.72) 0%,
+    rgba(10, 10, 16, 0) 32%,
+    rgba(10, 10, 16, 0) 42%,
+    rgba(22, 23, 29, 0.8) 76%,
+    rgb(22, 23, 29) 100%
+  );
+  /* The photo cards (Browse, My Journeys, Detours) are shaded the same way:
+     the big journey cards, and the smaller photo strips. */
+  --card-fade: linear-gradient(
+    to bottom,
+    rgba(10, 10, 16, 0.55) 0%,
+    rgba(10, 10, 16, 0) 20%,
+    rgba(10, 10, 16, 0) 36%,
+    rgba(10, 10, 16, 0.78) 62%,
+    rgba(10, 10, 16, 0.95) 100%
+  );
+  --thumb-fade: linear-gradient(
+    to bottom,
+    rgba(10, 10, 16, 0.45) 0%,
+    rgba(10, 10, 16, 0) 30%,
+    rgba(10, 10, 16, 0) 45%,
+    rgba(10, 10, 16, 0.85) 100%
+  );
+  --photo-ink: white;
+  --photo-ink-soft: rgb(215, 215, 220);
+  --photo-ink-faint: rgb(190, 190, 202);
+  --photo-pill: rgba(10, 10, 16, 0.75);
+  --photo-accent: rgb(255, 122, 112);
+  --photo-mix: white;
+  --photo-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  --photo-glow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  --photo-glow-strong: 0 0 8px rgba(0, 0, 0, 0.8);
+  --photo-panel: rgba(10, 10, 16, 0.6);
+  --photo-panel-soft: rgba(10, 10, 16, 0.4);
+
+  --icon-filter: none;
+  --icon-glow: 0 0 10px rgba(255, 255, 255, 0.5);
+  --spoken-glow: 0 0 12px rgba(255, 255, 255, 0.5);
+  --spoken-bg: transparent;
+
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  /* Always dark, even on a laptop set to light mode, so the presentation
-     looks the same wherever it's opened. */
   color-scheme: dark;
   color: var(--text);
   background: var(--bg);
@@ -26,6 +103,90 @@
   @media (max-width: 1024px) {
     font-size: 16px;
   }
+}
+
+/* Light mode: warm off-white paper, with the same red. */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --text: rgb(88, 86, 98);
+  --text-h: rgb(28, 27, 33);
+  --bg: rgb(246, 244, 240);
+  --border: rgb(214, 209, 202);
+
+  --ink: rgb(28, 27, 33);
+  --ink-soft: rgb(58, 56, 66);
+  --ink-body: rgb(68, 66, 76);
+  --ink-muted: rgb(90, 88, 100);
+  --ink-faint: rgb(104, 102, 114);
+  --ink-label: rgb(104, 102, 120);
+  --ink-link: rgb(96, 94, 116);
+  --ink-placeholder: rgb(140, 138, 148);
+  --accent-ink: rgb(190, 40, 36);
+  --green-ink: rgb(58, 124, 26);
+  --surface: white;
+  --surface-low: rgb(251, 250, 248);
+  --line: rgb(226, 221, 214);
+  --outline: rgb(214, 209, 202);
+  --page-top: rgb(233, 228, 221);
+  --nav-bg: rgba(250, 249, 246, 0.94);
+  --nav-line: rgb(222, 217, 210);
+  --placeholder-dim: rgb(236, 233, 228);
+  --placeholder-lit: rgb(226, 222, 216);
+  --photo-outline: rgba(0, 0, 0, 0.1);
+
+  /* Full-width photos fade into the paper instead, with dark words on them
+     and a soft paper-coloured glow behind the words. */
+  /* Home's fades sooner than in dark mode, so the words underneath sit on
+     paper rather than on the busy middle of the photo. */
+  --home-fade: linear-gradient(
+    to bottom,
+    rgba(246, 244, 240, 0.8) 0%,
+    rgba(246, 244, 240, 0) 20%,
+    rgba(246, 244, 240, 0) 26%,
+    rgba(246, 244, 240, 0.9) 50%,
+    rgb(246, 244, 240) 68%
+  );
+  --hero-fade: linear-gradient(
+    to bottom,
+    rgba(246, 244, 240, 0.82) 0%,
+    rgba(246, 244, 240, 0) 32%,
+    rgba(246, 244, 240, 0) 40%,
+    rgba(246, 244, 240, 0.88) 74%,
+    rgb(246, 244, 240) 100%
+  );
+  --card-fade: linear-gradient(
+    to bottom,
+    rgba(246, 244, 240, 0.7) 0%,
+    rgba(246, 244, 240, 0) 20%,
+    rgba(246, 244, 240, 0) 34%,
+    rgba(246, 244, 240, 0.88) 58%,
+    rgba(246, 244, 240, 0.97) 100%
+  );
+  --thumb-fade: linear-gradient(
+    to bottom,
+    rgba(246, 244, 240, 0.65) 0%,
+    rgba(246, 244, 240, 0) 30%,
+    rgba(246, 244, 240, 0) 42%,
+    rgba(246, 244, 240, 0.92) 100%
+  );
+  --photo-ink: rgb(28, 27, 33);
+  --photo-ink-soft: rgb(62, 60, 70);
+  --photo-ink-faint: rgb(84, 82, 94);
+  --photo-pill: rgba(255, 255, 255, 0.85);
+  --photo-accent: rgb(190, 40, 36);
+  --photo-mix: black;
+  --photo-shadow: 0 0 16px rgba(246, 244, 240, 0.9);
+  --photo-glow: 0 0 10px rgba(246, 244, 240, 0.9);
+  --photo-glow-strong: 0 0 8px rgb(246, 244, 240);
+  --photo-panel: rgba(255, 255, 255, 0.75);
+  --photo-panel-soft: rgba(255, 255, 255, 0.6);
+
+  /* The light grey line icons on Find My Journey, turned dark. */
+  --icon-filter: invert(1) brightness(0.55);
+  --icon-glow: none;
+  /* The word being read aloud: picked out with a soft red highlight. */
+  --spoken-glow: none;
+  --spoken-bg: rgba(214, 48, 48, 0.14);
 }
 
 body {

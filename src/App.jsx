@@ -26,6 +26,8 @@ import {
   storeProfile,
   loadProgress,
   storeProgress,
+  loadSettings,
+  storeSettings,
   newProfile,
   withJourneyStarted,
   withJourneyCompleted,
@@ -114,10 +116,19 @@ function App() {
   // Looking back at a finished journey's Memory page, from My Journeys.
   const [revisitingMemory, setRevisitingMemory] = useState(false)
 
+  // Settings for this device, like light or dark mode (Profile → Settings).
+  const [settings, setSettings] = useState(loadSettings)
+
   // The profile is kept on this device whenever it changes.
   useEffect(() => {
     storeProfile(profile)
   }, [profile])
+
+  // So are the settings, and the theme is put on the page.
+  useEffect(() => {
+    document.documentElement.dataset.theme = settings.theme
+    storeSettings(settings)
+  }, [settings])
 
   // So is where you are in a journey that's being saved, at every step, so
   // it can be picked up again even after closing the app.
@@ -228,6 +239,8 @@ function App() {
     content = (
       <ProfilePage
         profile={profile}
+        theme={settings.theme}
+        onThemeChange={(theme) => setSettings({ ...settings, theme })}
         onCreateProfile={createProfile}
         onRename={(name) => setProfile({ ...profile, name })}
         onTakeQuiz={() => setPage('find')}
