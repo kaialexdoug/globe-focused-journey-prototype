@@ -4,13 +4,14 @@ import sceneryLogo from './assets/nature_icon.svg'
 import exploreLogo from './assets/scenic_routes_icon.svg'
 import experienceLogo from './assets/weird_and_wonderful_icon.svg'
 
-import Header, { PhotoHero } from './Header.jsx'
+import Header from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import Questionnaire from './Questionnaire.jsx'
 import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
+import PhotoScreen from './PhotoScreen.jsx'
 import {
   NavBar,
   MyJourneysPage,
@@ -715,6 +716,8 @@ const journeys = {
   "The Collector": kawagoeJourney
 }
 
+// Like a journey stop: the journey's photo fills the screen, and everything
+// about it is in the panel pulled up from the bottom. ✕ goes back to Home.
 // `underWay` is where you left this journey, if it's on your profile
 // partway through: then it offers RESUME JOURNEY instead. `completed` says
 // you've finished it before.
@@ -730,95 +733,92 @@ function SeeJourneyPage({
   const journey = travelerType ? journeys[travelerType.name] : kawagoeJourney
 
   return (
-    <div className="journeyPage">
-      <PhotoHero
-        photo={journey.photo}
-        photoAlt={journey.photoAlt}
-        kicker="Your journey"
-        label={journey.location}
-        title={journey.name}
-        size="isTall"
-      />
+    <PhotoScreen
+      className="journeyPage"
+      photo={journey.photo}
+      photoAlt={journey.photoAlt}
+      kicker="Your journey"
+      label={journey.location}
+      title={journey.name}
+      sheetLabel="SEE JOURNEY DETAILS"
+      sheetKicker="Your journey"
+      onClose={onHome}
+      closeLabel="Back to home"
+    >
+      <p className="heroTagline">{journey.tagline}</p>
 
-      <div className="pageBody">
-        <p className="heroTagline">{journey.tagline}</p>
+      <div className="factsRow">
+        <span className="fact">
+          <ClockIcon />
+          {journey.time}
+        </span>
+        <span className="fact">
+          <WalkIcon />
+          {journey.walking}
+        </span>
+        <span className="fact">
+          <RouteIcon />
+          {journey.stops}
+        </span>
+      </div>
 
-        <div className="factsRow">
-          <span className="fact">
-            <ClockIcon />
-            {journey.time}
-          </span>
-          <span className="fact">
-            <WalkIcon />
-            {journey.walking}
-          </span>
-          <span className="fact">
-            <RouteIcon />
-            {journey.stops}
-          </span>
-        </div>
-
-        <div className="startCard">
-          <p className="startCardLabel">START HERE</p>
-          <div className="startCardRow">
-            <PinIcon />
-            <div>
-              <p className="startCardName">{journey.start.name}</p>
-              <p className="startCardArea">{journey.startArea}</p>
-              <p className="startCardNote">{journey.startNote}</p>
-            </div>
+      <div className="startCard">
+        <p className="startCardLabel">START HERE</p>
+        <div className="startCardRow">
+          <PinIcon />
+          <div>
+            <p className="startCardName">{journey.start.name}</p>
+            <p className="startCardArea">{journey.startArea}</p>
+            <p className="startCardNote">{journey.startNote}</p>
           </div>
         </div>
-
-        <h2 className="sectionTitle">Why we recommend this journey</h2>
-        <div className="bodyText">
-          {journey.why.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
-
-        <div className="divider sectionBreak"></div>
-
-        <div className="testTakeBtnContainer">
-          {underWay ? (
-            <>
-              <p className="inProgressTag">IN PROGRESS</p>
-              <h2 className="mainHook">Pick up where you left off?</h2>
-              <p className="seeJourneyWhere">{underWay.text}</p>
-              <button className="introBtn" onClick={onResume}>
-                RESUME JOURNEY ➜
-              </button>
-              <div className="alreadyThere">
-                <p>Rather start again from the beginning?</p>
-                <button className="textLink" onClick={onBeginJourney}>
-                  START OVER ➜
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              {completed && <p className="completedNote">✓ You’ve completed this journey</p>}
-              <h2 className="mainHook">
-                {completed ? 'Ready to do it again?' : 'Are you ready to embark on this adventure?'}
-              </h2>
-              <button className="introBtn hasIcon" onClick={onBeginJourney}>
-                <NavigateIcon />
-                GET DIRECTIONS TO THE START
-              </button>
-              <div className="alreadyThere">
-                <p>Already at the starting point?</p>
-                <button className="textLink" onClick={onSkipToFirstStop}>
-                  {completed ? 'BEGIN JOURNEY AGAIN ➜' : 'BEGIN JOURNEY ➜'}
-                </button>
-              </div>
-            </>
-          )}
-          <button className="backBtn" onClick={onHome}>
-            BACK TO HOME
-          </button>
-        </div>
       </div>
-    </div>
+
+      <h2 className="sectionTitle">Why we recommend this journey</h2>
+      <div className="bodyText">
+        {journey.why.map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
+      </div>
+
+      <div className="divider sectionBreak"></div>
+
+      <div className="testTakeBtnContainer">
+        {underWay ? (
+          <>
+            <p className="inProgressTag">IN PROGRESS</p>
+            <h2 className="mainHook">Pick up where you left off?</h2>
+            <p className="seeJourneyWhere">{underWay.text}</p>
+            <button className="introBtn" onClick={onResume}>
+              RESUME JOURNEY ➜
+            </button>
+            <div className="alreadyThere">
+              <p>Rather start again from the beginning?</p>
+              <button className="textLink" onClick={onBeginJourney}>
+                START OVER ➜
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            {completed && <p className="completedNote">✓ You’ve completed this journey</p>}
+            <h2 className="mainHook">
+              {completed ? 'Ready to do it again?' : 'Are you ready to embark on this adventure?'}
+            </h2>
+            <button className="introBtn hasIcon" onClick={onBeginJourney}>
+              <NavigateIcon />
+              GET DIRECTIONS TO THE START
+            </button>
+            <div className="alreadyThere">
+              <p>Already at the starting point?</p>
+              <button className="textLink" onClick={onSkipToFirstStop}>
+                {completed ? 'BEGIN JOURNEY AGAIN ➜' : 'BEGIN JOURNEY ➜'}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </PhotoScreen>
   )
 }
 

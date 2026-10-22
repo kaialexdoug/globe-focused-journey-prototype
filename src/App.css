@@ -995,11 +995,20 @@ button:focus-visible {
 }
 
 /* --- Your journey ---
-   The pages that open on a full-width photo fade in without sliding up, so
-   the photo stays against the top of the screen. */
+   Like a journey stop (see A journey stop, below): the journey's photo
+   fills the screen, with all of this in the pull-up panel. */
 
-.journeyPage {
-  animation: fadeIn 0.5s ease both;
+/* The buttons at the end, in the panel's own margins. */
+.sheetBody .testTakeBtnContainer {
+  padding: 0;
+}
+
+/* Under the journey's name at the top of the panel: a little apart from
+   it, and softer, so the two don't run together. */
+.sheetBody .heroTagline {
+  margin-top: 14px;
+  font-size: 20px;
+  color: var(--ink-soft);
 }
 
 .heroTagline {
@@ -1136,11 +1145,11 @@ button:focus-visible {
 }
 
 /* --- A journey stop ---
-   Every stop on the journey (StopPages.jsx), like a Reel: its photo fills
-   the screen, with what to do there in a panel pulled up from the bottom
-   (BottomSheet.jsx). */
+   Every stop on the journey, and See Your Journey (PhotoScreen.jsx), like a
+   Reel: the photo fills the screen, with everything else in a panel pulled
+   up from the bottom (BottomSheet.jsx). */
 
-.stopScreen {
+.photoScreen {
   /* How much of the closed panel shows: just its handle. */
   --sheet-peek: calc(64px + var(--frame-bottom));
   position: relative;
@@ -1150,7 +1159,7 @@ button:focus-visible {
   animation: fadeIn 0.5s ease both;
 }
 
-.stopPhoto {
+.photoScreenPhoto {
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -1160,7 +1169,7 @@ button:focus-visible {
 }
 
 /* Shaded at the top for the header, and lower down for the title. */
-.stopScreen::after {
+.photoScreen::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -1169,13 +1178,13 @@ button:focus-visible {
   pointer-events: none;
 }
 
-.stopScreen .header {
+.photoScreen .header {
   text-shadow: var(--photo-glow);
 }
 
 /* ✕ in the top corner, level with the header: stops the journey. It stays
    above the dimmed photo, so it works with the panel open too. */
-.stopClose {
+.photoScreenClose {
   position: absolute;
   top: calc(7px + var(--frame-top));
   right: 12px;
@@ -1194,14 +1203,14 @@ button:focus-visible {
   cursor: pointer;
 }
 
-.stopClose svg {
+.photoScreenClose svg {
   width: 16px;
   height: 16px;
 }
 
 /* The heading, label and name, small, just above the panel's handle, so
    the photo stays the main thing. */
-.stopTitle {
+.photoScreenTitle {
   position: absolute;
   left: 18px;
   right: 18px;
@@ -1209,11 +1218,11 @@ button:focus-visible {
   text-align: left;
 }
 
-.stopTitle .heroKicker {
+.photoScreenTitle .heroKicker {
   margin-bottom: 8px;
 }
 
-.stopTitle .heroTitle {
+.photoScreenTitle .heroTitle {
   font-size: 28px;
 }
 
@@ -2540,8 +2549,7 @@ button:focus-visible {
   .questionContainer,
   .resultContainer,
   .matchFill,
-  .journeyPage,
-  .stopScreen,
+  .photoScreen,
   .surveyPage,
   .myJourneysPage,
   .profilePage,

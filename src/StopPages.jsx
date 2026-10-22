@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
 import Narration from './Narration.jsx'
-import BottomSheet from './BottomSheet.jsx'
-import { CloseIcon } from './Icons.jsx'
+import PhotoScreen from './PhotoScreen.jsx'
 
 // The two screens every stop on the journey uses, and the Detours page for a
 // stop with detours. Each one is filled in from the cards in journeyStops.js.
@@ -20,37 +19,24 @@ function numberWord(count) {
 // A stop, like a Reel: its photo fills the screen, with its heading, label
 // and name small in the corner, and ✕ for stopping the journey. What to do
 // there (`children`) is in a panel pulled up from the bottom, its handle
-// saying `sheetLabel`, with the stop's name again at the top of it.
+// saying `sheetLabel`.
 function StopScreen({ className, stop, heading, label, sheetLabel, onStopJourney, children }) {
   return (
-    <div className={`stopScreen ${className}`}>
-      <img
-        className="stopPhoto"
-        src={stop.photo}
-        alt={stop.photoAlt}
-        style={{ objectPosition: stop.photoPosition }}
-      />
-      <Header />
-      <button className="stopClose" onClick={onStopJourney} aria-label="Stop journey">
-        <CloseIcon />
-      </button>
-
-      <div className="stopTitle">
-        <p className="heroKicker">{heading}</p>
-        <p className="heroLabel">{label}</p>
-        <h1 className="heroTitle">{stop.name}</h1>
-      </div>
-
-      <BottomSheet label={sheetLabel}>
-        <div className="sheetHeading">
-          <p className="sheetKicker">
-            {heading} · {label}
-          </p>
-          <h2 className="sheetTitle">{stop.name}</h2>
-        </div>
-        {children}
-      </BottomSheet>
-    </div>
+    <PhotoScreen
+      className={className}
+      photo={stop.photo}
+      photoAlt={stop.photoAlt}
+      photoPosition={stop.photoPosition}
+      kicker={heading}
+      label={label}
+      title={stop.name}
+      sheetLabel={sheetLabel}
+      sheetKicker={`${heading} · ${label}`}
+      onClose={onStopJourney}
+      closeLabel="Stop journey"
+    >
+      {children}
+    </PhotoScreen>
   )
 }
 
