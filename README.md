@@ -82,9 +82,17 @@ live site.
 
 ## When a phone shows an old version
 
-The app itself is always fetched fresh when there's a connection, so a new
-version normally shows up the next time it's opened. (GitHub Pages can take
-up to 10 minutes to stop handing out the old one; close it and open it again.)
+The bottom of Profile → Settings says when the version on that phone was
+built. Compare it with when you pushed.
+
+The app checks for a new version every time it's opened, but phones don't
+really reopen an app when you go back to it; they carry on where they left
+off. To open it fresh:
+
+- **iPhone (installed):** swipe up from the bottom and hold to see your open
+  apps, swipe Unfold away, then open it again.
+- **Android (installed):** the same, from the recent apps button.
+- **In a browser tab:** pull down to reload.
 
 If an old photo, icon or style hangs on:
 

@@ -8,11 +8,23 @@
 //                              name on iPhones
 //   public/manifest.webmanifest  the installed app's name, and its colours
 
+/* global __BUILD_TIME__ */
+
 import logo from './assets/unfold-logo.png'
 
 export const APP_NAME = 'Unfold'
 export const APP_TAGLINE = 'Curated. Authentic. Unforgettable.'
 export const APP_LOGO = logo
+
+// When this copy was built (set in vite.config.js), like "24 Oct, 18:31",
+// at the bottom of Profile → Settings. If a phone shows an older time than
+// the latest push, it hasn't picked up the new version yet.
+export const APP_VERSION = new Date(__BUILD_TIME__).toLocaleString(undefined, {
+  day: 'numeric',
+  month: 'short',
+  hour: 'numeric',
+  minute: '2-digit',
+})
 
 // Google Maps Embed API, for the maps on the journey stops. It's visible to
 // anyone using the app, as every embed key is, so it's locked in Google Cloud

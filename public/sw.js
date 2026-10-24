@@ -15,7 +15,7 @@
 // Change this (to "2", "3"...) to throw away everything saved on people's
 // phones and start again, like after changing an icon or the manifest, which
 // keep their names.
-const CACHE_VERSION = '1'
+const CACHE_VERSION = '2'
 const CACHE_NAME = `unfold-${CACHE_VERSION}`
 
 // Where the app lives: "/globe-focused-journey-prototype/" on GitHub Pages,
@@ -38,15 +38,22 @@ const SHELL = [
 // that ever changes.)
 const NEVER_CACHE_HOSTS = ['script.google.com', 'script.googleusercontent.com']
 
+// GitHub Pages tells browsers they can reuse a file for 10 minutes without
+// asking again. This asks again anyway, so a new version is picked up as soon
+// as it's live, not up to 10 minutes later.
+function fresh(url) {
+  return new Request(url, { cache: 'no-cache' })
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE_NAME)
-      await cache.addAll(SHELL)
+      await cache.addAll(SHELL.map(fresh))
       // The page's own script and styles too, which it names in its HTML.
       const page = await (await cache.match(BASE)).text()
       const files = [...page.matchAll(/(?:src|href)="([^"]+\.(?:js|css))"/g)].map((match) => match[1])
-      await cache.addAll(files)
+      await cache.addAll(files.map(fresh))
       // A new version takes over straight away, rather than waiting until
       // every Unfold tab has been closed.
       await self.skipWaiting()
@@ -94,7 +101,7 @@ self.addEventListener('fetch', (event) => {
 async function fromNetworkFirst(request) {
   const cache = await caches.open(CACHE_NAME)
   try {
-    const response = await fetch(request)
+    const response = await fetch(fresh(request.url))
     if (response.ok) {
       // The app's only page, whatever's after it in the address.
       cache.put(BASE, response.clone())

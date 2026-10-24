@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Header from './Header.jsx'
 import PromptBox from './PromptBox.jsx'
+import { APP_VERSION } from './config.js'
 import { HomeIcon, MoonIcon, PersonIcon, RouteIcon, SunIcon } from './Icons.jsx'
 import { PERSONALITIES } from './quizData'
 
@@ -285,6 +286,7 @@ function SettingsSection({ theme, onThemeChange }) {
           ))}
         </div>
       </div>
+      <p className="appVersion">Version · {APP_VERSION}</p>
     </>
   )
 }
