@@ -112,3 +112,16 @@ If an old photo, icon or style hangs on:
 - **On an iPhone:** Settings → Safari (under Apps on newer iPhones) →
   Advanced → Website Data → remove github.io. If it's installed, delete it
   from the home screen and add it again.
+
+## Photo credits
+
+These photos are from Wikimedia Commons, used under their Creative Commons
+licences, which ask for the photographer to be credited. They've been resized
+for the app. Before a public launch, these credits should be shown in the app
+too.
+
+| Photo | Used for | Photographer | Licence |
+| --- | --- | --- | --- |
+| [Odawara Station - 2025 Dec 22 various 04](https://commons.wikimedia.org/wiki/File:Odawara_Station_-_2025_Dec_22_various_04.jpg) | `odawarastation-new.jpg` | Nesnad | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
+| [Odawara castle - 2025 July 23 various 02](https://commons.wikimedia.org/wiki/File:Odawara_castle_-_2025_July_23_various_02.jpg) | `odawaracastle-new.jpg` | Nesnad | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
+| [小田原市郷土文化館2](https://commons.wikimedia.org/wiki/File:%E5%B0%8F%E7%94%B0%E5%8E%9F%E5%B8%82%E9%83%B7%E5%9C%9F%E6%96%87%E5%8C%96%E9%A4%A82.jpg) | `culturemuseum-new.jpg` | Felice Beato II | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |

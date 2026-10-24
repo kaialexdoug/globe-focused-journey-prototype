@@ -21,11 +21,13 @@ import kawagoeCastlePhoto from './assets/journey/kawagoecastle.jpg'
 import hikawaShrinePhoto from './assets/journey/hikawa.jpg'
 import maruyaPhoto from './assets/journey/maruya.jpg'
 
-import odawaraStationPhoto from './assets/journey/odawarastation.jpeg'
+// The "-new" photos are from Wikimedia Commons, and need crediting (see
+// Photo credits in the README).
+import odawaraStationPhoto from './assets/journey/odawarastation-new.jpg'
 import kamabokoDoriPhoto from './assets/journey/kamabokodori.jpg'
-import cultureMuseumPhoto from './assets/journey/culturemuseum.jpg'
+import cultureMuseumPhoto from './assets/journey/culturemuseum-new.jpg'
 import ninjaMuseumPhoto from './assets/journey/ninjacenter.jpg'
-import odawaraCastlePhoto from './assets/journey/odawaracastle.jpg'
+import odawaraCastlePhoto from './assets/journey/odawaracastle-new.jpg'
 import miyukinohamaPhoto from './assets/journey/miyukinohama.jpg'
 
 // --- Adventure in Kawagoe ---
@@ -346,7 +348,7 @@ export const odawaraStation = {
   id: 'odawaraStation',
   name: 'Odawara Station',
   photo: odawaraStationPhoto,
-  photoAlt: 'An old-style wooden shopping street hung with red lanterns, outside Odawara Station',
+  photoAlt: 'The concourse at Odawara Station, under a giant paper lantern reading 小田原',
   memory: 'Where the day began.',
 
   mapPlace: 'Odawara Station',
@@ -443,7 +445,7 @@ export const cultureMuseum = {
   id: 'cultureMuseum',
   name: 'Odawara Local Culture Museum',
   photo: cultureMuseumPhoto,
-  photoAlt: 'Glass cases of ancient pottery and tools in the museum',
+  photoAlt: 'Stone steps up through the trees to the museum, beside its signpost',
   memory: 'The town’s history, in small pieces.',
 
   mapPlace: 'Odawara Local Culture Museum',
@@ -476,7 +478,10 @@ export const odawaraCastle = {
   id: 'odawaraCastle',
   name: 'Odawara Castle',
   photo: odawaraCastlePhoto,
-  photoAlt: 'The white keep of Odawara Castle on its stone walls, among cherry blossoms',
+  photoAlt: 'The white keep of Odawara Castle above its stone walls, under a blue summer sky',
+  // The photo is tall: in a wide space, keep the keep in view rather than the
+  // ground below it.
+  photoPosition: 'center 30%',
   memory: 'The top of the keep, looking out to the bay.',
 
   // Finds the keep itself.
@@ -536,7 +541,7 @@ export const odawaraJourney = {
   name: 'Where the Old Road Meets the Sea',
   location: 'ODAWARA · KANAGAWA, JAPAN',
   photo: odawaraCastlePhoto,
-  photoAlt: 'The white keep of Odawara Castle on its stone walls, among cherry blossoms',
+  photoAlt: 'The white keep of Odawara Castle above its stone walls, under a blue summer sky',
 
   blurb: 'From the old Tokaido road to the castle, and down to the sea.',
   tagline: 'Yours to explore, whenever you’re ready.',
