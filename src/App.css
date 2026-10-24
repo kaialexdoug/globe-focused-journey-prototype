@@ -1134,6 +1134,8 @@ button:focus-visible {
 .photoScreen {
   /* How much of the closed panel shows: just its handle. */
   --sheet-peek: calc(64px + var(--frame-bottom));
+  /* How far its contents fade out as they scroll up under the handle. */
+  --sheet-fade: 20px;
   position: relative;
   height: 100%;
   overflow: hidden;
@@ -1240,8 +1242,13 @@ button:focus-visible {
   transition: transform 0.38s cubic-bezier(0.22, 0.9, 0.3, 1);
 }
 
-/* Tap it, or drag it up or down. The phone mustn't scroll the page instead. */
+/* Tap it, or drag it up or down. The phone mustn't scroll the page instead.
+   It sits over the top of the panel's contents, fading to see-through at its
+   bottom edge, so whatever's scrolled up (like the play button's glow) fades
+   away under it rather than being cut off in a straight line. */
 .sheetHandle {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -1251,7 +1258,7 @@ button:focus-visible {
   box-sizing: border-box;
   height: var(--sheet-peek);
   padding: 0 0 var(--frame-bottom);
-  background-color: transparent;
+  background: linear-gradient(to bottom, var(--bg) calc(100% - var(--sheet-fade)), transparent);
   border: none;
   border-radius: 22px 22px 0 0;
   color: var(--ink);
@@ -1285,12 +1292,15 @@ button:focus-visible {
   transform: rotate(180deg);
 }
 
+/* Starts a little way up under the handle (the same distance it fades over),
+   with that much padding first, so nothing moves until it's scrolled. */
 .sheetBody {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 0 18px calc(28px + var(--frame-bottom));
+  margin-top: calc(-1 * var(--sheet-fade));
+  padding: var(--sheet-fade) 18px calc(28px + var(--frame-bottom));
 }
 
 /* The stop's name again, at the top of the panel, since it covers the one
