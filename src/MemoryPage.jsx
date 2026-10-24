@@ -6,6 +6,10 @@ import { SignUpCard } from './ProfilePages.jsx'
 // every stop with its detours branching off. Detours you skipped are still
 // there, greyed out. Everything comes from the journey's card in
 // journeyStops.js; `detoursTaken` is the ids of the detours you took.
+//
+// A journey's card has either a `story`, told part by part with a line about
+// the detours you took (Kawagoe), or a `wrapUp`: a heading, a few words to
+// close the day, and the day in short (Odawara).
 
 // The line about detours that ends the story's build paragraph.
 function detourLine(story, allDetours, taken) {
@@ -49,7 +53,7 @@ function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSur
   const allDetours = journey.route.flatMap((stop) => stop.detours ?? [])
   const taken = allDetours.filter((detour) => detoursTaken.includes(detour.id)).map((detour) => detour.id)
   const stopCount = journey.route.length + taken.length
-  const story = journey.story
+  const { story, wrapUp } = journey
 
   // The timeline, top to bottom: each stop, and after any stop with detours,
   // a branch holding them.
@@ -73,7 +77,7 @@ function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSur
       />
 
       <div className="pageBody">
-        <p className="heroTagline">You made it to the end. Here’s the day you had.</p>
+        <p className="heroTagline">{wrapUp ? wrapUp.heading : 'You made it to the end. Here’s the day you had.'}</p>
 
         <div className="factsRow">
           <span className="fact">
@@ -90,14 +94,26 @@ function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSur
           </span>
         </div>
 
-        <div className="memoryStory">
-          <p>{story.opening}</p>
-          <p>
-            {story.build} {detourLine(story, allDetours, taken)}
-          </p>
-          <p className="memoryStoryPeak">{story.peak}</p>
-          <p>{story.ending}</p>
-        </div>
+        {story ? (
+          <div className="memoryStory">
+            <p>{story.opening}</p>
+            <p>
+              {story.build} {detourLine(story, allDetours, taken)}
+            </p>
+            <p className="memoryStoryPeak">{story.peak}</p>
+            <p>{story.ending}</p>
+          </div>
+        ) : (
+          <>
+            <div className="memoryStory">
+              <p>{wrapUp.message}</p>
+            </div>
+            <h2 className="sectionTitle">Your day, in short</h2>
+            <div className="memoryStory">
+              <p>{wrapUp.summary}</p>
+            </div>
+          </>
+        )}
 
         <h2 className="sectionTitle">Your route</h2>
         <ol className="memoryTimeline">

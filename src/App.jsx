@@ -21,7 +21,7 @@ import {
   SaveExitPrompt,
 } from './ProfilePages.jsx'
 import { ClockIcon, NavigateIcon, PinIcon, RouteIcon, WalkIcon } from './Icons.jsx'
-import { kawagoeStation, imofukudo, tokiNoKane, hikawaShrine, maruya, kawagoeJourney } from './journeyStops'
+import { ALL_JOURNEYS, odawaraJourney } from './journeyStops'
 import { PERSONALITIES, preloadQuizPhotos } from './quizData'
 import {
   loadProfile,
@@ -38,54 +38,69 @@ import './App.css'
 
 // The prototype follows the flow chart:
 //   Opening Screen → Find My Journey → the quiz → your traveler type
-//   → your journey → Departure (Kawagoe Station) → Discovery (Imofukudo)
-//   → Build (Toki no Kane), with optional detours from there (Kawagoe City
-//   Museum, Kawagoe Castle) → Peak (Hikawa Shrine) → Afterglow (MARUYA)
-//   → Memory, looking back on the day → the survey.
+//   → your journey → Departure → Discovery → Build, with optional detours
+//   from there → Peak → Afterglow → Memory, looking back on the day
+//   → the survey.
+// Which stop each part is comes from the journey's card in journeyStops.js
+// (Odawara: the station, Kamaboko-dori, the Local Culture Museum with the
+// NINJA Museum as a detour, the castle, Miyuki-no-Hama).
 // Browse Journeys is the shortcut from the opening screen straight to a journey.
 // Home, My Journeys and Profile have a navbar along the bottom to move
 // between them.
 
-// The pages of the journey itself, and the stop each one is about (a
-// detour's pages are about whichever detour you're on). Used to save where
-// you are, and to say where you left off.
+// The pages of the journey itself, and which part of the journey each one is
+// about (a detour's pages are about whichever detour you're on). Used to
+// save where you are, and to say where you left off.
 const JOURNEY_PAGES = {
-  departure: kawagoeStation,
-  departureInfo: kawagoeStation,
-  discovery: imofukudo,
-  discoveryInfo: imofukudo,
-  build: tokiNoKane,
-  buildInfo: tokiNoKane,
-  detours: tokiNoKane,
+  departure: 'departure',
+  departureInfo: 'departure',
+  discovery: 'discovery',
+  discoveryInfo: 'discovery',
+  build: 'build',
+  buildInfo: 'build',
+  detours: 'build',
   detour: null,
   detourInfo: null,
-  peak: hikawaShrine,
-  peakInfo: hikawaShrine,
-  afterglow: maruya,
-  afterglowInfo: maruya,
+  peak: 'peak',
+  peakInfo: 'peak',
+  afterglow: 'afterglow',
+  afterglowInfo: 'afterglow',
 }
 
 // The pages with the navbar along the bottom.
 const NAVBAR_PAGES = ['home', 'myJourneys', 'profile']
 
-// Every journey there is (just the one, for now), and all their detours.
-const ALL_JOURNEYS = [kawagoeJourney]
-const ALL_DETOURS = kawagoeJourney.route.flatMap((stop) => stop.detours ?? [])
+// Which journey the quiz picks for each traveler type.
+const JOURNEY_FOR_TYPE = {
+  'The Naturalist': odawaraJourney,
+  'The Wanderer': odawaraJourney,
+  'The Collector': odawaraJourney,
+}
+
+// Every journey's detours.
+const ALL_DETOURS = ALL_JOURNEYS.flatMap((journey) => journey.route.flatMap((stop) => stop.detours ?? []))
+
+function journeyWithId(id) {
+  return ALL_JOURNEYS.find((journey) => journey.id === id) ?? null
+}
 
 function travelerTypeNamed(name) {
   return PERSONALITIES.find((each) => each.name === name) ?? null
 }
 
 // Where a saved journey was left off, in words, and how far along the route
-// that is (detours count as being at Toki no Kane, where they branch off).
+// that is (detours count as being at the build stop, where they branch off).
 function whereLeftOff(progress) {
+  const journey = journeyWithId(progress.journeyId)
+  const part = JOURNEY_PAGES[progress.page]
+  const partStop = part ? journey[part] : null
   const detour = ALL_DETOURS.find((each) => each.id === progress.detourId)
-  const stop = JOURNEY_PAGES[progress.page] ?? detour ?? tokiNoKane
+  const stop = partStop ?? detour ?? journey.build
   const arrived = progress.page.endsWith('Info') || progress.page === 'detours'
-  const along = kawagoeJourney.route.indexOf(JOURNEY_PAGES[progress.page] ?? tokiNoKane)
+  const along = journey.route.indexOf(partStop ?? journey.build)
   return {
     text: `${arrived ? 'You’re at' : 'Heading to'} ${stop.name}`,
-    fraction: (along + (arrived ? 1 : 0.5)) / kawagoeJourney.route.length,
+    fraction: (along + (arrived ? 1 : 0.5)) / journey.route.length,
   }
 }
 
@@ -100,6 +115,11 @@ function App() {
   const [profile, setProfile] = useState(loadProfile)
   const [progress, setProgress] = useState(loadProgress)
   const [travelerType, setTravelerType] = useState(() => travelerTypeNamed(profile?.travelerType))
+
+  // The journey you're looking at or on: the one left partway, to begin
+  // with, or else the featured one.
+  const [journeyId, setJourneyId] = useState(() => progress?.journeyId ?? ALL_JOURNEYS[0].id)
+  const journey = journeyWithId(journeyId) ?? ALL_JOURNEYS[0]
 
   const [showStopConfirmation, setShowStopConfirmation] = useState(false);
 
@@ -139,9 +159,9 @@ function App() {
   // it can be picked up again even after closing the app.
   useEffect(() => {
     if (saving && page in JOURNEY_PAGES) {
-      storeProgress({ journeyId: kawagoeJourney.id, page, detourId: detour?.id ?? null, detoursTaken })
+      storeProgress({ journeyId: journey.id, page, detourId: detour?.id ?? null, detoursTaken })
     }
-  }, [saving, page, detour, detoursTaken])
+  }, [saving, page, detour, detoursTaken, journey.id])
 
   // A quiz result goes on your profile too, if you have one.
   const rememberTravelerType = useCallback((type) => {
@@ -165,6 +185,16 @@ function App() {
 
   const stopJourney = () => setShowStopConfirmation(true)
 
+  function openJourney(chosen) {
+    setJourneyId(chosen.id)
+    setPage('seeJourney')
+  }
+
+  // SEE YOUR JOURNEY: the one picked for your traveler type.
+  function seeYourJourney() {
+    openJourney((travelerType && JOURNEY_FOR_TYPE[travelerType.name]) ?? ALL_JOURNEYS[0])
+  }
+
   // With a profile, a journey is saved as you go. Without one, you're asked
   // first whether to make one.
   function beginJourney(firstPage) {
@@ -183,13 +213,14 @@ function App() {
     setRevisitingMemory(false)
     setSaving(Boolean(saveTo))
     if (saveTo) {
-      setProfile(withJourneyStarted(saveTo, kawagoeJourney.id))
+      setProfile(withJourneyStarted(saveTo, journey.id))
       setProgress(null)
     }
     setPage(firstPage)
   }
 
   function resumeJourney() {
+    setJourneyId(progress.journeyId)
     setDetour(ALL_DETOURS.find((each) => each.id === progress.detourId) ?? null)
     setDetoursTaken(progress.detoursTaken)
     setRevisitingMemory(false)
@@ -199,8 +230,8 @@ function App() {
 
   function finishJourney() {
     if (saving) {
-      const stopCount = kawagoeJourney.route.length + detoursTaken.length
-      setProfile(withJourneyCompleted(profile, kawagoeJourney.id, detoursTaken, stopCount))
+      const stopCount = journey.route.length + detoursTaken.length
+      setProfile(withJourneyCompleted(profile, journey.id, detoursTaken, stopCount))
       storeProgress(null)
       setProgress(null)
       setSaving(false)
@@ -213,7 +244,7 @@ function App() {
   // again from My Journeys; otherwise anything saved of this run is dropped.
   function leaveJourney(keep) {
     if (keep) {
-      setProgress({ journeyId: kawagoeJourney.id, page, detourId: detour?.id ?? null, detoursTaken })
+      setProgress({ journeyId: journey.id, page, detourId: detour?.id ?? null, detoursTaken })
     } else if (saving) {
       storeProgress(null)
       setProgress(null)
@@ -224,18 +255,19 @@ function App() {
 
   // Making a profile from the Memory page: this journey goes on it, finished.
   function createProfileFromMemory(name) {
-    const started = withJourneyStarted(newProfile(name, travelerType?.name), kawagoeJourney.id)
-    const stopCount = kawagoeJourney.route.length + detoursTaken.length
-    setProfile(withJourneyCompleted(started, kawagoeJourney.id, detoursTaken, stopCount))
+    const started = withJourneyStarted(newProfile(name, travelerType?.name), journey.id)
+    const stopCount = journey.route.length + detoursTaken.length
+    setProfile(withJourneyCompleted(started, journey.id, detoursTaken, stopCount))
   }
 
-  // The journey left partway, if it's on your profile.
-  const underWay = profile && progress?.journeyId === kawagoeJourney.id ? progress : null
-  const journeyRecord = profile?.journeys[kawagoeJourney.id]
+  // The journey left partway, if it's on your profile (whichever journey it
+  // is), and this journey's record there.
+  const underWay = profile && progress && journeyWithId(progress.journeyId) ? progress : null
+  const journeyRecord = profile?.journeys[journey.id]
 
-  // Toki no Kane's detours you haven't taken yet, and of those, the ones
+  // The build stop's detours you haven't taken yet, and of those, the ones
   // other than the detour you're on.
-  const detoursLeft = tokiNoKane.detours.filter((each) => !detoursTaken.includes(each.id))
+  const detoursLeft = journey.build.detours.filter((each) => !detoursTaken.includes(each.id))
   const otherDetoursLeft = detoursLeft.filter((each) => each !== detour)
 
   let content
@@ -260,9 +292,10 @@ function App() {
         progress={underWay}
         where={underWay ? whereLeftOff(underWay) : null}
         onResume={resumeJourney}
-        onOpenJourney={() => setPage('seeJourney')}
-        onViewMemory={(journey) => {
-          setDetoursTaken(profile.journeys[journey.id].lastDetoursTaken ?? [])
+        onOpenJourney={openJourney}
+        onViewMemory={(chosen) => {
+          setJourneyId(chosen.id)
+          setDetoursTaken(profile.journeys[chosen.id].lastDetoursTaken ?? [])
           setRevisitingMemory(true)
           setPage('memory')
         }}
@@ -273,7 +306,7 @@ function App() {
   } else if (page === 'survey') {
     content = (
       <SurveyPage
-        journey={kawagoeJourney}
+        journey={journey}
         travelerType={travelerType}
         detoursTaken={detoursTaken}
         profileName={profile?.name}
@@ -284,7 +317,7 @@ function App() {
   } else if (page === 'memory') {
     content = (
       <MemoryPage
-        journey={kawagoeJourney}
+        journey={journey}
         detoursTaken={detoursTaken}
         profileName={profile?.name}
         // Only straight after finishing: making a profile, and the survey.
@@ -297,7 +330,7 @@ function App() {
   } else if (page === 'afterglowInfo') {
     content = (
       <ArrivedPage
-        stop={maruya}
+        stop={journey.afterglow}
         continueLabel="FINISH JOURNEY ➜"
         onContinue={finishJourney}
         onStopJourney={stopJourney}
@@ -306,7 +339,7 @@ function App() {
   } else if (page === 'afterglow') {
     content = (
       <DirectionsPage
-        stop={maruya}
+        stop={journey.afterglow}
         onImHere={() => setPage('afterglowInfo')}
         onStopJourney={stopJourney}
       />
@@ -314,7 +347,7 @@ function App() {
   } else if (page === 'peakInfo') {
     content = (
       <ArrivedPage
-        stop={hikawaShrine}
+        stop={journey.peak}
         onContinue={() => setPage('afterglow')}
         onStopJourney={stopJourney}
       />
@@ -322,7 +355,7 @@ function App() {
   } else if (page === 'peak') {
     content = (
       <DirectionsPage
-        stop={hikawaShrine}
+        stop={journey.peak}
         onImHere={() => setPage('peakInfo')}
         onStopJourney={stopJourney}
       />
@@ -332,7 +365,7 @@ function App() {
       <ArrivedPage
         stop={detour}
         detoursLeft={detoursLeft}
-        detoursFrom={tokiNoKane}
+        detoursFrom={journey.build}
         onSeeDetours={() => setPage('detours')}
         onContinue={() => setPage('peak')}
         onStopJourney={stopJourney}
@@ -353,7 +386,7 @@ function App() {
   } else if (page === 'detours') {
     content = (
       <DetoursPage
-        from={tokiNoKane}
+        from={journey.build}
         done={detoursTaken}
         onTakeDetour={(chosen) => {
           setDetour(chosen)
@@ -366,7 +399,7 @@ function App() {
   } else if (page === 'buildInfo') {
     content = (
       <ArrivedPage
-        stop={tokiNoKane}
+        stop={journey.build}
         detoursLeft={detoursLeft}
         onSeeDetours={() => setPage('detours')}
         // Skipping the detours.
@@ -377,7 +410,7 @@ function App() {
   } else if (page === 'build') {
     content = (
       <DirectionsPage
-        stop={tokiNoKane}
+        stop={journey.build}
         onImHere={() => setPage('buildInfo')}
         onStopJourney={stopJourney}
       />
@@ -385,7 +418,7 @@ function App() {
   } else if (page === 'discoveryInfo') {
     content = (
       <ArrivedPage
-        stop={imofukudo}
+        stop={journey.discovery}
         onContinue={() => setPage('build')}
         onStopJourney={stopJourney}
       />
@@ -393,7 +426,7 @@ function App() {
   } else if (page === 'discovery') {
     content = (
       <DirectionsPage
-        stop={imofukudo}
+        stop={journey.discovery}
         onImHere={() => setPage('discoveryInfo')}
         onStopJourney={stopJourney}
       />
@@ -401,7 +434,7 @@ function App() {
   } else if (page === 'departureInfo') {
     content = (
       <ArrivedPage
-        stop={kawagoeStation}
+        stop={journey.departure}
         onContinue={() => setPage('discovery')}
         onStopJourney={stopJourney}
       />
@@ -409,7 +442,7 @@ function App() {
   } else if (page === 'departure') {
     content = (
       <DirectionsPage
-        stop={kawagoeStation}
+        stop={journey.departure}
         onImHere={() => setPage('departureInfo')}
         onStopJourney={stopJourney}
       />
@@ -417,14 +450,15 @@ function App() {
   } else if (page === 'seeJourney') {
     content = (
       <SeeJourneyPage
+        journey={journey}
         onHome={() => setPage('home')}
         onBeginJourney={() => beginJourney('departure')}
-        // Already at the start: skip Kawagoe Station and head for the first stop.
+        // Already at the start: skip the departure and head for the first stop.
         onSkipToFirstStop={() => beginJourney('discovery')}
         onResume={resumeJourney}
-        travelerType={travelerType}
         completed={journeyRecord?.timesCompleted > 0}
-        underWay={underWay ? whereLeftOff(underWay) : null}
+        // Only if it's this journey that was left partway.
+        underWay={underWay?.journeyId === journey.id ? whereLeftOff(underWay) : null}
       />
     )
   } else if (page === 'quiz') {
@@ -432,7 +466,7 @@ function App() {
       <Questionnaire
         onExit={() => setPage('find')}
         onHome={() => setPage('home')}
-        onSeeJourney={() => setPage('seeJourney')}
+        onSeeJourney={seeYourJourney}
         onSetTravelerType={rememberTravelerType}
         profileName={profile?.name}
         onCreateProfile={createProfile}
@@ -448,8 +482,9 @@ function App() {
   } else if (page === 'browse') {
     content = (
       <BrowseJourneyPage
+        journeys={ALL_JOURNEYS}
         onBack={() => setPage('home')}
-        onSelect={() => setPage('seeJourney')}
+        onSelect={openJourney}
         travelerType={travelerType}
       />
     )
@@ -458,10 +493,10 @@ function App() {
       <HomePage
         profile={profile}
         travelerType={travelerType}
-        resume={underWay ? { journey: kawagoeJourney, where: whereLeftOff(underWay) } : null}
+        resume={underWay ? { journey: journeyWithId(underWay.journeyId), where: whereLeftOff(underWay) } : null}
         onResume={resumeJourney}
         onFindJourney={() => setPage('find')}
-        onSeeYourJourney={() => setPage('seeJourney')}
+        onSeeYourJourney={seeYourJourney}
         onBrowseJourney={() => setPage('browse')}
       />
     )
@@ -606,11 +641,8 @@ function HomePage({ profile, travelerType, resume, onResume, onFindJourney, onSe
   )
 }
 
-function BrowseJourneyPage({ onBack, onSelect, travelerType }) {
-  const journey = kawagoeJourney
-  // Once you've taken the quiz, it's been picked for you, and says why.
-  const reason = travelerType ? journey.reasons[travelerType.name] : null
-
+// Every journey, as a big photo card each. The first is the featured one.
+function BrowseJourneyPage({ journeys, onBack, onSelect, travelerType }) {
   return (
     <div className="browseJourneyPage">
       <Header />
@@ -619,19 +651,30 @@ function BrowseJourneyPage({ onBack, onSelect, travelerType }) {
       </button>
 
       <div className="pageBody">
-        {/* The whole card opens the journey. Its button is there to make that
-            obvious, and for the keyboard; its click reaches the card too. */}
-        <div className="featureCard" onClick={onSelect}>
-          <img src={journey.photo} alt="" />
-          <p className="featureCardTag">{travelerType ? 'CHOSEN FOR YOU' : 'FEATURED JOURNEY'}</p>
-          <div className="featureCardText">
-            <p className="heroLabel">{journey.location}</p>
-            <h1 className="heroTitle">{journey.name}</h1>
-            <p className="featureCardBlurb">{journey.blurb}</p>
-            {reason && <p className="featureCardReason">{reason}</p>}
-            <button className="introBtn">EXPLORE THIS JOURNEY ➜</button>
-          </div>
-        </div>
+        {journeys.map((journey, index) => {
+          const featured = index === 0
+          // Once you've taken the quiz, the featured one has been picked for
+          // you, and says why.
+          const reason = featured && travelerType ? journey.reasons[travelerType.name] : null
+
+          return (
+            // The whole card opens the journey. Its button is there to make
+            // that obvious, and for the keyboard; its click reaches the card too.
+            <div key={journey.id} className="featureCard" onClick={() => onSelect(journey)}>
+              <img src={journey.photo} alt="" />
+              {featured && (
+                <p className="featureCardTag">{travelerType ? 'CHOSEN FOR YOU' : 'FEATURED JOURNEY'}</p>
+              )}
+              <div className="featureCardText">
+                <p className="heroLabel">{journey.location}</p>
+                <h2 className="heroTitle">{journey.name}</h2>
+                <p className="featureCardBlurb">{journey.blurb}</p>
+                {reason && <p className="featureCardReason">{reason}</p>}
+                <button className="introBtn">EXPLORE THIS JOURNEY ➜</button>
+              </div>
+            </div>
+          )
+        })}
 
         <div className="comingSoonCard">
           <p className="comingSoonTitle">More journeys coming soon</p>
@@ -713,29 +756,20 @@ function FindJourneyPage({ onStart, onBack }) {
   )
 }
 
-// Which journey each traveler type is matched with.
-const journeys = {
-  "The Naturalist": kawagoeJourney,
-  "The Wanderer": kawagoeJourney,
-  "The Collector": kawagoeJourney
-}
-
 // Like a journey stop: the journey's photo fills the screen, and everything
 // about it is in the panel pulled up from the bottom. ✕ goes back to Home.
 // `underWay` is where you left this journey, if it's on your profile
 // partway through: then it offers RESUME JOURNEY instead. `completed` says
 // you've finished it before.
 function SeeJourneyPage({
+  journey,
   onHome,
   onBeginJourney,
   onSkipToFirstStop,
   onResume,
-  travelerType,
   completed,
   underWay,
 }) {
-  const journey = travelerType ? journeys[travelerType.name] : kawagoeJourney
-
   return (
     <PhotoScreen
       className="journeyPage"
@@ -771,7 +805,7 @@ function SeeJourneyPage({
         <div className="startCardRow">
           <PinIcon />
           <div>
-            <p className="startCardName">{journey.start.name}</p>
+            <p className="startCardName">{journey.departure.name}</p>
             <p className="startCardArea">{journey.startArea}</p>
             <p className="startCardNote">{journey.startNote}</p>
           </div>

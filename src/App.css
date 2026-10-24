@@ -554,6 +554,10 @@ button:focus-visible {
   background: var(--card-fade);
 }
 
+.featureCard + .featureCard {
+  margin-top: 16px;
+}
+
 .featureCard:active {
   transform: scale(0.99);
 }
@@ -2428,22 +2432,10 @@ button:focus-visible {
 
 /* When this copy of the app was built, small under the settings. */
 .appVersion {
-  display: block;
-  margin: 12px auto 0;
-  padding: 4px 8px;
-  background: none;
-  border: none;
+  margin-top: 12px;
   font-size: 11px;
   letter-spacing: 0.5px;
   color: var(--ink-faint);
-  cursor: pointer;
-}
-
-.appVersionDetails {
-  display: block;
-  margin-top: 6px;
-  white-space: pre-line;
-  line-height: 1.6;
 }
 
 /* Dark | Light, side by side in one pill. The chosen one is filled red. */
@@ -2594,13 +2586,6 @@ button:focus-visible {
 html,
 body {
   overscroll-behavior: none;
-}
-
-/* iPhones can draw an installed app's page a little taller than they tell it
-   the screen is, leaving a strip under the app. With the navbar showing, that
-   strip is the navbar's colour, so it just looks a little taller. */
-html:has(.navBar) {
-  background: linear-gradient(var(--nav-bg), var(--nav-bg)), var(--bg);
 }
 
 .phone {

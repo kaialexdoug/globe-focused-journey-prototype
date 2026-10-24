@@ -286,48 +286,9 @@ function SettingsSection({ theme, onThemeChange }) {
           ))}
         </div>
       </div>
-      <VersionLine />
+      <p className="appVersion">Version · {APP_VERSION}</p>
     </>
   )
-}
-
-// When this copy of the app was built. Tapping it shows how big the phone
-// says its screen is, for working out layout problems on a real phone.
-function VersionLine() {
-  const [details, setDetails] = useState(null)
-
-  return (
-    <button className="appVersion" onClick={() => setDetails(details ? null : screenDetails())}>
-      Version · {APP_VERSION}
-      {details && <span className="appVersionDetails">{details}</span>}
-    </button>
-  )
-}
-
-function screenDetails() {
-  // Each CSS height, and the safe areas (the notch, the home bar), measured
-  // by a hidden box that's sized by them.
-  const probe = document.createElement('div')
-  probe.style.cssText = 'position:fixed;top:0;left:0;visibility:hidden;width:0;'
-  document.body.appendChild(probe)
-  const measure = (css) => {
-    probe.style.cssText += css
-    const box = probe.getBoundingClientRect()
-    return Math.round(box.height)
-  }
-  const sizes = ['vh', 'svh', 'lvh', 'dvh'].map((unit) => `${unit} ${measure(`height:100${unit};padding:0;`)}`)
-  const safeTop = measure('height:0;padding:env(safe-area-inset-top) 0 0;')
-  const safeBottom = measure('height:0;padding:0 0 env(safe-area-inset-bottom);')
-  probe.remove()
-
-  const app = document.querySelector('.phone').getBoundingClientRect()
-  return [
-    `Screen ${screen.width}×${screen.height}, window ${innerWidth}×${innerHeight}`,
-    `Visible ${Math.round(visualViewport?.height ?? 0)}, app ${Math.round(app.top)}–${Math.round(app.bottom)}`,
-    sizes.join(', '),
-    `Safe area top ${safeTop}, bottom ${safeBottom}`,
-    navigator.standalone || matchMedia('(display-mode: standalone)').matches ? 'Home screen app' : 'In a browser',
-  ].join('\n')
 }
 
 export function ProfilePage({ profile, theme, onThemeChange, onCreateProfile, onRename, onTakeQuiz, onDelete }) {

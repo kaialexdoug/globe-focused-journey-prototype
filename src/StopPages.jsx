@@ -122,14 +122,14 @@ function detourOffer(stop, detoursLeft, detoursFrom) {
   if (!detoursLeft || detoursLeft.length === 0) {
     return null
   }
+  const left = detoursLeft.length
   if (stop.detoursNote) {
     return {
-      label: 'OPTIONAL DETOURS',
+      label: left === 1 ? 'OPTIONAL DETOUR' : 'OPTIONAL DETOURS',
       text: stop.detoursNote,
-      skip: 'Or you can skip them and keep going.',
+      skip: `Or you can skip ${left === 1 ? 'it' : 'them'} and keep going.`,
     }
   }
-  const left = detoursLeft.length
   return {
     label: left === 1 ? 'ONE MORE DETOUR' : 'MORE DETOURS',
     text:
@@ -173,7 +173,7 @@ export function ArrivedPage({
             <p className="startCardLabel">{offer.label}</p>
             <p className="detourCardText">{offer.text}</p>
             <button className="introBtn isGhost" onClick={onSeeDetours}>
-              SEE DETOURS ➜
+              {detoursLeft.length === 1 ? 'SEE DETOUR ➜' : 'SEE DETOURS ➜'}
             </button>
           </div>
           <p className="detourSkip">{offer.skip}</p>
