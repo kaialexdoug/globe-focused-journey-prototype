@@ -77,8 +77,9 @@ live site.
       when asked, pull up SEE DIRECTIONS and check the map shows the route,
       then tap I'M HERE. Play a narration too. (The installed app asks for
       location again, separately from the browser.)
-- [ ] **Light mode on an iPhone:** the clock and battery at the top are white,
-      so check they're readable on the light screens.
+- [ ] **On an iPhone, from the home screen:** the clock and battery sit on a
+      black bar above the app, with no blur over the header and no gap under
+      the navbar.
 
 ## When a phone shows an old version
 

@@ -17,7 +17,10 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Unfold" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- A solid black bar for the clock and battery, with the app below it.
+         See-through ("black-translucent") puts the app under it instead, but
+         then iPhones blur the top of the app and leave a strip at the bottom. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   </head>
   <body>
     <div id="root"></div>
