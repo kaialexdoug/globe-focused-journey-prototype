@@ -12,6 +12,7 @@ import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
+import { APP_TAGLINE } from './config.js'
 import {
   NavBar,
   MyJourneysPage,
@@ -125,9 +126,12 @@ function App() {
     storeProfile(profile)
   }, [profile])
 
-  // So are the settings, and the theme is put on the page.
+  // So are the settings, and the theme is put on the page, and on the
+  // phone's status bar when it's installed (theme-color, in index.html).
   useEffect(() => {
     document.documentElement.dataset.theme = settings.theme
+    const background = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', background)
     storeSettings(settings)
   }, [settings])
 
@@ -567,7 +571,7 @@ function HomePage({ profile, travelerType, resume, onResume, onFindJourney, onSe
           Unforgettable experiences <br />
           in Japan
         </h1>
-        <p className="subHook">Curated. Authentic. Unforgettable.</p>
+        <p className="subHook">{APP_TAGLINE}</p>
 
         {resume && (
           <button className="homeResume" onClick={onResume}>

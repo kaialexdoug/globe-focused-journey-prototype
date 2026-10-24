@@ -1,18 +1,13 @@
 import { useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
+import { SURVEY_URL } from './config.js'
 
 // The survey at the end of a journey: the person's name, then three
 // questions, one at a time. ← PREVIOUS goes back a step with the answers
 // kept, and NEXT → stays greyed out until there's an answer. FINISH SURVEY
 // sends it all, with which traveler type and detours they had, to a Google
-// Sheet.
-
-// Where the answers go: a small Google Apps Script web app attached to the
-// sheet, which adds each survey as a row. Its code is in
-// google-apps-script/survey.gs.
-const SURVEY_URL =
-  'https://script.google.com/macros/s/AKfycbzSH98EjBgXxcfZ13B5ruOcEZkJ56cR4moBZIMTF14QqAjrmSFqwtercNYgjBiHFICbOQ/exec'
+// Sheet (SURVEY_URL in config.js).
 
 // `type` is "text" for a typed answer, or "choice" to pick one of `options`.
 const QUESTIONS = [

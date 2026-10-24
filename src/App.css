@@ -13,32 +13,14 @@
   text-align: left;
 }
 
+/* The origami logo's navy tile, with a hairline round it so it doesn't
+   disappear into a dark screen. */
 .headerLogo {
+  flex-shrink: 0;
   width: 24px;
   height: 24px;
-  flex-shrink: 0;
-}
-
-.logoFrame,
-.logoLine {
-  fill: none;
-  stroke: var(--ink);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.logoFrame {
-  stroke-width: 1.6;
-  opacity: 0.6;
-}
-
-.logoLine {
-  stroke-width: 1.2;
-}
-
-.logoSun {
-  fill: var(--globe-salmon);
-  filter: drop-shadow(0 0 3px var(--globe-salmon));
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px var(--photo-outline);
 }
 
 .title {

@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react'
 import Header, { SectionHeader } from './Header.jsx'
 import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
+import { MAPS_API_KEY } from './config.js'
 
 // The two screens every stop on the journey uses, and the Detours page for a
 // stop with detours. Each one is filled in from the cards in journeyStops.js.
-
-const API_KEY = "AIzaSyDZjr1gJKoiUhpzva9V5SBzekO-yqxXDbo"
 
 // "Two short side trips", "one more detour", and so on.
 const NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
@@ -67,9 +66,9 @@ export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
   const place = encodeURIComponent(stop.mapPlace)
   let mapSrc = null
   if (origin) {
-    mapSrc = `https://www.google.com/maps/embed/v1/directions?key=${API_KEY}&origin=${origin.lat},${origin.lng}&destination=${place}&mode=${stop.travelMode}`
+    mapSrc = `https://www.google.com/maps/embed/v1/directions?key=${MAPS_API_KEY}&origin=${origin.lat},${origin.lng}&destination=${place}&mode=${stop.travelMode}`
   } else if (locationFailed) {
-    mapSrc = `https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${place}`
+    mapSrc = `https://www.google.com/maps/embed/v1/place?key=${MAPS_API_KEY}&q=${place}`
   }
 
   return (
