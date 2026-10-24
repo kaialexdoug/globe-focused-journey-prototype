@@ -2568,10 +2568,17 @@ button:focus-visible {
   --frame-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* On a phone it's pinned to the edges of the screen, so it reaches right to
+   the bottom however the browser's bars come and go, and the page underneath
+   never scrolls or bounces (taking the navbar with it). */
+html,
+body {
+  overscroll-behavior: none;
+}
+
 .phone {
-  position: relative;
-  width: 100%;
-  height: 100svh;
+  position: fixed;
+  inset: 0;
   background-color: var(--bg);
 }
 
@@ -2611,6 +2618,8 @@ button:focus-visible {
   }
 
   .phone {
+    position: relative;
+    inset: auto;
     width: 390px;
     height: min(844px, calc(100svh - 48px));
     border: 11px solid rgb(8, 8, 11);
