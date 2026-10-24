@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
 import { NavigateIcon } from './Icons.jsx'
+import LiveMap from './LiveMap.jsx'
 import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
 import { MAPS_API_KEY } from './config.js'
@@ -40,18 +41,17 @@ function StopScreen({ className, stop, heading, label, sheetLabel, onStopJourney
   )
 }
 
-// The same route in Google Maps itself (its app, if it's on the phone), which
-// follows you as you go: the map in the panel can only show the route from
-// where you were when it opened. Google Maps finds where you are on its own.
+// The same route in Google Maps itself (its app, if it's on the phone), with
+// turn-by-turn directions. Google Maps finds where you are on its own.
 function googleMapsUrl(stop) {
   const params = new URLSearchParams({ api: '1', destination: stop.mapPlace, travelmode: stop.travelMode })
   return `https://www.google.com/maps/dir/?${params}`
 }
 
-// Getting there: the stop, then a map from wherever you are to it, and the
-// way to follow it live in Google Maps. A detour also gets SKIP THIS DETOUR
-// (with `onSkip`), for changing your mind.
-export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
+// The simpler map, Google's embedded one: the route from where you were
+// when it opened, without following you. For stops without an exact spot on
+// their card, and whenever the live map can't load.
+function EmbedMap({ stop }) {
   const [origin, setOrigin] = useState(null)
   // No location (denied, unavailable, or too slow) still gets a map: just the
   // stop on its own, without directions to it.
@@ -81,6 +81,44 @@ export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
     mapSrc = `https://www.google.com/maps/embed/v1/place?key=${MAPS_API_KEY}&q=${place}`
   }
 
+  if (!mapSrc) {
+    // The same size as the map, so nothing jumps when it arrives.
+    return (
+      <div className="mapPlaceholder" role="status">
+        Loading your location and map…
+      </div>
+    )
+  }
+
+  return (
+    <>
+      {locationFailed && (
+        <p className="mapNote">
+          We couldn't find your location — here's {stop.name}.
+        </p>
+      )}
+      {/* Loads straight away, though the panel starts closed, so the map's
+          ready by the time it's pulled up. */}
+      <div className="mapContainer">
+        <iframe
+          title={`Map to ${stop.name}`}
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          src={mapSrc}>
+        </iframe>
+      </div>
+    </>
+  )
+}
+
+// Getting there: the stop, then a map from wherever you are to it, and the
+// way to follow it in Google Maps itself. The map's the live one, following
+// you, if the stop's card has its exact spot (and it loads). A detour also
+// gets SKIP THIS DETOUR (with `onSkip`), for changing your mind.
+export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
+  const [liveFailed, setLiveFailed] = useState(false)
+  const live = Boolean(stop.mapPoint) && !liveFailed
+
   return (
     <StopScreen
       className="directionsPage"
@@ -90,30 +128,7 @@ export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
       sheetLabel="SEE DIRECTIONS"
       onStopJourney={onStopJourney}
     >
-      {mapSrc ? (
-        <>
-          {locationFailed && (
-            <p className="mapNote">
-              We couldn't find your location — here's {stop.name}.
-            </p>
-          )}
-          {/* Loads straight away, though the panel starts closed, so the map's
-              ready by the time it's pulled up. */}
-          <div className="mapContainer">
-            <iframe
-              title={`Map to ${stop.name}`}
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
-              src={mapSrc}>
-            </iframe>
-          </div>
-        </>
-      ) : (
-        // The same size as the map, so nothing jumps when it arrives.
-        <div className="mapPlaceholder" role="status">
-          Loading your location and map…
-        </div>
-      )}
+      {live ? <LiveMap stop={stop} onFail={() => setLiveFailed(true)} /> : <EmbedMap stop={stop} />}
 
       <a
         className="introBtn isGhost hasIcon mapsLink"
@@ -124,9 +139,7 @@ export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
         <NavigateIcon />
         OPEN IN GOOGLE MAPS
       </a>
-      {mapSrc && (
-        <button className="introBtn" onClick={onImHere}>I'M HERE</button>
-      )}
+      <button className="introBtn" onClick={onImHere}>I'M HERE</button>
 
       {onSkip && (
         <button className="textLink pageTextLink" onClick={onSkip}>

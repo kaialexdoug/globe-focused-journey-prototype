@@ -1356,6 +1356,59 @@ button:focus-visible {
   border-radius: 15px;
 }
 
+/* The live map (LiveMap.jsx): the same size and frame as the embedded one. */
+.liveMap {
+  position: relative;
+  height: 300px;
+  margin-top: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background-color: var(--placeholder-dim);
+}
+
+.liveMapCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* You: Google's blue dot. Moved down by half, as a marker otherwise sits
+   just above its spot, like a pin. */
+.liveMapDot {
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background-color: #4285f4;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  transform: translateY(50%);
+}
+
+/* Back to following you, once you've moved the map off yourself. */
+.liveMapRecenter {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 50%;
+  color: var(--accent-ink);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.liveMapRecenter svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* OPEN IN GOOGLE MAPS: a link, made to look like the buttons around it. */
 .mapsLink {
   box-sizing: border-box;

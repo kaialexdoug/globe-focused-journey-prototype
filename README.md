@@ -55,16 +55,20 @@ live site.
 - [ ] **Lock the Maps key to this site.** Google Cloud Console → APIs & Services
       → Credentials → the key:
   - Application restrictions: **Websites**, and add
-    `https://kaialexdoug.github.io/*`, `http://localhost:5173/*` and
-    `http://localhost:4173/*` (the last two for working on it).
+    `https://kaialexdoug.github.io/*`, plus `http://localhost:5173/*`,
+    `http://localhost:5174/*` and `http://localhost:4173/*` for working on it.
     The whole `kaialexdoug.github.io` address is needed, not just this app's
     folder, because the map only tells Google the site's address, not the page.
-  - API restrictions: **Restrict key** → only **Maps Embed API**.
-- [ ] **Put a cap on it.** The Maps Embed API is free at the time of writing, but
-      in case that changes or the key gets used for something else:
-  - Billing → Budgets & alerts: a small budget (like $5) with email alerts.
-  - APIs & Services → Maps Embed API → Quotas: a daily request limit
-    (like 2,000).
+  - API restrictions: only **Maps Embed API** (the simple map), **Maps
+    JavaScript API** (the live map) and **Routes API** (its routes).
+- [ ] **Put a cap on it.** The embedded map is free. The live map's map loads
+      and routes are free up to 10,000 a month each, then charged:
+  - APIs & Services → Maps JavaScript API → Quotas: map loads per day, 300.
+  - The same for Routes API's route requests: 300 a day.
+  - 300 a day can't reach 10,000 in a month, so it stays free. Past the limit,
+    the live map shows Google's error for the rest of the day; OPEN IN GOOGLE
+    MAPS still works.
+  - Billing → Budgets & alerts: a small budget with email alerts, too.
 - [ ] **The survey still saves.** Go through to the end on the live site, finish
       the survey, and check the new row in the Google Sheet. Delete that row
       afterwards.

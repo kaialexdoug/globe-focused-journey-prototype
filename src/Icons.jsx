@@ -117,6 +117,17 @@ export function ChevronUpIcon({ className }) {
   )
 }
 
+// The live map's button for putting you back in the middle of it.
+export function LocateIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="12" r="7" />
+      <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+    </Icon>
+  )
+}
+
 // The ✕ in the corner of a journey stop, for stopping the journey.
 export function CloseIcon({ className }) {
   return (

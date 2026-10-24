@@ -31,6 +31,11 @@ export const APP_VERSION = new Date(__BUILD_TIME__).toLocaleString(undefined, {
 // to this app's web address (see the checklist in the README).
 export const MAPS_API_KEY = 'AIzaSyDZjr1gJKoiUhpzva9V5SBzekO-yqxXDbo'
 
+// The live map's style (LiveMap.jsx). Google's demo one is fine for testing;
+// for a public launch, make a Map ID of your own in Google Cloud (Google Maps
+// Platform → Map management) and put it here.
+export const MAP_ID = 'DEMO_MAP_ID'
+
 // Where finished surveys go: the Google Apps Script web app attached to the
 // survey's Google Sheet (its code is in google-apps-script/survey.gs).
 export const SURVEY_URL =

@@ -350,6 +350,10 @@ export const odawaraStation = {
   memory: 'Where the day began.',
 
   mapPlace: 'Odawara Station',
+  // Its exact spot (from its Google Maps link), for the live map that
+  // follows you as you go (LiveMap.jsx). Stops without one, like Kawagoe's,
+  // get the simpler embedded map.
+  mapPoint: { lat: 35.2564449, lng: 139.1553932 },
   travelMode: 'transit',
 
   directionsHeading: 'Departure',
@@ -385,6 +389,7 @@ export const kamabokoDori = {
   // Cafe & Restaurant Yamajo, just behind the street, which the narration
   // suggests for lunch.
   mapPlace: 'Cafe & Restaurant Yamajo',
+  mapPoint: { lat: 35.2511529, lng: 139.1660913 },
   travelMode: 'walking',
 
   directionsHeading: 'Discovery',
@@ -415,6 +420,7 @@ export const ninjaMuseum = {
   teaser: 'Odawara’s lords once kept a band of ninja of their own. A playful, hands-on corner of the castle grounds.',
 
   mapPlace: 'Odawara Castle NINJA Museum',
+  mapPoint: { lat: 35.250641, lng: 139.155743 },
   travelMode: 'walking',
 
   directionsHeading: 'Detour',
@@ -441,6 +447,7 @@ export const cultureMuseum = {
   memory: 'The town’s history, in small pieces.',
 
   mapPlace: 'Odawara Local Culture Museum',
+  mapPoint: { lat: 35.249716, lng: 139.154941 },
   travelMode: 'walking',
 
   directionsHeading: 'Build',
@@ -474,6 +481,7 @@ export const odawaraCastle = {
 
   // Finds the keep itself.
   mapPlace: 'Odawara Castle',
+  mapPoint: { lat: 35.2509493, lng: 139.1535136 },
   travelMode: 'walking',
 
   directionsHeading: 'Peak',
@@ -504,6 +512,7 @@ export const miyukinohama = {
   memory: 'The end of the day, by the sea.',
 
   mapPlace: 'Miyukinohama Beach',
+  mapPoint: { lat: 35.2451164, lng: 139.1593045 },
   travelMode: 'walking',
 
   directionsHeading: 'Afterglow',
