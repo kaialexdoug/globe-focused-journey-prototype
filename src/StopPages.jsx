@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
+import { NavigateIcon } from './Icons.jsx'
 import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
 import { MAPS_API_KEY } from './config.js'
@@ -39,8 +40,17 @@ function StopScreen({ className, stop, heading, label, sheetLabel, onStopJourney
   )
 }
 
-// Getting there: the stop, then a map from wherever you are to it. A detour
-// also gets SKIP THIS DETOUR (with `onSkip`), for changing your mind.
+// The same route in Google Maps itself (its app, if it's on the phone), which
+// follows you as you go: the map in the panel can only show the route from
+// where you were when it opened. Google Maps finds where you are on its own.
+function googleMapsUrl(stop) {
+  const params = new URLSearchParams({ api: '1', destination: stop.mapPlace, travelmode: stop.travelMode })
+  return `https://www.google.com/maps/dir/?${params}`
+}
+
+// Getting there: the stop, then a map from wherever you are to it, and the
+// way to follow it live in Google Maps. A detour also gets SKIP THIS DETOUR
+// (with `onSkip`), for changing your mind.
 export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
   const [origin, setOrigin] = useState(null)
   // No location (denied, unavailable, or too slow) still gets a map: just the
@@ -97,13 +107,25 @@ export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
               src={mapSrc}>
             </iframe>
           </div>
-          <button className="introBtn" onClick={onImHere}>I'M HERE</button>
         </>
       ) : (
         // The same size as the map, so nothing jumps when it arrives.
         <div className="mapPlaceholder" role="status">
           Loading your location and map…
         </div>
+      )}
+
+      <a
+        className="introBtn isGhost hasIcon mapsLink"
+        href={googleMapsUrl(stop)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <NavigateIcon />
+        OPEN IN GOOGLE MAPS
+      </a>
+      {mapSrc && (
+        <button className="introBtn" onClick={onImHere}>I'M HERE</button>
       )}
 
       {onSkip && (

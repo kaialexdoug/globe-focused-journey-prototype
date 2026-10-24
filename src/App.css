@@ -1356,6 +1356,14 @@ button:focus-visible {
   border-radius: 15px;
 }
 
+/* OPEN IN GOOGLE MAPS: a link, made to look like the buttons around it. */
+.mapsLink {
+  box-sizing: border-box;
+  margin-top: 14px;
+  line-height: normal;
+  text-decoration: none;
+}
+
 .mapPlaceholder {
   box-sizing: border-box;
   height: 300px;
