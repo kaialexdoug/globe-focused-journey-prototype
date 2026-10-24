@@ -300,7 +300,7 @@ export function ProfilePage({ profile, theme, onThemeChange, onCreateProfile, on
         <div className="pageBody">
           <h1 className="mainHook pageTitle">Profile</h1>
           <SignUpCard
-            label="MAKE A PROFILE"
+            label="MAKE A PROFILE TEST"
             text="Just a name, no password. Your traveler type and journeys are then kept on this device, so you won’t need to retake the quiz."
             onCreate={onCreateProfile}
           />
