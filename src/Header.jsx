@@ -2,16 +2,20 @@ import { APP_LOGO, APP_NAME } from './config.js'
 
 // The app's name at the top of every screen, with its logo: the origami
 // map, in the same navy tile as the app's icon on a phone's home screen.
+// (It used to say JAPAN underneath, until there were journeys elsewhere.)
 function Header() {
   return (
     <div className="header">
       <img className="headerLogo" src={APP_LOGO} alt="" />
-      <div>
-        <p className="title">{APP_NAME.toUpperCase()}</p>
-        <p className="subtitle">JAPAN</p>
-      </div>
+      <p className="title">{APP_NAME.toUpperCase()}</p>
     </div>
   )
+}
+
+// "AI", on a journey put together with AI that hasn't been checked yet
+// (`aiMade` on its card). On a photo card it sits in the top corner.
+export function AiBadge() {
+  return <span className="aiBadge">AI</span>
 }
 
 // A photo right across the top of the screen, with the header sitting on it

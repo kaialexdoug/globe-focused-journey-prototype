@@ -12,6 +12,8 @@
 // its optional detours), Peak and Afterglow. Its card says which stop is
 // which (see kawagoeJourney, below).
 
+import { AI_JOURNEYS } from './aiJourneys/index.js'
+
 import emaTunnelPhoto from './assets/journey/ema-tunnel.jpg'
 import kawagoeStationPhoto from './assets/journey/kawagoe-station.jpg'
 import imofukudoPhoto from './assets/journey/imofukudo.jpg'
@@ -583,5 +585,6 @@ export const odawaraJourney = {
 }
 
 // Every journey, the featured one first: it's the one the quiz picks, and
-// the first on Browse Journeys.
-export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney]
+// the first on Browse Journeys. The AI-made ones (aiJourneys/) come after
+// the checked ones.
+export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS]

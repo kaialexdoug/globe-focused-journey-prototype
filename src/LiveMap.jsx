@@ -122,7 +122,8 @@ function LiveMap({ stop, onFail }) {
         center: stop.mapPoint,
         zoom: 16,
         mapId: MAP_ID,
-        colorScheme: document.documentElement.dataset.theme === 'light' ? 'LIGHT' : 'DARK',
+        // Light, to match the app. (When dark mode comes back, this follows it.)
+        colorScheme: 'LIGHT',
         disableDefaultUI: true,
         // One finger moves the map, as in Google Maps.
         gestureHandling: 'greedy',
@@ -198,7 +199,7 @@ function LiveMap({ stop, onFail }) {
             new Polyline({
               map,
               path,
-              strokeColor: styles.getPropertyValue('--globe-salmon').trim() || '#d63030',
+              strokeColor: styles.getPropertyValue('--unfold-green').trim() || '#13393a',
               strokeOpacity: 0.9,
               strokeWeight: 5,
             })

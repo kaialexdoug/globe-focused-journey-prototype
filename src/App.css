@@ -31,10 +31,26 @@
   line-height: 1.2;
 }
 
-.subtitle {
-  color: var(--ink);
+/* "AI" on a journey made with AI: a small white pill. On a photo card it
+   sits in the top corner, opposite the card's own tag. */
+.aiBadge {
+  display: inline-block;
+  padding: 3px 9px;
+  background-color: var(--photo-pill);
+  border: 1px solid var(--outline);
+  border-radius: 999px;
   font-size: 10px;
-  letter-spacing: 3.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.featureCard .aiBadge,
+.detourOptionPhoto .aiBadge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
 }
 
 .mainHook {
@@ -48,30 +64,32 @@
 }
 
 .subHook {
-  color: rgb(195, 195, 195);
+  color: var(--ink-muted);
   font-size: 11px;
 }
 
-/* The one main button. Every red call to action in the app is this size. */
+/* The one main button. Every green call to action in the app is this size. */
 .introBtn {
   display: block;
   width: 100%;
   padding: 14px;
   margin-top: 10px;
-  background-color: var(--globe-salmon);
+  background-color: var(--unfold-green);
   color: rgb(240, 235, 245);
-  border: 1px solid var(--globe-salmon);
+  border: 1px solid var(--unfold-green);
   border-radius: 8px;
   font-size: 12px;
   letter-spacing: 2px;
   cursor: pointer;
   transition:
-    box-shadow 0.2s ease,
+    background-color 0.2s ease,
     transform 0.1s ease;
 }
 
-.introBtn:hover {
-  box-shadow: 0 0 18px rgba(214, 48, 48, 0.65);
+@media (hover: hover) {
+  .introBtn:hover {
+    background-color: color-mix(in srgb, var(--unfold-green) 85%, black);
+  }
 }
 
 .introBtn:active {
@@ -82,13 +100,12 @@
 .introBtn.isGhost {
   background-color: transparent;
   color: var(--ink);
-  box-shadow: inset 0 0 10px rgba(214, 48, 48, 0.35);
 }
 
-.introBtn.isGhost:hover {
-  box-shadow:
-    inset 0 0 10px rgba(214, 48, 48, 0.35),
-    0 0 18px rgba(214, 48, 48, 0.45);
+@media (hover: hover) {
+  .introBtn.isGhost:hover {
+    background-color: color-mix(in srgb, var(--unfold-green) 8%, transparent);
+  }
 }
 
 /* Greyed out until it can be used, like NEXT before there's an answer. */
@@ -96,7 +113,6 @@
   background-color: var(--line);
   border-color: var(--line);
   color: var(--ink-faint);
-  box-shadow: none;
   cursor: not-allowed;
   transform: none;
 }
@@ -288,10 +304,6 @@ button:focus-visible {
   background: var(--hero-fade);
 }
 
-.photoHero .header {
-  text-shadow: var(--photo-glow);
-}
-
 .photoHeroText {
   position: absolute;
   left: 18px;
@@ -300,7 +312,7 @@ button:focus-visible {
   text-align: left;
 }
 
-/* The small red heading: the phase of the journey, or "Your journey". */
+/* The small green heading: the phase of the journey, or "Your journey". */
 .heroKicker {
   display: flex;
   align-items: center;
@@ -310,19 +322,16 @@ button:focus-visible {
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  /* A lighter --globe-salmon on the dark fade, a deeper one on the light. */
   color: var(--photo-accent);
-  text-shadow: var(--photo-glow-strong);
 }
 
-/* The same glowing red dot as the sun in the logo. */
+/* A small green dot before it. */
 .heroKicker::before {
   content: '';
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: var(--globe-salmon);
-  box-shadow: 0 0 6px var(--globe-salmon);
+  background-color: var(--unfold-green);
 }
 
 .heroLabel {
@@ -331,7 +340,6 @@ button:focus-visible {
   font-weight: 600;
   letter-spacing: 3px;
   color: var(--photo-ink-soft);
-  text-shadow: var(--photo-glow-strong);
 }
 
 .heroTitle {
@@ -342,7 +350,6 @@ button:focus-visible {
   letter-spacing: 0.5px;
   line-height: 1.05;
   color: var(--photo-ink);
-  text-shadow: var(--photo-shadow);
   /* Two even lines rather than one long one and a word on its own. */
   text-wrap: balance;
 }
@@ -391,10 +398,6 @@ button:focus-visible {
   }
 }
 
-.homePage .header {
-  text-shadow: var(--photo-glow);
-}
-
 /* Sits on the darkened bottom of the photo, whatever the screen's height. */
 .homeHook {
   text-align: left;
@@ -407,7 +410,6 @@ button:focus-visible {
   font-size: 38px;
   margin-bottom: 10px;
   color: var(--photo-ink);
-  text-shadow: var(--photo-shadow);
 }
 
 .homeHook .subHook {
@@ -417,15 +419,10 @@ button:focus-visible {
   margin-bottom: 22px;
 }
 
-.homeHook .introBtn {
-  box-shadow: 0 0 22px rgba(214, 48, 48, 0.45);
-}
-
 /* Shaded a little behind, so the outline still reads on the photo. */
 .homeHook .introBtn.isGhost {
   background-color: var(--photo-panel-soft);
   backdrop-filter: blur(6px);
-  box-shadow: inset 0 0 12px rgba(214, 48, 48, 0.35);
 }
 
 /* --- Find My Journey --- */
@@ -471,7 +468,6 @@ button:focus-visible {
   margin-bottom: 8px;
   border: 2px solid var(--ink);
   border-radius: 50%;
-  box-shadow: var(--icon-glow);
   filter: var(--icon-filter);
 }
 
@@ -503,9 +499,8 @@ button:focus-visible {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  border: 1px solid var(--globe-salmon);
+  border: 1px solid var(--unfold-green);
   border-radius: 50%;
-  box-shadow: inset 0 0 6px var(--globe-salmon);
   font-size: 11px;
   line-height: 22px;
   text-align: center;
@@ -524,14 +519,11 @@ button:focus-visible {
   height: 500px;
   overflow: hidden;
   isolation: isolate;
-  border: 2px solid var(--globe-salmon);
+  border: 2px solid var(--unfold-green);
   border-radius: 18px;
-  box-shadow: 0 0 22px rgba(214, 48, 48, 0.45);
   text-align: left;
   cursor: pointer;
-  transition:
-    box-shadow 0.3s ease,
-    transform 0.15s ease;
+  transition: transform 0.15s ease;
 }
 
 .featureCard img {
@@ -563,10 +555,6 @@ button:focus-visible {
 }
 
 @media (hover: hover) {
-  .featureCard:hover {
-    box-shadow: 0 0 26px rgba(214, 48, 48, 0.7);
-  }
-
   .featureCard:hover img {
     transform: scale(1.04);
   }
@@ -581,7 +569,6 @@ button:focus-visible {
   font-weight: 600;
   letter-spacing: 3px;
   color: var(--photo-ink);
-  text-shadow: var(--photo-glow-strong);
 }
 
 .featureCardText {
@@ -598,7 +585,7 @@ button:focus-visible {
   color: var(--photo-ink-soft);
 }
 
-/* Why it was picked for you, after a short red line. */
+/* Why it was picked for you, after a short green line. */
 .featureCardReason {
   display: flex;
   align-items: center;
@@ -612,7 +599,7 @@ button:focus-visible {
   content: '';
   flex-shrink: 0;
   width: 22px;
-  border-top: 1px solid var(--globe-salmon);
+  border-top: 1px solid var(--unfold-green);
 }
 
 .featureCard .introBtn {
@@ -686,8 +673,7 @@ button:focus-visible {
     transform 0.25s ease,
     opacity 0.3s ease,
     filter 0.3s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.2s ease;
 }
 
 .photoChoice img {
@@ -728,9 +714,8 @@ button:focus-visible {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 2.5px;
-  /* A lighter --globe-salmon, so it still reads on top of a busy photo. */
-  color: rgb(255, 122, 112);
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  /* Peach, so it still reads on the dark shading over a busy photo. */
+  color: var(--unfold-peach);
 }
 
 .photoText {
@@ -742,8 +727,7 @@ button:focus-visible {
 
 @media (hover: hover) {
   .photoChoice:hover {
-    border-color: var(--globe-salmon);
-    box-shadow: 0 0 16px rgba(214, 48, 48, 0.45);
+    border-color: var(--unfold-green);
   }
 
   .photoChoice:hover img {
@@ -752,8 +736,7 @@ button:focus-visible {
 }
 
 .photoChoice.isChosen {
-  border-color: var(--globe-salmon);
-  box-shadow: 0 0 24px rgba(214, 48, 48, 0.75);
+  border-color: var(--unfold-green);
   transform: scale(1.02);
 }
 
@@ -801,8 +784,7 @@ button:focus-visible {
 
 .progressFill {
   height: 100%;
-  background-color: var(--globe-salmon);
-  box-shadow: 0 0 8px var(--globe-salmon);
+  background-color: var(--unfold-green);
   transition: width 0.3s ease;
 }
 
@@ -822,7 +804,6 @@ button:focus-visible {
   border: 2px solid var(--type-color);
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 0 22px color-mix(in srgb, var(--type-color) 45%, transparent);
   z-index: 2;
 }
 
@@ -882,7 +863,6 @@ button:focus-visible {
   padding: 5px 11px;
   border: 1px solid var(--type-color);
   border-radius: 20px;
-  box-shadow: inset 0 0 8px color-mix(in srgb, var(--type-color) 40%, transparent);
   font-size: 10px;
   letter-spacing: 1px;
   color: var(--ink);
@@ -890,7 +870,6 @@ button:focus-visible {
 
 .traitChip.isMissed {
   border-color: var(--outline);
-  box-shadow: none;
   color: var(--ink-placeholder);
 }
 
@@ -916,14 +895,10 @@ button:focus-visible {
   margin-bottom: 4px;
 }
 
+/* The type's colour, darkened to stay readable as text on the light page. */
 .matchHeadline strong {
-  color: var(--type-color);
-  font-weight: 600;
-}
-
-/* On light paper, the type's colour is darkened to stay readable as text. */
-:root[data-theme='light'] .matchHeadline strong {
   color: color-mix(in srgb, var(--type-color) 60%, black);
+  font-weight: 600;
 }
 
 .matchRow {
@@ -960,10 +935,6 @@ button:focus-visible {
   border-radius: 3px;
   transform-origin: left;
   animation: growBar 0.9s ease 0.2s both;
-}
-
-.matchRow.isYours .matchFill {
-  box-shadow: 0 0 10px var(--type-color);
 }
 
 @keyframes growBar {
@@ -1032,7 +1003,7 @@ button:focus-visible {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  color: var(--globe-salmon);
+  color: var(--unfold-green);
 }
 
 .startCard {
@@ -1061,7 +1032,7 @@ button:focus-visible {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
-  color: var(--globe-salmon);
+  color: var(--unfold-green);
 }
 
 .startCardName {
@@ -1080,6 +1051,31 @@ button:focus-visible {
 .startCardNote {
   margin-top: 10px;
   font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-body);
+}
+
+/* On a journey made with AI, right before you begin: what hasn't been
+   checked. Tinted peach so it stands apart from the rest of the details. */
+.aiNote {
+  margin-bottom: 26px;
+  padding: 16px 18px;
+  background-color: color-mix(in srgb, var(--unfold-peach) 22%, var(--surface));
+  border: 1px solid var(--unfold-peach);
+  border-radius: 15px;
+  text-align: left;
+}
+
+.aiNote .startCardLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: var(--ink-soft);
+}
+
+.aiNoteText {
+  font-size: 14px;
   line-height: 1.5;
   color: var(--ink-body);
 }
@@ -1107,7 +1103,7 @@ button:focus-visible {
   color: var(--ink-muted);
 }
 
-/* A second way forward: a link in red rather than a whole button. */
+/* A second way forward: a link in green rather than a whole button. */
 .textLink {
   margin-top: 2px;
   padding: 8px 10px;
@@ -1118,15 +1114,12 @@ button:focus-visible {
   letter-spacing: 2px;
   color: var(--accent-ink);
   cursor: pointer;
-  transition:
-    color 0.2s ease,
-    text-shadow 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 @media (hover: hover) {
   .textLink:hover {
     color: var(--ink);
-    text-shadow: 0 0 12px rgba(214, 48, 48, 0.8);
   }
 }
 
@@ -1164,10 +1157,6 @@ button:focus-visible {
   z-index: -1;
   background: var(--stop-fade);
   pointer-events: none;
-}
-
-.photoScreen .header {
-  text-shadow: var(--photo-glow);
 }
 
 /* ✕ in the top corner, level with the header: stops the journey. It stays
@@ -1248,8 +1237,7 @@ button:focus-visible {
 
 /* Tap it, or drag it up or down. The phone mustn't scroll the page instead.
    It sits over the top of the panel's contents, fading to see-through at its
-   bottom edge, so whatever's scrolled up (like the play button's glow) fades
-   away under it rather than being cut off in a straight line. */
+   bottom edge, so whatever's scrolled up fades away under it rather than being cut off in a straight line. */
 .sheetHandle {
   position: relative;
   z-index: 1;
@@ -1499,8 +1487,8 @@ button:focus-visible {
   border-radius: 50%;
   cursor: pointer;
   transition:
+    background-color 0.2s ease,
     border-color 0.2s ease,
-    box-shadow 0.2s ease,
     color 0.2s ease,
     transform 0.1s ease;
 }
@@ -1512,8 +1500,7 @@ button:focus-visible {
 
 /* The same ringed circle as the numbers on Find My Journey. */
 .narrationPlay {
-  border: 1px solid var(--globe-salmon);
-  box-shadow: inset 0 0 8px var(--globe-salmon);
+  border: 1px solid var(--unfold-green);
   color: var(--ink);
 }
 
@@ -1521,24 +1508,6 @@ button:focus-visible {
   width: 17px;
   height: 17px;
   fill: currentColor;
-}
-
-/* Breathes gently while the narration is on. */
-.narrationPlay.isPlaying {
-  animation: narrationGlow 1.4s ease-in-out infinite alternate;
-}
-
-@keyframes narrationGlow {
-  from {
-    box-shadow:
-      inset 0 0 8px var(--globe-salmon),
-      0 0 6px rgba(214, 48, 48, 0.25);
-  }
-  to {
-    box-shadow:
-      inset 0 0 8px var(--globe-salmon),
-      0 0 22px rgba(214, 48, 48, 0.6);
-  }
 }
 
 .narrationRestart {
@@ -1558,13 +1527,11 @@ button:focus-visible {
 
 @media (hover: hover) {
   .narrationPlay:hover {
-    box-shadow:
-      inset 0 0 8px var(--globe-salmon),
-      0 0 16px rgba(214, 48, 48, 0.5);
+    background-color: color-mix(in srgb, var(--unfold-green) 8%, transparent);
   }
 
   .narrationRestart:hover {
-    border-color: var(--globe-salmon);
+    border-color: var(--unfold-green);
     color: var(--ink);
   }
 }
@@ -1573,13 +1540,11 @@ button:focus-visible {
 .narration span {
   transition:
     color 0.15s ease,
-    text-shadow 0.15s ease,
     background-color 0.15s ease;
 }
 
 .narration span.isSpoken {
   color: var(--ink);
-  text-shadow: var(--spoken-glow);
   background-color: var(--spoken-bg);
   border-radius: 3px;
 }
@@ -1669,26 +1634,18 @@ button:focus-visible {
   font-size: 27px;
 }
 
+/* In a frosted pill so it reads over a busy photo, like IN PROGRESS. */
 .detourTakenTag {
   position: absolute;
-  top: 12px;
-  left: 16px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  color: var(--photo-ink);
-  text-shadow: var(--photo-glow-strong);
-}
-
-/* On the light fade, the tag sits in a frosted pill so it reads over a busy
-   photo, like IN PROGRESS. Moved in a touch, so its words stay put. */
-:root[data-theme='light'] .detourTakenTag {
   top: 8px;
   left: 8px;
   padding: 4px 9px;
   background-color: var(--photo-pill);
   border-radius: 999px;
-  text-shadow: none;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--photo-ink);
 }
 
 .detourOptionBody {
@@ -1719,7 +1676,6 @@ button:focus-visible {
   background-color: transparent;
   border-color: var(--outline);
   color: var(--ink-faint);
-  box-shadow: none;
   cursor: default;
   transform: none;
 }
@@ -1748,18 +1704,18 @@ button:focus-visible {
   margin-bottom: 0;
 }
 
-/* The peak, made the most of: larger, in serif, with a red line beside it. */
+/* The peak, made the most of: larger, in serif, with a green line beside it. */
 .memoryStory .memoryStoryPeak {
   margin: 22px 0;
   padding-left: 16px;
-  border-left: 2px solid var(--globe-salmon);
+  border-left: 2px solid var(--unfold-green);
   font-family: 'Times New Roman', Times, serif;
   font-size: 21px;
   line-height: 1.4;
   color: var(--text-h);
 }
 
-/* The timeline: a red line down the left, with a dot for each stop. */
+/* The timeline: a green line down the left, with a dot for each stop. */
 .memoryTimeline,
 .timelineBranch ol {
   margin: 0;
@@ -1784,7 +1740,7 @@ button:focus-visible {
   left: 6px;
   top: 0;
   bottom: 0;
-  border-left: 2px solid rgba(214, 48, 48, 0.5);
+  border-left: 2px solid rgba(19, 57, 58, 0.5);
 }
 
 .memoryTimeline > li:first-child::before {
@@ -1810,10 +1766,9 @@ button:focus-visible {
   box-sizing: border-box;
   width: 14px;
   height: 14px;
-  border: 2px solid var(--globe-salmon);
+  border: 2px solid var(--unfold-green);
   border-radius: 50%;
   background-color: var(--bg);
-  box-shadow: 0 0 8px rgba(214, 48, 48, 0.6);
 }
 
 .timelinePhoto {
@@ -1861,9 +1816,8 @@ button:focus-visible {
   box-sizing: border-box;
   width: 100%;
   height: 150px;
-  border: 2px solid var(--globe-salmon);
+  border: 2px solid var(--unfold-green);
   border-radius: 14px;
-  box-shadow: 0 0 22px rgba(214, 48, 48, 0.45);
 }
 
 .timelineStop.isPeak .timelineDot {
@@ -1871,8 +1825,7 @@ button:focus-visible {
   top: 0;
   width: 20px;
   height: 20px;
-  background-color: var(--globe-salmon);
-  box-shadow: 0 0 14px var(--globe-salmon);
+  background-color: var(--unfold-green);
 }
 
 .timelineStop.isPeak .timelineName {
@@ -1896,14 +1849,13 @@ button:focus-visible {
   left: -22px;
   top: 9px;
   width: 22px;
-  border-top: 2px dashed rgba(214, 48, 48, 0.45);
+  border-top: 2px dashed rgba(19, 57, 58, 0.45);
 }
 
 .timelineBranch .timelineDot {
   top: 5px;
   width: 10px;
   height: 10px;
-  box-shadow: none;
 }
 
 .timelineBranch .timelinePhoto {
@@ -2001,8 +1953,8 @@ button:focus-visible {
 
 .surveyInput:focus {
   outline: none;
-  border-color: var(--globe-salmon);
-  box-shadow: 0 0 0 3px rgba(214, 48, 48, 0.2);
+  border-color: var(--unfold-green);
+  box-shadow: inset 0 0 0 1px var(--unfold-green);
 }
 
 .surveyTextarea {
@@ -2010,7 +1962,7 @@ button:focus-visible {
   resize: vertical;
 }
 
-/* Yes / Maybe / No, side by side. The picked one lights up red. */
+/* Yes / Maybe / No, side by side. The picked one is outlined in green. */
 .surveyChoices {
   display: flex;
   gap: 10px;
@@ -2026,22 +1978,22 @@ button:focus-visible {
   color: var(--ink-soft);
   cursor: pointer;
   transition:
+    background-color 0.2s ease,
     border-color 0.2s ease,
     box-shadow 0.2s ease,
     color 0.2s ease;
 }
 
 .surveyChoice.isChosen {
-  border-color: var(--globe-salmon);
+  background-color: color-mix(in srgb, var(--unfold-green) 6%, var(--surface));
+  border-color: var(--unfold-green);
   color: var(--ink);
-  box-shadow:
-    inset 0 0 10px rgba(214, 48, 48, 0.35),
-    0 0 14px rgba(214, 48, 48, 0.35);
+  box-shadow: inset 0 0 0 1px var(--unfold-green);
 }
 
 @media (hover: hover) {
   .surveyChoice:hover {
-    border-color: rgba(214, 48, 48, 0.6);
+    border-color: rgba(19, 57, 58, 0.6);
   }
 }
 
@@ -2134,16 +2086,11 @@ button:focus-visible {
 .navIcon {
   width: 23px;
   height: 23px;
-  transition: filter 0.2s ease;
 }
 
-/* The tab you're on lights up red. */
+/* The tab you're on turns green. */
 .navTab.isCurrent {
   color: var(--accent-ink);
-}
-
-.navTab.isCurrent .navIcon {
-  filter: drop-shadow(0 0 6px rgba(214, 48, 48, 0.7));
 }
 
 @media (hover: hover) {
@@ -2152,7 +2099,7 @@ button:focus-visible {
   }
 }
 
-/* IN PROGRESS, in green with a glowing dot, wherever a journey is under
+/* IN PROGRESS, in green with a green dot, wherever a journey is under
    way. On a photo it sits in a dark pill so it still reads. */
 .inProgressTag {
   display: inline-flex;
@@ -2170,7 +2117,6 @@ button:focus-visible {
   height: 7px;
   border-radius: 50%;
   background-color: var(--globe-green);
-  box-shadow: 0 0 8px var(--globe-green);
 }
 
 .featureCard .inProgressTag {
@@ -2184,7 +2130,6 @@ button:focus-visible {
    left partway. */
 .homeWelcome {
   margin-bottom: 14px;
-  text-shadow: var(--photo-glow);
 }
 
 .homeGreeting {
@@ -2210,7 +2155,6 @@ button:focus-visible {
   height: 7px;
   border-radius: 50%;
   background-color: var(--type-color);
-  box-shadow: 0 0 8px var(--type-color);
 }
 
 .homeResume {
@@ -2225,7 +2169,6 @@ button:focus-visible {
   backdrop-filter: blur(8px);
   border: 1px solid rgba(116, 191, 63, 0.55);
   border-radius: 12px;
-  box-shadow: 0 0 18px rgba(116, 191, 63, 0.2);
   text-align: left;
   color: var(--photo-ink);
   cursor: pointer;
@@ -2375,11 +2318,8 @@ button:focus-visible {
   width: 64px;
   height: 64px;
   margin-bottom: 8px;
-  border: 1px solid var(--globe-salmon);
+  border: 1px solid var(--unfold-green);
   border-radius: 50%;
-  box-shadow:
-    inset 0 0 10px var(--globe-salmon),
-    0 0 14px rgba(214, 48, 48, 0.35);
   font-family: 'Times New Roman', Times, serif;
   font-size: 30px;
   color: var(--ink);
@@ -2409,7 +2349,6 @@ button:focus-visible {
   padding: 14px;
   border: 1px solid var(--type-color, var(--outline));
   border-radius: 15px;
-  box-shadow: 0 0 18px color-mix(in srgb, var(--type-color, transparent) 30%, transparent);
   text-align: left;
 }
 
@@ -2463,83 +2402,12 @@ button:focus-visible {
   color: var(--ink-faint);
 }
 
-/* Settings: a row per setting, with its choice on the right. */
-.settingsTitle {
-  margin-top: 30px;
-}
-
-.settingsRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px;
-  background-color: var(--surface-low);
-  border: 1px solid var(--outline);
-  border-radius: 12px;
-  text-align: left;
-}
-
-.settingsName {
-  font-size: 15px;
-  color: var(--ink);
-}
-
-.settingsHint {
-  margin-top: 2px;
-  font-size: 12px;
-  color: var(--ink-faint);
-}
-
-/* When this copy of the app was built, small under the settings. */
+/* When this copy of the app was built, small at the end of Profile. */
 .appVersion {
-  margin-top: 12px;
+  margin-top: 30px;
   font-size: 11px;
   letter-spacing: 0.5px;
   color: var(--ink-faint);
-}
-
-/* Dark | Light, side by side in one pill. The chosen one is filled red. */
-.themeSwitch {
-  display: flex;
-  flex-shrink: 0;
-  padding: 3px;
-  border: 1px solid var(--outline);
-  border-radius: 999px;
-}
-
-.themeOption {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
-  background-color: transparent;
-  border: none;
-  border-radius: 999px;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  color: var(--ink-muted);
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.themeOption.isChosen {
-  background-color: var(--globe-salmon);
-  color: white;
-  box-shadow: 0 0 12px rgba(214, 48, 48, 0.45);
-}
-
-.themeIcon {
-  width: 15px;
-  height: 15px;
-}
-
-@media (hover: hover) {
-  .themeOption:not(.isChosen):hover {
-    color: var(--ink);
-  }
 }
 
 .backBtn.deleteLink {
@@ -2581,9 +2449,7 @@ button:focus-visible {
   background-color: var(--surface);
   border: 1px solid var(--outline);
   border-radius: 15px;
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(214, 48, 48, 0.2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   text-align: center;
   animation: fadeUp 0.3s ease both;
 }
@@ -2700,8 +2566,7 @@ body {
     overflow: hidden;
     box-shadow:
       0 0 0 1px rgb(62, 60, 72),
-      0 30px 80px rgba(0, 0, 0, 0.65),
-      0 0 120px rgba(214, 48, 48, 0.14);
+      0 30px 80px rgba(0, 0, 0, 0.65);
   }
 
   /* The camera. */

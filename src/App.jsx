@@ -4,7 +4,7 @@ import sceneryLogo from './assets/nature_icon.svg'
 import exploreLogo from './assets/scenic_routes_icon.svg'
 import experienceLogo from './assets/weird_and_wonderful_icon.svg'
 
-import Header from './Header.jsx'
+import Header, { AiBadge } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import Questionnaire from './Questionnaire.jsx'
@@ -28,8 +28,6 @@ import {
   storeProfile,
   loadProgress,
   storeProgress,
-  loadSettings,
-  storeSettings,
   newProfile,
   withJourneyStarted,
   withJourneyCompleted,
@@ -138,22 +136,10 @@ function App() {
   // Looking back at a finished journey's Memory page, from My Journeys.
   const [revisitingMemory, setRevisitingMemory] = useState(false)
 
-  // Settings for this device, like light or dark mode (Profile → Settings).
-  const [settings, setSettings] = useState(loadSettings)
-
   // The profile is kept on this device whenever it changes.
   useEffect(() => {
     storeProfile(profile)
   }, [profile])
-
-  // So are the settings, and the theme is put on the page, and on the
-  // phone's status bar when it's installed (theme-color, in index.html).
-  useEffect(() => {
-    document.documentElement.dataset.theme = settings.theme
-    const background = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', background)
-    storeSettings(settings)
-  }, [settings])
 
   // So is where you are in a journey that's being saved, at every step, so
   // it can be picked up again even after closing the app.
@@ -276,8 +262,6 @@ function App() {
     content = (
       <ProfilePage
         profile={profile}
-        theme={settings.theme}
-        onThemeChange={(theme) => setSettings({ ...settings, theme })}
         onCreateProfile={createProfile}
         onRename={(name) => setProfile({ ...profile, name })}
         onTakeQuiz={() => setPage('find')}
@@ -665,6 +649,7 @@ function BrowseJourneyPage({ journeys, onBack, onSelect, travelerType }) {
               {featured && (
                 <p className="featureCardTag">{travelerType ? 'CHOSEN FOR YOU' : 'FEATURED JOURNEY'}</p>
               )}
+              {journey.aiMade && <AiBadge />}
               <div className="featureCardText">
                 <p className="heroLabel">{journey.location}</p>
                 <h2 className="heroTitle">{journey.name}</h2>
@@ -678,7 +663,7 @@ function BrowseJourneyPage({ journeys, onBack, onSelect, travelerType }) {
 
         <div className="comingSoonCard">
           <p className="comingSoonTitle">More journeys coming soon</p>
-          <p>New routes across Japan are on their way.</p>
+          <p>New routes are on their way.</p>
         </div>
       </div>
     </div>
@@ -820,6 +805,20 @@ function SeeJourneyPage({
       </div>
 
       <div className="divider sectionBreak"></div>
+
+      {/* Right before BEGIN, so it's the last thing read before setting off. */}
+      {journey.aiMade && (
+        <div className="aiNote">
+          <p className="startCardLabel">
+            <AiBadge /> NOT YET VERIFIED
+          </p>
+          <p className="aiNoteText">
+            This journey was put together with AI and hasn’t been checked by Unfold yet. The
+            places are real, but opening times, prices and access may have changed, and the map
+            finds each stop by its name. Check before you go.
+          </p>
+        </div>
+      )}
 
       <div className="testTakeBtnContainer">
         {underWay ? (

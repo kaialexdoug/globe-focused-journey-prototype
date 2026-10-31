@@ -11,16 +11,18 @@
     <!-- Installing it on a phone. The app's name here and in the manifest
          isn't read from src/config.js, so change it in both if it changes. -->
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="#16171d" />
+    <meta name="theme-color" content="#f8f3ee" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Unfold" />
-    <!-- A solid black bar for the clock and battery, with the app below it.
-         See-through ("black-translucent") puts the app under it instead, but
-         then iPhones blur the top of the app and leave a strip at the bottom. -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- A solid light bar for the clock and battery (dark text on white),
+         with the app below it. See-through ("black-translucent") puts the app
+         under it instead, but then iPhones blur the top of the app and leave
+         a strip at the bottom. iPhones only read this when the app is added
+         to the home screen, so re-add it to see a change. -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   </head>
   <body>
     <div id="root"></div>
