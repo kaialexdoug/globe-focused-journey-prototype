@@ -10,11 +10,15 @@
 //
 // The writing sticks to what each place is like and what to do there, with
 // no opening times, prices or dates. Once a journey has been walked and
-// checked, it can move to journeyStops.js without `aiMade`.
+// checked, it can move to journeyStops.js with `verified: true` in place of
+// `aiMade`.
 //
 // `match` is for Find My Journey: the moods it suits (from the six on its
 // first screen), who it suits, roughly how many hours it takes, and how
 // much effort it is ('Easy' or 'Moderate').
+//
+// `photoPosition` is optional: which part of a wide photo to keep when it's
+// cropped to fill a tall screen, if the middle would miss what it's a photo of.
 //
 // The photos are from Wikimedia Commons, and need crediting (see Photo
 // credits in the README).

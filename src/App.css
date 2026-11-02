@@ -31,9 +31,11 @@
   line-height: 1.2;
 }
 
-/* "AI" on a journey made with AI: a small white pill. On a photo card it
-   sits in the top corner, opposite the card's own tag. */
-.aiBadge {
+/* "AI GENERATED" on a journey made with AI, or "UNFOLD VERIFIED" on one
+   that's been checked: a small white pill. On a photo card it sits in the
+   top corner, opposite the card's own tag. */
+.aiBadge,
+.verifiedBadge {
   display: inline-block;
   padding: 3px 9px;
   background-color: var(--photo-pill);
@@ -47,10 +49,20 @@
 }
 
 .featureCard .aiBadge,
-.detourOptionPhoto .aiBadge {
+.featureCard .verifiedBadge,
+.detourOptionPhoto .aiBadge,
+.detourOptionPhoto .verifiedBadge {
   position: absolute;
   top: 14px;
   right: 14px;
+}
+
+/* On the narrowest phones it won't fit beside the big card's tag, so it goes
+   underneath. */
+@media (max-width: 350px) {
+  .featureCard .verifiedBadge {
+    top: 60px;
+  }
 }
 
 .mainHook {
@@ -61,11 +73,6 @@
   line-height: 1.05;
   color: var(--text-h);
   margin: 0 0 5px;
-}
-
-.subHook {
-  color: var(--ink-muted);
-  font-size: 11px;
 }
 
 /* The one main button. Every green call to action in the app is this size. */
@@ -206,11 +213,6 @@ button:focus-visible {
 
 .pageTop {
   background: linear-gradient(to bottom, var(--page-top) 0%, var(--bg) 100%);
-}
-
-.pageBack {
-  display: block;
-  margin-left: 8px;
 }
 
 .pageTitle {
@@ -354,75 +356,119 @@ button:focus-visible {
   text-wrap: balance;
 }
 
-/* --- Opening screen ---
-   The chureito pagoda fills the whole screen. The top and bottom are darkened
-   so the name and the hook can sit on it. */
+/* --- Home: the feed ---
+   Every journey, one screen at a time, its photo filling the screen above
+   the navbar (HomePage in App.jsx). The header stays put at the top while
+   the journeys scroll underneath it. */
 
 .homePage {
   position: relative;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  overflow: hidden;
-  isolation: isolate;
+  height: 100%;
 }
 
-.homeBackdrop {
+/* Taps and swipes go straight through it to the journey underneath. */
+.homePage .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.homePage .title {
+  color: white;
+}
+
+/* Scrolling always comes to rest on one whole journey, never between two. */
+.feed {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+/* The dark green shows behind a photo that's still loading. */
+.feedCard {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--unfold-green);
+  text-align: left;
+  cursor: pointer;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.feedCard img {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image:
-    var(--home-fade),
-    url('./assets/chureito-pagoda-sunset.jpeg');
-  background-size: cover;
-  /* Keeps the pagoda and the setting sun in view on a tall, narrow screen. */
-  background-position: 74% center;
-  transform-origin: 70% 55%;
-  /* A very slow push in, so the opening screen doesn't feel like a still. */
-  animation: slowDrift 26s ease-in-out infinite alternate;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.homePage .introBtnContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.feedCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--feed-fade);
 }
 
-@keyframes slowDrift {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.08);
-  }
+.feedCardText {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
 }
 
-/* Sits on the darkened bottom of the photo, whatever the screen's height. */
-.homeHook {
-  text-align: left;
-  margin-top: auto;
-  padding: 40px 24px calc(44px + var(--frame-bottom));
-  animation: fadeUp 0.9s ease both;
-}
-
-.homeHook .mainHook {
-  font-size: 38px;
+.feedCardText .aiBadge,
+.feedCardText .verifiedBadge {
   margin-bottom: 10px;
-  color: var(--photo-ink);
 }
 
-.homeHook .subHook {
-  color: var(--photo-ink-soft);
-  font-size: 12px;
-  letter-spacing: 2px;
-  margin-bottom: 22px;
+/* The pin, then the place. */
+.feedPlace {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: white;
 }
 
-/* Shaded a little behind, so the outline still reads on the photo. */
-.homeHook .introBtn.isGhost {
-  background-color: var(--photo-panel-soft);
+.feedPlace svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.feedCardText .heroTitle {
+  color: white;
+}
+
+/* Only outlined, so it doesn't cover up more of the photo than it has to. */
+.feedCard .introBtn {
+  margin-top: 16px;
+  background-color: rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(6px);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+@media (hover: hover) {
+  .feedCard .introBtn:hover {
+    background-color: rgba(255, 255, 255, 0.26);
+  }
 }
 
 /* --- Find My Journey --- */
@@ -507,11 +553,7 @@ button:focus-visible {
   color: var(--ink);
 }
 
-/* --- Browse Journeys --- */
-
-.browseJourneyPage {
-  animation: fadeUp 0.5s ease both;
-}
+/* --- Journey cards --- */
 
 /* A journey as one big photo card. Tapping anywhere on it opens the journey. */
 .featureCard {
@@ -560,7 +602,7 @@ button:focus-visible {
   }
 }
 
-/* "CHOSEN FOR YOU" or "FEATURED JOURNEY", in the top corner. */
+/* A tag in the top corner, like IN PROGRESS. */
 .featureCardTag {
   position: absolute;
   top: 18px;
@@ -583,23 +625,6 @@ button:focus-visible {
   font-size: 14px;
   line-height: 1.45;
   color: var(--photo-ink-soft);
-}
-
-/* Why it was picked for you, after a short green line. */
-.featureCardReason {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-  font-size: 13px;
-  color: var(--photo-ink-faint);
-}
-
-.featureCardReason::before {
-  content: '';
-  flex-shrink: 0;
-  width: 22px;
-  border-top: 1px solid var(--unfold-green);
 }
 
 .featureCard .introBtn {
@@ -2038,17 +2063,13 @@ button:focus-visible {
 }
 
 /* --- Profile ---
-   The navbar along the bottom of Home, My Journeys and Profile, those two
+   The navbar along the bottom of the main tabs, the My Journeys and Profile
    pages, and making a profile (ProfilePages.jsx). */
 
 /* The screen stops above the navbar, so nothing hides behind it. */
 .screen.hasNavBar {
   box-sizing: border-box;
   padding-bottom: calc(60px + var(--frame-bottom));
-}
-
-.hasNavBar .homeHook {
-  padding-bottom: 24px;
 }
 
 .navBar {
@@ -2124,82 +2145,6 @@ button:focus-visible {
   background-color: var(--photo-pill);
   border: 1px solid rgba(116, 191, 63, 0.6);
   border-radius: 999px;
-}
-
-/* Home, with a profile: hello, your traveler type, and the journey you
-   left partway. */
-.homeWelcome {
-  margin-bottom: 14px;
-}
-
-.homeGreeting {
-  font-size: 14px;
-  color: var(--photo-ink-soft);
-}
-
-.homeType {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 6px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--type-color) 65%, var(--photo-mix));
-}
-
-.homeType::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: var(--type-color);
-}
-
-.homeResume {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  column-gap: 12px;
-  box-sizing: border-box;
-  width: 100%;
-  margin-bottom: 14px;
-  padding: 12px 14px;
-  background-color: var(--photo-panel);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(116, 191, 63, 0.55);
-  border-radius: 12px;
-  text-align: left;
-  color: var(--photo-ink);
-  cursor: pointer;
-}
-
-.homeResume .inProgressTag {
-  margin-bottom: 4px;
-}
-
-.homeResumeName {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 19px;
-}
-
-.homeResumeWhere {
-  margin-top: 2px;
-  font-size: 12.5px;
-  color: var(--photo-ink-faint);
-}
-
-.homeResumeGo {
-  grid-column: 2;
-  grid-row: 1 / 4;
-  align-self: center;
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--green-ink);
-}
-
-.homeHook .textLink {
-  align-self: center;
 }
 
 .myJourneysPage,
@@ -2473,10 +2418,7 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .homeBackdrop,
-  .homeHook,
   .findPage,
-  .browseJourneyPage,
   .questionContainer,
   .resultContainer,
   .matchFill,

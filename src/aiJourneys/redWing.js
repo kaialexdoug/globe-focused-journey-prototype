@@ -119,6 +119,7 @@ export default {
   location: 'RED WING · MINNESOTA, USA',
   photo: depotPhoto,
   photoAlt: depot.photoAlt,
+  photoPosition: '38% center',
   blurb: 'Through a Mississippi river town famous for its boots, up the bluff that towers over it, and back down to the water.',
   tagline: TAGLINE,
   time: '~5 hours',

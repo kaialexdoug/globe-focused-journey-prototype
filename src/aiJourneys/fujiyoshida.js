@@ -119,6 +119,7 @@ export default {
   location: 'FUJIYOSHIDA · YAMANASHI, JAPAN',
   photo: chureitoPhoto,
   photoAlt: chureito.photoAlt,
+  photoPosition: '10% center',
   blurb: 'Through the town at the foot of Mount Fuji, up the long steps to the most famous view of the mountain, and on to the lake.',
   tagline: TAGLINE,
   time: '~6 hours',

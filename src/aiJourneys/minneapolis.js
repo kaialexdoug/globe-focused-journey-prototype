@@ -119,6 +119,7 @@ export default {
   location: 'MINNEAPOLIS · MINNESOTA, USA',
   photo: millCityPhoto,
   photoAlt: millCity.photoAlt,
+  photoPosition: '24% center',
   blurb: 'Along the Mississippi riverfront, through the ruins of the old flour mills, and across the river on a bridge of stone arches.',
   tagline: TAGLINE,
   time: '~4 hours',

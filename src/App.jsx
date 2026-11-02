@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import sceneryLogo from './assets/nature_icon.svg'
 import exploreLogo from './assets/scenic_routes_icon.svg'
 import experienceLogo from './assets/weird_and_wonderful_icon.svg'
 
-import Header, { AiBadge } from './Header.jsx'
+import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import Questionnaire from './Questionnaire.jsx'
@@ -12,7 +12,6 @@ import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
-import { APP_TAGLINE } from './config.js'
 import {
   NavBar,
   MyJourneysPage,
@@ -35,16 +34,16 @@ import {
 import './App.css'
 
 // The prototype follows the flow chart:
-//   Opening Screen → Find My Journey → the quiz → your traveler type
+//   Find My Journey → the quiz → your traveler type
 //   → your journey → Departure → Discovery → Build, with optional detours
 //   from there → Peak → Afterglow → Memory, looking back on the day
 //   → the survey.
 // Which stop each part is comes from the journey's card in journeyStops.js
 // (Odawara: the station, Kamaboko-dori, the Local Culture Museum with the
 // NINJA Museum as a detour, the castle, Miyuki-no-Hama).
-// Browse Journeys is the shortcut from the opening screen straight to a journey.
-// Home, My Journeys and Profile have a navbar along the bottom to move
-// between them.
+// Home is a feed of every journey, the shortcut straight to any of them.
+// Home, Find My Journey, My Journeys and Profile have a navbar along the
+// bottom to move between them.
 
 // The pages of the journey itself, and which part of the journey each one is
 // about (a detour's pages are about whichever detour you're on). Used to
@@ -66,7 +65,7 @@ const JOURNEY_PAGES = {
 }
 
 // The pages with the navbar along the bottom.
-const NAVBAR_PAGES = ['home', 'myJourneys', 'profile']
+const NAVBAR_PAGES = ['home', 'find', 'myJourneys', 'profile']
 
 // Which journey the quiz picks for each traveler type.
 const JOURNEY_FOR_TYPE = {
@@ -104,9 +103,13 @@ function whereLeftOff(progress) {
 
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
-  // "quiz", "browse", "seeJourney", any of the JOURNEY_PAGES above,
+  // "quiz", "seeJourney", any of the JOURNEY_PAGES above,
   // "memory" or "survey".
   const [page, setPage] = useState('home')
+
+  // Which journey Home's feed was on, kept here because the feed itself is
+  // gone whenever you're on another screen.
+  const feedPositionRef = useRef(0)
 
   // Your profile, if you've made one, and the journey you left partway
   // through, if it was being saved. Both are kept on this device.
@@ -283,7 +286,7 @@ function App() {
           setRevisitingMemory(true)
           setPage('memory')
         }}
-        onBrowse={() => setPage('browse')}
+        onBrowse={() => setPage('home')}
         onCreateProfile={createProfile}
       />
     )
@@ -457,31 +460,13 @@ function App() {
       />
     )
   } else if (page === 'find') {
-    content = (
-      <FindJourneyPage
-        onStart={() => setPage('quiz')}
-        onBack={() => setPage('home')}
-      />
-    )
-  } else if (page === 'browse') {
-    content = (
-      <BrowseJourneyPage
-        journeys={ALL_JOURNEYS}
-        onBack={() => setPage('home')}
-        onSelect={openJourney}
-        travelerType={travelerType}
-      />
-    )
+    content = <FindJourneyPage onStart={() => setPage('quiz')} />
   } else {
     content = (
       <HomePage
-        profile={profile}
-        travelerType={travelerType}
-        resume={underWay ? { journey: journeyWithId(underWay.journeyId), where: whereLeftOff(underWay) } : null}
-        onResume={resumeJourney}
-        onFindJourney={() => setPage('find')}
-        onSeeYourJourney={seeYourJourney}
-        onBrowseJourney={() => setPage('browse')}
+        journeys={ALL_JOURNEYS}
+        onSelect={openJourney}
+        positionRef={feedPositionRef}
       />
     )
   }
@@ -565,113 +550,87 @@ function App() {
   )
 }
 
-// With a profile, Home says hello, shows your traveler type, and offers the
-// journey you left partway. Once it knows your type, SEE YOUR JOURNEY goes
-// straight to your journey, with the quiz there to retake.
-function HomePage({ profile, travelerType, resume, onResume, onFindJourney, onSeeYourJourney, onBrowseJourney }) {
-  const knowsType = profile && travelerType
+// Home is a feed: every journey, one screen at a time, with its photo filling
+// the screen. `positionRef` remembers which one you were on, so you come back
+// to it after opening a journey or going to another tab. Tapping anywhere on
+// one opens it. Its button is there to make that obvious, and for the
+// keyboard; its click reaches the card too.
+function HomePage({ journeys, onSelect, positionRef }) {
+  const feedRef = useRef(null)
+
+  // Before it's drawn, so the first journey doesn't flash up on the way.
+  useLayoutEffect(() => {
+    feedRef.current.scrollTop = positionRef.current * feedRef.current.clientHeight
+  }, [positionRef])
+
+  // A mouse wheel moves the feed only a little each turn, and the snapping pulls
+  // that back to where it started. So a turn goes to the next journey. A trackpad
+  // swipe sends a stream of these, which count as one turn until they stop.
+  useEffect(() => {
+    const feed = feedRef.current
+    let lastWheelAt = 0
+
+    function turnThePage(event) {
+      // Ctrl and the wheel, or a pinch on a trackpad, is the browser zooming.
+      if (event.ctrlKey) {
+        return
+      }
+      event.preventDefault()
+      const sameTurn = event.timeStamp - lastWheelAt < 200
+      lastWheelAt = event.timeStamp
+      if (sameTurn) {
+        return
+      }
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      feed.scrollBy({
+        top: Math.sign(event.deltaY) * feed.clientHeight,
+        behavior: reduceMotion ? 'auto' : 'smooth',
+      })
+    }
+
+    // Added by hand, because React's onWheel isn't allowed to preventDefault.
+    feed.addEventListener('wheel', turnThePage, { passive: false })
+    return () => feed.removeEventListener('wheel', turnThePage)
+  }, [])
+
+  function rememberPosition(event) {
+    const { scrollTop, clientHeight } = event.currentTarget
+    positionRef.current = Math.round(scrollTop / clientHeight)
+  }
 
   return (
     <div className="homePage">
-      <div className="homeBackdrop" aria-hidden="true"></div>
       <Header />
-      <div className="homeHook">
-        {profile && (
-          <div className="homeWelcome">
-            <p className="homeGreeting">Welcome back, {profile.name}.</p>
-            {travelerType && (
-              <p className="homeType" style={{ '--type-color': travelerType.color }}>
-                {travelerType.name}
-              </p>
-            )}
-          </div>
-        )}
-        <h1 className="mainHook">
-          Unforgettable experiences <br />
-          in Japan
-        </h1>
-        <p className="subHook">{APP_TAGLINE}</p>
-
-        {resume && (
-          <button className="homeResume" onClick={onResume}>
-            <span className="inProgressTag">IN PROGRESS</span>
-            <span className="homeResumeName">{resume.journey.name}</span>
-            <span className="homeResumeWhere">{resume.where.text}</span>
-            <span className="homeResumeGo">RESUME ➜</span>
-          </button>
-        )}
-
-        <div className="introBtnContainer">
-          {knowsType ? (
-            <button className="introBtn" onClick={onSeeYourJourney}>
-              SEE YOUR JOURNEY ➜
-            </button>
-          ) : (
-            <button className="introBtn" onClick={onFindJourney}>
-              FIND MY JOURNEY ➜
-            </button>
-          )}
-          <button className="introBtn isGhost" onClick={onBrowseJourney}>
-            BROWSE JOURNEYS ➜
-          </button>
-          {knowsType && (
-            <button className="textLink" onClick={onFindJourney}>
-              RETAKE THE QUIZ
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Every journey, as a big photo card each. The first is the featured one.
-function BrowseJourneyPage({ journeys, onBack, onSelect, travelerType }) {
-  return (
-    <div className="browseJourneyPage">
-      <Header />
-      <button className="backBtn pageBack" onClick={onBack}>
-        ‹ BACK
-      </button>
-
-      <div className="pageBody">
-        {journeys.map((journey, index) => {
-          const featured = index === 0
-          // Once you've taken the quiz, the featured one has been picked for
-          // you, and says why.
-          const reason = featured && travelerType ? journey.reasons[travelerType.name] : null
-
-          return (
-            // The whole card opens the journey. Its button is there to make
-            // that obvious, and for the keyboard; its click reaches the card too.
-            <div key={journey.id} className="featureCard" onClick={() => onSelect(journey)}>
-              <img src={journey.photo} alt="" />
-              {featured && (
-                <p className="featureCardTag">{travelerType ? 'CHOSEN FOR YOU' : 'FEATURED JOURNEY'}</p>
-              )}
+      <div className="feed" ref={feedRef} onScroll={rememberPosition}>
+        {journeys.map((journey, index) => (
+          <div key={journey.id} className="feedCard" onClick={() => onSelect(journey)}>
+            <img
+              src={journey.photo}
+              alt={journey.photoAlt}
+              style={{ objectPosition: journey.photoPosition }}
+              // Fetched as you get near it, so opening the app doesn't download them all.
+              loading={index === 0 ? 'eager' : 'lazy'}
+            />
+            <div className="feedCardText">
               {journey.aiMade && <AiBadge />}
-              <div className="featureCardText">
-                <p className="heroLabel">{journey.location}</p>
-                <h2 className="heroTitle">{journey.name}</h2>
-                <p className="featureCardBlurb">{journey.blurb}</p>
-                {reason && <p className="featureCardReason">{reason}</p>}
-                <button className="introBtn">EXPLORE THIS JOURNEY ➜</button>
-              </div>
+              {journey.verified && <VerifiedBadge />}
+              <p className="feedPlace">
+                <PinIcon />
+                {/* "KAMAKURA · KANAGAWA, JAPAN", without the town. */}
+                {journey.location.split(' · ')[1]}
+              </p>
+              <h2 className="heroTitle">{journey.name}</h2>
+              <button className="introBtn">EXPLORE THIS JOURNEY ➜</button>
             </div>
-          )
-        })}
-
-        <div className="comingSoonCard">
-          <p className="comingSoonTitle">More journeys coming soon</p>
-          <p>New routes are on their way.</p>
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
 // Explains what the quiz is before anyone starts it.
-function FindJourneyPage({ onStart, onBack }) {
+function FindJourneyPage({ onStart }) {
   // The quiz is next, so start fetching its pictures now.
   useEffect(() => {
     preloadQuizPhotos()
@@ -681,9 +640,6 @@ function FindJourneyPage({ onStart, onBack }) {
     <div className="findPage">
       <div className="pageTop">
         <Header />
-        <button className="backBtn pageBack" onClick={onBack}>
-          ‹ BACK
-        </button>
         <h1 className="mainHook pageTitle">Find My Journey</h1>
         <p className="msg msgQuote">“Every traveler experiences Japan differently.”</p>
         <p className="msg">
@@ -760,6 +716,7 @@ function SeeJourneyPage({
       className="journeyPage"
       photo={journey.photo}
       photoAlt={journey.photoAlt}
+      photoPosition={journey.photoPosition}
       kicker="Your journey"
       label={journey.location}
       title={journey.name}

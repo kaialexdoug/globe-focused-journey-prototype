@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-import Header, { AiBadge } from './Header.jsx'
+import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
 import PromptBox from './PromptBox.jsx'
 import { APP_VERSION } from './config.js'
-import { HomeIcon, PersonIcon, RouteIcon } from './Icons.jsx'
+import { CompassIcon, HomeIcon, PersonIcon, RouteIcon } from './Icons.jsx'
 import { PERSONALITIES } from './quizData'
 
-// Everything for the profile: the navbar along the bottom of Home, My
-// Journeys and Profile; those two pages; and the small pieces for making a
+// Everything for the profile: the navbar along the bottom of the main tabs;
+// the My Journeys and Profile pages; and the small pieces for making a
 // profile, which is only ever a name. The profile itself is kept on this
 // device (see profileStore.js).
 
@@ -15,6 +15,7 @@ import { PERSONALITIES } from './quizData'
 
 const TABS = [
   { page: 'home', label: 'Home', Icon: HomeIcon },
+  { page: 'find', label: 'Find', Icon: CompassIcon },
   { page: 'myJourneys', label: 'My Journeys', Icon: RouteIcon },
   { page: 'profile', label: 'Profile', Icon: PersonIcon },
 ]
@@ -193,11 +194,12 @@ export function MyJourneysPage({
     content = (
       <>
         {underWay && (
-          // The whole card resumes it, like the cards on Browse Journeys.
+          // The whole card resumes it, like the journeys on Home.
           <div className="featureCard isUnderWay" onClick={onResume}>
             <img src={underWay.photo} alt="" />
             <p className="featureCardTag inProgressTag">IN PROGRESS</p>
             {underWay.aiMade && <AiBadge />}
+            {underWay.verified && <VerifiedBadge />}
             <div className="featureCardText">
               <p className="heroLabel">{underWay.location}</p>
               <h2 className="heroTitle">{underWay.name}</h2>
@@ -221,6 +223,7 @@ export function MyJourneysPage({
                   {completed ? '✓ COMPLETED' : 'NOT FINISHED'}
                 </p>
                 {journey.aiMade && <AiBadge />}
+                {journey.verified && <VerifiedBadge />}
                 <h2 className="heroTitle">{journey.name}</h2>
               </div>
               <div className="detourOptionBody">

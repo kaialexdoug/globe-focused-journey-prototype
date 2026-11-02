@@ -42,19 +42,9 @@
   --placeholder-lit: rgb(231, 225, 218);
   --photo-outline: rgba(0, 0, 0, 0.08);
 
-  /* The full-width photos (Home, and the tops of the journey screens) fade
+  /* The full-width photos (the tops of the journey screens) fade
      into the cream page, shaded at the top for the header and at the bottom
      for the title, with dark words on them. */
-  /* Home's fades sooner, so the words underneath sit on the page rather
-     than on the busy middle of the photo. */
-  --home-fade: linear-gradient(
-    to bottom,
-    rgba(248, 243, 238, 0.8) 0%,
-    rgba(248, 243, 238, 0) 20%,
-    rgba(248, 243, 238, 0) 26%,
-    rgba(248, 243, 238, 0.9) 50%,
-    rgb(248, 243, 238) 68%
-  );
   --hero-fade: linear-gradient(
     to bottom,
     rgba(248, 243, 238, 0.82) 0%,
@@ -73,7 +63,18 @@
     rgba(248, 243, 238, 0.7) 74%,
     rgba(248, 243, 238, 0.95) 100%
   );
-  /* The photo cards (Browse, My Journeys, Detours) are shaded the same way:
+  /* A journey on the Home feed: the photo is the point, so the top half or so
+     isn't shaded at all, apart from a touch behind the header. The shade along
+     the bottom is dark, for white words. */
+  --feed-fade: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0) 12%,
+    rgba(0, 0, 0, 0) 58%,
+    rgba(0, 0, 0, 0.42) 74%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  /* The photo cards (My Journeys, Detours) are shaded the same way:
      the big journey cards, and the smaller photo strips. */
   --card-fade: linear-gradient(
     to bottom,
@@ -92,11 +93,8 @@
   );
   --photo-ink: rgb(20, 24, 33);
   --photo-ink-soft: rgb(56, 56, 62);
-  --photo-ink-faint: rgb(80, 80, 88);
   --photo-pill: rgba(255, 255, 255, 0.85);
   --photo-accent: var(--unfold-green);
-  --photo-mix: black;
-  --photo-panel: rgba(255, 255, 255, 0.75);
   --photo-panel-soft: rgba(255, 255, 255, 0.6);
 
   /* The light grey line icons on Find My Journey, turned dark. */

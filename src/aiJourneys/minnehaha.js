@@ -116,7 +116,7 @@ export default {
   id: 'minnehaha',
   aiMade: true,
   name: 'The Falls in the City',
-  location: 'MINNEHAHA FALLS · MINNEAPOLIS, USA',
+  location: 'MINNEHAHA FALLS · MINNESOTA, USA',
   photo: fallsPhoto,
   photoAlt: falls.photoAlt,
   blurb: 'A waterfall in the middle of the city, a poem that made it famous, and a quiet walk down the glen toward the Mississippi.',
