@@ -79,6 +79,16 @@ export function HomeIcon({ className }) {
   )
 }
 
+// The navbar's Find tab.
+export function CompassIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15.5 8.5-2 5-5 2 2-5z" />
+    </Icon>
+  )
+}
+
 // The navbar's Profile tab.
 export function PersonIcon({ className }) {
   return (

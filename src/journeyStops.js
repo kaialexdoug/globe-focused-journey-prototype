@@ -12,6 +12,8 @@
 // its optional detours), Peak and Afterglow. Its card says which stop is
 // which (see kawagoeJourney, below).
 
+import { AI_JOURNEYS } from './aiJourneys/index.js'
+
 import emaTunnelPhoto from './assets/journey/ema-tunnel.jpg'
 import kawagoeStationPhoto from './assets/journey/kawagoe-station.jpg'
 import imofukudoPhoto from './assets/journey/imofukudo.jpg'
@@ -270,17 +272,19 @@ export const maruya = {
   ],
 }
 
-// The journey as a whole, for Browse Journeys, See Your Journey and the
-// Memory page at the end.
+// The journey as a whole, for Home, See Your Journey and the Memory page at
+// the end.
 export const kawagoeJourney = {
   // A short name the app uses for it, like a stop's id.
   id: 'kawagoe',
+  // Walked and checked, so its cards say UNFOLD VERIFIED.
+  verified: true,
   name: 'Adventure in Kawagoe',
   location: 'KAWAGOE · SAITAMA, JAPAN',
   photo: emaTunnelPhoto,
   photoAlt: 'A tunnel of wooden prayer plaques at a shrine in Kawagoe',
 
-  // Under the name on the Browse Journeys card.
+  // A line about it. Nothing shows it at the moment.
   blurb: 'Explore the historic streets of Kawagoe.',
   // The first line under the photo on See Your Journey.
   tagline: 'Yours to explore, whenever you’re ready.',
@@ -538,6 +542,7 @@ export const miyukinohama = {
 
 export const odawaraJourney = {
   id: 'odawara',
+  verified: true,
   name: 'Where the Old Road Meets the Sea',
   location: 'ODAWARA · KANAGAWA, JAPAN',
   photo: odawaraCastlePhoto,
@@ -583,5 +588,6 @@ export const odawaraJourney = {
 }
 
 // Every journey, the featured one first: it's the one the quiz picks, and
-// the first on Browse Journeys.
-export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney]
+// the first on Home. The AI-made ones (aiJourneys/) come after
+// the checked ones.
+export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS]

@@ -7,7 +7,6 @@
 
 const PROFILE_KEY = 'unfold.profile'
 const PROGRESS_KEY = 'unfold.progress'
-const SETTINGS_KEY = 'unfold.settings'
 
 // Browser storage can be switched off or full. Then nothing is kept, and the
 // app carries on without it.
@@ -38,11 +37,6 @@ export const storeProfile = (profile) => write(PROFILE_KEY, profile)
 // The journey under way: { journeyId, page, detourId, detoursTaken }, or null.
 export const loadProgress = () => read(PROGRESS_KEY)
 export const storeProgress = (progress) => write(PROGRESS_KEY, progress)
-
-// Settings for this device, with or without a profile, and kept if the
-// profile is deleted. `theme` is "dark" (the default) or "light".
-export const loadSettings = () => ({ theme: 'dark', ...read(SETTINGS_KEY) })
-export const storeSettings = (settings) => write(SETTINGS_KEY, settings)
 
 export function newProfile(name, travelerTypeName) {
   return {

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-import Header from './Header.jsx'
+import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
 import PromptBox from './PromptBox.jsx'
 import { APP_VERSION } from './config.js'
-import { HomeIcon, MoonIcon, PersonIcon, RouteIcon, SunIcon } from './Icons.jsx'
+import { CompassIcon, HomeIcon, PersonIcon, RouteIcon } from './Icons.jsx'
 import { PERSONALITIES } from './quizData'
 
-// Everything for the profile: the navbar along the bottom of Home, My
-// Journeys and Profile; those two pages; and the small pieces for making a
+// Everything for the profile: the navbar along the bottom of the main tabs;
+// the My Journeys and Profile pages; and the small pieces for making a
 // profile, which is only ever a name. The profile itself is kept on this
 // device (see profileStore.js).
 
@@ -15,6 +15,7 @@ import { PERSONALITIES } from './quizData'
 
 const TABS = [
   { page: 'home', label: 'Home', Icon: HomeIcon },
+  { page: 'find', label: 'Find', Icon: CompassIcon },
   { page: 'myJourneys', label: 'My Journeys', Icon: RouteIcon },
   { page: 'profile', label: 'Profile', Icon: PersonIcon },
 ]
@@ -193,10 +194,12 @@ export function MyJourneysPage({
     content = (
       <>
         {underWay && (
-          // The whole card resumes it, like the cards on Browse Journeys.
+          // The whole card resumes it, like the journeys on Home.
           <div className="featureCard isUnderWay" onClick={onResume}>
             <img src={underWay.photo} alt="" />
             <p className="featureCardTag inProgressTag">IN PROGRESS</p>
+            {underWay.aiMade && <AiBadge />}
+            {underWay.verified && <VerifiedBadge />}
             <div className="featureCardText">
               <p className="heroLabel">{underWay.location}</p>
               <h2 className="heroTitle">{underWay.name}</h2>
@@ -219,6 +222,8 @@ export function MyJourneysPage({
                 <p className={completed ? 'detourTakenTag completedTag' : 'detourTakenTag'}>
                   {completed ? '✓ COMPLETED' : 'NOT FINISHED'}
                 </p>
+                {journey.aiMade && <AiBadge />}
+                {journey.verified && <VerifiedBadge />}
                 <h2 className="heroTitle">{journey.name}</h2>
               </div>
               <div className="detourOptionBody">
@@ -256,42 +261,14 @@ export function MyJourneysPage({
 
 // --- Profile ---
 
-const THEMES = [
-  { value: 'dark', label: 'Dark', Icon: MoonIcon },
-  { value: 'light', label: 'Light', Icon: SunIcon },
-]
-
-// Settings for this device. They work with or without a profile.
-function SettingsSection({ theme, onThemeChange }) {
-  return (
-    <>
-      <h2 className="sectionTitle settingsTitle">Settings</h2>
-      <div className="settingsRow">
-        <div>
-          <p className="settingsName" id="appearanceLabel">Appearance</p>
-          <p className="settingsHint">For this device</p>
-        </div>
-        <div className="themeSwitch" role="radiogroup" aria-labelledby="appearanceLabel">
-          {THEMES.map(({ value, label, Icon }) => (
-            <button
-              key={value}
-              className={theme === value ? 'themeOption isChosen' : 'themeOption'}
-              role="radio"
-              aria-checked={theme === value}
-              onClick={() => onThemeChange(value)}
-            >
-              <Icon className="themeIcon" />
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-      <p className="appVersion">Version · {APP_VERSION}</p>
-    </>
-  )
+// When this copy of the app was built, so you can tell whether a phone has
+// picked up the latest version. (Dark mode's switch used to sit above it;
+// it's gone for the redesign and will come back later.)
+function AppVersion() {
+  return <p className="appVersion">Version · {APP_VERSION}</p>
 }
 
-export function ProfilePage({ profile, theme, onThemeChange, onCreateProfile, onRename, onTakeQuiz, onDelete }) {
+export function ProfilePage({ profile, onCreateProfile, onRename, onTakeQuiz, onDelete }) {
   const [editingName, setEditingName] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
 
@@ -306,7 +283,7 @@ export function ProfilePage({ profile, theme, onThemeChange, onCreateProfile, on
             text="Just a name, no password. Your traveler type and journeys are then kept on this device, so you won’t need to retake the quiz."
             onCreate={onCreateProfile}
           />
-          <SettingsSection theme={theme} onThemeChange={onThemeChange} />
+          <AppVersion />
         </div>
       </div>
     )
@@ -374,7 +351,7 @@ export function ProfilePage({ profile, theme, onThemeChange, onCreateProfile, on
           ))}
         </div>
 
-        <SettingsSection theme={theme} onThemeChange={onThemeChange} />
+        <AppVersion />
 
         <button className="backBtn pageEndLink deleteLink" onClick={() => setConfirmDelete(true)}>
           DELETE PROFILE
