@@ -123,11 +123,13 @@ export default {
   // fills, and the bridge is in it anyway, in the distance.
   photo: lakewalkPhoto,
   photoAlt: lakewalk.photoAlt,
-  blurb: 'Along the shore of Lake Superior, from the Lift Bridge up to the best view in town, and back down to the beach.',
+  blurb: 'Along Lake Superior, from the Lift Bridge up to the best view in town.',
   tagline: TAGLINE,
   time: '~5 hours',
   walking: 'Walk + drive',
   stops: '~5 stops',
+  difficulty: 'Easy',
+  experience: 'Scenic',
   departure: canalPark,
   discovery: liftBridge,
   build: lakewalk,
@@ -135,7 +137,7 @@ export default {
   afterglow: parkPoint,
   startArea: 'Duluth, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Peaceful', 'Adventurous', 'Curious'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 5, effort: 'Easy' },
+  match: { moods: ['Peaceful', 'Adventurous', 'Curious'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 5 },
   why: [
     'Duluth sits at the very tip of Lake Superior, and the lake is in everything here: the ships, the weather, the way the whole city leans toward the water. This journey starts down on the waterfront, follows the shore, and climbs to a view that puts it all together, then brings you back down to the sand to end the day.',
   ],

@@ -13,9 +13,8 @@
 // checked, it can move to journeyStops.js with `verified: true` in place of
 // `aiMade`.
 //
-// `match` is for Find My Journey: the moods it suits (from the six on its
-// first screen), who it suits, roughly how many hours it takes, and how
-// much effort it is ('Easy' or 'Moderate').
+// `match` is for Find My Journey: the moods it suits (from the six it will ask
+// about), who it suits, and roughly how many hours it takes.
 //
 // `photoPosition` is optional: which part of a wide photo to keep when it's
 // cropped to fill a tall screen, if the middle would miss what it's a photo of.

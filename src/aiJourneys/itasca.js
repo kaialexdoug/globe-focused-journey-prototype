@@ -120,11 +120,13 @@ export default {
   // The headwaters photo is wide, and the card crops the stones out.
   photo: preachersGrovePhoto,
   photoAlt: preachersGrove.photoAlt,
-  blurb: 'Through old pine forest to the spot where the Mississippi begins, small enough to cross on stepping stones.',
+  blurb: 'Through old pine forest, to where the Mississippi is small enough to step across.',
   tagline: TAGLINE,
   time: '~6 hours',
   walking: 'Walk + drive',
   stops: '~5 stops',
+  difficulty: 'Easy',
+  experience: 'Scenic',
   departure: douglasLodge,
   discovery: preachersGrove,
   build: headwatersCenter,
@@ -132,7 +134,7 @@ export default {
   afterglow: lakeItasca,
   startArea: 'Itasca State Park, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Peaceful', 'Adventurous', 'Curious'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 6, effort: 'Easy' },
+  match: { moods: ['Peaceful', 'Adventurous', 'Curious'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 6 },
   why: [
     'One of the biggest rivers in the world starts here as a stream you can step across. This journey takes you through the pine forest that surrounds it, past trees that have stood for centuries, to the spot where it all begins, and ends the day quietly on the lake it flows from.',
   ],

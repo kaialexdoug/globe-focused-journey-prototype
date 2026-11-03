@@ -151,7 +151,7 @@ function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSur
         {onCreateProfile && (
           <SignUpCard
             label="SAVE THIS JOURNEY"
-            text="Add your name to make a profile, and this journey will be kept in My Journeys, with your traveler type and stats. No password needed."
+            text="Add your name to make a profile, and this journey will be kept in My Journeys, with your stats. No password needed."
             onCreate={onCreateProfile}
           />
         )}
