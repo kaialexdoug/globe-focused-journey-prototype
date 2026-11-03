@@ -1,6 +1,6 @@
 // The profile: just a name, kept on this device (in the browser's storage),
-// with your traveler type, the journeys you've started and finished, and a
-// few totals. There's no account or password, and nothing leaves the device.
+// with the journeys you've started and finished, and a few totals. There's no
+// account or password, and nothing leaves the device.
 //
 // The journey you're partway through is kept separately, and saved at every
 // step, so you can pick it up again even after closing the app.
@@ -38,10 +38,9 @@ export const storeProfile = (profile) => write(PROFILE_KEY, profile)
 export const loadProgress = () => read(PROGRESS_KEY)
 export const storeProgress = (progress) => write(PROGRESS_KEY, progress)
 
-export function newProfile(name, travelerTypeName) {
+export function newProfile(name) {
   return {
     name,
-    travelerType: travelerTypeName ?? null,
     createdAt: new Date().toISOString(),
     // By journey id: { startedAt, timesCompleted, lastCompletedAt,
     // lastDetoursTaken }. Being here means you "own" the journey.

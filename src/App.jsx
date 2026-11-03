@@ -1,13 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-import sceneryLogo from './assets/nature_icon.svg'
-import exploreLogo from './assets/scenic_routes_icon.svg'
-import experienceLogo from './assets/weird_and_wonderful_icon.svg'
+import findPicture from './assets/find-my-journey.jpg'
 
 import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
-import Questionnaire from './Questionnaire.jsx'
 import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
@@ -19,9 +16,24 @@ import {
   SaveProgressPrompt,
   SaveExitPrompt,
 } from './ProfilePages.jsx'
-import { ClockIcon, NavigateIcon, PinIcon, RouteIcon, WalkIcon } from './Icons.jsx'
-import { ALL_JOURNEYS, odawaraJourney } from './journeyStops'
-import { PERSONALITIES, preloadQuizPhotos } from './quizData'
+import {
+  ArrowRightIcon,
+  ClockIcon,
+  ForkKnifeIcon,
+  FourStarsIcon,
+  MountainIcon,
+  NavigateIcon,
+  NeedleCompassIcon,
+  PinIcon,
+  RouteIcon,
+  SearchIcon,
+  SolidClockIcon,
+  SolidPinIcon,
+  SolidWalkIcon,
+  ToriiIcon,
+  WalkIcon,
+} from './Icons.jsx'
+import { ALL_JOURNEYS } from './journeyStops'
 import {
   loadProfile,
   storeProfile,
@@ -34,14 +46,15 @@ import {
 import './App.css'
 
 // The prototype follows the flow chart:
-//   Find My Journey → the quiz → your traveler type
-//   → your journey → Departure → Discovery → Build, with optional detours
+//   your journey → Departure → Discovery → Build, with optional detours
 //   from there → Peak → Afterglow → Memory, looking back on the day
 //   → the survey.
 // Which stop each part is comes from the journey's card in journeyStops.js
 // (Odawara: the station, Kamaboko-dori, the Local Culture Museum with the
 // NINJA Museum as a detour, the castle, Miyuki-no-Hama).
 // Home is a feed of every journey, the shortcut straight to any of them.
+// Find My Journey will be the other way in, by mood, but so far it's only its
+// first screen.
 // Home, Find My Journey, My Journeys and Profile have a navbar along the
 // bottom to move between them.
 
@@ -67,22 +80,11 @@ const JOURNEY_PAGES = {
 // The pages with the navbar along the bottom.
 const NAVBAR_PAGES = ['home', 'find', 'myJourneys', 'profile']
 
-// Which journey the quiz picks for each traveler type.
-const JOURNEY_FOR_TYPE = {
-  'The Naturalist': odawaraJourney,
-  'The Wanderer': odawaraJourney,
-  'The Collector': odawaraJourney,
-}
-
 // Every journey's detours.
 const ALL_DETOURS = ALL_JOURNEYS.flatMap((journey) => journey.route.flatMap((stop) => stop.detours ?? []))
 
 function journeyWithId(id) {
   return ALL_JOURNEYS.find((journey) => journey.id === id) ?? null
-}
-
-function travelerTypeNamed(name) {
-  return PERSONALITIES.find((each) => each.name === name) ?? null
 }
 
 // Where a saved journey was left off, in words, and how far along the route
@@ -103,8 +105,7 @@ function whereLeftOff(progress) {
 
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
-  // "quiz", "seeJourney", any of the JOURNEY_PAGES above,
-  // "memory" or "survey".
+  // "seeJourney", any of the JOURNEY_PAGES above, "memory" or "survey".
   const [page, setPage] = useState('home')
 
   // Which journey Home's feed was on, kept here because the feed itself is
@@ -115,7 +116,6 @@ function App() {
   // through, if it was being saved. Both are kept on this device.
   const [profile, setProfile] = useState(loadProfile)
   const [progress, setProgress] = useState(loadProgress)
-  const [travelerType, setTravelerType] = useState(() => travelerTypeNamed(profile?.travelerType))
 
   // The journey you're looking at or on: the one left partway, to begin
   // with, or else the featured one.
@@ -152,23 +152,14 @@ function App() {
     }
   }, [saving, page, detour, detoursTaken, journey.id])
 
-  // A quiz result goes on your profile too, if you have one.
-  const rememberTravelerType = useCallback((type) => {
-    setTravelerType(type)
-    setProfile((current) =>
-      current && current.travelerType !== type.name ? { ...current, travelerType: type.name } : current
-    )
-  }, [])
-
   function createProfile(name) {
-    setProfile(newProfile(name, travelerType?.name))
+    setProfile(newProfile(name))
   }
 
   function deleteProfile() {
     setProfile(null)
     storeProgress(null)
     setProgress(null)
-    setTravelerType(null)
     setSaving(false)
   }
 
@@ -177,11 +168,6 @@ function App() {
   function openJourney(chosen) {
     setJourneyId(chosen.id)
     setPage('seeJourney')
-  }
-
-  // SEE YOUR JOURNEY: the one picked for your traveler type.
-  function seeYourJourney() {
-    openJourney((travelerType && JOURNEY_FOR_TYPE[travelerType.name]) ?? ALL_JOURNEYS[0])
   }
 
   // With a profile, a journey is saved as you go. Without one, you're asked
@@ -244,7 +230,7 @@ function App() {
 
   // Making a profile from the Memory page: this journey goes on it, finished.
   function createProfileFromMemory(name) {
-    const started = withJourneyStarted(newProfile(name, travelerType?.name), journey.id)
+    const started = withJourneyStarted(newProfile(name), journey.id)
     const stopCount = journey.route.length + detoursTaken.length
     setProfile(withJourneyCompleted(started, journey.id, detoursTaken, stopCount))
   }
@@ -267,7 +253,6 @@ function App() {
         profile={profile}
         onCreateProfile={createProfile}
         onRename={(name) => setProfile({ ...profile, name })}
-        onTakeQuiz={() => setPage('find')}
         onDelete={deleteProfile}
       />
     )
@@ -294,7 +279,6 @@ function App() {
     content = (
       <SurveyPage
         journey={journey}
-        travelerType={travelerType}
         detoursTaken={detoursTaken}
         profileName={profile?.name}
         onBack={() => setPage('memory')}
@@ -448,19 +432,8 @@ function App() {
         underWay={underWay?.journeyId === journey.id ? whereLeftOff(underWay) : null}
       />
     )
-  } else if (page === 'quiz') {
-    content = (
-      <Questionnaire
-        onExit={() => setPage('find')}
-        onHome={() => setPage('home')}
-        onSeeJourney={seeYourJourney}
-        onSetTravelerType={rememberTravelerType}
-        profileName={profile?.name}
-        onCreateProfile={createProfile}
-      />
-    )
   } else if (page === 'find') {
-    content = <FindJourneyPage onStart={() => setPage('quiz')} />
+    content = <FindJourneyPage />
   } else {
     content = (
       <HomePage
@@ -537,7 +510,7 @@ function App() {
         <SaveProgressPrompt
           onSave={(name) => {
             setPendingStart(null)
-            startJourney(pendingStart, newProfile(name, travelerType?.name))
+            startJourney(pendingStart, newProfile(name))
           }}
           onSkip={() => {
             setPendingStart(null)
@@ -546,6 +519,32 @@ function App() {
           onCancel={() => setPendingStart(null)}
         />
       )}
+    </div>
+  )
+}
+
+// The symbol on a journey's experience tag, for what it's mostly about.
+const EXPERIENCE_ICONS = { Scenic: MountainIcon, Foodie: ForkKnifeIcon, Cultural: ToriiIcon }
+
+// "KAMAKURA · KANAGAWA, JAPAN" becomes "Kanagawa, Japan", without the town.
+function placeName(location) {
+  return location
+    .split(' · ')[1]
+    .toLowerCase()
+    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
+    .replace('Usa', 'USA')
+}
+
+// One of the four bubbles on a journey on Home: a symbol, a value, and what
+// it's a value of.
+function FeedTag({ Icon, iconClass, value, label }) {
+  return (
+    <div className="feedTag">
+      <Icon className={`feedTagIcon ${iconClass}`} />
+      <p>
+        <span className="feedTagValue">{value}</span>
+        <span className="feedTagLabel">{label}</span>
+      </p>
     </div>
   )
 }
@@ -601,6 +600,10 @@ function HomePage({ journeys, onSelect, positionRef }) {
   return (
     <div className="homePage">
       <Header />
+      {/* It doesn't do anything yet. */}
+      <button className="feedSearch" aria-label="Search">
+        <SearchIcon />
+      </button>
       <div className="feed" ref={feedRef} onScroll={rememberPosition}>
         {journeys.map((journey, index) => (
           <div key={journey.id} className="feedCard" onClick={() => onSelect(journey)}>
@@ -611,17 +614,46 @@ function HomePage({ journeys, onSelect, positionRef }) {
               // Fetched as you get near it, so opening the app doesn't download them all.
               loading={index === 0 ? 'eager' : 'lazy'}
             />
-            <div className="feedCardText">
+            <div className="feedPlaceRow">
+              <p className="feedPlace">
+                <SolidPinIcon />
+                {placeName(journey.location)}
+              </p>
               {journey.aiMade && <AiBadge />}
               {journey.verified && <VerifiedBadge />}
-              <p className="feedPlace">
-                <PinIcon />
-                {/* "KAMAKURA · KANAGAWA, JAPAN", without the town. */}
-                {journey.location.split(' · ')[1]}
-              </p>
-              <h2 className="heroTitle">{journey.name}</h2>
-              <button className="introBtn">EXPLORE THIS JOURNEY ➜</button>
             </div>
+            <h2 className="feedTitle">{journey.name}</h2>
+            <p className="feedTeaser">{journey.blurb}</p>
+            <div className="feedTags">
+              <FeedTag
+                Icon={SolidClockIcon}
+                iconClass="isYellow"
+                value={journey.time.replace('hours', 'hrs')}
+                label="DURATION"
+              />
+              <FeedTag
+                Icon={SolidWalkIcon}
+                iconClass="isGreen"
+                value={journey.difficulty}
+                label="DIFFICULTY"
+              />
+              <FeedTag
+                Icon={SolidPinIcon}
+                iconClass="isRed"
+                value={`${journey.route.length} stops`}
+                label="ITINERARY"
+              />
+              <FeedTag
+                Icon={EXPERIENCE_ICONS[journey.experience]}
+                iconClass="isBlue"
+                value={journey.experience}
+                label="EXPERIENCE"
+              />
+            </div>
+            <button className="feedDiscover">
+              Discover This Journey
+              <ArrowRightIcon />
+            </button>
           </div>
         ))}
       </div>
@@ -629,68 +661,51 @@ function HomePage({ journeys, onSelect, positionRef }) {
   )
 }
 
-// Explains what the quiz is before anyone starts it.
-function FindJourneyPage({ onStart }) {
-  // The quiz is next, so start fetching its pictures now.
-  useEffect(() => {
-    preloadQuizPhotos()
-  }, [])
-
+// The first screen of Find My Journey. The button doesn't go anywhere yet: the
+// screens after it are still to come.
+function FindJourneyPage() {
   return (
     <div className="findPage">
-      <div className="pageTop">
+      <img className="findPicture" src={findPicture} alt="" />
+
+      <div className="findWords">
         <Header />
-        <h1 className="mainHook pageTitle">Find My Journey</h1>
-        <p className="msg msgQuote">“Every traveler experiences Japan differently.”</p>
-        <p className="msg">
-          Answer eight quick questions and we'll tell you what kind of traveler you
-          are. Then we'll match you with journeys that fit.
+        <h1 className="findTitle">
+          Find
+          <br />
+          My
+          <br />
+          Journey
+        </h1>
+        <p className="findText">
+          Tell us what kind of day
+          <br />
+          you want, and we’ll find
+          <br />
+          the perfect journey
+          <br />
+          for you.
         </p>
-        <div className="icons">
-          <div className="iconContainer">
-            <img src={sceneryLogo} alt="" />
-            <p>What kind of scenery?</p>
-          </div>
-          <div className="iconContainer">
-            <img src={exploreLogo} alt="" />
-            <p>How do you like to explore?</p>
-          </div>
-          <div className="iconContainer">
-            <img src={experienceLogo} alt="" />
-            <p>What kind of experience?</p>
-          </div>
-        </div>
-        <div className="divider"></div>
       </div>
 
-      <ol className="howSteps">
-        <li>
-          <span className="howNum">1</span>
-          <span>
-            <strong>Pick a picture.</strong> Each question shows two places. Tap the
-            one that pulls you in.
-          </span>
-        </li>
-        <li>
-          <span className="howNum">2</span>
-          <span>
-            <strong>Go with your gut.</strong> There are no wrong answers, and it
-            takes about a minute.
-          </span>
-        </li>
-        <li>
-          <span className="howNum">3</span>
-          <span>
-            <strong>Meet your traveler type.</strong> The Naturalist, the Collector
-            or the Wanderer.
-          </span>
-        </li>
-      </ol>
-
-      <div className="testTakeBtnContainer">
-        <h2 className="mainHook">Ready to discover yours?</h2>
-        <button className="introBtn" onClick={onStart}>
-          START QUIZ ➜
+      <div className="findBottom">
+        <ul className="findPoints">
+          <li>
+            <NeedleCompassIcon />
+            Handcrafted experiences
+          </li>
+          <li>
+            <PinIcon />
+            Hidden gems
+          </li>
+          <li>
+            <FourStarsIcon />
+            Journeys for every mood
+          </li>
+        </ul>
+        <button className="findStart">
+          Let’s Find My Journey
+          <ArrowRightIcon />
         </button>
       </div>
     </div>

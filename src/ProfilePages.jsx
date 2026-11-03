@@ -4,7 +4,6 @@ import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
 import PromptBox from './PromptBox.jsx'
 import { APP_VERSION } from './config.js'
 import { CompassIcon, HomeIcon, PersonIcon, RouteIcon } from './Icons.jsx'
-import { PERSONALITIES } from './quizData'
 
 // Everything for the profile: the navbar along the bottom of the main tabs;
 // the My Journeys and Profile pages; and the small pieces for making a
@@ -80,8 +79,8 @@ export function NameForm({ submitLabel, initialName = '', onSubmit, onCancel, au
   )
 }
 
-// "Save this to a profile", in an outlined card: at the end of the quiz and
-// the journey, and on My Journeys and Profile without one.
+// "Save this to a profile", in an outlined card: at the end of a journey, and
+// on My Journeys and Profile without one.
 export function SignUpCard({ label, text, onCreate }) {
   return (
     <div className="signUpCard">
@@ -135,7 +134,7 @@ function DeleteProfilePrompt({ onDelete, onKeep }) {
   return (
     <PromptBox
       title="Delete your profile?"
-      text="Your name, traveler type, saved journeys and stats will be removed from this device. This can’t be undone."
+      text="Your name, saved journeys and stats will be removed from this device. This can’t be undone."
       onDismiss={onKeep}
     >
       <button className="introBtn" onClick={onKeep} autoFocus>
@@ -268,7 +267,7 @@ function AppVersion() {
   return <p className="appVersion">Version · {APP_VERSION}</p>
 }
 
-export function ProfilePage({ profile, onCreateProfile, onRename, onTakeQuiz, onDelete }) {
+export function ProfilePage({ profile, onCreateProfile, onRename, onDelete }) {
   const [editingName, setEditingName] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
 
@@ -280,7 +279,7 @@ export function ProfilePage({ profile, onCreateProfile, onRename, onTakeQuiz, on
           <h1 className="mainHook pageTitle">Profile</h1>
           <SignUpCard
             label="MAKE A PROFILE"
-            text="Just a name, no password. Your traveler type and journeys are then kept on this device, so you won’t need to retake the quiz."
+            text="Just a name, no password. Your journeys and stats are then kept on this device."
             onCreate={onCreateProfile}
           />
           <AppVersion />
@@ -289,7 +288,6 @@ export function ProfilePage({ profile, onCreateProfile, onRename, onTakeQuiz, on
     )
   }
 
-  const type = PERSONALITIES.find((each) => each.name === profile.travelerType)
   const since = new Date(profile.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
   const stats = [
     [profile.stats.journeysCompleted, 'Journeys completed'],
@@ -328,17 +326,6 @@ export function ProfilePage({ profile, onCreateProfile, onRename, onTakeQuiz, on
               </button>
             </>
           )}
-        </div>
-
-        <div className="profileType" style={type ? { '--type-color': type.color } : undefined}>
-          {type && <img src={type.photo} alt="" />}
-          <div>
-            <p className="startCardLabel">YOUR TRAVELER TYPE</p>
-            <p className="profileTypeName">{type ? type.name : 'Not found yet'}</p>
-            <button className="textLink" onClick={onTakeQuiz}>
-              {type ? 'RETAKE THE QUIZ' : 'TAKE THE QUIZ ➜'}
-            </button>
-          </div>
         </div>
 
         <h2 className="sectionTitle">Your stats</h2>

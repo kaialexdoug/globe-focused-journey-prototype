@@ -284,7 +284,7 @@ export const kawagoeJourney = {
   photo: emaTunnelPhoto,
   photoAlt: 'A tunnel of wooden prayer plaques at a shrine in Kawagoe',
 
-  // A line about it. Nothing shows it at the moment.
+  // The line under its name on Home, short enough to fit on two.
   blurb: 'Explore the historic streets of Kawagoe.',
   // The first line under the photo on See Your Journey.
   tagline: 'Yours to explore, whenever you’re ready.',
@@ -293,6 +293,11 @@ export const kawagoeJourney = {
   time: '~2 hours',
   walking: 'Flat walking',
   stops: '~5 stops',
+
+  // For its tags on Home. How hard it is: 'Easy', 'Moderate' or 'Active'. What
+  // it's mostly about: 'Scenic', 'Foodie' or 'Cultural' (each has its own symbol).
+  difficulty: 'Easy',
+  experience: 'Cultural',
 
   // Its stops, part by part. "Already at the starting point?" skips straight
   // past the departure to the discovery. The build is the stop with the
@@ -306,14 +311,6 @@ export const kawagoeJourney = {
   // Under START HERE on See Your Journey.
   startArea: 'Kawagoe, Saitama, Japan',
   startNote: 'Travel to the start is separate from journey time.',
-
-  // Why it's been picked for you, by traveler type. Only shown once you've
-  // taken the quiz.
-  reasons: {
-    'The Naturalist': 'For your love of hidden history',
-    'The Collector': 'For your love of the classic sights',
-    'The Wanderer': 'For your love of side streets and street food',
-  },
 
   // "Why we recommend this journey", one entry per paragraph.
   why: [
@@ -554,6 +551,8 @@ export const odawaraJourney = {
   time: '~4 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
+  difficulty: 'Easy',
+  experience: 'Cultural',
 
   departure: odawaraStation,
   discovery: kamabokoDori,
@@ -563,12 +562,6 @@ export const odawaraJourney = {
 
   startArea: 'Odawara, Kanagawa, Japan',
   startNote: 'Travel to the start is separate from journey time.',
-
-  reasons: {
-    'The Naturalist': 'For your love of the sea and a quiet coast',
-    'The Collector': 'For your love of castles and old shops',
-    'The Wanderer': 'For your love of old roads and street food',
-  },
 
   why: [
     'For centuries, travelers on the road between Edo and Kyoto stopped here to rest, eat, and look at the water. The town hasn’t changed that much: fish from the bay, shops that have been open longer than anyone can remember, and a quiet stretch of coast waiting at the end of the day. We’ll walk you through it, and somewhere along the way there’s one moment that makes the whole trip worth it.',
@@ -587,7 +580,6 @@ export const odawaraJourney = {
   },
 }
 
-// Every journey, the featured one first: it's the one the quiz picks, and
-// the first on Home. The AI-made ones (aiJourneys/) come after
-// the checked ones.
+// Every journey, the featured one first: it's the first on Home. The AI-made
+// ones (aiJourneys/) come after the checked ones.
 export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS]

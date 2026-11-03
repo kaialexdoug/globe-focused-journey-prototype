@@ -6,8 +6,8 @@ import { SURVEY_URL } from './config.js'
 // The survey at the end of a journey: the person's name, then three
 // questions, one at a time. ← PREVIOUS goes back a step with the answers
 // kept, and NEXT → stays greyed out until there's an answer. FINISH SURVEY
-// sends it all, with which traveler type and detours they had, to a Google
-// Sheet (SURVEY_URL in config.js).
+// sends it all, with which detours they took, to a Google Sheet (SURVEY_URL in
+// config.js).
 
 // `type` is "text" for a typed answer, or "choice" to pick one of `options`.
 const QUESTIONS = [
@@ -32,7 +32,7 @@ const QUESTIONS = [
 
 // With a profile (`profileName`), it already knows the name, so it starts
 // straight at the first question.
-function SurveyPage({ journey, travelerType, detoursTaken, profileName, onBack, onHome }) {
+function SurveyPage({ journey, detoursTaken, profileName, onBack, onHome }) {
   // 0 is the name; 1 onwards are the questions.
   const firstStep = profileName ? 1 : 0
   const [step, setStep] = useState(firstStep)
@@ -80,7 +80,6 @@ function SurveyPage({ journey, travelerType, detoursTaken, profileName, onBack, 
           standout: (answers.standout ?? '').trim(),
           anotherJourney: answers.anotherJourney ?? '',
           wouldBuy: (answers.wouldBuy ?? '').trim(),
-          travelerType: travelerType ? travelerType.name : 'Didn’t take the quiz',
           detoursTaken: detours.length > 0 ? detours.join(', ') : 'None',
           journey: journey.name,
         }),

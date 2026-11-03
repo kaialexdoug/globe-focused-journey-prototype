@@ -63,17 +63,20 @@
     rgba(248, 243, 238, 0.7) 74%,
     rgba(248, 243, 238, 0.95) 100%
   );
-  /* A journey on the Home feed: the photo is the point, so the top half or so
-     isn't shaded at all, apart from a touch behind the header. The shade along
-     the bottom is dark, for white words. */
+  /* A journey on the Home feed: shaded dark behind the white words at the top,
+     then not at all from the middle down, so the photo is clear. */
   --feed-fade: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.35) 0%,
-    rgba(0, 0, 0, 0) 12%,
-    rgba(0, 0, 0, 0) 58%,
-    rgba(0, 0, 0, 0.42) 74%,
-    rgba(0, 0, 0, 0.8) 100%
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.42) 30%,
+    rgba(0, 0, 0, 0.16) 46%,
+    rgba(0, 0, 0, 0) 58%
   );
+  /* The symbols on a journey's tags on the Home feed. */
+  --tag-yellow: rgb(245, 190, 65);
+  --tag-green: rgb(90, 215, 110);
+  --tag-red: rgb(240, 85, 90);
+  --tag-blue: rgb(105, 185, 240);
   /* The photo cards (My Journeys, Detours) are shaded the same way:
      the big journey cards, and the smaller photo strips. */
   --card-fade: linear-gradient(
@@ -97,8 +100,9 @@
   --photo-accent: var(--unfold-green);
   --photo-panel-soft: rgba(255, 255, 255, 0.6);
 
-  /* The light grey line icons on Find My Journey, turned dark. */
-  --icon-filter: invert(1) brightness(0.55);
+  /* The bluish black of Find My Journey's words and the fade along its bottom,
+     sampled from the mockup. */
+  --night: rgb(12, 23, 43);
   /* The word being read aloud: picked out with a soft peach highlight. */
   --spoken-bg: rgba(249, 195, 165, 0.55);
 

@@ -124,11 +124,13 @@ export default {
   // fills.
   photo: gooseberryFallsPhoto,
   photoAlt: gooseberryFalls.photoAlt,
-  blurb: 'Up the shore of Lake Superior, past an old tugboat and roaring falls, to a lighthouse on a cliff and the end of the day high above the lake.',
+  blurb: 'Up the shore of Lake Superior, past roaring falls to a lighthouse on a cliff.',
   tagline: TAGLINE,
   time: '~6 hours',
   walking: 'Walk + drive',
   stops: '~5 stops',
+  difficulty: 'Easy',
+  experience: 'Scenic',
   departure: lighthouse,
   discovery: ednaG,
   build: gooseberryFalls,
@@ -136,7 +138,7 @@ export default {
   afterglow: palisadeHead,
   startArea: 'Two Harbors, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Adventurous', 'Peaceful', 'Romantic'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 6, effort: 'Easy' },
+  match: { moods: ['Adventurous', 'Peaceful', 'Romantic'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 6 },
   why: [
     'The North Shore is one long road beside one enormous lake, and every few miles it gives you something new: a harbor, a waterfall, a lighthouse, a cliff. This journey takes the best stretch of it, and saves the highest view for the end of the day.',
   ],

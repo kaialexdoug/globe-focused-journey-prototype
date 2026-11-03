@@ -146,3 +146,121 @@ export function CloseIcon({ className }) {
     </Icon>
   )
 }
+
+// The search button on Home.
+export function SearchIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="m16 16 4.5 4.5" />
+    </Icon>
+  )
+}
+
+// On the button at the bottom of a journey on Home.
+export function ArrowRightIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3.5 12h17M14.5 6l6 6-6 6" />
+    </Icon>
+  )
+}
+
+// On Find My Journey: a compass whose needle reaches out past its rim.
+export function NeedleCompassIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M20.16 8.2A9 9 0 0 1 8.2 20.16M3.84 15.8A9 9 0 0 1 15.8 3.84" />
+      <path d="M21.5 2.5Q15.2 15.2 2.5 21.5 8.8 8.8 21.5 2.5zM2.5 21.5 12 12" />
+    </Icon>
+  )
+}
+
+// On Find My Journey: four stars, one big and three smaller.
+export function FourStarsIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path
+        d="M7 3.5Q8 9 13.5 10 8 11 7 16.5 6 11 .5 10 6 9 7 3.5zM18.5 1Q19.2 4.3 22.5 5 19.2 5.7 18.5 9 17.8 5.7 14.5 5 17.8 4.3 18.5 1zM18 11.5Q18.9 15.6 23 16.5 18.9 17.4 18 21.5 17.1 17.4 13 16.5 17.1 15.6 18 11.5zM8 17.8Q8.5 20 10.7 20.5 8.5 21 8 23.2 7.5 21 5.3 20.5 7.5 20 8 17.8z"
+        fill="currentColor"
+        stroke="none"
+      />
+    </Icon>
+  )
+}
+
+// The rest are solid rather than drawn in lines, for the place and the tags on
+// a journey on Home.
+
+export function SolidPinIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path
+        d="M12 2a7.5 7.5 0 0 0-7.5 7.5C4.5 15.5 12 22 12 22s7.5-6.5 7.5-12.5A7.5 7.5 0 0 0 12 2zm0 10.3a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6z"
+        fill="currentColor"
+        fillRule="evenodd"
+        stroke="none"
+      />
+    </Icon>
+  )
+}
+
+export function SolidClockIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="12" r="10" fill="currentColor" stroke="none" />
+      <path d="M12 6.5V12l3.5 2" stroke="rgba(0, 0, 0, 0.7)" strokeWidth="2" />
+    </Icon>
+  )
+}
+
+export function SolidWalkIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="13.5" cy="4" r="2.4" fill="currentColor" stroke="none" />
+      <g strokeWidth="2.8">
+        <path d="M12.5 8.5 10.8 14" />
+        <path d="M10.8 14l3 2.6.9 4.4" />
+        <path d="M10.8 14l-1.9 3.2-2.4 3.3" />
+        <path d="M12.2 9.6l3.3 2.4" />
+        <path d="M12.2 9.6l-3.2 2" />
+      </g>
+    </Icon>
+  )
+}
+
+// A journey that's mostly scenic.
+export function MountainIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M1.5 20 9 6.5l4.3 7.4 2.2-3.4L22.5 20z" fill="currentColor" stroke="none" />
+    </Icon>
+  )
+}
+
+// A journey that's mostly about food.
+export function ForkKnifeIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <g strokeWidth="2">
+        <path d="M6 3v6a2.5 2.5 0 0 0 5 0V3M8.5 3v18" />
+        <path d="M17.5 3v18" />
+      </g>
+      <path d="M17.5 3c-2.4 1.4-3.5 4-3.5 7 0 1.6 1.2 3 3.5 3z" fill="currentColor" stroke="none" />
+    </Icon>
+  )
+}
+
+// A journey that's mostly cultural: a torii gate.
+export function ToriiIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <g strokeWidth="2.4">
+        <path d="M2.5 5c6 1.7 13 1.7 19 0" />
+        <path d="M4.5 10.5h15" />
+        <path d="M7.5 6.5V21M16.5 6.5V21" />
+        <path d="M12 6.8v3.7" />
+      </g>
+    </Icon>
+  )
+}

@@ -190,6 +190,20 @@ button:focus-visible {
   text-wrap: balance;
 }
 
+/* How far along you are, on the survey and a journey left partway. */
+.progressBar {
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--line);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: var(--unfold-green);
+  transition: width 0.3s ease;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -208,12 +222,7 @@ button:focus-visible {
 }
 
 /* --- Page layout ---
-   The top of a page that has a title (Find My Journey), and the padded
-   column underneath the header on every other page. */
-
-.pageTop {
-  background: linear-gradient(to bottom, var(--page-top) 0%, var(--bg) 100%);
-}
+   The title at the top of a page, and the padded column underneath the header. */
 
 .pageTitle {
   font-size: 34px;
@@ -358,12 +367,13 @@ button:focus-visible {
 
 /* --- Home: the feed ---
    Every journey, one screen at a time, its photo filling the screen above
-   the navbar (HomePage in App.jsx). The header stays put at the top while
-   the journeys scroll underneath it. */
+   the navbar (HomePage in App.jsx). The header and the search button stay put
+   at the top while the journeys scroll underneath them. */
 
 .homePage {
   position: relative;
   height: 100%;
+  animation: fadeUp 0.5s ease both;
 }
 
 /* Taps and swipes go straight through it to the journey underneath. */
@@ -380,6 +390,30 @@ button:focus-visible {
   color: white;
 }
 
+/* A magnifying glass on frosted glass, level with the logo. */
+.feedSearch {
+  position: absolute;
+  top: calc(3px + var(--frame-top));
+  right: 14px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: rgba(40, 32, 36, 0.42);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+}
+
+.feedSearch svg {
+  width: 22px;
+  height: 22px;
+}
+
 /* Scrolling always comes to rest on one whole journey, never between two. */
 .feed {
   height: 100%;
@@ -393,10 +427,16 @@ button:focus-visible {
   display: none;
 }
 
-/* The dark green shows behind a photo that's still loading. */
+/* The words at the top and the button at the bottom, with the space between
+   them left clear for the photo. The dark green shows behind a photo that's
+   still loading. */
 .feedCard {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
   height: 100%;
+  padding: calc(60px + var(--frame-top)) 16px 18px;
   overflow: hidden;
   isolation: isolate;
   background-color: var(--unfold-green);
@@ -423,134 +463,359 @@ button:focus-visible {
   background: var(--feed-fade);
 }
 
-.feedCardText {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
+/* The pin and the place, with the journey's AI GENERATED or UNFOLD VERIFIED tag
+   across from them. */
+.feedPlaceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.feedCardText .aiBadge,
-.feedCardText .verifiedBadge {
-  margin-bottom: 10px;
+.feedPlaceRow .aiBadge,
+.feedPlaceRow .verifiedBadge {
+  flex-shrink: 0;
 }
 
-/* The pin, then the place. */
+/* A soft edge on the words, so they hold up over a busy photo. */
+.feedPlace,
+.feedTitle,
+.feedTeaser {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
 .feedPlace {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
+  font-size: 15px;
   color: white;
 }
 
 .feedPlace svg {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
 
-.feedCardText .heroTitle {
+.feedTitle {
+  margin: 8px 0 0;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 39px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.06;
   color: white;
+  text-wrap: balance;
 }
 
-/* Only outlined, so it doesn't cover up more of the photo than it has to. */
-.feedCard .introBtn {
-  margin-top: 16px;
-  background-color: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(6px);
-  border-color: rgba(255, 255, 255, 0.7);
+.feedTeaser {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.35;
+  color: white;
+  text-wrap: balance;
+}
+
+/* Four bubbles in a row: see-through behind a solid symbol and words. */
+.feedTags {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: space-between;
+  gap: 5px;
+  margin-top: 14px;
+}
+
+.feedTag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px 6px 5px;
+  background-color: rgba(40, 32, 36, 0.42);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+}
+
+.feedTagIcon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.feedTagIcon.isYellow {
+  color: var(--tag-yellow);
+}
+
+.feedTagIcon.isGreen {
+  color: var(--tag-green);
+}
+
+.feedTagIcon.isRed {
+  color: var(--tag-red);
+}
+
+.feedTagIcon.isBlue {
+  color: var(--tag-blue);
+}
+
+.feedTagValue,
+.feedTagLabel {
+  display: block;
+  color: white;
+  white-space: nowrap;
+}
+
+.feedTagValue {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.feedTagLabel {
+  font-size: 7.5px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  line-height: 1.3;
+}
+
+/* Pushed down to the bottom of the journey, leaving the gap above it. */
+.feedDiscover {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 11px 20px 11px 24px;
+  background-color: white;
+  border: none;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.feedDiscover svg {
+  width: 22px;
+  height: 22px;
 }
 
 @media (hover: hover) {
-  .feedCard .introBtn:hover {
-    background-color: rgba(255, 255, 255, 0.26);
+  .feedDiscover:hover {
+    background-color: var(--bg);
   }
 }
 
-/* --- Find My Journey --- */
+.feedDiscover:active {
+  transform: scale(0.98);
+}
+
+/* A little smaller on a narrower phone, to keep the four tags in a row. */
+@media (max-width: 389px) {
+  .feedTitle {
+    font-size: 36px;
+  }
+
+  .feedTags {
+    gap: 3px;
+  }
+
+  .feedTag {
+    gap: 3px;
+    padding: 5px 6px 5px 5px;
+  }
+
+  .feedTagIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .feedTagValue {
+    font-size: 11.5px;
+  }
+
+  .feedTagLabel {
+    font-size: 7px;
+    letter-spacing: 0.3px;
+  }
+}
+
+/* They won't fit on the narrowest phones, so two rows of two. */
+@media (max-width: 350px) {
+  .feedTitle {
+    font-size: 32px;
+  }
+
+  .feedTags {
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+  }
+}
+
+/* --- Find My Journey ---
+   Its first screen (FindJourneyPage in App.jsx). The picture fills the screen,
+   and the bottom fades into the bluish black, behind the white words. */
 
 .findPage {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 0 22px 10px;
+  overflow: hidden;
+  /* The picture's sky, for the moment before it has loaded. */
+  background-color: rgb(136, 196, 233);
+  text-align: left;
   animation: fadeUp 0.5s ease both;
 }
 
-.msg {
-  max-width: 320px;
-  margin: 10px auto 0;
-  padding: 0 10px;
-  font-size: 14px;
-  line-height: 1.5;
+/* Bigger than the screen, so the sky reaches down behind the title and Mount
+   Fuji comes out just below the words. The left and top say where on the
+   screen, and the transform which part of the picture sits there: the peak a
+   quarter of the way across, and the tip of the top branch above the title. */
+.findPicture {
+  position: absolute;
+  top: calc(var(--frame-top) + 30px);
+  left: 25%;
+  width: 146%;
+  max-width: none;
+  transform: translate(-30.6%, -13.1%);
 }
 
-.msgQuote {
-  max-width: 360px;
-  font-family: 'Times New Roman', Times, serif;
-  font-style: italic;
-  font-size: 16px;
-  color: var(--ink-soft);
+.findPage::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 240px;
+  background: linear-gradient(
+    to top,
+    var(--night) 40%,
+    rgba(12, 23, 43, 0.85) 58%,
+    rgba(12, 23, 43, 0.5) 74%,
+    rgba(12, 23, 43, 0.18) 88%,
+    rgba(12, 23, 43, 0) 100%
+  );
 }
 
-.icons {
-  display: flex;
-  justify-content: center;
-  gap: 22px;
-  padding: 30px 10px 34px;
+.findWords,
+.findBottom {
+  position: relative;
+  z-index: 1;
 }
 
-.iconContainer {
-  width: 84px;
-  text-align: center;
-  flex-shrink: 0;
-  font-size: 11px;
-  line-height: 1.35;
+.findTitle {
+  margin: 12px 0 0;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0;
+  color: var(--night);
 }
 
-.iconContainer img {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 8px;
-  border: 2px solid var(--ink);
-  border-radius: 50%;
-  filter: var(--icon-filter);
+.findText {
+  margin-top: 10px;
+  font-size: 17px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: rgba(12, 23, 43, 0.85);
 }
 
-.howSteps {
-  list-style: none;
-  margin: 0;
-  padding: 26px 24px 6px;
+.findBottom {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.findPoints {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  text-align: left;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.howSteps li {
+.findPoints li {
   display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--ink-muted);
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  letter-spacing: 0;
+  color: white;
 }
 
-.howSteps strong {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.howNum {
+.findPoints svg {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  border: 1px solid var(--unfold-green);
-  border-radius: 50%;
-  font-size: 11px;
-  line-height: 22px;
-  text-align: center;
-  color: var(--ink);
+}
+
+.findStart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  background-color: var(--unfold-green);
+  border: 3px solid white;
+  border-radius: 999px;
+  font-size: 17px;
+  letter-spacing: 0;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.findStart svg {
+  width: 20px;
+  height: 20px;
+}
+
+.findStart:active {
+  transform: scale(0.98);
+}
+
+/* Smaller on a short screen, to leave a gap for the picture. */
+@media (max-height: 700px) {
+  .findTitle {
+    margin-top: 10px;
+    font-size: 42px;
+  }
+
+  .findText {
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .findPoints {
+    gap: 4px;
+  }
+
+  .findPoints li {
+    font-size: 14px;
+  }
+
+  .findPoints svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .findStart {
+    height: 46px;
+    margin-top: 8px;
+    font-size: 16px;
+  }
 }
 
 /* --- Journey cards --- */
@@ -646,334 +911,6 @@ button:focus-visible {
   font-size: 19px;
   color: var(--ink-soft);
   margin-bottom: 4px;
-}
-
-/* --- The quiz --- */
-
-.quizPage {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.questionContainer {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 0 16px;
-  animation: fadeUp 0.35s ease both;
-}
-
-.questionContainer .backBtn {
-  align-self: flex-start;
-  padding: 2px 4px 6px;
-}
-
-.questionText {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 23px;
-  line-height: 1.25;
-  color: var(--ink);
-  margin: 6px 0 14px;
-  padding: 0 6px;
-}
-
-.photoChoices {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.photoChoice {
-  position: relative;
-  flex: 1;
-  min-height: 140px;
-  padding: 0;
-  border: 2px solid var(--photo-outline);
-  border-radius: 15px;
-  overflow: hidden;
-  background-color: var(--surface);
-  cursor: pointer;
-  transition:
-    transform 0.25s ease,
-    opacity 0.3s ease,
-    filter 0.3s ease,
-    border-color 0.2s ease;
-}
-
-.photoChoice img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-/* Darkens the bottom of the picture so the caption reads. */
-.photoChoice::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(10, 10, 16, 0.9) 0%,
-    rgba(10, 10, 16, 0.3) 42%,
-    rgba(10, 10, 16, 0) 68%
-  );
-}
-
-.photoCaption {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 13px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  text-align: left;
-}
-
-.photoTrait {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  /* Peach, so it still reads on the dark shading over a busy photo. */
-  color: var(--unfold-peach);
-}
-
-.photoText {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 21px;
-  line-height: 1.15;
-  color: white;
-}
-
-@media (hover: hover) {
-  .photoChoice:hover {
-    border-color: var(--unfold-green);
-  }
-
-  .photoChoice:hover img {
-    transform: scale(1.04);
-  }
-}
-
-.photoChoice.isChosen {
-  border-color: var(--unfold-green);
-  transform: scale(1.02);
-}
-
-.photoChoice.isFaded {
-  opacity: 0.35;
-  filter: grayscale(0.7);
-  transform: scale(0.97);
-}
-
-.orDivider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 7px 30px;
-  font-family: 'Times New Roman', Times, serif;
-  font-style: italic;
-  font-size: 15px;
-  color: var(--ink-label);
-}
-
-.orDivider::before,
-.orDivider::after {
-  content: '';
-  flex: 1;
-  border-top: 1px solid var(--line);
-}
-
-.progress {
-  padding: 16px 14px calc(18px + var(--frame-bottom));
-}
-
-.progressLabel {
-  font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--ink-label);
-  margin-bottom: 8px;
-}
-
-.progressBar {
-  height: 3px;
-  border-radius: 2px;
-  background-color: var(--line);
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  background-color: var(--unfold-green);
-  transition: width 0.3s ease;
-}
-
-/* --- Your traveler type ---
-   --type-color is set on the container from the type's flow chart colour. */
-
-.resultContainer {
-  padding: 0 18px calc(20px + var(--frame-bottom));
-  animation: fadeUp 0.5s ease both;
-}
-
-/* The photo card with a label and a title on its darkened bottom edge. */
-.resultHero {
-  position: relative;
-  height: 230px;
-  margin-top: 12px;
-  border: 2px solid var(--type-color);
-  border-radius: 15px;
-  overflow: hidden;
-  z-index: 2;
-}
-
-.resultHero img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.resultHero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(10, 10, 16, 0.92) 0%,
-    rgba(10, 10, 16, 0.3) 50%,
-    rgba(10, 10, 16, 0) 75%
-  );
-}
-
-.resultHeroText {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 16px;
-  z-index: 1;
-  text-align: left;
-}
-
-.resultLabel {
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  /* Lifted towards white so it reads on top of the photo. */
-  color: color-mix(in srgb, var(--type-color) 65%, white);
-  margin-bottom: 4px;
-}
-
-.resultHero .mainHook {
-  font-size: 36px;
-  margin: 0;
-  color: white;
-}
-
-.traitChips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 7px;
-  margin: 18px 0 20px;
-}
-
-.traitChip {
-  padding: 5px 11px;
-  border: 1px solid var(--type-color);
-  border-radius: 20px;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: var(--ink);
-}
-
-.traitChip.isMissed {
-  border-color: var(--outline);
-  color: var(--ink-placeholder);
-}
-
-.resultText {
-  font-family: 'Times New Roman', Times, serif;
-  font-style: italic;
-  font-size: 17px;
-  line-height: 1.5;
-  color: var(--ink-soft);
-  padding: 0 6px 26px;
-}
-
-.matchScore {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 24px 6px 6px;
-}
-
-.matchHeadline {
-  font-size: 14px;
-  color: var(--ink-soft);
-  margin-bottom: 4px;
-}
-
-/* The type's colour, darkened to stay readable as text on the light page. */
-.matchHeadline strong {
-  color: color-mix(in srgb, var(--type-color) 60%, black);
-  font-weight: 600;
-}
-
-.matchRow {
-  text-align: left;
-  opacity: 0.55;
-}
-
-.matchRow.isYours {
-  opacity: 1;
-}
-
-.matchRowTop {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: var(--ink);
-}
-
-.matchCount {
-  color: var(--ink-faint);
-}
-
-.matchTrack {
-  height: 5px;
-  border-radius: 3px;
-  background-color: var(--line);
-  overflow: hidden;
-}
-
-.matchFill {
-  height: 100%;
-  border-radius: 3px;
-  transform-origin: left;
-  animation: growBar 0.9s ease 0.2s both;
-}
-
-@keyframes growBar {
-  from {
-    transform: scaleX(0);
-  }
-}
-
-.resultContainer .testTakeBtnContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 26px 0 10px;
 }
 
 /* --- Your journey ---
@@ -2245,6 +2182,7 @@ button:focus-visible {
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  margin-bottom: 28px;
   padding: 22px 18px 16px;
   border: 1px solid var(--outline);
   border-radius: 15px;
@@ -2283,41 +2221,6 @@ button:focus-visible {
 
 .profileCard .textLink {
   margin-top: 6px;
-}
-
-/* Your traveler type, outlined in its own colour. */
-.profileType {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 16px 0 28px;
-  padding: 14px;
-  border: 1px solid var(--type-color, var(--outline));
-  border-radius: 15px;
-  text-align: left;
-}
-
-.profileType img {
-  flex-shrink: 0;
-  width: 64px;
-  height: 64px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.profileType .startCardLabel {
-  margin-bottom: 4px;
-}
-
-.profileTypeName {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 22px;
-  color: var(--text-h);
-}
-
-.profileType .textLink {
-  margin: 0;
-  padding: 6px 0 0;
 }
 
 .statsGrid {
@@ -2418,10 +2321,8 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .homePage,
   .findPage,
-  .questionContainer,
-  .resultContainer,
-  .matchFill,
   .photoScreen,
   .surveyPage,
   .myJourneysPage,
