@@ -818,6 +818,328 @@ button:focus-visible {
   }
 }
 
+/* --- The steps of Find My Journey --- */
+
+.stepPage {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 0 22px calc(22px + var(--frame-bottom));
+  text-align: left;
+  animation: fadeUp 0.5s ease both;
+}
+
+/* The logo stays in the middle, as on every screen, with these either side of
+   it, level with it. */
+.stepBar {
+  position: relative;
+  margin: 0 -22px;
+}
+
+.stepBack,
+.stepSkip {
+  position: absolute;
+  top: calc(11px + var(--frame-top));
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--night);
+  cursor: pointer;
+}
+
+.stepBack {
+  left: 22px;
+}
+
+.stepBack svg {
+  width: 24px;
+  height: 24px;
+}
+
+.stepSkip {
+  right: 22px;
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+.stepCount {
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--night);
+}
+
+.stepProgress {
+  display: flex;
+  gap: 3px;
+  width: 80%;
+  margin-top: 6px;
+}
+
+.stepProgress span {
+  flex: 1;
+  height: 5px;
+  background-color: var(--line);
+  border-radius: 3px;
+}
+
+.stepProgress span.isDone {
+  background-color: var(--night);
+}
+
+.stepTitle {
+  margin: 16px 0 0;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: 0;
+  color: var(--night);
+}
+
+.stepText {
+  margin-top: 10px;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: rgba(12, 23, 43, 0.6);
+}
+
+.moodCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* The picture fills the card and fades away towards the bottom, into the white
+   of the card, for the words and the arrow to sit on. The card keeps the
+   mockup's shape. */
+.moodCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 0.78;
+  padding: 0 44px 13px 13px;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: white;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(12, 23, 43, 0.1);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  /* Each its own beat after the page, one after another. "backwards" rather
+     than "both", so that once it's in, pressing it can still shrink it. */
+  animation: fadeUp 0.5s ease backwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+}
+
+.moodCard:active {
+  transform: scale(0.98);
+}
+
+.moodCard img {
+  --fade: linear-gradient(to bottom, black 42%, rgba(0, 0, 0, 0.18) 60%, transparent 72%);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask-image: var(--fade);
+  mask-image: var(--fade);
+}
+
+.moodName {
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--night);
+}
+
+.moodAbout {
+  margin-top: 4px;
+  font-size: 10px;
+  line-height: 1.35;
+  letter-spacing: 1.2px;
+  white-space: nowrap;
+  color: rgba(12, 23, 43, 0.72);
+}
+
+.moodArrow {
+  position: absolute;
+  right: 9px;
+  bottom: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: white;
+}
+
+.moodArrow svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* The narrowest phones, so the title keeps to two lines and the longest words
+   still clear the arrow. */
+@media (max-width: 350px) {
+  .stepTitle {
+    font-size: 32px;
+  }
+
+  .moodName {
+    font-size: 18px;
+  }
+
+  .moodAbout {
+    font-size: 9px;
+    letter-spacing: 0.6px;
+  }
+
+  .moodArrow {
+    right: 7px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .moodArrow svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Step 2's four cards share out whatever height there is between the words and
+   NEXT, so that NEXT sits at the bottom of the screen. On a short screen they
+   stop shrinking, and the page scrolls. */
+.whoCards {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(190px, auto);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.whoCard {
+  aspect-ratio: auto;
+  padding: 0 13px 18px;
+}
+
+/* The pictures are nearly square, with the people low down in them, so each
+   stops short of the bottom of its card: that keeps the people clear of the
+   words. It fades over a fixed distance, to be nearly gone where the words
+   start (they're about 88px tall), however tall the card is. */
+.whoCard img {
+  --fade: linear-gradient(
+    to bottom,
+    black calc(100% - 55px),
+    rgba(0, 0, 0, 0.25) calc(100% - 21px),
+    transparent 100%
+  );
+  bottom: auto;
+  height: calc(100% - 67px);
+}
+
+.whoCard.isChosen {
+  box-shadow: 0 0 0 3px var(--unfold-green);
+}
+
+.whoIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 3px;
+  color: var(--night);
+}
+
+.whoCard .moodName {
+  font-size: 20px;
+}
+
+.whoAbout {
+  margin-top: 1px;
+  font-size: 13px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: rgba(12, 23, 43, 0.72);
+}
+
+/* Smaller here, to clear "Friends / Group", which runs right across its card. */
+.whoCard .moodArrow {
+  right: 8px;
+  bottom: 8px;
+  width: 28px;
+  height: 28px;
+}
+
+.whoCard .moodArrow svg {
+  width: 15px;
+  height: 15px;
+}
+
+.stepNext {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 50px;
+  margin-top: 16px;
+  background-color: var(--unfold-green);
+  border: none;
+  border-radius: 999px;
+  font-size: 17px;
+  letter-spacing: 0;
+  color: white;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.15s ease;
+}
+
+.stepNext svg {
+  width: 20px;
+  height: 20px;
+}
+
+.stepNext:active {
+  transform: scale(0.98);
+}
+
+.stepNext:disabled {
+  opacity: 0.4;
+  cursor: default;
+  transform: none;
+}
+
+/* So "Friends / Group" still fits on one line on narrower phones. */
+@media (max-width: 380px) {
+  .whoCard .moodName {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 350px) {
+  .whoCard .moodName {
+    font-size: 16px;
+  }
+}
+
 /* --- Journey cards --- */
 
 /* A journey as one big photo card. Tapping anywhere on it opens the journey. */
@@ -2323,6 +2645,8 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .homePage,
   .findPage,
+  .stepPage,
+  .moodCard,
   .photoScreen,
   .surveyPage,
   .myJourneysPage,
