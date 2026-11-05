@@ -133,7 +133,12 @@ export default {
   afterglow: glen,
   startArea: 'Minneapolis, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Peaceful', 'Playful', 'Romantic'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 3 },
+  match: {
+    hours: 3,
+    moods: { Peaceful: 80, Adventurous: 45, Romantic: 65, Curious: 50, Playful: 70, Cultural: 45 },
+    with: { Solo: 70, Couple: 80, Family: 95, 'Friends / Group': 75 },
+    preferences: { 'Pet friendly': 85, 'Avoid alcohol': 90, 'More nature': 80, 'Food stops': 40 },
+  },
   why: [
     'It’s not every city that has a waterfall in it. Minnehaha Falls is a short train ride from downtown Minneapolis, and it comes with a story: a famous poem, a poet who never visited, and a park full of the traces it left behind. This is a short journey, easy enough for a whole family, with the falls right at its heart.',
   ],

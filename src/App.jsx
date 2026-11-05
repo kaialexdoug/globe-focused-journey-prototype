@@ -6,7 +6,7 @@ import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
-import { CompanionPage, MoodPage } from './FindMyJourney.jsx'
+import { CompanionPage, DetailsPage, MatchesPage, MoodPage } from './FindMyJourney.jsx'
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
@@ -20,9 +20,7 @@ import {
 import {
   ArrowRightIcon,
   ClockIcon,
-  ForkKnifeIcon,
   FourStarsIcon,
-  MountainIcon,
   NavigateIcon,
   NeedleCompassIcon,
   PinIcon,
@@ -31,15 +29,17 @@ import {
   SolidClockIcon,
   SolidPinIcon,
   SolidWalkIcon,
-  ToriiIcon,
   WalkIcon,
 } from './Icons.jsx'
+import { EXPERIENCE_ICONS } from './experienceIcons.js'
 import { ALL_JOURNEYS } from './journeyStops'
 import {
   loadProfile,
   storeProfile,
   loadProgress,
   storeProgress,
+  loadLikes,
+  storeLikes,
   newProfile,
   withJourneyStarted,
   withJourneyCompleted,
@@ -54,10 +54,11 @@ import './App.css'
 // (Odawara: the station, Kamaboko-dori, the Local Culture Museum with the
 // NINJA Museum as a detour, the castle, Miyuki-no-Hama).
 // Home is a feed of every journey, the shortcut straight to any of them.
-// Find My Journey will be the other way in, by mood, but so far it's only its
-// intro and first two steps.
-// Home, Find My Journey's intro, My Journeys and Profile have a navbar along
-// the bottom to move between them.
+// Find My Journey is the other way in: its intro, three steps of questions, then
+// Journeys for You, every journey from the best match for your answers to the
+// worst.
+// Home, Find My Journey's intro and Journeys for You, My Journeys and Profile
+// have a navbar along the bottom to move between them.
 
 // The pages of the journey itself, and which part of the journey each one is
 // about (a detour's pages are about whichever detour you're on). Used to
@@ -79,9 +80,11 @@ const JOURNEY_PAGES = {
 }
 
 // The pages with the navbar along the bottom.
-const NAVBAR_PAGES = ['home', 'find', 'myJourneys', 'profile']
+const NAVBAR_PAGES = ['home', 'find', 'findMatches', 'myJourneys', 'profile']
 
-const NO_FIND_ANSWERS = { mood: null, companion: null }
+// What Find My Journey's answers start as: nothing yet, except that its details
+// step starts with a time and a pace already picked, as on the mockup.
+const NEW_FIND_ANSWERS = { mood: null, companion: null, time: '2–4 hrs', pace: 'Moderate', preferences: [] }
 
 // Every journey's detours.
 const ALL_DETOURS = ALL_JOURNEYS.flatMap((journey) => journey.route.flatMap((stop) => stop.detours ?? []))
@@ -108,17 +111,25 @@ function whereLeftOff(progress) {
 
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
-  // "findMood", "findWho", "seeJourney", any of the JOURNEY_PAGES above,
-  // "memory" or "survey".
+  // "findMood", "findWho", "findDetails", "findMatches", "seeJourney", any of
+  // the JOURNEY_PAGES above, "memory" or "survey".
   const [page, setPage] = useState('home')
 
   // What you've told Find My Journey so far, by the names on its cards: the
   // ones `match` on a journey's card uses, for matching journeys to them later.
-  const [findAnswers, setFindAnswers] = useState(NO_FIND_ANSWERS)
+  const [findAnswers, setFindAnswers] = useState(NEW_FIND_ANSWERS)
 
   // Which journey Home's feed was on, kept here because the feed itself is
-  // gone whenever you're on another screen.
+  // gone whenever you're on another screen. And how far down Journeys for You
+  // you were, the same way.
   const feedPositionRef = useRef(0)
+  const matchesPositionRef = useRef(0)
+
+  // Where the journey you've opened goes back to when you close it.
+  const [journeyOpenedFrom, setJourneyOpenedFrom] = useState('home')
+
+  // The ids of the journeys you've liked, kept on this device.
+  const [likes, setLikes] = useState(loadLikes)
 
   // Your profile, if you've made one, and the journey you left partway
   // through, if it was being saved. Both are kept on this device.
@@ -152,6 +163,10 @@ function App() {
     storeProfile(profile)
   }, [profile])
 
+  useEffect(() => {
+    storeLikes(likes)
+  }, [likes])
+
   // So is where you are in a journey that's being saved, at every step, so
   // it can be picked up again even after closing the app.
   useEffect(() => {
@@ -168,13 +183,25 @@ function App() {
     setProfile(null)
     storeProgress(null)
     setProgress(null)
+    setLikes([])
     setSaving(false)
+  }
+
+  function toggleLike(journeyId) {
+    setLikes(likes.includes(journeyId) ? likes.filter((each) => each !== journeyId) : [...likes, journeyId])
   }
 
   const stopJourney = () => setShowStopConfirmation(true)
 
-  function openJourney(chosen) {
+  // A new set of matches, so from the top of the list.
+  function seeMatches() {
+    matchesPositionRef.current = 0
+    setPage('findMatches')
+  }
+
+  function openJourney(chosen, from = 'home') {
     setJourneyId(chosen.id)
+    setJourneyOpenedFrom(from)
     setPage('seeJourney')
   }
 
@@ -430,7 +457,7 @@ function App() {
     content = (
       <SeeJourneyPage
         journey={journey}
-        onHome={() => setPage('home')}
+        onClose={() => setPage(journeyOpenedFrom)}
         onBeginJourney={() => beginJourney('departure')}
         // Already at the start: skip the departure and head for the first stop.
         onSkipToFirstStop={() => beginJourney('discovery')}
@@ -440,11 +467,42 @@ function App() {
         underWay={underWay?.journeyId === journey.id ? whereLeftOff(underWay) : null}
       />
     )
+  } else if (page === 'findMatches') {
+    content = (
+      <MatchesPage
+        journeys={ALL_JOURNEYS}
+        answers={findAnswers}
+        likes={likes}
+        positionRef={matchesPositionRef}
+        onSelect={(chosen) => openJourney(chosen, 'findMatches')}
+        onToggleLike={toggleLike}
+        onBack={() => setPage('findDetails')}
+      />
+    )
+  } else if (page === 'findDetails') {
+    content = (
+      <DetailsPage
+        answers={findAnswers}
+        onAnswer={(change) => setFindAnswers({ ...findAnswers, ...change })}
+        onFind={seeMatches}
+        onSkip={() => {
+          setFindAnswers({ ...findAnswers, time: null, pace: null, preferences: [] })
+          seeMatches()
+        }}
+        onBack={() => setPage('findWho')}
+      />
+    )
   } else if (page === 'findWho') {
     content = (
       <CompanionPage
-        chosen={findAnswers.companion}
-        onChoose={(companion) => setFindAnswers({ ...findAnswers, companion })}
+        onChoose={(companion) => {
+          setFindAnswers({ ...findAnswers, companion })
+          setPage('findDetails')
+        }}
+        onSkip={() => {
+          setFindAnswers({ ...findAnswers, companion: null })
+          setPage('findDetails')
+        }}
         onBack={() => setPage('findMood')}
       />
     )
@@ -466,7 +524,7 @@ function App() {
     content = (
       <FindJourneyPage
         onStart={() => {
-          setFindAnswers(NO_FIND_ANSWERS)
+          setFindAnswers(NEW_FIND_ANSWERS)
           setPage('findMood')
         }}
       />
@@ -495,7 +553,9 @@ function App() {
         {content}
       </div>
 
-      {showNavBar && <NavBar current={page} onNavigate={setPage} />}
+      {showNavBar && (
+        <NavBar current={page === 'findMatches' ? 'find' : page} onNavigate={setPage} />
+      )}
 
       {showSkipDetour && (
         <SkipDetourPrompt
@@ -559,9 +619,6 @@ function App() {
     </div>
   )
 }
-
-// The symbol on a journey's experience tag, for what it's mostly about.
-const EXPERIENCE_ICONS = { Scenic: MountainIcon, Foodie: ForkKnifeIcon, Cultural: ToriiIcon }
 
 // "KAMAKURA · KANAGAWA, JAPAN" becomes "Kanagawa, Japan", without the town.
 function placeName(location) {
@@ -749,13 +806,13 @@ function FindJourneyPage({ onStart }) {
 }
 
 // Like a journey stop: the journey's photo fills the screen, and everything
-// about it is in the panel pulled up from the bottom. ✕ goes back to Home.
-// `underWay` is where you left this journey, if it's on your profile
+// about it is in the panel pulled up from the bottom. ✕ goes back to where you
+// opened it from. `underWay` is where you left this journey, if it's on your profile
 // partway through: then it offers RESUME JOURNEY instead. `completed` says
 // you've finished it before.
 function SeeJourneyPage({
   journey,
-  onHome,
+  onClose,
   onBeginJourney,
   onSkipToFirstStop,
   onResume,
@@ -773,8 +830,8 @@ function SeeJourneyPage({
       title={journey.name}
       sheetLabel="SEE JOURNEY DETAILS"
       sheetKicker="Your journey"
-      onClose={onHome}
-      closeLabel="Back to home"
+      onClose={onClose}
+      closeLabel="Close"
     >
       <p className="heroTagline">{journey.tagline}</p>
 

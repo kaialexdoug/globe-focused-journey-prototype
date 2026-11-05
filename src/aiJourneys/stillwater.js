@@ -133,7 +133,12 @@ export default {
   afterglow: riverfront,
   startArea: 'Stillwater, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Romantic', 'Peaceful', 'Curious'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 4 },
+  match: {
+    hours: 4,
+    moods: { Peaceful: 70, Adventurous: 30, Romantic: 90, Curious: 70, Playful: 45, Cultural: 55 },
+    with: { Solo: 60, Couple: 95, Family: 60, 'Friends / Group': 75 },
+    preferences: { 'Pet friendly': 55, 'Avoid alcohol': 60, 'More nature': 40, 'Food stops': 65 },
+  },
   why: [
     'Stillwater is the kind of river town that makes you want to slow down: old brick streets, bookshops, and a wide, quiet river with a bridge you can walk across. This journey takes you through the town, up the hill for a look at it all, over the water, and back again in time for the lights.',
   ],

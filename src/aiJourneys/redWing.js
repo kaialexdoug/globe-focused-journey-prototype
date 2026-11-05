@@ -134,7 +134,12 @@ export default {
   afterglow: riverfront,
   startArea: 'Red Wing, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Curious', 'Adventurous', 'Peaceful'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 5 },
+  match: {
+    hours: 5,
+    moods: { Peaceful: 55, Adventurous: 65, Romantic: 40, Curious: 90, Playful: 45, Cultural: 70 },
+    with: { Solo: 85, Couple: 70, Family: 60, 'Friends / Group': 70 },
+    preferences: { 'Pet friendly': 50, 'Avoid alcohol': 80, 'More nature': 50, 'Food stops': 40 },
+  },
   why: [
     'Red Wing is a river town with a lot to be proud of: boots and pottery known all over the world, streets of old brick buildings, and a great bluff standing right over the middle of it. This journey takes you through the town first, then up the bluff to see it all at once, and back down to the river.',
   ],

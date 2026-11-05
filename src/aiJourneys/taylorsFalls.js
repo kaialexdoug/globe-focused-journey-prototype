@@ -133,7 +133,12 @@ export default {
   afterglow: franconia,
   startArea: 'Taylors Falls, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Adventurous', 'Curious', 'Playful'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 5 },
+  match: {
+    hours: 5,
+    moods: { Peaceful: 50, Adventurous: 85, Romantic: 45, Curious: 80, Playful: 85, Cultural: 40 },
+    with: { Solo: 65, Couple: 70, Family: 90, 'Friends / Group': 90 },
+    preferences: { 'Pet friendly': 55, 'Avoid alcohol': 90, 'More nature': 80, 'Food stops': 30 },
+  },
   why: [
     'Taylors Falls is small, but the river beside it has carved out something huge: a gorge of dark cliffs, and rock full of holes left by the ice age. This journey starts in the quiet old town, takes you down to the river and up onto the cliffs, and ends somewhere completely different, in a meadow full of art.',
   ],

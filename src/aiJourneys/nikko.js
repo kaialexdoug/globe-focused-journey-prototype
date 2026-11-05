@@ -133,7 +133,12 @@ export default {
   afterglow: kanmangafuchi,
   startArea: 'Nikko, Tochigi, Japan',
   startNote: START_NOTE,
-  match: { moods: ['Cultural', 'Curious', 'Peaceful'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 5 },
+  match: {
+    hours: 5,
+    moods: { Peaceful: 70, Adventurous: 50, Romantic: 50, Curious: 80, Playful: 30, Cultural: 95 },
+    with: { Solo: 85, Couple: 75, Family: 60, 'Friends / Group': 70 },
+    preferences: { 'Pet friendly': 15, 'Avoid alcohol': 95, 'More nature': 75, 'Food stops': 35 },
+  },
   why: [
     'Nikko is where Japan went all out. The shrines and temples here sit in a forest of giant cedars, and the greatest of them is covered from top to bottom in carving and gold. This journey crosses the sacred bridge, climbs through the temples to the shrine everyone comes for, and ends somewhere much quieter, by the river.',
   ],

@@ -895,7 +895,9 @@ button:focus-visible {
 .stepTitle {
   margin: 16px 0 0;
   font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 38px;
+  /* In step with the width of the screen, so that "A few quick details" stays
+     on one line on narrower phones. */
+  font-size: min(38px, 9.6vw);
   font-weight: 400;
   line-height: 1.12;
   letter-spacing: 0;
@@ -994,13 +996,8 @@ button:focus-visible {
   height: 17px;
 }
 
-/* The narrowest phones, so the title keeps to two lines and the longest words
-   still clear the arrow. */
+/* The narrowest phones, so the longest words still clear the arrow. */
 @media (max-width: 350px) {
-  .stepTitle {
-    font-size: 32px;
-  }
-
   .moodName {
     font-size: 18px;
   }
@@ -1022,9 +1019,9 @@ button:focus-visible {
   }
 }
 
-/* Step 2's four cards share out whatever height there is between the words and
-   NEXT, so that NEXT sits at the bottom of the screen. On a short screen they
-   stop shrinking, and the page scrolls. */
+/* Step 2's four cards share out whatever height there is below the words, down
+   to the bottom of the screen. On a short screen they stop shrinking, and the
+   page scrolls. */
 .whoCards {
   flex: 1;
   display: grid;
@@ -1052,10 +1049,6 @@ button:focus-visible {
   );
   bottom: auto;
   height: calc(100% - 67px);
-}
-
-.whoCard.isChosen {
-  box-shadow: 0 0 0 3px var(--unfold-green);
 }
 
 .whoIcon {
@@ -1092,14 +1085,116 @@ button:focus-visible {
   height: 15px;
 }
 
-.stepNext {
+/* Step 3's questions, each with a row of small cards. The three rows share out
+   the height between the words and the button, up to a limit, so that the cards
+   are taller on a taller screen, as on the mockup. */
+.detailQuestion {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  max-height: 190px;
+}
+
+.detailQuestion h2 {
+  margin: 20px 0 0;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--night);
+}
+
+/* With a gap above the button, which sits at the bottom of the screen. */
+.detailQuestion:last-of-type {
+  margin-bottom: 18px;
+}
+
+.detailOptional {
+  color: rgba(12, 23, 43, 0.6);
+}
+
+.detailCards {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.detailCards.isFour {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.detailCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 11px 3px;
+  background-color: var(--surface-low);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--night);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+  /* In one after another, like the cards on the steps before. */
+  animation: fadeUp 0.5s ease backwards;
+  animation-delay: calc(var(--i, 0) * 40ms + 120ms);
+}
+
+.detailCard:active {
+  transform: scale(0.97);
+}
+
+.detailCard.isChosen {
+  background-color: var(--unfold-green);
+  border-color: var(--unfold-green);
+  color: white;
+}
+
+.detailIcon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 7px;
+}
+
+.detailName {
+  font-size: 15px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.detailAbout {
+  margin-top: 1px;
+  font-size: 12px;
+  line-height: 1.25;
+  letter-spacing: 0;
+  white-space: nowrap;
+  opacity: 0.72;
+}
+
+/* As narrow as their longest word, so each word gets its own line. */
+.detailCards.isFour .detailName {
+  width: min-content;
+  font-size: 13px;
+  text-align: center;
+}
+
+.stepFind {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   height: 50px;
-  margin-top: 16px;
+  margin-top: auto;
   background-color: var(--unfold-green);
   border: none;
   border-radius: 999px;
@@ -1107,24 +1202,181 @@ button:focus-visible {
   letter-spacing: 0;
   color: white;
   cursor: pointer;
-  transition:
-    opacity 0.2s ease,
-    transform 0.15s ease;
+  transition: transform 0.15s ease;
 }
 
-.stepNext svg {
+.stepFind svg {
   width: 20px;
   height: 20px;
 }
 
-.stepNext:active {
+.stepFind:active {
   transform: scale(0.98);
 }
 
-.stepNext:disabled {
-  opacity: 0.4;
-  cursor: default;
-  transform: none;
+/* Journeys for You: a list of photo cards, as wide as the page. */
+.matchCards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.matchCard {
+  position: relative;
+  flex-shrink: 0;
+  aspect-ratio: 1.31;
+  overflow: hidden;
+  isolation: isolate;
+  /* For the moment before its photo has loaded. */
+  background-color: var(--night);
+  border-radius: 14px;
+  transition: transform 0.15s ease;
+  animation: fadeUp 0.5s ease backwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+}
+
+.matchCard:active {
+  transform: scale(0.99);
+}
+
+/* The whole card opens the journey, with its words along the bottom. */
+.matchOpen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 14px 12px;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.matchOpen img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Black along the bottom, for the words, fading up into the photo. */
+.matchOpen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    rgba(5, 8, 15, 0.92) 0%,
+    rgba(5, 8, 15, 0.78) 22%,
+    rgba(5, 8, 15, 0.3) 42%,
+    rgba(5, 8, 15, 0) 58%
+  );
+}
+
+.matchPercent {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 9px;
+  background-color: rgba(15, 22, 38, 0.72);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.matchPercent svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--tag-yellow);
+}
+
+/* Clear of the heart, on its right. */
+.matchTitle {
+  padding-right: 42px;
+  font-size: 19px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.matchFacts {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 7px;
+  font-size: 12.5px;
+  letter-spacing: 0;
+}
+
+.matchFacts > span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.matchFacts svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.matchHeart {
+  position: absolute;
+  right: 8px;
+  bottom: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.matchHeart svg {
+  width: 28px;
+  height: 28px;
+}
+
+.matchHeart:active {
+  transform: scale(0.88);
+}
+
+.matchHeart.isLiked {
+  color: var(--tag-red);
+}
+
+.matchHeart.isLiked svg {
+  fill: currentColor;
+}
+
+/* So the four facts stay on one line on the narrowest phones. */
+@media (max-width: 350px) {
+  .matchFacts {
+    gap: 4px;
+    font-size: 11px;
+  }
+
+  .matchFacts svg {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 /* So "Friends / Group" still fits on one line on narrower phones. */
@@ -2647,6 +2899,8 @@ button:focus-visible {
   .findPage,
   .stepPage,
   .moodCard,
+  .detailCard,
+  .matchCard,
   .photoScreen,
   .surveyPage,
   .myJourneysPage,
