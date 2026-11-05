@@ -166,6 +166,60 @@ export function ArrowRightIcon({ className }) {
   )
 }
 
+// Who's joining, on Find My Journey: on your own, as a couple, as a family (two
+// adults, with a child between them holding their hands), or with friends (one
+// in front, with two behind).
+
+export function SoloIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="7.5" r="3.7" />
+      <path d="M5 20.5c0-4.2 3-6.7 7-6.7s7 2.5 7 6.7z" />
+    </Icon>
+  )
+}
+
+export function HeartIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M12 20.5S3 15.2 3 9a4.9 4.9 0 0 1 9-2.7A4.9 4.9 0 0 1 21 9c0 6.2-9 11.5-9 11.5z" />
+    </Icon>
+  )
+}
+
+export function FamilyIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="6" cy="4.8" r="2.1" />
+      <circle cx="18" cy="4.8" r="2.1" />
+      <path d="M2.8 14v-2.5A3.2 3.2 0 0 1 6 8.3a3.2 3.2 0 0 1 3.2 3.2V14M14.8 14v-2.5A3.2 3.2 0 0 1 18 8.3a3.2 3.2 0 0 1 3.2 3.2V14" />
+      <path d="M4.6 12v9M7.4 12v9M16.6 12v9M19.4 12v9" />
+      <circle cx="12" cy="12" r="1.5" />
+      <path d="M9.2 14l2.8 1.8 2.8-1.8M12 15.8V21" />
+    </Icon>
+  )
+}
+
+export function GroupIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="8.2" r="3.3" />
+      <path d="M5.6 20.5c0-3.9 2.7-6.2 6.4-6.2s6.4 2.3 6.4 6.2" />
+      <path d="M6.9 4.9a2.7 2.7 0 0 0-.4 5.4M17.1 4.9a2.7 2.7 0 0 1 .4 5.4" />
+      <path d="M1.5 18c0-3 1.5-4.9 4-5.4M22.5 18c0-3-1.5-4.9-4-5.4" />
+    </Icon>
+  )
+}
+
+// The way back from a step of Find My Journey.
+export function ArrowLeftIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M20.5 12h-17M9.5 6l-6 6 6 6" />
+    </Icon>
+  )
+}
+
 // On Find My Journey: a compass whose needle reaches out past its rim.
 export function NeedleCompassIcon({ className }) {
   return (

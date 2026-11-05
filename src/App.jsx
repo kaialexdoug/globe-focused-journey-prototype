@@ -6,6 +6,7 @@ import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
+import { CompanionPage, MoodPage } from './FindMyJourney.jsx'
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
@@ -54,9 +55,9 @@ import './App.css'
 // NINJA Museum as a detour, the castle, Miyuki-no-Hama).
 // Home is a feed of every journey, the shortcut straight to any of them.
 // Find My Journey will be the other way in, by mood, but so far it's only its
-// first screen.
-// Home, Find My Journey, My Journeys and Profile have a navbar along the
-// bottom to move between them.
+// intro and first two steps.
+// Home, Find My Journey's intro, My Journeys and Profile have a navbar along
+// the bottom to move between them.
 
 // The pages of the journey itself, and which part of the journey each one is
 // about (a detour's pages are about whichever detour you're on). Used to
@@ -79,6 +80,8 @@ const JOURNEY_PAGES = {
 
 // The pages with the navbar along the bottom.
 const NAVBAR_PAGES = ['home', 'find', 'myJourneys', 'profile']
+
+const NO_FIND_ANSWERS = { mood: null, companion: null }
 
 // Every journey's detours.
 const ALL_DETOURS = ALL_JOURNEYS.flatMap((journey) => journey.route.flatMap((stop) => stop.detours ?? []))
@@ -105,8 +108,13 @@ function whereLeftOff(progress) {
 
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
-  // "seeJourney", any of the JOURNEY_PAGES above, "memory" or "survey".
+  // "findMood", "findWho", "seeJourney", any of the JOURNEY_PAGES above,
+  // "memory" or "survey".
   const [page, setPage] = useState('home')
+
+  // What you've told Find My Journey so far, by the names on its cards: the
+  // ones `match` on a journey's card uses, for matching journeys to them later.
+  const [findAnswers, setFindAnswers] = useState(NO_FIND_ANSWERS)
 
   // Which journey Home's feed was on, kept here because the feed itself is
   // gone whenever you're on another screen.
@@ -432,8 +440,37 @@ function App() {
         underWay={underWay?.journeyId === journey.id ? whereLeftOff(underWay) : null}
       />
     )
+  } else if (page === 'findWho') {
+    content = (
+      <CompanionPage
+        chosen={findAnswers.companion}
+        onChoose={(companion) => setFindAnswers({ ...findAnswers, companion })}
+        onBack={() => setPage('findMood')}
+      />
+    )
+  } else if (page === 'findMood') {
+    content = (
+      <MoodPage
+        onChoose={(mood) => {
+          setFindAnswers({ ...findAnswers, mood })
+          setPage('findWho')
+        }}
+        onSkip={() => {
+          setFindAnswers({ ...findAnswers, mood: null })
+          setPage('findWho')
+        }}
+        onBack={() => setPage('find')}
+      />
+    )
   } else if (page === 'find') {
-    content = <FindJourneyPage />
+    content = (
+      <FindJourneyPage
+        onStart={() => {
+          setFindAnswers(NO_FIND_ANSWERS)
+          setPage('findMood')
+        }}
+      />
+    )
   } else {
     content = (
       <HomePage
@@ -661,9 +698,8 @@ function HomePage({ journeys, onSelect, positionRef }) {
   )
 }
 
-// The first screen of Find My Journey. The button doesn't go anywhere yet: the
-// screens after it are still to come.
-function FindJourneyPage() {
+// The first screen of Find My Journey. Its steps are in FindMyJourney.jsx.
+function FindJourneyPage({ onStart }) {
   return (
     <div className="findPage">
       <img className="findPicture" src={findPicture} alt="" />
@@ -703,7 +739,7 @@ function FindJourneyPage() {
             Journeys for every mood
           </li>
         </ul>
-        <button className="findStart">
+        <button className="findStart" onClick={onStart}>
           Let’s Find My Journey
           <ArrowRightIcon />
         </button>
