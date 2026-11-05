@@ -138,7 +138,12 @@ export default {
   afterglow: palisadeHead,
   startArea: 'Two Harbors, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Adventurous', 'Peaceful', 'Romantic'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 6 },
+  match: {
+    hours: 6,
+    moods: { Peaceful: 75, Adventurous: 90, Romantic: 70, Curious: 65, Playful: 45, Cultural: 35 },
+    with: { Solo: 75, Couple: 85, Family: 80, 'Friends / Group': 85 },
+    preferences: { 'Pet friendly': 70, 'Avoid alcohol': 95, 'More nature': 95, 'Food stops': 25 },
+  },
   why: [
     'The North Shore is one long road beside one enormous lake, and every few miles it gives you something new: a harbor, a waterfall, a lighthouse, a cliff. This journey takes the best stretch of it, and saves the highest view for the end of the day.',
   ],

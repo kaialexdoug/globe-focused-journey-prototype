@@ -211,6 +211,108 @@ export function GroupIcon({ className }) {
   )
 }
 
+// Your pace, on Find My Journey: upright with a short step, then leaning in with
+// a longer stride and swinging arms, then running with the back leg kicked up.
+
+export function EasyPaceIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12.3" cy="3.9" r="2.2" fill="currentColor" stroke="none" />
+      <g strokeWidth="2.2">
+        <path d="M12.1 8.2 11.8 14" />
+        <path d="M11.8 14l2.2 3.6 1.3 3.9M11.8 14l-1 3.8-2 3.7" />
+        <path d="M12.1 8.7l2.3 2.6 1.3 2.4M12.1 8.7l-1.6 2.9-.3 2.7" />
+      </g>
+    </Icon>
+  )
+}
+
+export function ModeratePaceIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="13.6" cy="3.9" r="2.2" fill="currentColor" stroke="none" />
+      <g strokeWidth="2.4">
+        <path d="M12.9 8.2 11.6 13.8" />
+        <path d="M11.6 13.8l3.2 3 1.6 4.7M11.6 13.8l-1.8 3.8-3.3 3.9" />
+        <path d="M12.8 8.6l2.8 2.7 2.9.8M12.8 8.6l-3.2 1.7-1.7 3" />
+      </g>
+    </Icon>
+  )
+}
+
+export function ActivePaceIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="16.4" cy="3.8" r="2.2" fill="currentColor" stroke="none" />
+      <g strokeWidth="2.4">
+        <path d="M14.6 7.8 11.6 13" />
+        <path d="M11.6 13l4 2.6-1.1 5.9M11.6 13l-2.6 4.1H3.5" />
+        <path d="M14.6 8l3.4 3 3.2-.9M14.6 8l-4.3-.3-2.9 3" />
+      </g>
+    </Icon>
+  )
+}
+
+// Preferences, on Find My Journey.
+
+export function PawIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <g fill="currentColor" stroke="none">
+        <ellipse cx="5.4" cy="11.2" rx="2" ry="2.7" transform="rotate(-22 5.4 11.2)" />
+        <ellipse cx="9.6" cy="6" rx="2.1" ry="2.9" transform="rotate(-6 9.6 6)" />
+        <ellipse cx="14.4" cy="6" rx="2.1" ry="2.9" transform="rotate(6 14.4 6)" />
+        <ellipse cx="18.6" cy="11.2" rx="2" ry="2.7" transform="rotate(22 18.6 11.2)" />
+        <path d="M12 11c-3.3 0-6.2 3.5-6.2 6.5 0 2.1 1.7 3.2 3.4 3 1-.1 1.8-.7 2.8-.7s1.8.6 2.8.7c1.7.2 3.4-.9 3.4-3 0-3-2.9-6.5-6.2-6.5z" />
+      </g>
+    </Icon>
+  )
+}
+
+// A bottle, in a circle with a line through it.
+export function NoAlcoholIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M10.6 5.5h2.8v2.7c0 .9 1.6 1.5 1.6 3.3v6a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1v-6c0-1.8 1.6-2.4 1.6-3.3z" />
+      <circle cx="12" cy="12" r="10" />
+      <path d="M4.9 4.9l14.2 14.2" />
+    </Icon>
+  )
+}
+
+export function LeafIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M20.5 3.5C12.5 3.7 6 6 5 12.8c-.5 3.6 1.8 6.2 5.4 6.2 7 0 10.1-7.5 10.1-15.5z" />
+      <path d="M3.5 21 14.5 9.5M10.2 13.5l.2-3.6M10.2 13.5l3.6.2" />
+    </Icon>
+  )
+}
+
+export function BurgerIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3.8 10.8c0-3.8 3.6-6.3 8.2-6.3s8.2 2.5 8.2 6.3z" />
+      <path d="M8.5 7.7h.01M12 6.9h.01M15.5 7.7h.01" strokeWidth="2" />
+      <path d="M2.8 14.3h18.4" />
+      <path d="M4 17.8h16c0 1.6-1.1 2.7-2.6 2.7H6.6c-1.5 0-2.6-1.1-2.6-2.7z" />
+    </Icon>
+  )
+}
+
+// On a journey's match on Find My Journey: three stars, one big and two small.
+export function ThreeStarsIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path
+        d="M9 4Q9.8 12.2 18 13 9.8 13.8 9 22 8.2 13.8 0 13 8.2 12.2 9 4zM19 1Q19.4 5.1 23.5 5.5 19.4 5.9 19 10 18.6 5.9 14.5 5.5 18.6 5.1 19 1zM19.5 14Q19.8 16.7 22.5 17 19.8 17.3 19.5 20 19.2 17.3 16.5 17 19.2 16.7 19.5 14z"
+        fill="currentColor"
+        stroke="none"
+      />
+    </Icon>
+  )
+}
+
 // The way back from a step of Find My Journey.
 export function ArrowLeftIcon({ className }) {
   return (

@@ -134,7 +134,12 @@ export default {
   afterglow: stAnthonyMain,
   startArea: 'Minneapolis, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Curious', 'Romantic', 'Cultural'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 4 },
+  match: {
+    hours: 4,
+    moods: { Peaceful: 40, Adventurous: 35, Romantic: 70, Curious: 90, Playful: 45, Cultural: 80 },
+    with: { Solo: 85, Couple: 85, Family: 65, 'Friends / Group': 75 },
+    preferences: { 'Pet friendly': 40, 'Avoid alcohol': 65, 'More nature': 30, 'Food stops': 50 },
+  },
   why: [
     'Most people see Minneapolis as a city of towers and skyways, but it started down by the river, at a waterfall and a row of mills. This journey goes back to the beginning, through the ruins of the mills, across the river on an old stone bridge, and out to the street where the city first began.',
   ],

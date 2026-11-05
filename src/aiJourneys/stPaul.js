@@ -133,7 +133,12 @@ export default {
   afterglow: ricePark,
   startArea: 'St. Paul, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Cultural', 'Curious', 'Romantic'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 4 },
+  match: {
+    hours: 4,
+    moods: { Peaceful: 55, Adventurous: 25, Romantic: 65, Curious: 80, Playful: 25, Cultural: 90 },
+    with: { Solo: 85, Couple: 80, Family: 45, 'Friends / Group': 55 },
+    preferences: { 'Pet friendly': 35, 'Avoid alcohol': 75, 'More nature': 15, 'Food stops': 45 },
+  },
   why: [
     'St. Paul is the older, quieter of the Twin Cities, and Summit Avenue is where it shows off. This journey is a long, easy walk past one grand house after another, all the way to the biggest of them, and to the cathedral that’s been in view the whole time.',
   ],

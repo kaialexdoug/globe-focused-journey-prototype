@@ -134,7 +134,12 @@ export default {
   afterglow: yuigahama,
   startArea: 'Kamakura, Kanagawa, Japan',
   startNote: START_NOTE,
-  match: { moods: ['Peaceful', 'Cultural', 'Romantic'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 5 },
+  match: {
+    hours: 5,
+    moods: { Peaceful: 70, Adventurous: 45, Romantic: 70, Curious: 65, Playful: 50, Cultural: 95 },
+    with: { Solo: 85, Couple: 90, Family: 75, 'Friends / Group': 85 },
+    preferences: { 'Pet friendly': 30, 'Avoid alcohol': 85, 'More nature': 60, 'Food stops': 80 },
+  },
   why: [
     'Kamakura feels like another world from Tokyo: temples in the hills, a great shrine at the heart of town, and the sea at the end of every street that runs south. This journey takes you through the busy part first, then lets the day grow quieter and bigger at the same time, until you’re standing in front of something you won’t forget, with the beach waiting just below.',
   ],

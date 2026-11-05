@@ -137,7 +137,12 @@ export default {
   afterglow: parkPoint,
   startArea: 'Duluth, Minnesota, USA',
   startNote: START_NOTE,
-  match: { moods: ['Peaceful', 'Adventurous', 'Curious'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 5 },
+  match: {
+    hours: 5,
+    moods: { Peaceful: 75, Adventurous: 65, Romantic: 65, Curious: 70, Playful: 55, Cultural: 50 },
+    with: { Solo: 75, Couple: 85, Family: 85, 'Friends / Group': 80 },
+    preferences: { 'Pet friendly': 70, 'Avoid alcohol': 70, 'More nature': 80, 'Food stops': 60 },
+  },
   why: [
     'Duluth sits at the very tip of Lake Superior, and the lake is in everything here: the ships, the weather, the way the whole city leans toward the water. This journey starts down on the waterfront, follows the shore, and climbs to a view that puts it all together, then brings you back down to the sand to end the day.',
   ],

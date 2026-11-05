@@ -133,7 +133,12 @@ export default {
   afterglow: hodosan,
   startArea: 'Chichibu, Saitama, Japan',
   startNote: START_NOTE,
-  match: { moods: ['Peaceful', 'Adventurous', 'Cultural'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 6 },
+  match: {
+    hours: 6,
+    moods: { Peaceful: 80, Adventurous: 65, Romantic: 50, Curious: 65, Playful: 45, Cultural: 70 },
+    with: { Solo: 80, Couple: 75, Family: 75, 'Friends / Group': 75 },
+    preferences: { 'Pet friendly': 45, 'Avoid alcohol': 85, 'More nature': 90, 'Food stops': 40 },
+  },
   why: [
     'Chichibu feels much further from Tokyo than it is: mountains all around, a slower pace, and a river running through the valley. This journey starts in town, with a view over everything, and then follows the valley down to the water, where the best place to be is sitting on a warm rock doing nothing at all.',
   ],

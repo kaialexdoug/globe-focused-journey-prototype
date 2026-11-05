@@ -7,6 +7,7 @@
 
 const PROFILE_KEY = 'unfold.profile'
 const PROGRESS_KEY = 'unfold.progress'
+const LIKES_KEY = 'unfold.likes'
 
 // Browser storage can be switched off or full. Then nothing is kept, and the
 // app carries on without it.
@@ -37,6 +38,10 @@ export const storeProfile = (profile) => write(PROFILE_KEY, profile)
 // The journey under way: { journeyId, page, detourId, detoursTaken }, or null.
 export const loadProgress = () => read(PROGRESS_KEY)
 export const storeProgress = (progress) => write(PROGRESS_KEY, progress)
+
+// The ids of the journeys you've liked, with or without a profile.
+export const loadLikes = () => read(LIKES_KEY) ?? []
+export const storeLikes = (likes) => write(LIKES_KEY, likes)
 
 export function newProfile(name) {
   return {

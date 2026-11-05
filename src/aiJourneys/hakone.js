@@ -133,7 +133,12 @@ export default {
   afterglow: cedarAvenue,
   startArea: 'Hakone, Kanagawa, Japan',
   startNote: START_NOTE,
-  match: { moods: ['Adventurous', 'Peaceful', 'Romantic'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 6 },
+  match: {
+    hours: 6,
+    moods: { Peaceful: 70, Adventurous: 85, Romantic: 70, Curious: 65, Playful: 60, Cultural: 55 },
+    with: { Solo: 70, Couple: 85, Family: 85, 'Friends / Group': 85 },
+    preferences: { 'Pet friendly': 25, 'Avoid alcohol': 90, 'More nature': 85, 'Food stops': 45 },
+  },
   why: [
     'Hakone is a day of getting there: a mountain railway, a cable car, a ropeway over a smoking valley, and a boat across a lake. Each one shows you something new, and by the time you reach the shrine on the water, you’ll have seen the mountains from every side.',
   ],

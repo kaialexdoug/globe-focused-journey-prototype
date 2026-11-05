@@ -134,7 +134,12 @@ export default {
   afterglow: kawatoyo,
   startArea: 'Narita, Chiba, Japan',
   startNote: START_NOTE,
-  match: { moods: ['Cultural', 'Peaceful', 'Curious'], with: ['Solo', 'Couple', 'Family', 'Friends / Group'], hours: 4 },
+  match: {
+    hours: 4,
+    moods: { Peaceful: 75, Adventurous: 25, Romantic: 40, Curious: 70, Playful: 30, Cultural: 90 },
+    with: { Solo: 90, Couple: 70, Family: 60, 'Friends / Group': 60 },
+    preferences: { 'Pet friendly': 20, 'Avoid alcohol': 90, 'More nature': 45, 'Food stops': 80 },
+  },
   why: [
     'Narita is the first or last place many people see in Japan, and most of them only see the airport. Just down the line is an old temple town with a great temple on the hill, a street of wooden shops, and a lot of very good eel. It’s a whole journey in the time you might spend waiting at a gate.',
   ],

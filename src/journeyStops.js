@@ -312,6 +312,16 @@ export const kawagoeJourney = {
   startArea: 'Kawagoe, Saitama, Japan',
   startNote: 'Travel to the start is separate from journey time.',
 
+  // For matching it to your answers on Find My Journey (journeyMatch.js): roughly
+  // how many hours it takes, and how well it suits each answer, out of 100.
+  // These are estimates from what's on the journey, not checked facts.
+  match: {
+    hours: 2,
+    moods: { Peaceful: 55, Adventurous: 35, Romantic: 65, Curious: 75, Playful: 50, Cultural: 95 },
+    with: { Solo: 85, Couple: 85, Family: 75, 'Friends / Group': 80 },
+    preferences: { 'Pet friendly': 20, 'Avoid alcohol': 90, 'More nature': 20, 'Food stops': 90 },
+  },
+
   // "Why we recommend this journey", one entry per paragraph.
   why: [
     'Everyone who comes to Kawagoe sees the same bell tower, the same warehouse street, the same photo. This journey starts there too — but it doesn’t end there.',
@@ -562,6 +572,13 @@ export const odawaraJourney = {
 
   startArea: 'Odawara, Kanagawa, Japan',
   startNote: 'Travel to the start is separate from journey time.',
+
+  match: {
+    hours: 4,
+    moods: { Peaceful: 60, Adventurous: 50, Romantic: 65, Curious: 75, Playful: 55, Cultural: 90 },
+    with: { Solo: 85, Couple: 85, Family: 80, 'Friends / Group': 80 },
+    preferences: { 'Pet friendly': 25, 'Avoid alcohol': 90, 'More nature': 40, 'Food stops': 85 },
+  },
 
   why: [
     'For centuries, travelers on the road between Edo and Kyoto stopped here to rest, eat, and look at the water. The town hasn’t changed that much: fish from the bay, shops that have been open longer than anyone can remember, and a quiet stretch of coast waiting at the end of the day. We’ll walk you through it, and somewhere along the way there’s one moment that makes the whole trip worth it.',
