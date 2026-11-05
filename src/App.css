@@ -48,23 +48,6 @@
   color: var(--ink);
 }
 
-.featureCard .aiBadge,
-.featureCard .verifiedBadge,
-.detourOptionPhoto .aiBadge,
-.detourOptionPhoto .verifiedBadge {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-}
-
-/* On the narrowest phones it won't fit beside the big card's tag, so it goes
-   underneath. */
-@media (max-width: 350px) {
-  .featureCard .verifiedBadge {
-    top: 60px;
-  }
-}
-
 .mainHook {
   font-family: 'Times New Roman', Times, serif;
   font-size: 30px;
@@ -602,6 +585,23 @@ button:focus-visible {
 .feedDiscover svg {
   width: 22px;
   height: 22px;
+}
+
+/* Level with the button, on the same frosted glass as the search button so it
+   holds up over any photo. */
+.feedCard .matchHeart {
+  right: 16px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  background-color: rgba(40, 32, 36, 0.42);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+}
+
+.feedCard .matchHeart svg {
+  width: 24px;
+  height: 24px;
 }
 
 @media (hover: hover) {
@@ -1390,101 +1390,6 @@ button:focus-visible {
   .whoCard .moodName {
     font-size: 16px;
   }
-}
-
-/* --- Journey cards --- */
-
-/* A journey as one big photo card. Tapping anywhere on it opens the journey. */
-.featureCard {
-  position: relative;
-  height: 500px;
-  overflow: hidden;
-  isolation: isolate;
-  border: 2px solid var(--unfold-green);
-  border-radius: 18px;
-  text-align: left;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.featureCard img {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-/* Shaded at the top for the tag, and heavily at the bottom for the text:
-   dark or light, with the theme. */
-.featureCard::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--card-fade);
-}
-
-.featureCard + .featureCard {
-  margin-top: 16px;
-}
-
-.featureCard:active {
-  transform: scale(0.99);
-}
-
-@media (hover: hover) {
-  .featureCard:hover img {
-    transform: scale(1.04);
-  }
-}
-
-/* A tag in the top corner, like IN PROGRESS. */
-.featureCardTag {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  color: var(--photo-ink);
-}
-
-.featureCardText {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
-}
-
-.featureCardBlurb {
-  margin-top: 8px;
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--photo-ink-soft);
-}
-
-.featureCard .introBtn {
-  margin-top: 16px;
-}
-
-.comingSoonCard {
-  margin-top: 16px;
-  padding: 22px 18px;
-  border: 1px dashed var(--outline);
-  border-radius: 15px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--ink-faint);
-}
-
-.comingSoonTitle {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 19px;
-  color: var(--ink-soft);
-  margin-bottom: 4px;
 }
 
 /* --- Your journey ---
@@ -2651,46 +2556,414 @@ button:focus-visible {
   background-color: var(--globe-green);
 }
 
-.featureCard .inProgressTag {
-  padding: 6px 11px;
-  background-color: var(--photo-pill);
-  border: 1px solid rgba(116, 191, 63, 0.6);
-  border-radius: 999px;
-}
-
 .myJourneysPage,
 .profilePage {
   animation: fadeUp 0.5s ease both;
 }
 
-.myJourneysPage .pageTitle,
 .profilePage .pageTitle {
   margin: 6px 0 18px;
 }
 
-.journeyProgress {
-  margin-top: 12px;
-}
-
-/* A journey you've finished, or started and left. */
-.ownedJourney {
-  margin-top: 18px;
-  overflow: hidden;
-  border: 1px solid var(--outline);
-  border-radius: 15px;
+/* My Journeys: a white page, with Mount Fuji fading into it at the top, and its
+   sections in cards that overlap the bottom of the photo. */
+.myJourneysPage {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding-bottom: 20px;
+  background-color: white;
   text-align: left;
 }
 
-.ownedJourney .introBtn {
-  margin-top: 12px;
+.myHero {
+  position: relative;
+  isolation: isolate;
+  height: calc(240px + var(--frame-top));
+  padding: 0 22px;
+  overflow: hidden;
 }
 
-.ownedJourney .introBtn + .introBtn {
-  margin-top: 10px;
+/* Further across than the page and up a little, to put the mountain on the right,
+   the blossom over the middle, and the words on plain white. */
+.myHeroPhoto {
+  position: absolute;
+  top: calc(var(--frame-top) - 62px);
+  left: 20%;
+  z-index: -2;
+  width: 100%;
+  max-width: none;
 }
 
-.detourTakenTag.completedTag {
-  color: var(--green-ink);
+/* White comes in from the left, for the words, up from the bottom, and a little
+   down from the top, for the logo. */
+.myHero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to right, white 26%, rgba(255, 255, 255, 0.85) 44%, rgba(255, 255, 255, 0) 66%),
+    linear-gradient(to top, white 0%, rgba(255, 255, 255, 0) 36%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.75) calc(var(--frame-top) + 24px), rgba(255, 255, 255, 0) calc(var(--frame-top) + 62px));
+}
+
+.myHero .header {
+  margin: 0 -22px;
+}
+
+.myTitle {
+  margin: 4px 0 0;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: min(44px, 11.5vw);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: 0;
+  color: var(--night);
+}
+
+.myText {
+  margin-top: 8px;
+  font-size: 15.5px;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: rgba(12, 23, 43, 0.6);
+}
+
+.myPanels {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: -18px;
+  padding: 0 16px;
+}
+
+.myPanels .signUpCard {
+  margin-top: 0;
+  background-color: white;
+}
+
+.myPanel {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px 14px 14px;
+  background-color: white;
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(12, 23, 43, 0.06);
+  text-align: left;
+}
+
+.myPanelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 22px;
+}
+
+.myPanelLabel {
+  margin: 0;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  color: rgba(12, 23, 43, 0.6);
+}
+
+.mySeeAll {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: var(--night);
+  cursor: pointer;
+}
+
+.mySeeAll svg {
+  width: 18px;
+  height: 18px;
+}
+
+.myEmpty {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: rgba(12, 23, 43, 0.6);
+}
+
+.myPanel .textLink {
+  margin-top: 6px;
+}
+
+/* The journey under way. */
+.myCurrent {
+  display: block;
+  color: var(--night);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.myCurrent:active {
+  transform: scale(0.99);
+}
+
+.myCurrentChevron {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.myCurrentBody {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.myCurrentPhoto {
+  flex-shrink: 0;
+  width: 104px;
+  height: 104px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.myCurrentWords {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.myCurrentTitle {
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 21px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.myCurrentProgress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 12px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: rgba(12, 23, 43, 0.75);
+}
+
+.myProgressBar {
+  flex: 1;
+  height: 7px;
+  overflow: hidden;
+  background-color: rgb(238, 239, 243);
+  border-radius: 4px;
+}
+
+.myProgressBar span {
+  display: block;
+  height: 100%;
+  background-color: var(--unfold-peach);
+  border-radius: 4px;
+}
+
+/* A journey's small facts, each with its symbol, moving to a second line if
+   they don't all fit on one. */
+.journeyFacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 8px;
+  font-size: 11.5px;
+  letter-spacing: 0;
+  color: var(--night);
+}
+
+.journeyFacts > span {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.journeyFacts svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+/* A journey as a small card: its photo fades away into white at the bottom, for
+   its words. In a row, it's a fixed width, and the row runs off the right of the
+   screen to show there's more. */
+.journeyRow {
+  display: flex;
+  gap: 10px;
+  margin: 8px -30px -6px 0;
+  padding: 2px 16px 6px 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.journeyRow::-webkit-scrollbar {
+  display: none;
+}
+
+.journeyRow .journeyCard {
+  flex: 0 0 144px;
+  scroll-snap-align: start;
+}
+
+.journeyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.myGridPage {
+  background-color: white;
+}
+
+.journeyCard {
+  position: relative;
+  aspect-ratio: 0.83;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: white;
+  border-radius: 14px;
+  box-shadow: 0 1px 8px rgba(12, 23, 43, 0.08);
+  transition: transform 0.15s ease;
+}
+
+.journeyCard:active {
+  transform: scale(0.98);
+}
+
+.journeyCardOpen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--night);
+  text-align: left;
+  cursor: pointer;
+}
+
+/* White behind the words, reaching as high as they do, however long the title. */
+.journeyCardWords {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px 10px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.86) 20px, white 34px);
+}
+
+.journeyCardOpen img {
+  --fade: linear-gradient(to bottom, black 62%, transparent 86%);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask-image: var(--fade);
+  mask-image: var(--fade);
+}
+
+.journeyCardTitle {
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 15.5px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.journeyCardOpen .journeyFacts {
+  flex-wrap: nowrap;
+  gap: 6px;
+  margin-top: 5px;
+  font-size: 11px;
+}
+
+.journeyCardOpen .journeyFacts svg {
+  width: 14px;
+  height: 14px;
+}
+
+.journeyCard .matchHeart {
+  top: 4px;
+  right: 4px;
+  bottom: auto;
+  width: 34px;
+  height: 34px;
+}
+
+.journeyCard .matchHeart svg {
+  width: 23px;
+  height: 23px;
+}
+
+/* The journey you liked last. */
+.myLiked {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 9px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--night);
+  text-align: left;
+  cursor: pointer;
+}
+
+.myLiked img {
+  flex-shrink: 0;
+  width: 80px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.myLikedWords {
+  flex: 1;
+  min-width: 0;
+}
+
+.myLikedTitle {
+  display: block;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 17px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.myLikedPlace {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 12.5px;
+  letter-spacing: 0;
+  color: rgba(12, 23, 43, 0.65);
+}
+
+.myLikedPlace svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
 }
 
 /* Making a profile: just a name. */

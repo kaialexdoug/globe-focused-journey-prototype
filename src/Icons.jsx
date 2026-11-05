@@ -138,6 +138,14 @@ export function LocateIcon({ className }) {
   )
 }
 
+export function ChevronRightIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="m9 6 6 6-6 6" />
+    </Icon>
+  )
+}
+
 // The ✕ in the corner of a journey stop, for stopping the journey.
 export function CloseIcon({ className }) {
   return (

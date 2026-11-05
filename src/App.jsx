@@ -13,14 +13,18 @@ import PhotoScreen from './PhotoScreen.jsx'
 import {
   NavBar,
   MyJourneysPage,
+  CompletedJourneysPage,
+  LikedJourneysPage,
   ProfilePage,
   SaveProgressPrompt,
   SaveExitPrompt,
+  ExitCurrentPrompt,
 } from './ProfilePages.jsx'
 import {
   ArrowRightIcon,
   ClockIcon,
   FourStarsIcon,
+  HeartIcon,
   NavigateIcon,
   NeedleCompassIcon,
   PinIcon,
@@ -32,7 +36,7 @@ import {
   WalkIcon,
 } from './Icons.jsx'
 import { EXPERIENCE_ICONS } from './experienceIcons.js'
-import { ALL_JOURNEYS } from './journeyStops'
+import { ALL_JOURNEYS, placeName } from './journeyStops'
 import {
   loadProfile,
   storeProfile,
@@ -80,7 +84,10 @@ const JOURNEY_PAGES = {
 }
 
 // The pages with the navbar along the bottom.
-const NAVBAR_PAGES = ['home', 'find', 'findMatches', 'myJourneys', 'profile']
+const NAVBAR_PAGES = ['home', 'find', 'findMatches', 'myJourneys', 'completedJourneys', 'likedJourneys', 'profile']
+
+// The pages that come under another page's tab on the navbar.
+const NAVBAR_TAB_OF = { findMatches: 'find', completedJourneys: 'myJourneys', likedJourneys: 'myJourneys' }
 
 // What Find My Journey's answers start as: nothing yet, except that its details
 // step starts with a time and a pace already picked, as on the mockup.
@@ -93,8 +100,8 @@ function journeyWithId(id) {
   return ALL_JOURNEYS.find((journey) => journey.id === id) ?? null
 }
 
-// Where a saved journey was left off, in words, and how far along the route
-// that is (detours count as being at the build stop, where they branch off).
+// Where a saved journey was left off, in words, and how many of its stops are
+// done (detours aren't counted, as they're not on every run).
 function whereLeftOff(progress) {
   const journey = journeyWithId(progress.journeyId)
   const part = JOURNEY_PAGES[progress.page]
@@ -105,14 +112,18 @@ function whereLeftOff(progress) {
   const along = journey.route.indexOf(partStop ?? journey.build)
   return {
     text: `${arrived ? 'You’re at' : 'Heading to'} ${stop.name}`,
-    fraction: (along + (arrived ? 1 : 0.5)) / journey.route.length,
+    // A stop you've arrived at counts as done. On a detour, that's the build
+    // stop it branches off from.
+    stopsDone: along + (arrived || !partStop ? 1 : 0),
+    stopCount: journey.route.length,
   }
 }
 
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
-  // "findMood", "findWho", "findDetails", "findMatches", "seeJourney", any of
-  // the JOURNEY_PAGES above, "memory" or "survey".
+  // "findMood", "findWho", "findDetails", "findMatches", "completedJourneys",
+  // "likedJourneys", "seeJourney", any of the JOURNEY_PAGES above, "memory" or
+  // "survey".
   const [page, setPage] = useState('home')
 
   // What you've told Find My Journey so far, by the names on its cards: the
@@ -154,6 +165,8 @@ function App() {
   const [saving, setSaving] = useState(false)
   // The page a journey will start on, while "Save your progress?" asks first.
   const [pendingStart, setPendingStart] = useState(null)
+  // The same, while "Exit your current journey?" asks first.
+  const [pendingSwitch, setPendingSwitch] = useState(null)
   const [showSaveExit, setShowSaveExit] = useState(false)
   // Looking back at a finished journey's Memory page, from My Journeys.
   const [revisitingMemory, setRevisitingMemory] = useState(false)
@@ -205,10 +218,13 @@ function App() {
     setPage('seeJourney')
   }
 
-  // With a profile, a journey is saved as you go. Without one, you're asked
-  // first whether to make one.
+  // You can only be on one journey at a time, so with another left partway,
+  // you're asked first whether to exit it. Otherwise, with a profile, a journey
+  // is saved as you go. Without one, you're asked first whether to make one.
   function beginJourney(firstPage) {
-    if (profile) {
+    if (underWay && underWay.journeyId !== journey.id) {
+      setPendingSwitch(firstPage)
+    } else if (profile) {
       startJourney(firstPage, profile)
     } else {
       setPendingStart(firstPage)
@@ -263,6 +279,13 @@ function App() {
     setPage('home')
   }
 
+  // Looking back on a journey you've finished.
+  function viewMemory() {
+    setDetoursTaken(profile.journeys[journey.id].lastDetoursTaken ?? [])
+    setRevisitingMemory(true)
+    setPage('memory')
+  }
+
   // Making a profile from the Memory page: this journey goes on it, finished.
   function createProfileFromMemory(name) {
     const started = withJourneyStarted(newProfile(name), journey.id)
@@ -298,16 +321,35 @@ function App() {
         journeys={ALL_JOURNEYS}
         progress={underWay}
         where={underWay ? whereLeftOff(underWay) : null}
+        likes={likes}
         onResume={resumeJourney}
-        onOpenJourney={openJourney}
-        onViewMemory={(chosen) => {
-          setJourneyId(chosen.id)
-          setDetoursTaken(profile.journeys[chosen.id].lastDetoursTaken ?? [])
-          setRevisitingMemory(true)
-          setPage('memory')
-        }}
+        onOpenJourney={(chosen) => openJourney(chosen, 'myJourneys')}
+        onToggleLike={toggleLike}
+        onSeeCompleted={() => setPage('completedJourneys')}
+        onSeeLiked={() => setPage('likedJourneys')}
         onBrowse={() => setPage('home')}
         onCreateProfile={createProfile}
+      />
+    )
+  } else if (page === 'completedJourneys') {
+    content = (
+      <CompletedJourneysPage
+        profile={profile}
+        journeys={ALL_JOURNEYS}
+        likes={likes}
+        onOpenJourney={(chosen) => openJourney(chosen, 'completedJourneys')}
+        onToggleLike={toggleLike}
+        onBack={() => setPage('myJourneys')}
+      />
+    )
+  } else if (page === 'likedJourneys') {
+    content = (
+      <LikedJourneysPage
+        journeys={ALL_JOURNEYS}
+        likes={likes}
+        onOpenJourney={(chosen) => openJourney(chosen, 'likedJourneys')}
+        onToggleLike={toggleLike}
+        onBack={() => setPage('myJourneys')}
       />
     )
   } else if (page === 'survey') {
@@ -462,6 +504,7 @@ function App() {
         // Already at the start: skip the departure and head for the first stop.
         onSkipToFirstStop={() => beginJourney('discovery')}
         onResume={resumeJourney}
+        onViewMemory={viewMemory}
         completed={journeyRecord?.timesCompleted > 0}
         // Only if it's this journey that was left partway.
         underWay={underWay?.journeyId === journey.id ? whereLeftOff(underWay) : null}
@@ -533,14 +576,17 @@ function App() {
     content = (
       <HomePage
         journeys={ALL_JOURNEYS}
+        likes={likes}
         onSelect={openJourney}
+        onToggleLike={toggleLike}
         positionRef={feedPositionRef}
       />
     )
   }
 
   const showNavBar = NAVBAR_PAGES.includes(page)
-  const boxOpen = showStopConfirmation || showSkipDetour || showSaveExit || pendingStart !== null
+  const boxOpen =
+    showStopConfirmation || showSkipDetour || showSaveExit || pendingStart !== null || pendingSwitch !== null
 
   // On a phone this is the whole screen. On a laptop it's drawn as a phone
   // in the middle of the window — see the bottom of App.css.
@@ -554,7 +600,7 @@ function App() {
       </div>
 
       {showNavBar && (
-        <NavBar current={page === 'findMatches' ? 'find' : page} onNavigate={setPage} />
+        <NavBar current={NAVBAR_TAB_OF[page] ?? page} onNavigate={setPage} />
       )}
 
       {showSkipDetour && (
@@ -603,6 +649,22 @@ function App() {
         />
       )}
 
+      {pendingSwitch && (
+        <ExitCurrentPrompt
+          currentName={journeyWithId(underWay.journeyId).name}
+          nextName={journey.name}
+          onExit={() => {
+            setPendingSwitch(null)
+            startJourney(pendingSwitch, profile)
+          }}
+          onResume={() => {
+            setPendingSwitch(null)
+            resumeJourney()
+          }}
+          onStay={() => setPendingSwitch(null)}
+        />
+      )}
+
       {pendingStart && (
         <SaveProgressPrompt
           onSave={(name) => {
@@ -618,15 +680,6 @@ function App() {
       )}
     </div>
   )
-}
-
-// "KAMAKURA · KANAGAWA, JAPAN" becomes "Kanagawa, Japan", without the town.
-function placeName(location) {
-  return location
-    .split(' · ')[1]
-    .toLowerCase()
-    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
-    .replace('Usa', 'USA')
 }
 
 // One of the four bubbles on a journey on Home: a symbol, a value, and what
@@ -647,8 +700,9 @@ function FeedTag({ Icon, iconClass, value, label }) {
 // the screen. `positionRef` remembers which one you were on, so you come back
 // to it after opening a journey or going to another tab. Tapping anywhere on
 // one opens it. Its button is there to make that obvious, and for the
-// keyboard; its click reaches the card too.
-function HomePage({ journeys, onSelect, positionRef }) {
+// keyboard; its click reaches the card too. The heart's click stops short of
+// the card, so liking a journey doesn't open it.
+function HomePage({ journeys, likes, onSelect, onToggleLike, positionRef }) {
   const feedRef = useRef(null)
 
   // Before it's drawn, so the first journey doesn't flash up on the way.
@@ -748,6 +802,17 @@ function HomePage({ journeys, onSelect, positionRef }) {
               Discover This Journey
               <ArrowRightIcon />
             </button>
+            <button
+              className={likes.includes(journey.id) ? 'matchHeart isLiked' : 'matchHeart'}
+              onClick={(event) => {
+                event.stopPropagation()
+                onToggleLike(journey.id)
+              }}
+              aria-pressed={likes.includes(journey.id)}
+              aria-label={`Like ${journey.name}`}
+            >
+              <HeartIcon />
+            </button>
           </div>
         ))}
       </div>
@@ -816,6 +881,7 @@ function SeeJourneyPage({
   onBeginJourney,
   onSkipToFirstStop,
   onResume,
+  onViewMemory,
   completed,
   underWay,
 }) {
@@ -917,6 +983,14 @@ function SeeJourneyPage({
                 {completed ? 'BEGIN JOURNEY AGAIN ➜' : 'BEGIN JOURNEY ➜'}
               </button>
             </div>
+            {completed && (
+              <div className="alreadyThere">
+                <p>Want to look back on it?</p>
+                <button className="textLink" onClick={onViewMemory}>
+                  VIEW MEMORY ➜
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
