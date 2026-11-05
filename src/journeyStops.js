@@ -597,6 +597,16 @@ export const odawaraJourney = {
   },
 }
 
+// A journey's `location` to show: "KAMAKURA · KANAGAWA, JAPAN" becomes "Kanagawa,
+// Japan", without the town.
+export function placeName(location) {
+  return location
+    .split(' · ')[1]
+    .toLowerCase()
+    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
+    .replace('Usa', 'USA')
+}
+
 // Every journey, the featured one first: it's the first on Home. The AI-made
 // ones (aiJourneys/) come after the checked ones.
 export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS]

@@ -1,9 +1,23 @@
 import { useState } from 'react'
 
-import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
+import fujiPicture from './assets/my-journeys-fuji.webp'
+
+import Header from './Header.jsx'
 import PromptBox from './PromptBox.jsx'
 import { APP_VERSION } from './config.js'
-import { CompassIcon, HomeIcon, PersonIcon, RouteIcon } from './Icons.jsx'
+import {
+  ArrowLeftIcon,
+  ChevronRightIcon,
+  ClockIcon,
+  CompassIcon,
+  HeartIcon,
+  HomeIcon,
+  PersonIcon,
+  PinIcon,
+  RouteIcon,
+  WalkIcon,
+} from './Icons.jsx'
+import { placeName } from './journeyStops'
 
 // Everything for the profile: the navbar along the bottom of the main tabs;
 // the My Journeys and Profile pages; and the small pieces for making a
@@ -130,6 +144,29 @@ export function SaveExitPrompt({ onSaveExit, onExitWithoutSaving, onStay }) {
   )
 }
 
+// Starting a journey with another left partway: you can only be on one at a
+// time, so it's exit that one, or carry on with it. Tapping outside or Escape
+// goes back to where you were.
+export function ExitCurrentPrompt({ currentName, nextName, onExit, onResume, onStay }) {
+  return (
+    <PromptBox
+      title="Exit your current journey?"
+      text={`You’re partway through ${currentName}, and you can only be on one journey at a time. Starting ${nextName} will exit it, and your place won’t be kept.`}
+      onDismiss={onStay}
+    >
+      <button className="introBtn" onClick={onExit} autoFocus>
+        EXIT & START
+      </button>
+      <button className="introBtn isGhost" onClick={onResume}>
+        RESUME CURRENT JOURNEY
+      </button>
+      <button className="backBtn" onClick={onStay}>
+        NOT NOW
+      </button>
+    </PromptBox>
+  )
+}
+
 function DeleteProfilePrompt({ onDelete, onKeep }) {
   return (
     <PromptBox
@@ -149,113 +186,266 @@ function DeleteProfilePrompt({ onDelete, onKeep }) {
 
 // --- My Journeys ---
 
-function formatDate(isoDate) {
-  return new Date(isoDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+const shortTime = (journey) => journey.time.replace('hours', 'hrs')
+
+// The journeys you've finished, most recently first.
+function completedJourneys(journeys, profile) {
+  if (!profile) {
+    return []
+  }
+  return journeys
+    .filter((journey) => profile.journeys[journey.id]?.timesCompleted > 0)
+    .sort((a, b) => profile.journeys[b.id].lastCompletedAt.localeCompare(profile.journeys[a.id].lastCompletedAt))
 }
 
-// The journeys you've started, with the one under way at the top. `where`
-// says where it was left off: { text, fraction } of the way along.
+// The journeys you've liked, most recently first. `likes` is their ids, with
+// the latest last.
+function likedJourneys(journeys, likes) {
+  return likes
+    .map((id) => journeys.find((journey) => journey.id === id))
+    .filter(Boolean)
+    .reverse()
+}
+
+// A journey as a small photo card: the same for finished and liked ones, in a
+// sideways row on My Journeys or a grid on their own pages. Tapping it opens the
+// journey, and the heart likes it (or unlikes it).
+function JourneyCard({ journey, liked, onOpen, onToggleLike }) {
+  return (
+    <div className="journeyCard">
+      <button className="journeyCardOpen" onClick={() => onOpen(journey)}>
+        <img
+          src={journey.photo}
+          alt={journey.photoAlt}
+          style={{ objectPosition: journey.photoPosition }}
+          loading="lazy"
+        />
+        <span className="journeyCardWords">
+          <span className="journeyCardTitle">{journey.name}</span>
+          <span className="journeyFacts">
+            <span>
+              <ClockIcon />
+              {shortTime(journey)}
+            </span>
+            <span>
+              <WalkIcon />
+              {journey.difficulty}
+            </span>
+          </span>
+        </span>
+      </button>
+      {/* Beside the rest rather than in it, as a button can't hold a button. */}
+      <button
+        className={liked ? 'matchHeart isLiked' : 'matchHeart'}
+        onClick={() => onToggleLike(journey.id)}
+        aria-pressed={liked}
+        aria-label={`Like ${journey.name}`}
+      >
+        <HeartIcon />
+      </button>
+    </div>
+  )
+}
+
+// The name of a section of My Journeys, with the way to see all of it if there's
+// anything to see.
+function SectionHead({ label, onSeeAll }) {
+  return (
+    <div className="myPanelHead">
+      <h2 className="myPanelLabel">{label}</h2>
+      {onSeeAll && (
+        <button className="mySeeAll" onClick={onSeeAll}>
+          See All
+          <ChevronRightIcon />
+        </button>
+      )}
+    </div>
+  )
+}
+
+// The journey you left partway, in its own card. Tapping it picks up where you
+// left off. `where` says how far along it is.
+function CurrentJourney({ journey, where, onResume }) {
+  return (
+    <button className="myPanel myCurrent" onClick={onResume}>
+      <span className="myPanelHead">
+        <span className="myPanelLabel">CURRENT JOURNEY</span>
+        <ChevronRightIcon className="myCurrentChevron" />
+      </span>
+      <span className="myCurrentBody">
+        <img
+          className="myCurrentPhoto"
+          src={journey.photo}
+          alt={journey.photoAlt}
+          style={{ objectPosition: journey.photoPosition }}
+        />
+        <span className="myCurrentWords">
+          <span className="myCurrentTitle">{journey.name}</span>
+          <span className="myCurrentProgress">
+            <span className="myProgressBar">
+              <span style={{ width: `${(where.stopsDone / where.stopCount) * 100}%` }}></span>
+            </span>
+            {where.stopsDone} / {where.stopCount} stops
+          </span>
+          <span className="journeyFacts">
+            <span>
+              <ClockIcon />
+              {shortTime(journey)}
+            </span>
+            <span>
+              <WalkIcon />
+              {journey.difficulty}
+            </span>
+            <span>
+              <PinIcon />
+              {placeName(journey.location)}
+            </span>
+          </span>
+        </span>
+      </span>
+    </button>
+  )
+}
+
+// Your place for your journeys, under a photo that fades into the page: the one
+// you're partway through (there's only ever one), the ones you've finished, and
+// the one you liked last. Without a profile, nothing's kept but your likes, so a
+// way to make one takes the place of the first two.
 export function MyJourneysPage({
   profile,
   journeys,
   progress,
   where,
+  likes,
   onResume,
   onOpenJourney,
-  onViewMemory,
+  onToggleLike,
+  onSeeCompleted,
+  onSeeLiked,
   onBrowse,
   onCreateProfile,
 }) {
-  const owned = profile ? journeys.filter((journey) => profile.journeys[journey.id]) : []
-  const underWay = owned.find((journey) => progress?.journeyId === journey.id)
-  const others = owned.filter((journey) => journey !== underWay)
-
-  let content
-  if (!profile) {
-    content = (
-      <SignUpCard
-        label="NO PROFILE YET"
-        text="With a profile, every journey you start is kept here, and you can pick one up where you left off. It’s just your name."
-        onCreate={onCreateProfile}
-      />
-    )
-  } else if (owned.length === 0) {
-    content = (
-      <div className="comingSoonCard">
-        <p className="comingSoonTitle">No journeys yet</p>
-        <p>Start one and it’ll be kept here, ready to pick up any time.</p>
-        <button className="introBtn" onClick={onBrowse}>
-          BROWSE JOURNEYS ➜
-        </button>
-      </div>
-    )
-  } else {
-    content = (
-      <>
-        {underWay && (
-          // The whole card resumes it, like the journeys on Home.
-          <div className="featureCard isUnderWay" onClick={onResume}>
-            <img src={underWay.photo} alt="" />
-            <p className="featureCardTag inProgressTag">IN PROGRESS</p>
-            {underWay.aiMade && <AiBadge />}
-            {underWay.verified && <VerifiedBadge />}
-            <div className="featureCardText">
-              <p className="heroLabel">{underWay.location}</p>
-              <h2 className="heroTitle">{underWay.name}</h2>
-              <p className="featureCardBlurb">{where.text}</p>
-              <div className="progressBar journeyProgress">
-                <div className="progressFill" style={{ width: `${where.fraction * 100}%` }}></div>
-              </div>
-              <button className="introBtn">RESUME JOURNEY ➜</button>
-            </div>
-          </div>
-        )}
-
-        {others.map((journey) => {
-          const record = profile.journeys[journey.id]
-          const completed = record.timesCompleted > 0
-          return (
-            <div key={journey.id} className="ownedJourney">
-              <div className="detourOptionPhoto">
-                <img src={journey.photo} alt="" />
-                <p className={completed ? 'detourTakenTag completedTag' : 'detourTakenTag'}>
-                  {completed ? '✓ COMPLETED' : 'NOT FINISHED'}
-                </p>
-                {journey.aiMade && <AiBadge />}
-                {journey.verified && <VerifiedBadge />}
-                <h2 className="heroTitle">{journey.name}</h2>
-              </div>
-              <div className="detourOptionBody">
-                <p className="detourOptionTeaser">
-                  {completed
-                    ? `Finished ${record.timesCompleted === 1 ? 'once' : `${record.timesCompleted} times`}, most recently on ${formatDate(record.lastCompletedAt)}.`
-                    : `Started on ${formatDate(record.startedAt)}.`}
-                </p>
-                <button className="introBtn" onClick={() => onOpenJourney(journey)}>
-                  {completed ? 'BEGIN JOURNEY AGAIN ➜' : 'BEGIN JOURNEY ➜'}
-                </button>
-                {completed && (
-                  <button className="introBtn isGhost" onClick={() => onViewMemory(journey)}>
-                    VIEW MEMORY
-                  </button>
-                )}
-              </div>
-            </div>
-          )
-        })}
-      </>
-    )
-  }
+  const underWay = journeys.find((journey) => journey.id === progress?.journeyId)
+  const completed = completedJourneys(journeys, profile)
+  const [latestLiked] = likedJourneys(journeys, likes)
 
   return (
     <div className="myJourneysPage">
-      <Header />
-      <div className="pageBody">
-        <h1 className="mainHook pageTitle">My Journeys</h1>
-        {content}
+      <div className="myHero">
+        <img className="myHeroPhoto" src={fujiPicture} alt="" />
+        <Header />
+        <h1 className="myTitle">
+          My
+          <br />
+          Journeys
+        </h1>
+        <p className="myText">
+          Your adventures, memories,
+          <br />
+          and where to next.
+        </p>
+      </div>
+
+      <div className="myPanels">
+        {!profile && (
+          <SignUpCard
+            label="NO PROFILE YET"
+            text="With a profile, your current and completed journeys are kept here, and you can pick one up where you left off. It’s just your name."
+            onCreate={onCreateProfile}
+          />
+        )}
+
+        {profile && underWay && <CurrentJourney journey={underWay} where={where} onResume={onResume} />}
+        {profile && !underWay && (
+          <div className="myPanel">
+            <SectionHead label="CURRENT JOURNEY" />
+            <p className="myEmpty">You’re not partway through a journey.</p>
+            <button className="textLink" onClick={onBrowse}>
+              BROWSE JOURNEYS ➜
+            </button>
+          </div>
+        )}
+
+        {profile && (
+          <div className="myPanel">
+            <SectionHead label="COMPLETED JOURNEYS" onSeeAll={completed.length > 0 ? onSeeCompleted : null} />
+            {completed.length > 0 ? (
+              <div className="journeyRow">
+                {completed.map((journey) => (
+                  <JourneyCard
+                    key={journey.id}
+                    journey={journey}
+                    liked={likes.includes(journey.id)}
+                    onOpen={onOpenJourney}
+                    onToggleLike={onToggleLike}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="myEmpty">Journeys you finish will show up here.</p>
+            )}
+          </div>
+        )}
+
+        <div className="myPanel">
+          <SectionHead label="LIKED JOURNEYS" onSeeAll={latestLiked ? onSeeLiked : null} />
+          {latestLiked ? (
+            <button className="myLiked" onClick={() => onOpenJourney(latestLiked)}>
+              <img
+                src={latestLiked.photo}
+                alt={latestLiked.photoAlt}
+                style={{ objectPosition: latestLiked.photoPosition }}
+              />
+              <span className="myLikedWords">
+                <span className="myLikedTitle">{latestLiked.name}</span>
+                <span className="myLikedPlace">
+                  <PinIcon />
+                  {placeName(latestLiked.location)}
+                </span>
+              </span>
+            </button>
+          ) : (
+            <p className="myEmpty">Journeys you like will show up here.</p>
+          )}
+        </div>
       </div>
     </div>
   )
+}
+
+// A page of journeys as a grid of cards, with the way back to My Journeys.
+function JourneyGridPage({ title, journeys, likes, onOpenJourney, onToggleLike, onBack }) {
+  return (
+    <div className="stepPage myGridPage">
+      <div className="stepBar">
+        <button className="stepBack" onClick={onBack} aria-label="Back">
+          <ArrowLeftIcon />
+        </button>
+        <Header />
+      </div>
+      <h1 className="stepTitle">{title}</h1>
+      <div className="journeyGrid">
+        {journeys.map((journey) => (
+          <JourneyCard
+            key={journey.id}
+            journey={journey}
+            liked={likes.includes(journey.id)}
+            onOpen={onOpenJourney}
+            onToggleLike={onToggleLike}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function CompletedJourneysPage({ profile, journeys, ...page }) {
+  return <JourneyGridPage title="Completed Journeys" journeys={completedJourneys(journeys, profile)} {...page} />
+}
+
+// Unliking one takes it straight off this page.
+export function LikedJourneysPage({ journeys, likes, ...page }) {
+  return <JourneyGridPage title="Liked Journeys" journeys={likedJourneys(journeys, likes)} likes={likes} {...page} />
 }
 
 // --- Profile ---
