@@ -20,6 +20,8 @@ const busTerminal = {
   memory: 'Where the day began.',
   mapPlace: 'Kusatsu Onsen Bus Terminal',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Kusatsu.' },
@@ -36,6 +38,8 @@ const sainokawaraDori = {
   memory: 'Snacks on Sainokawara-dori.',
   mapPlace: 'Sainokawara-dori, Kusatsu',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [20, 30],
   ...DISCOVERY,
   narration: [
     { text: 'Sainokawara-dori runs from the middle of town out to the park, and it’s lined with little shops selling snacks, sweets and souvenirs.' },
@@ -53,6 +57,8 @@ const netsunoyu = {
   teaser: 'Where the hot water is cooled the old way, by stirring it with long wooden boards. Right by the steaming pool in the middle of town.',
   mapPlace: 'Netsunoyu, Kusatsu',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
   ...DETOUR,
   narration: [
     { text: 'The spring water here comes out too hot to bathe in. The old way to cool it is yumomi: stirring it with long wooden boards, often to a song.' },
@@ -69,6 +75,11 @@ const sainokawaraPark = {
   memory: 'Steam rising in Sainokawara Park.',
   mapPlace: 'Sainokawara Park',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Sainokawara Rotenburo', note: 'A big outdoor hot-spring bath at the top of the park', meters: 300 },
+  ],
   ...BUILD,
   detours: [netsunoyu],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +98,11 @@ const yubatake = {
   memory: 'The steam over the Yubatake.',
   mapPlace: 'Yubatake, Kusatsu',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Kosenji', note: 'A small temple up the steps, looking down over the Yubatake', meters: 100 },
+  ],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +120,8 @@ const otakinoyu = {
   memory: 'A long soak at the end of the day.',
   mapPlace: 'Otakinoyu, Kusatsu',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [60, 90],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. You’ve spent the whole day looking at Kusatsu’s water. Now it’s time to get in it.' },
@@ -121,7 +139,6 @@ export default {
   photoAlt: yubatake.photoAlt,
   blurb: 'Through a mountain hot-spring town, from steaming streams into a bath.',
   tagline: TAGLINE,
-  time: '~4 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +151,6 @@ export default {
   startArea: 'Kusatsu, Gunma, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 4,
     moods: { Peaceful: 85, Adventurous: 30, Romantic: 75, Curious: 60, Playful: 60, Cultural: 65 },
     with: { Solo: 75, Couple: 90, Family: 75, 'Friends / Group': 80 },
     preferences: { 'Pet friendly': 15, 'Avoid alcohol': 85, 'More nature': 55, 'Food stops': 65 },

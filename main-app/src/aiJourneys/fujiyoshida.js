@@ -20,6 +20,8 @@ const station = {
   memory: 'Where the day began.',
   mapPlace: 'Shimoyoshida Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Fujiyoshida.' },
@@ -36,6 +38,8 @@ const honchoDori = {
   memory: 'Fuji at the end of the street.',
   mapPlace: 'Honcho-dori, Fujiyoshida',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [15, 30],
   ...DISCOVERY,
   narration: [
     { text: 'Honcho-dori is the old main street, and it runs straight toward the mountain. Find the spot where Fuji sits right at the end of the road, framed by the shops on either side.' },
@@ -53,6 +57,8 @@ const kitaguchiHongu = {
   teaser: 'The old starting point for pilgrims climbing Fuji, in a forest of giant cedars. A short ride across town.',
   mapPlace: 'Kitaguchi Hongu Fuji Sengen Jinja',
   travelMode: 'transit',
+  travelMinutes: 20,
+  stayMinutes: [30, 45],
   ...DETOUR,
   narration: [
     { text: 'For centuries, pilgrims climbing Mount Fuji set out from here. The shrine stands in a forest of giant cedars, and its great wooden torii is one of the biggest you’ll see.' },
@@ -69,6 +75,8 @@ const arakuraShrine = {
   memory: 'At the foot of the long stairs.',
   mapPlace: 'Arakura Fuji Sengen Shrine',
   travelMode: 'walking',
+  travelMinutes: 20,
+  stayMinutes: [15, 20],
   ...BUILD,
   detours: [kitaguchiHongu],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +95,8 @@ const chureito = {
   memory: 'The pagoda and the mountain.',
   mapPlace: 'Chureito Pagoda',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 45],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +114,11 @@ const lakeKawaguchi = {
   memory: 'Fuji over the lake at the end of the day.',
   mapPlace: 'Lake Kawaguchi',
   travelMode: 'transit',
+  travelMinutes: 60,
+  stayMinutes: [45, 60],
+  nearby: [
+    { name: 'Mt. Fuji Panoramic Ropeway', note: 'A short ride up Mount Tenjo, for a view over the lake to Fuji', meters: 500 },
+  ],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Take the train on to Kawaguchiko, and walk down to the lake.' },
@@ -122,7 +137,6 @@ export default {
   photoPosition: '10% center',
   blurb: 'Through the town at the foot of Mount Fuji, up the steps to its most famous view.',
   tagline: TAGLINE,
-  time: '~6 hours',
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
@@ -135,7 +149,6 @@ export default {
   startArea: 'Fujiyoshida, Yamanashi, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 6,
     moods: { Peaceful: 70, Adventurous: 70, Romantic: 80, Curious: 60, Playful: 35, Cultural: 70 },
     with: { Solo: 80, Couple: 90, Family: 65, 'Friends / Group': 80 },
     preferences: { 'Pet friendly': 30, 'Avoid alcohol': 90, 'More nature': 85, 'Food stops': 55 },

@@ -20,6 +20,8 @@ const stadium = {
   memory: 'Where the day began.',
   mapPlace: 'U.S. Bank Stadium Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Minneapolis.' },
@@ -36,6 +38,8 @@ const goldMedalPark = {
   memory: 'Up the spiral hill.',
   mapPlace: 'Gold Medal Park, Minneapolis',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [15, 30],
   ...DISCOVERY,
   narration: [
     { text: 'Gold Medal Park is built around a grassy hill with a path that spirals up to the top.' },
@@ -53,6 +57,8 @@ const guthrie = {
   teaser: 'A walkway that reaches out from the side of a theater toward the river. Right next door.',
   mapPlace: 'Guthrie Theater, Minneapolis',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [15, 20],
   ...DETOUR,
   narration: [
     { text: 'The Guthrie is one of the country’s best-known theaters, and its building is as dramatic as anything on its stages.' },
@@ -69,6 +75,11 @@ const millCity = {
   memory: 'Inside the ruins of the old mill.',
   mapPlace: 'Mill City Museum',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [45, 60],
+  nearby: [
+    { name: 'Mill Ruins Park', note: 'The old mill canals and walls, dug out beside the river', meters: 200 },
+  ],
   ...BUILD,
   detours: [guthrie],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +98,8 @@ const stoneArchBridge = {
   memory: 'Across the river on the Stone Arch Bridge.',
   mapPlace: 'Stone Arch Bridge',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [20, 30],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +117,11 @@ const stAnthonyMain = {
   memory: 'The evening on the old riverfront.',
   mapPlace: 'St. Anthony Main, Minneapolis',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 60],
+  nearby: [
+    { name: 'Nicollet Island', note: 'A small island in the river, with old houses and a pavilion', meters: 500 },
+  ],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. On the far side of the bridge is St. Anthony Main, an old cobbled street on the river.' },
@@ -122,7 +140,6 @@ export default {
   photoPosition: '24% center',
   blurb: 'Through the ruins of the old flour mills, and across a bridge of stone arches.',
   tagline: TAGLINE,
-  time: '~4 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -135,7 +152,6 @@ export default {
   startArea: 'Minneapolis, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 4,
     moods: { Peaceful: 40, Adventurous: 35, Romantic: 70, Curious: 90, Playful: 45, Cultural: 80 },
     with: { Solo: 85, Couple: 85, Family: 65, 'Friends / Group': 75 },
     preferences: { 'Pet friendly': 40, 'Avoid alcohol': 65, 'More nature': 30, 'Food stops': 50 },

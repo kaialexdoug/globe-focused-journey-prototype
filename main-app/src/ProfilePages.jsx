@@ -19,7 +19,7 @@ import {
 } from './Icons.jsx'
 import { placeName } from './journeyStops'
 
-// Everything for the profile: the navbar along the bottom of the main tabs;
+// Everything for the profile: the navbar along the bottom of every page;
 // the My Journeys and Profile pages; and the small pieces for making a
 // profile, which is only ever a name. The profile itself is kept on this
 // device (see profileStore.js).
@@ -33,9 +33,11 @@ const TABS = [
   { page: 'profile', label: 'Profile', Icon: PersonIcon },
 ]
 
-export function NavBar({ current, onNavigate }) {
+// `current` is the tab that's lit, or null for none. `inert` while a box is
+// up over the screen, so it can't be tapped or tabbed to.
+export function NavBar({ current, onNavigate, inert }) {
   return (
-    <nav className="navBar" aria-label="Main">
+    <nav className="navBar" aria-label="Main" inert={inert}>
       {TABS.map(({ page, label, Icon }) => (
         <button
           key={page}

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
-import { NavigateIcon } from './Icons.jsx'
+import { ClockIcon, NavigateIcon } from './Icons.jsx'
 import LiveMap from './LiveMap.jsx'
 import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
 import { MAPS_API_KEY } from './config.js'
+import { detourAddsText, stayText } from './journeyTimes.js'
 
 // The two screens every stop on the journey uses, and the Detours page for a
 // stop with detours. Each one is filled in from the cards in journeyStops.js.
@@ -17,22 +18,23 @@ function numberWord(count) {
   return NUMBER_WORDS[count] ?? String(count)
 }
 
-// A stop, like a Reel: its photo fills the screen, with its heading, label
-// and name small in the corner, and ✕ for stopping the journey. What to do
-// there (`children`) is in a panel pulled up from the bottom, its handle
-// saying `sheetLabel`.
-function StopScreen({ className, stop, heading, label, sheetLabel, onStopJourney, children }) {
+// A stop: its photo across the top, with ✕ for stopping the journey, then its
+// heading and which step of the journey it is ("Discovery · Step 2 of 5"),
+// its label and its name. What to do there (`children`) is under that, and
+// scrolls. A detour isn't one of the journey's steps, so it just says Detour.
+function StopScreen({ className, journey, stop, heading, label, onStopJourney, children }) {
+  const step = journey.route.indexOf(stop)
+  const kicker = step === -1 ? heading : `${heading} · Step ${step + 1} of ${journey.route.length}`
+
   return (
     <PhotoScreen
       className={className}
       photo={stop.photo}
       photoAlt={stop.photoAlt}
       photoPosition={stop.photoPosition}
-      kicker={heading}
+      kicker={kicker}
       label={label}
       title={stop.name}
-      sheetLabel={sheetLabel}
-      sheetKicker={`${heading} · ${label}`}
       onClose={onStopJourney}
       closeLabel="Stop journey"
     >
@@ -97,8 +99,6 @@ function EmbedMap({ stop }) {
           We couldn't find your location — here's {stop.name}.
         </p>
       )}
-      {/* Loads straight away, though the panel starts closed, so the map's
-          ready by the time it's pulled up. */}
       <div className="mapContainer">
         <iframe
           title={`Map to ${stop.name}`}
@@ -115,17 +115,17 @@ function EmbedMap({ stop }) {
 // way to follow it in Google Maps itself. The map's the live one, following
 // you, if the stop's card has its exact spot (and it loads). A detour also
 // gets SKIP THIS DETOUR (with `onSkip`), for changing your mind.
-export function DirectionsPage({ stop, onImHere, onSkip, onStopJourney }) {
+export function DirectionsPage({ journey, stop, onImHere, onSkip, onStopJourney }) {
   const [liveFailed, setLiveFailed] = useState(false)
   const live = Boolean(stop.mapPoint) && !liveFailed
 
   return (
     <StopScreen
       className="directionsPage"
+      journey={journey}
       stop={stop}
       heading={stop.directionsHeading}
       label={stop.directionsLabel}
-      sheetLabel="SEE DIRECTIONS"
       onStopJourney={onStopJourney}
     >
       {live ? <LiveMap stop={stop} onFail={() => setLiveFailed(true)} /> : <EmbedMap stop={stop} />}
@@ -175,12 +175,69 @@ function detourOffer(stop, detoursLeft, detoursFrom) {
   }
 }
 
-// Being there: the stop again, then its narration. If there are detours to
-// offer (`detoursLeft`, the ones not taken yet), they come first, with
-// CONTINUE underneath for skipping them. On a detour, `detoursFrom` is the
-// stop the detours belong to. The last stop says FINISH JOURNEY instead of
-// CONTINUE (`continueLabel`).
+// The suggested time to spend at a stop, after its narration: a guide for
+// planning the day, worded so it doesn't hurry anyone.
+function StayCard({ stop }) {
+  return (
+    <div className="startCard stayCard">
+      <p className="startCardLabel">SUGGESTED TIME HERE</p>
+      <div className="startCardRow">
+        <ClockIcon />
+        <div>
+          <p className="startCardName">{stayText(stop)}</p>
+          <p className="startCardNote">Just a guide for planning your day. There’s no rush.</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// About how far a nearby spot is: "about 350 m away", or "about 1.5 km away".
+function distanceText(meters) {
+  if (meters < 1000) {
+    return `about ${Math.max(50, Math.round(meters / 50) * 50)} m away`
+  }
+  return `about ${Math.round(meters / 100) / 10} km away`
+}
+
+// Interesting spots close to a stop (`nearby` on its card), after the
+// suggested time: each one's name, how far it is, and what it is.
+function NearbySpots({ spots }) {
+  return (
+    <div className="nearby">
+      <p className="startCardLabel">{spots.length === 1 ? 'INTERESTING SPOT NEARBY' : 'INTERESTING SPOTS NEARBY'}</p>
+      <ul className="nearbyList">
+        {spots.map((spot) => (
+          <li key={spot.name}>
+            <p className="nearbyName">
+              {spot.name} <span className="nearbyDistance">{distanceText(spot.meters)}</span>
+            </p>
+            <p className="nearbyNote">{spot.note}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+// How much longer the detours on offer would make the day: "Adds about 45 min".
+function DetourAdds({ detours }) {
+  return (
+    <p className="detourAdds">
+      <ClockIcon />
+      {detourAddsText(detours)}
+    </p>
+  )
+}
+
+// Being there: the stop again, then its narration, the suggested time to
+// spend there, and any interesting spots nearby. If there are detours to offer (`detoursLeft`, the ones not
+// taken yet), they come next, saying how much time they'd add, with CONTINUE
+// underneath for skipping them. On a detour, `detoursFrom` is the stop the
+// detours belong to. The last stop says FINISH JOURNEY instead of CONTINUE
+// (`continueLabel`).
 export function ArrivedPage({
+  journey,
   stop,
   detoursLeft,
   detoursFrom,
@@ -194,19 +251,24 @@ export function ArrivedPage({
   return (
     <StopScreen
       className="arrivedPage"
+      journey={journey}
       stop={stop}
       heading={stop.arrivedHeading}
       label={stop.arrivedLabel}
-      sheetLabel="SEE INFORMATION"
       onStopJourney={onStopJourney}
     >
       <Narration paragraphs={stop.narration} />
+
+      {stop.stayMinutes && <StayCard stop={stop} />}
+
+      {stop.nearby?.length > 0 && <NearbySpots spots={stop.nearby} />}
 
       {offer && (
         <>
           <div className="detourCard">
             <p className="startCardLabel">{offer.label}</p>
             <p className="detourCardText">{offer.text}</p>
+            <DetourAdds detours={detoursLeft} />
             <button className="introBtn isGhost" onClick={onSeeDetours}>
               {detoursLeft.length === 1 ? 'SEE DETOUR ➜' : 'SEE DETOURS ➜'}
             </button>
@@ -223,8 +285,9 @@ export function ArrivedPage({
 }
 
 // The detours you can take from a stop, each with its photo, what it's
-// about, and TAKE THIS DETOUR. Ones already taken on this run of the journey
-// (their ids are in `done`) are greyed out. CONTINUE skips the rest.
+// about, how much time it adds, and TAKE THIS DETOUR. Ones already taken on
+// this run of the journey (their ids are in `done`) are greyed out. CONTINUE
+// skips the rest.
 export function DetoursPage({ from, done, onTakeDetour, onContinue, onStopJourney }) {
   const count = from.detours.length
   const anyTaken = from.detours.some((detour) => done.includes(detour.id))
@@ -256,6 +319,7 @@ export function DetoursPage({ from, done, onTakeDetour, onContinue, onStopJourne
               </div>
               <div className="detourOptionBody">
                 <p className="detourOptionTeaser">{detour.teaser}</p>
+                {!taken && <DetourAdds detours={[detour]} />}
                 {taken ? (
                   <button className="introBtn isDone" disabled>
                     DETOUR TAKEN

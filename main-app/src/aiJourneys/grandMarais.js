@@ -20,6 +20,11 @@ const harbor = {
   memory: 'Where the day began.',
   mapPlace: 'Grand Marais Harbor, MN',
   travelMode: 'driving',
+  travelMinutes: 0,
+  stayMinutes: [15, 20],
+  nearby: [
+    { name: 'Sven & Ole’s', note: 'A much-loved local pizza place', meters: 200 },
+  ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Grand Marais.' },
@@ -36,6 +41,8 @@ const donuts = {
   memory: 'A donut by the harbor.',
   mapPlace: 'World’s Best Donuts, Grand Marais, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [15, 30],
   ...DISCOVERY,
   narration: [
     { text: 'The name is bold. The building is tiny. Decide for yourself.' },
@@ -53,6 +60,8 @@ const cascadeRiver = {
   teaser: 'A river that drops through a narrow gorge in a string of little waterfalls. A short drive down the shore.',
   mapPlace: 'Cascade River State Park',
   travelMode: 'driving',
+  travelMinutes: 15,
+  stayMinutes: [45, 60],
   ...DETOUR,
   narration: [
     { text: 'Here, the Cascade River tumbles down to the lake through a narrow rocky gorge, in one small waterfall after another.' },
@@ -69,6 +78,11 @@ const northHouse = {
   memory: 'Old crafts by the harbor.',
   mapPlace: 'North House Folk School',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Angry Trout Café', note: 'A café right on the harbor, known for its fresh fish', meters: 200 },
+  ],
   ...BUILD,
   detours: [cascadeRiver],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +101,8 @@ const artistsPoint = {
   memory: 'On the rocks at Artist’s Point.',
   mapPlace: 'Artist’s Point, Grand Marais, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +120,8 @@ const lighthouse = {
   memory: 'At the lighthouse as the sun went down.',
   mapPlace: 'Grand Marais Lighthouse',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. From the point, walk out along the breakwall to the little lighthouse at the end. Take care if the waves are up: the wall gets wet and slippery.' },
@@ -121,7 +139,6 @@ export default {
   photoAlt: lighthouse.photoAlt,
   blurb: 'Around a little harbor, from donuts by the water to the lighthouse at sunset.',
   tagline: TAGLINE,
-  time: '~5 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +151,6 @@ export default {
   startArea: 'Grand Marais, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 5,
     moods: { Peaceful: 85, Adventurous: 50, Romantic: 80, Curious: 70, Playful: 45, Cultural: 40 },
     with: { Solo: 75, Couple: 90, Family: 70, 'Friends / Group': 70 },
     preferences: { 'Pet friendly': 70, 'Avoid alcohol': 85, 'More nature': 80, 'Food stops': 65 },

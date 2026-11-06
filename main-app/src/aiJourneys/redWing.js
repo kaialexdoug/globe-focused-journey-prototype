@@ -20,6 +20,11 @@ const depot = {
   memory: 'Where the day began.',
   mapPlace: 'Red Wing Amtrak Station',
   travelMode: 'driving',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
+  nearby: [
+    { name: 'St. James Hotel', note: 'A grand old hotel from the riverboat days', meters: 150 },
+  ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Red Wing.' },
@@ -36,6 +41,8 @@ const shoeStore = {
   memory: 'Boots, and one very big boot.',
   mapPlace: 'Red Wing Shoe Store, Main Street, Red Wing, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [20, 30],
   ...DISCOVERY,
   narration: [
     { text: 'Red Wing boots have been made in this town for generations, and the store on Main Street is part shop, part museum.' },
@@ -53,6 +60,8 @@ const potteryPlace = {
   teaser: 'The old stoneware factory, now shops and a pottery museum. A short drive across town.',
   mapPlace: 'Pottery Place, Red Wing, MN',
   travelMode: 'driving',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
   ...DETOUR,
   narration: [
     { text: 'This was where Red Wing’s famous stoneware was made: crocks, jugs and pots that ended up in kitchens all over the country.' },
@@ -69,6 +78,11 @@ const mainStreet = {
   memory: 'Wandering downtown.',
   mapPlace: 'Downtown Red Wing, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Sheldon Theatre', note: 'A jewel-box theater from 1904', meters: 200 },
+  ],
   ...BUILD,
   detours: [potteryPlace],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +101,8 @@ const barnBluff = {
   memory: 'On top of Barn Bluff.',
   mapPlace: 'Barn Bluff, Red Wing, MN',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [60, 90],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +120,8 @@ const riverfront = {
   memory: 'Watching the Mississippi go by.',
   mapPlace: 'Levee Park, Red Wing, MN',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 45],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Come back down to the river you were looking at from the top.' },
@@ -122,7 +140,6 @@ export default {
   photoPosition: '38% center',
   blurb: 'A river town famous for its boots, and the great bluff that towers over it.',
   tagline: TAGLINE,
-  time: '~5 hours',
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
@@ -135,7 +152,6 @@ export default {
   startArea: 'Red Wing, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 5,
     moods: { Peaceful: 55, Adventurous: 65, Romantic: 40, Curious: 90, Playful: 45, Cultural: 70 },
     with: { Solo: 85, Couple: 70, Family: 60, 'Friends / Group': 70 },
     preferences: { 'Pet friendly': 50, 'Avoid alcohol': 80, 'More nature': 50, 'Food stops': 40 },

@@ -20,6 +20,11 @@ const station = {
   memory: 'Where the day began.',
   mapPlace: 'Kamakura Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
+  nearby: [
+    { name: 'Zeniarai Benten', note: 'A shrine in a cave, where people wash their money for luck', meters: 1300 },
+  ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Kamakura.' },
@@ -36,6 +41,8 @@ const komachiDori = {
   memory: 'Snacks in hand on Komachi-dori.',
   mapPlace: 'Komachi-dori, Kamakura',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
   ...DISCOVERY,
   narration: [
     { text: 'This is Komachi-dori, a narrow street of snack stalls, sweet shops and little stores, and it’s usually busy. Don’t fight the crowd. Drift along with it.' },
@@ -53,6 +60,11 @@ const hokokuji = {
   teaser: 'A small temple with a bamboo grove behind it. The quietest stop of the day, if you let it be.',
   mapPlace: 'Hokokuji Temple, Kamakura',
   travelMode: 'walking',
+  travelMinutes: 25,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Jomyoji', note: 'One of Kamakura’s five great Zen temples, with a little teahouse', meters: 400 },
+  ],
   ...DETOUR,
   narration: [
     { text: 'You’ve found the bamboo. Hokokuji is a small temple, and most people come for the grove behind it.' },
@@ -69,6 +81,11 @@ const hachimangu = {
   memory: 'Up the steps to the shrine.',
   mapPlace: 'Tsurugaoka Hachimangu',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Kenchoji', note: 'The greatest of Kamakura’s Zen temples, with a garden behind its halls', meters: 1000 },
+  ],
   ...BUILD,
   detours: [hokokuji],
   detoursNote: ONE_DETOUR_NOTE,
@@ -88,6 +105,11 @@ const greatBuddha = {
   // At Kotoku-in, the temple it belongs to.
   mapPlace: 'Kotoku-in, Kamakura',
   travelMode: 'transit',
+  travelMinutes: 30,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Hasedera', note: 'A hillside temple with a view out over the bay', meters: 500 },
+  ],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -105,6 +127,8 @@ const yuigahama = {
   memory: 'Sunset on Yuigahama.',
   mapPlace: 'Yuigahama Beach, Kamakura',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 60],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Yuigahama is a short walk downhill from the Buddha, and it’s the kind of place where a day ends on its own.' },
@@ -122,7 +146,6 @@ export default {
   photoAlt: greatBuddha.photoAlt,
   blurb: 'Through the old samurai capital, from the Great Buddha down to the sea.',
   tagline: TAGLINE,
-  time: '~5 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -135,7 +158,6 @@ export default {
   startArea: 'Kamakura, Kanagawa, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 5,
     moods: { Peaceful: 70, Adventurous: 45, Romantic: 70, Curious: 65, Playful: 50, Cultural: 95 },
     with: { Solo: 85, Couple: 90, Family: 75, 'Friends / Group': 85 },
     preferences: { 'Pet friendly': 30, 'Avoid alcohol': 85, 'More nature': 60, 'Food stops': 80 },

@@ -13,6 +13,7 @@
 // which (see kawagoeJourney, below).
 
 import { AI_JOURNEYS } from './aiJourneys/index.js'
+import { hoursText, journeyHours } from './journeyTimes.js'
 
 import emaTunnelPhoto from './assets/journey/ema-tunnel.jpg'
 import kawagoeStationPhoto from './assets/journey/kawagoe-station.jpg'
@@ -47,6 +48,16 @@ export const kawagoeStation = {
   // "walking", "driving" or "bicycling".
   mapPlace: 'Kawagoe Station',
   travelMode: 'transit',
+  // About how many minutes it takes to get here from the stop before (0 for
+  // the departure), and the suggested time to spend here, shortest and
+  // longest, shown after the narration. The journey's total time is worked
+  // out from these (journeyTimes.js). Only ever a guide.
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
+  // Optional: interesting spots close by, each with what it is and about how
+  // far it is from here, listed after the suggested time. Only ones that are
+  // really worth it, so most stops have none. Like this:
+  //   nearby: [{ name: 'Kashiya Yokocho', note: 'An alley of sweet shops', meters: 350 }],
 
   // On each screen's photo: the red heading, then the small label above the
   // name.
@@ -90,6 +101,8 @@ export const imofukudo = {
 
   mapPlace: 'Koedo Imoya Imofukudo, Kawagoe',
   travelMode: 'walking',
+  travelMinutes: 25,
+  stayMinutes: [20, 30],
 
   directionsHeading: 'Discovery',
   directionsLabel: 'YOUR NEXT STOP',
@@ -127,6 +140,8 @@ export const kawagoeMuseum = {
   // next door first.
   mapPlace: '川越市立博物館',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 45],
 
   directionsHeading: 'Detour',
   directionsLabel: 'YOUR DETOUR',
@@ -158,6 +173,11 @@ export const kawagoeCastle = {
   // The palace hall itself (Honmaru Goten), rather than the castle grounds.
   mapPlace: '川越城本丸御殿',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Miyoshino Shrine', note: 'Said to be where the old children’s song “Tōryanse” comes from', meters: 100 },
+  ],
 
   directionsHeading: 'Detour',
   directionsLabel: 'YOUR DETOUR',
@@ -187,6 +207,11 @@ export const tokiNoKane = {
 
   mapPlace: 'Toki no Kane, Kawagoe',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [10, 20],
+  nearby: [
+    { name: 'Kashiya Yokocho', note: 'A little alley of old-fashioned sweet and snack shops', meters: 350 },
+  ],
 
   directionsHeading: 'Build',
   directionsLabel: 'YOUR NEXT STOP',
@@ -221,6 +246,11 @@ export const hikawaShrine = {
 
   mapPlace: 'Kawagoe Hikawa Shrine',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Shingashi River', note: 'A riverside path behind the shrine, lined with cherry trees', meters: 100 },
+  ],
 
   directionsHeading: 'Peak',
   directionsLabel: 'YOUR NEXT STOP',
@@ -252,6 +282,8 @@ export const maruya = {
   // The shop's own name on the map, so it finds this MARUYA.
   mapPlace: '炭焼き親子丼 MARUYA 川越',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [45, 60],
 
   directionsHeading: 'Afterglow',
   directionsLabel: 'YOUR LAST STOP',
@@ -289,8 +321,8 @@ export const kawagoeJourney = {
   // The first line under the photo on See Your Journey.
   tagline: 'Yours to explore, whenever you’re ready.',
 
-  // The three quick facts under it.
-  time: '~2 hours',
+  // The three quick facts under it, along with its time, which is worked out
+  // from its stops (see ALL_JOURNEYS, below).
   walking: 'Flat walking',
   stops: '~5 stops',
 
@@ -312,11 +344,11 @@ export const kawagoeJourney = {
   startArea: 'Kawagoe, Saitama, Japan',
   startNote: 'Travel to the start is separate from journey time.',
 
-  // For matching it to your answers on Find My Journey (journeyMatch.js): roughly
-  // how many hours it takes, and how well it suits each answer, out of 100.
-  // These are estimates from what's on the journey, not checked facts.
+  // For matching it to your answers on Find My Journey (journeyMatch.js): how
+  // well it suits each answer, out of 100, and how many hours it takes, which
+  // is worked out from its stops. These are estimates from what's on the
+  // journey, not checked facts.
   match: {
-    hours: 2,
     moods: { Peaceful: 55, Adventurous: 35, Romantic: 65, Curious: 75, Playful: 50, Cultural: 95 },
     with: { Solo: 85, Couple: 85, Family: 75, 'Friends / Group': 80 },
     preferences: { 'Pet friendly': 20, 'Avoid alcohol': 90, 'More nature': 20, 'Food stops': 90 },
@@ -368,6 +400,8 @@ export const odawaraStation = {
   // get the simpler embedded map.
   mapPoint: { lat: 35.2564449, lng: 139.1553932 },
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
 
   directionsHeading: 'Departure',
   directionsLabel: 'YOUR JOURNEY BEGINS AT',
@@ -404,6 +438,11 @@ export const kamabokoDori = {
   mapPlace: 'Cafe & Restaurant Yamajo',
   mapPoint: { lat: 35.2511529, lng: 139.1660913 },
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 60],
+  nearby: [
+    { name: 'Uirō', note: 'A shop that has made uirō, a soft sweet, for centuries, in a building like a small castle', meters: 500 },
+  ],
 
   directionsHeading: 'Discovery',
   directionsLabel: 'YOUR NEXT STOP',
@@ -435,6 +474,8 @@ export const ninjaMuseum = {
   mapPlace: 'Odawara Castle NINJA Museum',
   mapPoint: { lat: 35.250641, lng: 139.155743 },
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
 
   directionsHeading: 'Detour',
   directionsLabel: 'YOUR DETOUR',
@@ -462,6 +503,11 @@ export const cultureMuseum = {
   mapPlace: 'Odawara Local Culture Museum',
   mapPoint: { lat: 35.249716, lng: 139.154941 },
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Hotoku Ninomiya Shrine', note: 'A shrine to Ninomiya Sontoku, the farmer and thinker Odawara is proud of', meters: 300 },
+  ],
 
   directionsHeading: 'Build',
   directionsLabel: 'YOUR NEXT STOP',
@@ -499,6 +545,8 @@ export const odawaraCastle = {
   mapPlace: 'Odawara Castle',
   mapPoint: { lat: 35.2509493, lng: 139.1535136 },
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [45, 60],
 
   directionsHeading: 'Peak',
   directionsLabel: 'YOUR NEXT STOP',
@@ -530,6 +578,8 @@ export const miyukinohama = {
   mapPlace: 'Miyukinohama Beach',
   mapPoint: { lat: 35.2451164, lng: 139.1593045 },
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 60],
 
   directionsHeading: 'Afterglow',
   directionsLabel: 'YOUR LAST STOP',
@@ -558,7 +608,6 @@ export const odawaraJourney = {
   blurb: 'From the old Tokaido road to the castle, and down to the sea.',
   tagline: 'Yours to explore, whenever you’re ready.',
 
-  time: '~4 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -574,7 +623,6 @@ export const odawaraJourney = {
   startNote: 'Travel to the start is separate from journey time.',
 
   match: {
-    hours: 4,
     moods: { Peaceful: 60, Adventurous: 50, Romantic: 65, Curious: 75, Playful: 55, Cultural: 90 },
     with: { Solo: 85, Couple: 85, Family: 80, 'Friends / Group': 80 },
     preferences: { 'Pet friendly': 25, 'Avoid alcohol': 90, 'More nature': 40, 'Food stops': 85 },
@@ -610,3 +658,12 @@ export function placeName(location) {
 // Every journey, the featured one first: it's the first on Home. The AI-made
 // ones (aiJourneys/) come after the checked ones.
 export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS]
+
+// Each journey's time, "~4 hours" on its card and 4 for matching, is worked
+// out from its stops' times (journeyTimes.js) rather than written in, so the
+// two always agree.
+for (const journey of ALL_JOURNEYS) {
+  const hours = journeyHours(journey)
+  journey.time = hoursText(hours)
+  journey.match.hours = hours
+}

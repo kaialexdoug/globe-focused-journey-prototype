@@ -20,6 +20,8 @@ const lowellPark = {
   memory: 'Where the day began.',
   mapPlace: 'Lowell Park, Stillwater, MN',
   travelMode: 'driving',
+  travelMinutes: 0,
+  stayMinutes: [10, 20],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Stillwater.' },
@@ -36,6 +38,11 @@ const mainStreet = {
   memory: 'Browsing along Main Street.',
   mapPlace: 'Main Street, Stillwater, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [45, 60],
+  nearby: [
+    { name: 'Teddy Bear Park', note: 'A park full of giant teddy bear sculptures', meters: 300 },
+  ],
   ...DISCOVERY,
   narration: [
     { text: 'Main Street is lined with old brick buildings from the lumber days, and they’re full of antique shops, bookshops and places to eat.' },
@@ -53,6 +60,8 @@ const wardensHouse = {
   teaser: 'The house where the wardens of the old territorial prison once lived, now a small museum. At the north end of Main Street.',
   mapPlace: 'Warden’s House Museum, Stillwater, MN',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 45],
   ...DETOUR,
   narration: [
     { text: 'Stillwater was home to the territorial prison, and this stone house was where its wardens lived. Now it’s a small museum of the town’s past.' },
@@ -69,6 +78,8 @@ const courthouse = {
   memory: 'Up the hill to the old courthouse.',
   mapPlace: 'Washington County Historic Courthouse, Stillwater, MN',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [15, 30],
   ...BUILD,
   detours: [wardensHouse],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +98,8 @@ const liftBridge = {
   memory: 'Halfway across the St. Croix.',
   mapPlace: 'Stillwater Lift Bridge',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +117,8 @@ const riverfront = {
   memory: 'The bridge lit up over the river.',
   mapPlace: 'Lowell Park, Stillwater, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 60],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop, and you’re back where you started, by the water.' },
@@ -121,7 +136,6 @@ export default {
   photoAlt: liftBridge.photoAlt,
   blurb: 'An old river town, a walk across the water, and a bridge that lights up at dusk.',
   tagline: TAGLINE,
-  time: '~4 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +148,6 @@ export default {
   startArea: 'Stillwater, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 4,
     moods: { Peaceful: 70, Adventurous: 30, Romantic: 90, Curious: 70, Playful: 45, Cultural: 55 },
     with: { Solo: 60, Couple: 95, Family: 60, 'Friends / Group': 75 },
     preferences: { 'Pet friendly': 55, 'Avoid alcohol': 60, 'More nature': 40, 'Food stops': 65 },

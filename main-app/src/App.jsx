@@ -9,6 +9,7 @@ import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
 import { CompanionPage, DetailsPage, MatchesPage, MoodPage } from './FindMyJourney.jsx'
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
+import SearchPage from './SearchPage.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
 import {
   NavBar,
@@ -61,8 +62,9 @@ import './App.css'
 // Find My Journey is the other way in: its intro, three steps of questions, then
 // Journeys for You, every journey from the best match for your answers to the
 // worst.
-// Home, Find My Journey's intro and Journeys for You, My Journeys and Profile
-// have a navbar along the bottom to move between them.
+// Every page has a navbar along the bottom, for moving between Home, Find My
+// Journey, My Journeys and Profile. On a journey, it asks first, the same as
+// stopping the journey with ✕.
 
 // The pages of the journey itself, and which part of the journey each one is
 // about (a detour's pages are about whichever detour you're on). Used to
@@ -83,11 +85,25 @@ const JOURNEY_PAGES = {
   afterglowInfo: 'afterglow',
 }
 
-// The pages with the navbar along the bottom.
-const NAVBAR_PAGES = ['home', 'find', 'findMatches', 'myJourneys', 'completedJourneys', 'likedJourneys', 'profile']
+// The navbar's tabs.
+const NAVBAR_TABS = ['home', 'find', 'myJourneys', 'profile']
 
-// The pages that come under another page's tab on the navbar.
-const NAVBAR_TAB_OF = { findMatches: 'find', completedJourneys: 'myJourneys', likedJourneys: 'myJourneys' }
+// The pages that come under one of its tabs, so that tab is lit on them too.
+const NAVBAR_TAB_OF = {
+  findMood: 'find',
+  findWho: 'find',
+  findDetails: 'find',
+  findMatches: 'find',
+  search: 'home',
+  completedJourneys: 'myJourneys',
+  likedJourneys: 'myJourneys',
+}
+
+// Which tab is lit on a page, or null for none (a journey under way, and the
+// survey).
+function navbarTabOf(page) {
+  return NAVBAR_TABS.includes(page) ? page : (NAVBAR_TAB_OF[page] ?? null)
+}
 
 // What Find My Journey's answers start as: nothing yet, except that its details
 // step starts with a time and a pace already picked, as on the mockup.
@@ -122,8 +138,8 @@ function whereLeftOff(progress) {
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
   // "findMood", "findWho", "findDetails", "findMatches", "completedJourneys",
-  // "likedJourneys", "seeJourney", any of the JOURNEY_PAGES above, "memory" or
-  // "survey".
+  // "likedJourneys", "search", "seeJourney", any of the JOURNEY_PAGES above,
+  // "memory" or "survey".
   const [page, setPage] = useState('home')
 
   // What you've told Find My Journey so far, by the names on its cards: the
@@ -135,6 +151,11 @@ function App() {
   // you were, the same way.
   const feedPositionRef = useRef(0)
   const matchesPositionRef = useRef(0)
+
+  // What's typed on Search, and how far down its results you were, so both are
+  // as you left them when you come back from a journey.
+  const [searchQuery, setSearchQuery] = useState('')
+  const searchPositionRef = useRef(0)
 
   // Where the journey you've opened goes back to when you close it.
   const [journeyOpenedFrom, setJourneyOpenedFrom] = useState('home')
@@ -153,6 +174,9 @@ function App() {
   const journey = journeyWithId(journeyId) ?? ALL_JOURNEYS[0]
 
   const [showStopConfirmation, setShowStopConfirmation] = useState(false);
+  // Where leaving a journey partway goes: Home, from ✕, or else the navbar
+  // tab that was tapped.
+  const [leaveTo, setLeaveTo] = useState('home')
 
   // The detour you're on (its card from journeyStops.js), and the ids of the
   // ones you've taken. A detour counts as taken once you press I'M HERE.
@@ -204,12 +228,34 @@ function App() {
     setLikes(likes.includes(journeyId) ? likes.filter((each) => each !== journeyId) : [...likes, journeyId])
   }
 
-  const stopJourney = () => setShowStopConfirmation(true)
+  // Asks first whether to end the journey under way, then goes to `to`.
+  function askToLeave(to) {
+    setLeaveTo(to)
+    setShowStopConfirmation(true)
+  }
+
+  const stopJourney = () => askToLeave('home')
+
+  // A tab on the navbar. On a journey under way, it asks first.
+  function goToTab(tab) {
+    if (page in JOURNEY_PAGES) {
+      askToLeave(tab)
+    } else {
+      setPage(tab)
+    }
+  }
 
   // A new set of matches, so from the top of the list.
   function seeMatches() {
     matchesPositionRef.current = 0
     setPage('findMatches')
+  }
+
+  // A new search from Home, so with nothing typed yet.
+  function openSearch() {
+    setSearchQuery('')
+    searchPositionRef.current = 0
+    setPage('search')
   }
 
   function openJourney(chosen, from = 'home') {
@@ -266,8 +312,9 @@ function App() {
     setPage('memory')
   }
 
-  // Leaving partway, back to Home. `keep` keeps where you are, to pick up
-  // again from My Journeys; otherwise anything saved of this run is dropped.
+  // Leaving partway, to Home or the navbar tab tapped (`leaveTo`). `keep`
+  // keeps where you are, to pick up again from My Journeys; otherwise anything
+  // saved of this run is dropped.
   function leaveJourney(keep) {
     if (keep) {
       setProgress({ journeyId: journey.id, page, detourId: detour?.id ?? null, detoursTaken })
@@ -276,7 +323,7 @@ function App() {
       setProgress(null)
     }
     setSaving(false)
-    setPage('home')
+    setPage(leaveTo)
   }
 
   // Looking back on a journey you've finished.
@@ -378,6 +425,7 @@ function App() {
   } else if (page === 'afterglowInfo') {
     content = (
       <ArrivedPage
+        journey={journey}
         stop={journey.afterglow}
         continueLabel="FINISH JOURNEY ➜"
         onContinue={finishJourney}
@@ -387,6 +435,7 @@ function App() {
   } else if (page === 'afterglow') {
     content = (
       <DirectionsPage
+        journey={journey}
         stop={journey.afterglow}
         onImHere={() => setPage('afterglowInfo')}
         onStopJourney={stopJourney}
@@ -395,6 +444,7 @@ function App() {
   } else if (page === 'peakInfo') {
     content = (
       <ArrivedPage
+        journey={journey}
         stop={journey.peak}
         onContinue={() => setPage('afterglow')}
         onStopJourney={stopJourney}
@@ -403,6 +453,7 @@ function App() {
   } else if (page === 'peak') {
     content = (
       <DirectionsPage
+        journey={journey}
         stop={journey.peak}
         onImHere={() => setPage('peakInfo')}
         onStopJourney={stopJourney}
@@ -411,6 +462,7 @@ function App() {
   } else if (page === 'detourInfo') {
     content = (
       <ArrivedPage
+        journey={journey}
         stop={detour}
         detoursLeft={detoursLeft}
         detoursFrom={journey.build}
@@ -422,6 +474,7 @@ function App() {
   } else if (page === 'detour') {
     content = (
       <DirectionsPage
+        journey={journey}
         stop={detour}
         onImHere={() => {
           setDetoursTaken([...detoursTaken, detour.id])
@@ -447,6 +500,7 @@ function App() {
   } else if (page === 'buildInfo') {
     content = (
       <ArrivedPage
+        journey={journey}
         stop={journey.build}
         detoursLeft={detoursLeft}
         onSeeDetours={() => setPage('detours')}
@@ -458,6 +512,7 @@ function App() {
   } else if (page === 'build') {
     content = (
       <DirectionsPage
+        journey={journey}
         stop={journey.build}
         onImHere={() => setPage('buildInfo')}
         onStopJourney={stopJourney}
@@ -466,6 +521,7 @@ function App() {
   } else if (page === 'discoveryInfo') {
     content = (
       <ArrivedPage
+        journey={journey}
         stop={journey.discovery}
         onContinue={() => setPage('build')}
         onStopJourney={stopJourney}
@@ -474,6 +530,7 @@ function App() {
   } else if (page === 'discovery') {
     content = (
       <DirectionsPage
+        journey={journey}
         stop={journey.discovery}
         onImHere={() => setPage('discoveryInfo')}
         onStopJourney={stopJourney}
@@ -482,6 +539,7 @@ function App() {
   } else if (page === 'departureInfo') {
     content = (
       <ArrivedPage
+        journey={journey}
         stop={journey.departure}
         onContinue={() => setPage('discovery')}
         onStopJourney={stopJourney}
@@ -490,6 +548,7 @@ function App() {
   } else if (page === 'departure') {
     content = (
       <DirectionsPage
+        journey={journey}
         stop={journey.departure}
         onImHere={() => setPage('departureInfo')}
         onStopJourney={stopJourney}
@@ -508,6 +567,19 @@ function App() {
         completed={journeyRecord?.timesCompleted > 0}
         // Only if it's this journey that was left partway.
         underWay={underWay?.journeyId === journey.id ? whereLeftOff(underWay) : null}
+      />
+    )
+  } else if (page === 'search') {
+    content = (
+      <SearchPage
+        journeys={ALL_JOURNEYS}
+        query={searchQuery}
+        onQueryChange={setSearchQuery}
+        likes={likes}
+        positionRef={searchPositionRef}
+        onSelect={(chosen) => openJourney(chosen, 'search')}
+        onToggleLike={toggleLike}
+        onBack={() => setPage('home')}
       />
     )
   } else if (page === 'findMatches') {
@@ -579,12 +651,21 @@ function App() {
         likes={likes}
         onSelect={openJourney}
         onToggleLike={toggleLike}
+        onSearch={openSearch}
         positionRef={feedPositionRef}
       />
     )
   }
 
-  const showNavBar = NAVBAR_PAGES.includes(page)
+  // See Your Journey comes under the tab it was opened from, and a finished
+  // journey's Memory page under My Journeys when it's looked back on from there.
+  let navbarTab = navbarTabOf(page)
+  if (page === 'seeJourney') {
+    navbarTab = navbarTabOf(journeyOpenedFrom)
+  } else if (page === 'memory' && revisitingMemory) {
+    navbarTab = 'myJourneys'
+  }
+
   const boxOpen =
     showStopConfirmation || showSkipDetour || showSaveExit || pendingStart !== null || pendingSwitch !== null
 
@@ -594,14 +675,13 @@ function App() {
   return (
     <div className="phone">
       {/* Keyed by page so each screen starts scrolled to the top. Inert while
-          a box is up over it, so nothing behind can be tapped or tabbed to. */}
-      <div className={showNavBar ? 'screen hasNavBar' : 'screen'} key={page} inert={boxOpen}>
+          a box is up over it, so nothing behind can be tapped or tabbed to,
+          and the same goes for the navbar. */}
+      <div className="screen" key={page} inert={boxOpen}>
         {content}
       </div>
 
-      {showNavBar && (
-        <NavBar current={NAVBAR_TAB_OF[page] ?? page} onNavigate={setPage} />
-      )}
+      <NavBar current={navbarTab} onNavigate={goToTab} inert={boxOpen} />
 
       {showSkipDetour && (
         <SkipDetourPrompt
@@ -629,9 +709,7 @@ function App() {
               leaveJourney(false)
             }
           }}
-          onCancel={() => {
-            setShowStopConfirmation(false)
-          }}
+          onCancel={() => setShowStopConfirmation(false)}
         />
       )}
 
@@ -702,7 +780,7 @@ function FeedTag({ Icon, iconClass, value, label }) {
 // one opens it. Its button is there to make that obvious, and for the
 // keyboard; its click reaches the card too. The heart's click stops short of
 // the card, so liking a journey doesn't open it.
-function HomePage({ journeys, likes, onSelect, onToggleLike, positionRef }) {
+function HomePage({ journeys, likes, onSelect, onToggleLike, onSearch, positionRef }) {
   const feedRef = useRef(null)
 
   // Before it's drawn, so the first journey doesn't flash up on the way.
@@ -748,8 +826,7 @@ function HomePage({ journeys, likes, onSelect, onToggleLike, positionRef }) {
   return (
     <div className="homePage">
       <Header />
-      {/* It doesn't do anything yet. */}
-      <button className="feedSearch" aria-label="Search">
+      <button className="feedSearch" onClick={onSearch} aria-label="Search journeys">
         <SearchIcon />
       </button>
       <div className="feed" ref={feedRef} onScroll={rememberPosition}>
@@ -870,9 +947,8 @@ function FindJourneyPage({ onStart }) {
   )
 }
 
-// Like a journey stop: the journey's photo fills the screen, and everything
-// about it is in the panel pulled up from the bottom. ✕ goes back to where you
-// opened it from. `underWay` is where you left this journey, if it's on your profile
+// Like a journey stop: the journey's photo across the top, then its name, then
+// everything about it, which scrolls. ✕ goes back to where you opened it from. `underWay` is where you left this journey, if it's on your profile
 // partway through: then it offers RESUME JOURNEY instead. `completed` says
 // you've finished it before.
 function SeeJourneyPage({
@@ -894,8 +970,6 @@ function SeeJourneyPage({
       kicker="Your journey"
       label={journey.location}
       title={journey.name}
-      sheetLabel="SEE JOURNEY DETAILS"
-      sheetKicker="Your journey"
       onClose={onClose}
       closeLabel="Close"
     >

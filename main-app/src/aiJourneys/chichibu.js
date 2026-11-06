@@ -20,6 +20,11 @@ const station = {
   memory: 'Where the day began.',
   mapPlace: 'Seibu-Chichibu Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
+  nearby: [
+    { name: 'Matsuri no Yu', note: 'A hot-spring bath right by the station', meters: 50 },
+  ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Chichibu.' },
@@ -36,6 +41,8 @@ const hitsujiyama = {
   memory: 'Looking out over the valley from Hitsujiyama.',
   mapPlace: 'Hitsujiyama Park',
   travelMode: 'walking',
+  travelMinutes: 20,
+  stayMinutes: [30, 45],
   ...DISCOVERY,
   narration: [
     { text: 'Hitsujiyama Park sits on a hill above the town, with a view across the whole valley to the mountains on the other side.' },
@@ -53,6 +60,8 @@ const festivalHall = {
   teaser: 'A museum of the town’s great winter festival, with its floats up close. Right next to the shrine.',
   mapPlace: 'Chichibu Matsuri Kaikan',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
   ...DETOUR,
   narration: [
     { text: 'Every winter, Chichibu holds a great night festival, when huge wooden floats covered in lanterns are hauled through the streets.' },
@@ -69,6 +78,8 @@ const chichibuShrine = {
   memory: 'Looking for the carvings at Chichibu Shrine.',
   mapPlace: 'Chichibu Shrine',
   travelMode: 'walking',
+  travelMinutes: 25,
+  stayMinutes: [20, 30],
   ...BUILD,
   detours: [festivalHall],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +98,8 @@ const iwadatami = {
   memory: 'On the rocks by the river at Nagatoro.',
   mapPlace: 'Iwadatami, Nagatoro',
   travelMode: 'transit',
+  travelMinutes: 45,
+  stayMinutes: [45, 60],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +117,11 @@ const hodosan = {
   memory: 'The painted shrine at the foot of the mountain.',
   mapPlace: 'Hodosan Shrine',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Hodosan Ropeway', note: 'Up to the top of Mount Hodo, with plum and wintersweet gardens', meters: 300 },
+  ],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Hodosan Shrine stands at the foot of Mount Hodo, a walk up the road from Nagatoro Station.' },
@@ -121,7 +139,6 @@ export default {
   photoAlt: iwadatami.photoAlt,
   blurb: 'From a hilltop park down the valley, to flat river rocks at Nagatoro.',
   tagline: TAGLINE,
-  time: '~6 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +151,6 @@ export default {
   startArea: 'Chichibu, Saitama, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 6,
     moods: { Peaceful: 80, Adventurous: 65, Romantic: 50, Curious: 65, Playful: 45, Cultural: 70 },
     with: { Solo: 80, Couple: 75, Family: 75, 'Friends / Group': 75 },
     preferences: { 'Pet friendly': 45, 'Avoid alcohol': 85, 'More nature': 90, 'Food stops': 40 },

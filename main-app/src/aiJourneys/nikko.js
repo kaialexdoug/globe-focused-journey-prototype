@@ -20,6 +20,11 @@ const station = {
   memory: 'Where the day began.',
   mapPlace: 'Tobu-Nikko Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
+  nearby: [
+    { name: 'JR Nikko Station', note: 'A white wooden station building from the early 1900s', meters: 200 },
+  ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Nikko.' },
@@ -36,6 +41,11 @@ const shinkyo = {
   memory: 'The red bridge over the river.',
   mapPlace: 'Shinkyo Bridge',
   travelMode: 'walking',
+  travelMinutes: 30,
+  stayMinutes: [10, 20],
+  nearby: [
+    { name: 'Nikko Kanaya Hotel', note: 'One of Japan’s oldest Western-style hotels, with a café', meters: 300 },
+  ],
   ...DISCOVERY,
   narration: [
     { text: 'This is the Shinkyo, the sacred bridge. Its red arch over the Daiya River marks the way into the shrines and temples of Nikko.' },
@@ -53,6 +63,11 @@ const taiyuin = {
   teaser: 'The mausoleum of the shogun’s grandson, quieter than Toshogu and almost as beautiful. A short walk through the trees.',
   mapPlace: 'Taiyuin, Nikko',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Futarasan Shrine', note: 'The shrine to Nikko’s sacred mountains, among the cedars', meters: 200 },
+  ],
   ...DETOUR,
   narration: [
     { text: 'Taiyuin is the resting place of Iemitsu, grandson of the first shogun. It’s said he had it built a little more modestly than his grandfather’s shrine, out of respect.' },
@@ -69,6 +84,11 @@ const rinnoji = {
   memory: 'Under the great hall at Rinnoji.',
   mapPlace: 'Rinnoji Temple, Nikko',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Shoyoen', note: 'Rinnoji’s small garden, with a path around its pond', meters: 100 },
+  ],
   ...BUILD,
   detours: [taiyuin],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +107,8 @@ const toshogu = {
   memory: 'In front of the Yomeimon Gate.',
   mapPlace: 'Nikko Toshogu',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [60, 90],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +126,8 @@ const kanmangafuchi = {
   memory: 'Counting the stone Jizo by the river.',
   mapPlace: 'Kanmangafuchi Abyss',
   travelMode: 'walking',
+  travelMinutes: 30,
+  stayMinutes: [20, 30],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Kanmangafuchi is a walk across the river and a little way upstream, to a gorge where the water rushes over dark rock.' },
@@ -121,7 +145,6 @@ export default {
   photoAlt: shinkyo.photoAlt,
   blurb: 'Over the sacred red bridge, through temples and shrines in the cedar forest.',
   tagline: TAGLINE,
-  time: '~5 hours',
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
@@ -134,7 +157,6 @@ export default {
   startArea: 'Nikko, Tochigi, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 5,
     moods: { Peaceful: 70, Adventurous: 50, Romantic: 50, Curious: 80, Playful: 30, Cultural: 95 },
     with: { Solo: 85, Couple: 75, Family: 60, 'Friends / Group': 70 },
     preferences: { 'Pet friendly': 15, 'Avoid alcohol': 95, 'More nature': 75, 'Food stops': 35 },

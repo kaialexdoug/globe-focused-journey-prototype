@@ -20,6 +20,11 @@ const station = {
   memory: 'Where the day began.',
   mapPlace: 'Takaosanguchi Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
+  nearby: [
+    { name: 'TAKAO 599 Museum', note: 'A small museum of the mountain’s plants and animals', meters: 150 },
+  ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re at the foot of Mount Takao.' },
@@ -36,6 +41,8 @@ const cableCar = {
   memory: 'Up the steep slope by cable car.',
   mapPlace: 'Kiyotaki Station, Mount Takao',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [15, 20],
   ...DISCOVERY,
   narration: [
     { text: 'This is the bottom of the cable car, which climbs one of the steepest slopes of any in Japan. Grab a window, and watch the forest tilt past.' },
@@ -53,6 +60,8 @@ const monkeyPark = {
   teaser: 'A troop of Japanese macaques, near the top of the cable car. A short walk back down the path.',
   mapPlace: 'Takao Monkey Park',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [20, 30],
   ...DETOUR,
   narration: [
     { text: 'You’ve found the monkeys. A troop of Japanese macaques lives here, and they’re as curious about you as you are about them.' },
@@ -69,6 +78,11 @@ const yakuoin = {
   memory: 'Up the steps to the mountain temple.',
   mapPlace: 'Yakuoin, Mount Takao',
   travelMode: 'walking',
+  travelMinutes: 25,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Octopus Cedar', note: 'An old cedar whose roots spread out like an octopus’s legs', meters: 400 },
+  ],
   ...BUILD,
   detours: [monkeyPark],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +101,11 @@ const summit = {
   memory: 'On top of the mountain.',
   mapPlace: 'Mount Takao Summit',
   travelMode: 'walking',
+  travelMinutes: 20,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Momijidai', note: 'A ridge just past the summit, with teahouses and a view toward Fuji on clear days', meters: 400 },
+  ],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +123,8 @@ const gokurakuyu = {
   memory: 'A hot soak after the climb.',
   mapPlace: 'Keio Takaosan Onsen Gokurakuyu',
   travelMode: 'walking',
+  travelMinutes: 50,
+  stayMinutes: [60, 90],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Head back down, by cable car or on foot, and you’ll find this hot spring right beside the station where you started.' },
@@ -121,7 +142,6 @@ export default {
   photoAlt: yakuoin.photoAlt,
   blurb: 'Up a steep cable car into the forest, past a mountain temple to the summit.',
   tagline: TAGLINE,
-  time: '~5 hours',
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
@@ -134,7 +154,6 @@ export default {
   startArea: 'Hachioji, Tokyo, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 5,
     moods: { Peaceful: 65, Adventurous: 85, Romantic: 40, Curious: 60, Playful: 70, Cultural: 50 },
     with: { Solo: 80, Couple: 70, Family: 85, 'Friends / Group': 90 },
     preferences: { 'Pet friendly': 35, 'Avoid alcohol': 90, 'More nature': 95, 'Food stops': 50 },

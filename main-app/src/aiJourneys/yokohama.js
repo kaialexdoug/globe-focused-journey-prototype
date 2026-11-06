@@ -20,6 +20,11 @@ const motomachi = {
   memory: 'Where the day began.',
   mapPlace: 'Motomachi Shopping Street, Yokohama',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Foreign General Cemetery', note: 'Where many of Yokohama’s early foreign residents are buried, up on the Bluff', meters: 400 },
+  ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Yokohama.' },
@@ -36,6 +41,11 @@ const chinatown = {
   memory: 'Lanterns and steamed buns in Chinatown.',
   mapPlace: 'Yokohama Chinatown',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [45, 60],
+  nearby: [
+    { name: 'Kanteibyo', note: 'A temple in the middle of Chinatown, bright with red and gold', meters: 200 },
+  ],
   ...DISCOVERY,
   narration: [
     { text: 'This is Japan’s biggest Chinatown: bright gates, red lanterns, and food stalls on every corner.' },
@@ -53,6 +63,11 @@ const hikawaMaru = {
   teaser: 'An old ocean liner that once crossed the Pacific, now moored for good beside the waterfront park. Just down the hill.',
   mapPlace: 'Hikawa Maru, Yokohama',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Hotel New Grand', note: 'A grand hotel from the 1920s, said to be where Napolitan spaghetti was invented', meters: 150 },
+  ],
   ...DETOUR,
   narration: [
     { text: 'Yamashita Park runs along the waterfront, and at the end of it is the Hikawa Maru, an ocean liner that once sailed across the Pacific and now stays here as a museum ship.' },
@@ -69,6 +84,11 @@ const harborViewPark = {
   memory: 'Looking out over the harbor from the Bluff.',
   mapPlace: 'Harbor View Park, Yokohama',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [15, 30],
+  nearby: [
+    { name: 'British House Yokohama', note: 'An old British consul’s house, with a rose garden', meters: 100 },
+  ],
   ...BUILD,
   detours: [hikawaMaru],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +107,11 @@ const osanbashi = {
   memory: 'On the pier as the lights came on.',
   mapPlace: 'Osanbashi Pier',
   travelMode: 'walking',
+  travelMinutes: 20,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Zō-no-hana Park', note: 'By the old breakwater, curved like an elephant’s trunk, where the port began', meters: 300 },
+  ],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +129,11 @@ const redBrick = {
   memory: 'The evening at the old warehouses.',
   mapPlace: 'Yokohama Red Brick Warehouse',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [45, 60],
+  nearby: [
+    { name: 'Cup Noodles Museum', note: 'All about instant noodles, where you can design your own cup', meters: 600 },
+  ],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. These two long brick warehouses were built for the port in its early days. Now they’re full of shops and places to eat, and they glow at night.' },
@@ -121,7 +151,6 @@ export default {
   photoAlt: chinatown.photoAlt,
   blurb: 'Through Chinatown and out onto the pier, as the city lights up over the water.',
   tagline: TAGLINE,
-  time: '~5 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +163,6 @@ export default {
   startArea: 'Yokohama, Kanagawa, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 5,
     moods: { Peaceful: 35, Adventurous: 40, Romantic: 90, Curious: 70, Playful: 80, Cultural: 55 },
     with: { Solo: 65, Couple: 95, Family: 75, 'Friends / Group': 90 },
     preferences: { 'Pet friendly': 45, 'Avoid alcohol': 60, 'More nature': 25, 'Food stops': 90 },

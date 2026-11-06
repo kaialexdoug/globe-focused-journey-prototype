@@ -20,6 +20,8 @@ const station = {
   memory: 'Where the day began.',
   mapPlace: 'JR Narita Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Narita.' },
@@ -36,6 +38,8 @@ const omotesando = {
   memory: 'Down the old street to the temple.',
   mapPlace: 'Narita Omotesando',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
   ...DISCOVERY,
   narration: [
     { text: 'This is Omotesando, the old street that winds down to the temple. Many of the shops are in wooden buildings that have stood here for generations.' },
@@ -53,6 +57,8 @@ const calligraphyMuseum = {
   teaser: 'A museum of Japanese calligraphy, tucked into the park behind the temple. A short walk through the gardens.',
   mapPlace: 'Naritasan Calligraphy Museum',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 45],
   ...DETOUR,
   narration: [
     { text: 'This quiet museum is devoted to calligraphy, the art of writing with a brush.' },
@@ -69,6 +75,8 @@ const shinshoji = {
   memory: 'Through the great gate at Shinshoji.',
   mapPlace: 'Naritasan Shinshoji Temple',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [45, 60],
   ...BUILD,
   detours: [calligraphyMuseum],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +95,8 @@ const pagoda = {
   memory: 'At the top of the temple grounds.',
   mapPlace: 'Great Pagoda of Peace, Naritasan',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [15, 30],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +114,8 @@ const kawatoyo = {
   memory: 'Grilled eel to end the day.',
   mapPlace: 'Kawatoyo Honten, Narita',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [45, 60],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Back up Omotesando, Kawatoyo is one of the street’s old eel restaurants, in a tall wooden building.' },
@@ -122,7 +134,6 @@ export default {
   photoAlt: pagoda.photoAlt,
   blurb: 'An old street of eel shops and a great temple, a short train ride from the airport.',
   tagline: TAGLINE,
-  time: '~4 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -135,7 +146,6 @@ export default {
   startArea: 'Narita, Chiba, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 4,
     moods: { Peaceful: 75, Adventurous: 25, Romantic: 40, Curious: 70, Playful: 30, Cultural: 90 },
     with: { Solo: 90, Couple: 70, Family: 60, 'Friends / Group': 60 },
     preferences: { 'Pet friendly': 20, 'Avoid alcohol': 90, 'More nature': 45, 'Food stops': 80 },

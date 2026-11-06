@@ -1,13 +1,16 @@
 import Header from './Header.jsx'
-import BottomSheet from './BottomSheet.jsx'
 import { CloseIcon } from './Icons.jsx'
 
-// A screen like a Reel: a photo filling it, with a small heading (`kicker`),
-// `label` and `title` in the corner, and ✕ in the top corner (`onClose`,
-// read out as `closeLabel`). Everything else (`children`) is in a panel
-// pulled up from the bottom, its handle saying `sheetLabel`. The panel opens
-// with the title again, `sheetKicker` above it, since it covers the one on
-// the photo. Journey stops and See Your Journey use it.
+// A screen in three parts, top to bottom:
+//
+// - A photo, about a third of the screen, with the header on it and ✕ in the
+//   top corner (`onClose`, read out as `closeLabel`).
+// - What this screen is about: a small heading (`kicker`), `label` if there is
+//   one, and `title`, starting on the photo's faded bottom edge.
+// - Everything else (`children`), which scrolls on its own. The photo and
+//   the title stay where they are.
+//
+// Journey steps and See Your Journey use it.
 function PhotoScreen({
   className,
   photo,
@@ -16,38 +19,27 @@ function PhotoScreen({
   kicker,
   label,
   title,
-  sheetLabel,
-  sheetKicker,
   onClose,
   closeLabel,
   children,
 }) {
   return (
     <div className={className ? `photoScreen ${className}` : 'photoScreen'}>
-      <img
-        className="photoScreenPhoto"
-        src={photo}
-        alt={photoAlt}
-        style={{ objectPosition: photoPosition }}
-      />
-      <Header />
-      <button className="photoScreenClose" onClick={onClose} aria-label={closeLabel}>
-        <CloseIcon />
-      </button>
+      <div className="photoScreenPhoto">
+        <img className="photoScreenImg" src={photo} alt={photoAlt} style={{ objectPosition: photoPosition }} />
+        <Header />
+        <button className="photoScreenClose" onClick={onClose} aria-label={closeLabel}>
+          <CloseIcon />
+        </button>
+      </div>
 
       <div className="photoScreenTitle">
         <p className="heroKicker">{kicker}</p>
-        <p className="heroLabel">{label}</p>
-        <h1 className="heroTitle">{title}</h1>
+        {label && <p className="heroLabel">{label}</p>}
+        <h1 className="photoScreenName">{title}</h1>
       </div>
 
-      <BottomSheet label={sheetLabel}>
-        <div className="sheetHeading">
-          <p className="sheetKicker">{sheetKicker}</p>
-          <h2 className="sheetTitle">{title}</h2>
-        </div>
-        {children}
-      </BottomSheet>
+      <div className="photoScreenInfo">{children}</div>
     </div>
   )
 }

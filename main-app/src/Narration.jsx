@@ -41,11 +41,11 @@ function pickVoice(voices) {
 
 const START = { paragraph: 0, word: 0 }
 
-// What scrolls the narration: the pull-up panel it's in on a journey stop
-// (BottomSheet.jsx), or otherwise the page, which scrolls inside .screen
+// What scrolls the narration: the part under the title on a journey stop
+// (PhotoScreen.jsx), or otherwise the page, which scrolls inside .screen
 // (see App.jsx) rather than the window.
 function scrollerAround(element) {
-  return element.closest('.sheetBody') ?? element.closest('.screen')
+  return element.closest('.photoScreenInfo') ?? element.closest('.screen')
 }
 
 function Narration({ paragraphs }) {

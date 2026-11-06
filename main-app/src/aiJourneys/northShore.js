@@ -20,6 +20,11 @@ const lighthouse = {
   memory: 'Where the day began.',
   mapPlace: 'Two Harbors Light Station, Two Harbors, MN',
   travelMode: 'driving',
+  travelMinutes: 0,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: '3M/Dwan Museum', note: 'In the building where 3M began, as a mining company', meters: 1000 },
+  ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re on the North Shore.' },
@@ -36,6 +41,8 @@ const ednaG = {
   memory: 'The old tug by the ore docks.',
   mapPlace: 'Edna G Tugboat, Two Harbors, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [15, 30],
   ...DISCOVERY,
   narration: [
     { text: 'The Edna G is an old steam tugboat that spent most of her working life nudging ore boats in and out of this harbor. Now she’s retired here for good.' },
@@ -53,6 +60,8 @@ const ionasBeach = {
   teaser: 'A little cove of pink stones that people say sings when the waves pull back. Just up the shore.',
   mapPlace: 'Iona’s Beach, Two Harbors, MN',
   travelMode: 'driving',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
   ...DETOUR,
   narration: [
     { text: 'You’ve found Iona’s Beach, a cove where the beach is made of flat pink stones instead of sand.' },
@@ -69,6 +78,8 @@ const gooseberryFalls = {
   memory: 'On the rocks by Gooseberry Falls.',
   mapPlace: 'Gooseberry Falls State Park',
   travelMode: 'driving',
+  travelMinutes: 20,
+  stayMinutes: [45, 60],
   ...BUILD,
   detours: [ionasBeach],
   detoursNote: ONE_DETOUR_NOTE,
@@ -90,6 +101,8 @@ const splitRock = {
   memory: 'The lighthouse on the cliff.',
   mapPlace: 'Split Rock Lighthouse',
   travelMode: 'driving',
+  travelMinutes: 10,
+  stayMinutes: [45, 60],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -107,6 +120,11 @@ const palisadeHead = {
   memory: 'The end of the day, high over the lake.',
   mapPlace: 'Palisade Head, MN',
   travelMode: 'driving',
+  travelMinutes: 20,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Shovel Point', note: 'A cliff trail out over the lake, in Tettegouche State Park', meters: 3000 },
+  ],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Palisade Head is a great block of rock towering over the lake, with a narrow road that climbs to the top.' },
@@ -126,7 +144,6 @@ export default {
   photoAlt: gooseberryFalls.photoAlt,
   blurb: 'Up the shore of Lake Superior, past roaring falls to a lighthouse on a cliff.',
   tagline: TAGLINE,
-  time: '~6 hours',
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -139,7 +156,6 @@ export default {
   startArea: 'Two Harbors, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 6,
     moods: { Peaceful: 75, Adventurous: 90, Romantic: 70, Curious: 65, Playful: 45, Cultural: 35 },
     with: { Solo: 75, Couple: 85, Family: 80, 'Friends / Group': 85 },
     preferences: { 'Pet friendly': 70, 'Avoid alcohol': 95, 'More nature': 95, 'Food stops': 25 },

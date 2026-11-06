@@ -118,15 +118,6 @@ export function MoonIcon({ className }) {
   )
 }
 
-// On the handle of a pull-up panel. It turns over once the panel is open.
-export function ChevronUpIcon({ className }) {
-  return (
-    <Icon className={className}>
-      <path d="m6 15 6-6 6 6" />
-    </Icon>
-  )
-}
-
 // The live map's button for putting you back in the middle of it.
 export function LocateIcon({ className }) {
   return (

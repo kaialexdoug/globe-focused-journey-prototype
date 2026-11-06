@@ -20,6 +20,8 @@ const canalPark = {
   memory: 'Where the day began.',
   mapPlace: 'Canal Park, Duluth, MN',
   travelMode: 'driving',
+  travelMinutes: 0,
+  stayMinutes: [10, 20],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Duluth.' },
@@ -39,6 +41,11 @@ const liftBridge = {
   memory: 'Watching the bridge, waiting for a ship.',
   mapPlace: 'Aerial Lift Bridge, Duluth, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Lake Superior Maritime Visitor Center', note: 'All about the great ships of the lakes, right by the canal', meters: 100 },
+  ],
   ...DISCOVERY,
   narration: [
     { text: 'This is the Aerial Lift Bridge, and it’s the reason everyone comes down here. When a ship needs to pass, the whole middle of the bridge rises straight up to let it through.' },
@@ -56,6 +63,8 @@ const glensheen = {
   teaser: 'A grand old estate right on the lake, with its grounds running down to the water. A step back in time, a short drive up the shore.',
   mapPlace: 'Glensheen, Duluth, MN',
   travelMode: 'driving',
+  travelMinutes: 15,
+  stayMinutes: [60, 90],
   ...DETOUR,
   narration: [
     { text: 'You’ve found Glensheen, a grand old family estate on the shore of the lake.' },
@@ -72,6 +81,11 @@ const lakewalk = {
   memory: 'Along the shore, with the lake beside you.',
   mapPlace: 'Duluth Lakewalk',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [45, 60],
+  nearby: [
+    { name: 'Fitger’s', note: 'An old brewery by the lake, now shops and places to eat', meters: 1500 },
+  ],
   ...BUILD,
   detours: [glensheen],
   detoursNote: ONE_DETOUR_NOTE,
@@ -90,6 +104,8 @@ const engerTower = {
   memory: 'The city, the harbor and the lake, all at once.',
   mapPlace: 'Enger Tower, Duluth, MN',
   travelMode: 'driving',
+  travelMinutes: 25,
+  stayMinutes: [20, 30],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -106,6 +122,8 @@ const parkPoint = {
   memory: 'The end of the day, on the sand.',
   mapPlace: 'Park Point Beach, Duluth, MN',
   travelMode: 'driving',
+  travelMinutes: 15,
+  stayMinutes: [45, 60],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. To get here, you crossed the Lift Bridge onto Park Point, the long, thin strip of sand between the lake and the harbor. This time, you were the one going over it.' },
@@ -125,7 +143,6 @@ export default {
   photoAlt: lakewalk.photoAlt,
   blurb: 'Along Lake Superior, from the Lift Bridge up to the best view in town.',
   tagline: TAGLINE,
-  time: '~5 hours',
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -138,7 +155,6 @@ export default {
   startArea: 'Duluth, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 5,
     moods: { Peaceful: 75, Adventurous: 65, Romantic: 65, Curious: 70, Playful: 55, Cultural: 50 },
     with: { Solo: 75, Couple: 85, Family: 85, 'Friends / Group': 80 },
     preferences: { 'Pet friendly': 70, 'Avoid alcohol': 70, 'More nature': 80, 'Food stops': 60 },

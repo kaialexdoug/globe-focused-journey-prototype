@@ -20,6 +20,8 @@ const nippori = {
   memory: 'Where the day began.',
   mapPlace: 'Nippori Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Yanaka.' },
@@ -36,6 +38,12 @@ const cemetery = {
   memory: 'A slow walk through Yanaka Cemetery.',
   mapPlace: 'Yanaka Cemetery',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Tokugawa Yoshinobu’s grave', note: 'The resting place of the last shogun, inside the cemetery', meters: 300 },
+    { name: 'Tennoji', note: 'A temple by the cemetery with a big seated bronze Buddha', meters: 300 },
+  ],
   ...DISCOVERY,
   narration: [
     { text: 'A cemetery might seem like a strange place to start, but Yanaka’s feels more like a park: wide, quiet paths, old trees, and the odd cat asleep in the sun.' },
@@ -53,6 +61,11 @@ const scai = {
   teaser: 'An old neighbourhood bathhouse turned into a contemporary art gallery. A short walk back up the hill.',
   mapPlace: 'SCAI THE BATHHOUSE',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Kayaba Coffee', note: 'A coffee house from the 1930s, known for its egg sandwich', meters: 100 },
+  ],
   ...DETOUR,
   narration: [
     { text: 'This was once a public bathhouse, where the neighbourhood came to wash. Now it’s a contemporary art gallery, with the old roof still on top.' },
@@ -69,6 +82,11 @@ const yanakaGinza = {
   memory: 'Down the sunset steps to Yanaka Ginza.',
   mapPlace: 'Yanaka Ginza',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Asakura Museum of Sculpture', note: 'A sculptor’s old house and studio, with a garden on the roof', meters: 300 },
+  ],
   ...BUILD,
   detours: [scai],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +105,8 @@ const nezuShrine = {
   memory: 'Through the red gates at Nezu.',
   mapPlace: 'Nezu Shrine',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 45],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +124,12 @@ const shinobazu = {
   memory: 'The end of the day by the lotus pond.',
   mapPlace: 'Shinobazu Pond',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Kiyomizu Kannon-do', note: 'A temple hall above the pond, with a pine trained into a circle', meters: 300 },
+    { name: 'Ameyoko', note: 'A loud, busy street market under the railway tracks', meters: 600 },
+  ],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Shinobazu Pond sits at the edge of Ueno Park, and in summer it’s covered in lotus leaves. A small temple hall stands on an island in the middle.' },
@@ -121,7 +147,6 @@ export default {
   photoAlt: nezuShrine.photoAlt,
   blurb: 'Old lanes, the sunset steps, and a tunnel of red gates to a lotus pond.',
   tagline: TAGLINE,
-  time: '~4 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +159,6 @@ export default {
   startArea: 'Yanaka, Tokyo, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 4,
     moods: { Peaceful: 85, Adventurous: 25, Romantic: 60, Curious: 85, Playful: 40, Cultural: 85 },
     with: { Solo: 95, Couple: 80, Family: 55, 'Friends / Group': 65 },
     preferences: { 'Pet friendly': 40, 'Avoid alcohol': 85, 'More nature': 35, 'Food stops': 70 },

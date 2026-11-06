@@ -20,6 +20,8 @@ const angelHill = {
   memory: 'Where the day began.',
   mapPlace: 'Angel Hill, Taylors Falls, MN',
   travelMode: 'driving',
+  travelMinutes: 0,
+  stayMinutes: [15, 20],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Taylors Falls.' },
@@ -36,6 +38,8 @@ const benchStreet = {
   memory: 'Down the main street.',
   mapPlace: 'Bench Street, Taylors Falls, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [20, 30],
   ...DISCOVERY,
   narration: [
     { text: 'The town’s main street runs along the foot of the bluff, down toward the river.' },
@@ -53,6 +57,8 @@ const riverboat = {
   teaser: 'A boat ride up the river through the cliffs, if the boats are running. Right by the park.',
   mapPlace: 'Taylors Falls Scenic Boat Tour',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [60, 90],
   ...DETOUR,
   narration: [
     { text: 'If the boats are running, take a ride. From the water, you see the cliffs the way the river sees them, rising straight up on either side.' },
@@ -69,6 +75,8 @@ const potholes = {
   memory: 'Peering into the potholes.',
   mapPlace: 'Interstate State Park, Taylors Falls, MN',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [30, 45],
   ...BUILD,
   detours: [riverboat],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +95,8 @@ const dalles = {
   memory: 'High above the river.',
   mapPlace: 'Dalles of the St. Croix, Interstate State Park',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +114,8 @@ const franconia = {
   memory: 'Wandering among the sculptures.',
   mapPlace: 'Franconia Sculpture Park',
   travelMode: 'driving',
+  travelMinutes: 10,
+  stayMinutes: [45, 60],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. A short drive from the river, Franconia is a big open meadow full of sculptures, some huge, some strange, some funny.' },
@@ -121,7 +133,6 @@ export default {
   photoAlt: dalles.photoAlt,
   blurb: 'Holes drilled by the ice age, cliffs over the river, and a meadow of sculptures.',
   tagline: TAGLINE,
-  time: '~5 hours',
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +145,6 @@ export default {
   startArea: 'Taylors Falls, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 5,
     moods: { Peaceful: 50, Adventurous: 85, Romantic: 45, Curious: 80, Playful: 85, Cultural: 40 },
     with: { Solo: 65, Couple: 70, Family: 90, 'Friends / Group': 90 },
     preferences: { 'Pet friendly': 55, 'Avoid alcohol': 90, 'More nature': 80, 'Food stops': 30 },

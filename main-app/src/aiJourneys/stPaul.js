@@ -20,6 +20,8 @@ const grandAvenue = {
   memory: 'Where the day began.',
   mapPlace: 'Grand Avenue, St. Paul, MN',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [30, 45],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in St. Paul.' },
@@ -36,6 +38,11 @@ const summitAvenue = {
   memory: 'Walking past the mansions on Summit Avenue.',
   mapPlace: 'Summit Avenue, St. Paul, MN',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Summit Terrace', note: 'The row house where F. Scott Fitzgerald finished his first novel', meters: 500 },
+  ],
   ...DISCOVERY,
   narration: [
     { text: 'Summit Avenue is lined with grand old houses, mile after mile of them. It’s said to be the longest avenue of Victorian homes in the country.' },
@@ -53,6 +60,8 @@ const capitol = {
   teaser: 'The white marble Capitol, with golden horses over its door. A short walk from the cathedral.',
   mapPlace: 'Minnesota State Capitol',
   travelMode: 'walking',
+  travelMinutes: 15,
+  stayMinutes: [30, 45],
   ...DETOUR,
   narration: [
     { text: 'The Minnesota State Capitol sits under a great white marble dome, with a team of golden horses over the front steps.' },
@@ -69,6 +78,8 @@ const hillHouse = {
   memory: 'The railroad builder’s mansion.',
   mapPlace: 'James J. Hill House',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [45, 60],
   ...BUILD,
   detours: [capitol],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +98,8 @@ const cathedral = {
   memory: 'Under the great dome.',
   mapPlace: 'Cathedral of Saint Paul',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +117,12 @@ const ricePark = {
   memory: 'The evening in Rice Park.',
   mapPlace: 'Rice Park, St. Paul, MN',
   travelMode: 'walking',
+  travelMinutes: 20,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Peanuts statues', note: 'Snoopy, Charlie Brown and friends in bronze: Charles Schulz grew up in St. Paul', meters: 100 },
+    { name: 'Mickey’s Diner', note: 'A tiny old railroad-car diner from the 1930s', meters: 400 },
+  ],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Head down the hill into downtown, to Rice Park, a small square ringed by grand old buildings.' },
@@ -121,7 +140,6 @@ export default {
   photoAlt: cathedral.photoAlt,
   blurb: 'Along an avenue of grand old mansions, to the great cathedral on the hill.',
   tagline: TAGLINE,
-  time: '~4 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +152,6 @@ export default {
   startArea: 'St. Paul, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 4,
     moods: { Peaceful: 55, Adventurous: 25, Romantic: 65, Curious: 80, Playful: 25, Cultural: 90 },
     with: { Solo: 85, Couple: 80, Family: 45, 'Friends / Group': 55 },
     preferences: { 'Pet friendly': 35, 'Avoid alcohol': 75, 'More nature': 15, 'Food stops': 45 },

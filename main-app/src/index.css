@@ -53,15 +53,14 @@
     rgba(248, 243, 238, 0.88) 74%,
     rgb(248, 243, 238) 100%
   );
-  /* A journey stop's photo fills the screen, so it's shaded only at the very
-     top, for the header, and lower down, for the title above the panel. */
+  /* A journey stop's photo, across the top of the screen: clear, then fading
+     into the page at the bottom, where the stop's name starts on it. */
   --stop-fade: linear-gradient(
     to bottom,
-    rgba(248, 243, 238, 0.75) 0%,
-    rgba(248, 243, 238, 0) 16%,
-    rgba(248, 243, 238, 0) 52%,
-    rgba(248, 243, 238, 0.7) 74%,
-    rgba(248, 243, 238, 0.95) 100%
+    rgba(248, 243, 238, 0) 0%,
+    rgba(248, 243, 238, 0) 60%,
+    rgba(248, 243, 238, 0.9) 85%,
+    rgb(248, 243, 238) 100%
   );
   /* A journey on the Home feed: shaded dark behind the white words at the top,
      then not at all from the middle down, so the photo is clear. */

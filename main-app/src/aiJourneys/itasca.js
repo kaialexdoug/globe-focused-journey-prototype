@@ -20,6 +20,8 @@ const douglasLodge = {
   memory: 'Where the day began.',
   mapPlace: 'Douglas Lodge, Itasca State Park',
   travelMode: 'driving',
+  travelMinutes: 0,
+  stayMinutes: [15, 30],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Itasca State Park.' },
@@ -36,6 +38,8 @@ const preachersGrove = {
   memory: 'Among the old pines.',
   mapPlace: 'Preacher’s Grove, Itasca State Park',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
   ...DISCOVERY,
   narration: [
     { text: 'Preacher’s Grove is a stand of tall old red pines on the lakeshore. Some of them have been growing here for centuries.' },
@@ -53,6 +57,8 @@ const fireTower = {
   teaser: 'An old fire lookout tower on a ridge, with the forest spread out below. A drive and a short walk from the lake.',
   mapPlace: 'Aiton Heights Fire Tower',
   travelMode: 'driving',
+  travelMinutes: 35,
+  stayMinutes: [20, 30],
   ...DETOUR,
   narration: [
     { text: 'From this tower, lookouts once watched for smoke over the forest. Now anyone can climb it.' },
@@ -69,6 +75,8 @@ const headwatersCenter = {
   memory: 'Getting close to the river’s start.',
   mapPlace: 'Mary Gibbs Mississippi Headwaters Center',
   travelMode: 'driving',
+  travelMinutes: 20,
+  stayMinutes: [30, 45],
   ...BUILD,
   detours: [fireTower],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +95,8 @@ const headwaters = {
   memory: 'Crossing the Mississippi on foot.',
   mapPlace: 'Mississippi Headwaters, Itasca State Park',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 45],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +114,8 @@ const lakeItasca = {
   memory: 'Evening on the lake.',
   mapPlace: 'Lake Itasca',
   travelMode: 'driving',
+  travelMinutes: 20,
+  stayMinutes: [30, 60],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Head back down the lake, and find a dock or a quiet bit of shore.' },
@@ -122,7 +134,6 @@ export default {
   photoAlt: preachersGrove.photoAlt,
   blurb: 'Through old pine forest, to where the Mississippi is small enough to step across.',
   tagline: TAGLINE,
-  time: '~6 hours',
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -135,7 +146,6 @@ export default {
   startArea: 'Itasca State Park, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 6,
     moods: { Peaceful: 90, Adventurous: 65, Romantic: 50, Curious: 70, Playful: 50, Cultural: 25 },
     with: { Solo: 80, Couple: 75, Family: 90, 'Friends / Group': 75 },
     preferences: { 'Pet friendly': 65, 'Avoid alcohol': 95, 'More nature': 95, 'Food stops': 20 },

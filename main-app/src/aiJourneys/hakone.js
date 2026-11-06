@@ -20,6 +20,8 @@ const yumoto = {
   memory: 'Where the day began.',
   mapPlace: 'Hakone-Yumoto Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Hakone.' },
@@ -36,6 +38,11 @@ const openAirMuseum = {
   memory: 'Art out on the hillside.',
   mapPlace: 'The Hakone Open-Air Museum',
   travelMode: 'transit',
+  travelMinutes: 45,
+  stayMinutes: [60, 90],
+  nearby: [
+    { name: 'Gora Park', note: 'A hillside garden laid out in the French style', meters: 800 },
+  ],
   ...DISCOVERY,
   narration: [
     { text: 'Most of the art here isn’t indoors at all. Sculptures stand out on the lawns and hillsides, with the mountains behind them.' },
@@ -53,6 +60,11 @@ const checkpoint = {
   teaser: 'An old checkpoint on the road to Edo, rebuilt beside the lake. A short walk along the shore from the shrine.',
   mapPlace: 'Hakone Sekisho',
   travelMode: 'transit',
+  travelMinutes: 20,
+  stayMinutes: [30, 45],
+  nearby: [
+    { name: 'Onshi-Hakone Park', note: 'Gardens on a point in the lake, once an imperial villa, with a view toward Fuji', meters: 400 },
+  ],
   ...DETOUR,
   narration: [
     { text: 'The old road between Edo and Kyoto came through these mountains, and every traveller on it had to pass a checkpoint here. What you see now has been rebuilt the way it once was.' },
@@ -69,6 +81,8 @@ const owakudani = {
   memory: 'Steam, sulphur and black eggs.',
   mapPlace: 'Owakudani',
   travelMode: 'transit',
+  travelMinutes: 40,
+  stayMinutes: [30, 45],
   ...BUILD,
   detours: [checkpoint],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +101,8 @@ const hakoneShrine = {
   memory: 'The red gate in the lake.',
   mapPlace: 'Hakone Shrine',
   travelMode: 'transit',
+  travelMinutes: 75,
+  stayMinutes: [30, 45],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +120,8 @@ const cedarAvenue = {
   memory: 'Under the old cedars.',
   mapPlace: 'Old Tokaido Road Cedar Avenue, Hakone',
   travelMode: 'walking',
+  travelMinutes: 10,
+  stayMinutes: [20, 30],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. The old road to Edo ran right along here, and the cedars on either side were planted to shade the travellers walking it. Some of them are centuries old.' },
@@ -121,7 +139,6 @@ export default {
   photoAlt: hakoneShrine.photoAlt,
   blurb: 'Up the mountains by ropeway, past a steaming valley, to a red gate in the lake.',
   tagline: TAGLINE,
-  time: '~6 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +151,6 @@ export default {
   startArea: 'Hakone, Kanagawa, Japan',
   startNote: START_NOTE,
   match: {
-    hours: 6,
     moods: { Peaceful: 70, Adventurous: 85, Romantic: 70, Curious: 65, Playful: 60, Cultural: 55 },
     with: { Solo: 70, Couple: 85, Family: 85, 'Friends / Group': 85 },
     preferences: { 'Pet friendly': 25, 'Avoid alcohol': 90, 'More nature': 85, 'Food stops': 45 },

@@ -13,9 +13,16 @@
 // checked, it can move to journeyStops.js with `verified: true` in place of
 // `aiMade`.
 //
-// `match` is for Find My Journey (journeyMatch.js): roughly how many hours it
-// takes, and how well it suits each answer, out of 100. These are estimates from
-// what's on the journey, not checked facts.
+// `match` is for Find My Journey (journeyMatch.js): how well it suits each
+// answer, out of 100. These are estimates from what's on the journey, not
+// checked facts.
+//
+// Each stop's `travelMinutes` and `stayMinutes` are estimates too: about how
+// long it takes to get there from the stop before, and the suggested time to
+// spend there (see journeyTimes.js). The journey's time, and its hours for
+// matching, are worked out from them. The distances to the spots in a stop's
+// `nearby`, if it has any, are rough estimates as well, and it lists only
+// spots that are really worth it.
 //
 // `photoPosition` is optional: which part of a wide photo to keep when it's
 // cropped to fill a tall screen, if the middle would miss what it's a photo of.

@@ -369,10 +369,12 @@ export function DetailsPage({ answers, onAnswer, onFind, onSkip, onBack }) {
   )
 }
 
-// One journey on Journeys for You. Tapping it opens the journey, and the heart
-// likes it. If there's nothing to base a match on (`percent` is null, because
-// every step was skipped), the match is left off.
-function MatchCard({ journey, percent, index, liked, onSelect, onToggleLike }) {
+// One journey on Journeys for You, and on Search. Tapping it opens the
+// journey, and the heart likes it. If there's nothing to base a match on
+// (`percent` is null, because every step was skipped, or on Search), the
+// match is left off. On Search, `found` is the names of the stops it was found
+// by, if any, and the first goes where the match would be.
+export function MatchCard({ journey, percent = null, found = [], index, liked, onSelect, onToggleLike }) {
   const ExperienceIcon = EXPERIENCE_ICONS[journey.experience]
 
   return (
@@ -390,6 +392,13 @@ function MatchCard({ journey, percent, index, liked, onSelect, onToggleLike }) {
           <span className="matchPercent">
             <ThreeStarsIcon />
             {percent}% match
+          </span>
+        )}
+        {found.length > 0 && (
+          <span className="matchPercent matchFound">
+            <PinIcon />
+            <span className="matchFoundName">{found[0]}</span>
+            {found.length > 1 && <span>+{found.length - 1}</span>}
           </span>
         )}
         <span className="matchTitle">{journey.name}</span>

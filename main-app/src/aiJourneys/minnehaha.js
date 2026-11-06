@@ -20,6 +20,8 @@ const park = {
   memory: 'Where the day began.',
   mapPlace: '50th Street/Minnehaha Park Station',
   travelMode: 'transit',
+  travelMinutes: 0,
+  stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re at Minnehaha Park.' },
@@ -36,6 +38,8 @@ const depot = {
   memory: 'The little station called the Princess.',
   mapPlace: 'Minnehaha Depot',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [10, 15],
   ...DISCOVERY,
   narration: [
     { text: 'This little wooden station was nicknamed “the Princess” for its fancy trim. Crowds of picnickers and sightseers used to arrive here by train to see the falls.' },
@@ -53,6 +57,8 @@ const statue = {
   teaser: 'A statue of the poem’s two lovers, by the creek just above the falls. A short walk upstream.',
   mapPlace: 'Hiawatha and Minnehaha Statue, Minneapolis',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [10, 15],
   ...DETOUR,
   narration: [
     { text: 'In Longfellow’s poem, Hiawatha carries Minnehaha across a stream. Here they are, in bronze, by the creek.' },
@@ -69,6 +75,8 @@ const longfellowHouse = {
   memory: 'A copy of the poet’s house.',
   mapPlace: 'Longfellow House, Minnehaha Park, Minneapolis',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [15, 20],
   ...BUILD,
   detours: [statue],
   detoursNote: ONE_DETOUR_NOTE,
@@ -87,6 +95,11 @@ const falls = {
   memory: 'At the foot of the falls.',
   mapPlace: 'Minnehaha Falls',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [20, 30],
+  nearby: [
+    { name: 'Sea Salt Eatery', note: 'A popular seafood spot in the park, near the falls', meters: 100 },
+  ],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -104,6 +117,8 @@ const glen = {
   memory: 'Down the glen toward the river.',
   mapPlace: 'Minnehaha Regional Park, Minneapolis',
   travelMode: 'walking',
+  travelMinutes: 5,
+  stayMinutes: [30, 60],
   ...AFTERGLOW,
   narration: [
     { text: 'That’s the last stop. Follow the creek downstream from the falls, into the glen.' },
@@ -121,7 +136,6 @@ export default {
   photoAlt: falls.photoAlt,
   blurb: 'A waterfall in the middle of the city, and the poem that made it famous.',
   tagline: TAGLINE,
-  time: '~3 hours',
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
@@ -134,7 +148,6 @@ export default {
   startArea: 'Minneapolis, Minnesota, USA',
   startNote: START_NOTE,
   match: {
-    hours: 3,
     moods: { Peaceful: 80, Adventurous: 45, Romantic: 65, Curious: 50, Playful: 70, Cultural: 45 },
     with: { Solo: 70, Couple: 80, Family: 95, 'Friends / Group': 75 },
     preferences: { 'Pet friendly': 85, 'Avoid alcohol': 90, 'More nature': 80, 'Food stops': 40 },
