@@ -1,0 +1,47 @@
+:root {
+  /* Unfold's colours, the same as the app's (main-app/src/index.css). The
+     studio is mostly white, with dark navy words and the forest green kept
+     for the one main action on a screen. */
+  --unfold-green: #13393a;
+  --unfold-peach: #f9c3a5;
+  --ink: rgb(20, 24, 33);
+  --ink-body: rgb(68, 66, 66);
+  --ink-muted: rgb(92, 88, 83);
+  --ink-faint: rgb(130, 126, 121);
+  --surface: white;
+  --surface-low: rgb(250, 248, 245);
+  --line: rgb(228, 223, 217);
+  --outline: rgb(214, 208, 201);
+  /* For deleting, and nothing else. */
+  --danger: rgb(176, 42, 46);
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --serif: 'Noto Serif Display', 'Times New Roman', Times, serif;
+
+  font-family: var(--sans);
+  color: var(--ink);
+  background-color: var(--surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--surface);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}

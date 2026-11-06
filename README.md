@@ -1,20 +1,45 @@
 # Unfold
 
-Guided journeys in Japan, starting with a day in Kawagoe. It's a phone-first
-web app (React + Vite) that can be installed on a phone's home screen.
+Guided journeys in Japan. Two apps live here, each in its own folder:
 
-**Live:** https://kaialexdoug.github.io/globe-focused-journey-prototype/
+| Folder | What it is |
+| --- | --- |
+| `main-app/` | Unfold itself: a phone-first web app (React + Vite) that can be installed on a phone's home screen |
+| `studio/` | Unfold Studio: the Unfold team's tool for making and editing journeys (React + Vite). Only set up so far |
+
+**Live:**
+
+- App: https://kaialexdoug.github.io/globe-focused-journey-prototype/
+- Studio: https://kaialexdoug.github.io/globe-focused-journey-prototype/studio/
+
+"Working on it" and "Putting it live" cover both apps. The rest of this is
+about the app.
 
 ## Working on it
 
+Run these from inside the folder of the app you're working on. `npm install`
+is needed once in each folder on each computer, and again after pulling if
+that folder's `package.json` changed.
+
 ```bash
+cd main-app
 npm install
 npm run dev
 ```
 
-`npm run dev` doesn't use the service worker, so changes show up straight
-away. To try the version that installs and works offline, build it and run
-that instead:
+```bash
+cd studio
+npm install
+npm run dev
+```
+
+The app opens at http://localhost:5173/globe-focused-journey-prototype/ and
+the studio at http://localhost:5173/globe-focused-journey-prototype/studio/.
+If both are running at once, the second one takes the next port, 5174.
+
+The app's `npm run dev` doesn't use the service worker, so changes show up
+straight away. To try the version that installs and works offline, build it and
+run that instead, in `main-app`:
 
 ```bash
 npm run build
@@ -25,11 +50,12 @@ then open http://localhost:4173/globe-focused-journey-prototype/.
 
 ## Settings
 
-`src/config.js` has the app's name, tagline and logo, the Google Maps key, and
-the survey's web app address. The name is also in `index.html` and
-`public/manifest.webmanifest`, which can't read that file.
+`main-app/src/config.js` has the app's name, tagline and logo, the Google Maps
+key, and the survey's web app address. The name is also in
+`main-app/index.html` and `main-app/public/manifest.webmanifest`, which can't
+read that file.
 
-The installable-app files:
+The installable-app files, all in `main-app/`:
 
 | File | What it's for |
 | --- | --- |
@@ -41,9 +67,10 @@ The installable-app files:
 
 ## Putting it live
 
-GitHub Pages builds and publishes the site every time `main` is pushed
-(`.github/workflows/deploy.yml`). Pushing any other branch doesn't change the
-live site.
+GitHub Pages builds both apps and publishes them together every time `main`
+is pushed (`.github/workflows/deploy.yml`). The studio goes in a `studio/`
+folder inside the app's site, which is why it has `/studio/` on the end of its
+address. Pushing any other branch doesn't change the live site.
 
 1. Commit the work on its branch.
 2. Switch to `main`, merge the branch in, and push `main`.
@@ -101,7 +128,7 @@ off. To open it fresh:
 
 If an old photo, icon or style hangs on:
 
-- **For everyone:** in `public/sw.js`, change `CACHE_VERSION` (`'1'` to
+- **For everyone:** in `main-app/public/sw.js`, change `CACHE_VERSION` (`'1'` to
   `'2'`, and so on) and push to `main`. Every phone throws away what it saved
   the next time it opens the app. Do this after changing an icon or the
   manifest.

@@ -1,0 +1,165 @@
+:root {
+  /* Unfold's colours, sampled from the approved mockups. Light only for
+     now: dark mode is coming back later, as its own set of these. */
+
+  /* The brand. Deep forest green for the one main action on a screen, and a
+     soft peach for progress. */
+  --unfold-green: #13393a;
+  --unfold-peach: #f9c3a5;
+  --globe-green: rgb(116, 191, 63);
+
+  --text: rgb(92, 88, 83);
+  --text-h: rgb(20, 24, 33);
+  /* The page is a warm cream, so the white cards on it stand out. */
+  --bg: rgb(248, 243, 238);
+  --border: rgb(228, 223, 217);
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  /* Words: near-black with a hint of navy for headings, warm greys for
+     everything quieter. Words and marks on top of a photo have their own
+     colours further down. */
+  --ink: rgb(20, 24, 33);
+  --ink-soft: rgb(50, 52, 58);
+  --ink-body: rgb(68, 66, 66);
+  --ink-muted: rgb(92, 88, 83);
+  --ink-faint: rgb(112, 108, 103);
+  --ink-label: rgb(100, 98, 104);
+  --ink-link: rgb(70, 72, 80);
+  --ink-placeholder: rgb(150, 145, 140);
+  --accent-ink: var(--unfold-green);
+  --green-ink: rgb(46, 112, 70);
+  --surface: white;
+  --surface-low: rgb(252, 250, 247);
+  --line: rgb(228, 223, 217);
+  --outline: rgb(218, 212, 205);
+  --page-top: rgb(240, 233, 226);
+  --nav-bg: rgba(255, 255, 255, 0.96);
+  --nav-line: rgb(236, 231, 225);
+  --placeholder-dim: rgb(240, 235, 229);
+  --placeholder-lit: rgb(231, 225, 218);
+  --photo-outline: rgba(0, 0, 0, 0.08);
+
+  /* The full-width photos (the tops of the journey screens) fade
+     into the cream page, shaded at the top for the header and at the bottom
+     for the title, with dark words on them. */
+  --hero-fade: linear-gradient(
+    to bottom,
+    rgba(248, 243, 238, 0.82) 0%,
+    rgba(248, 243, 238, 0) 32%,
+    rgba(248, 243, 238, 0) 40%,
+    rgba(248, 243, 238, 0.88) 74%,
+    rgb(248, 243, 238) 100%
+  );
+  /* A journey stop's photo, across the top of the screen: clear, then fading
+     into the page at the bottom, where the stop's name starts on it. */
+  --stop-fade: linear-gradient(
+    to bottom,
+    rgba(248, 243, 238, 0) 0%,
+    rgba(248, 243, 238, 0) 60%,
+    rgba(248, 243, 238, 0.9) 85%,
+    rgb(248, 243, 238) 100%
+  );
+  /* A journey on the Home feed: shaded dark behind the white words at the top,
+     then not at all from the middle down, so the photo is clear. */
+  --feed-fade: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.42) 30%,
+    rgba(0, 0, 0, 0.16) 46%,
+    rgba(0, 0, 0, 0) 58%
+  );
+  /* The symbols on a journey's tags on the Home feed. */
+  --tag-yellow: rgb(245, 190, 65);
+  --tag-green: rgb(90, 215, 110);
+  --tag-red: rgb(240, 85, 90);
+  --tag-blue: rgb(105, 185, 240);
+  /* The photo cards (My Journeys, Detours) are shaded the same way:
+     the big journey cards, and the smaller photo strips. */
+  --card-fade: linear-gradient(
+    to bottom,
+    rgba(248, 243, 238, 0.7) 0%,
+    rgba(248, 243, 238, 0) 20%,
+    rgba(248, 243, 238, 0) 34%,
+    rgba(248, 243, 238, 0.88) 58%,
+    rgba(248, 243, 238, 0.97) 100%
+  );
+  --thumb-fade: linear-gradient(
+    to bottom,
+    rgba(248, 243, 238, 0.65) 0%,
+    rgba(248, 243, 238, 0) 30%,
+    rgba(248, 243, 238, 0) 42%,
+    rgba(248, 243, 238, 0.92) 100%
+  );
+  --photo-ink: rgb(20, 24, 33);
+  --photo-ink-soft: rgb(56, 56, 62);
+  --photo-pill: rgba(255, 255, 255, 0.85);
+  --photo-accent: var(--unfold-green);
+  --photo-panel-soft: rgba(255, 255, 255, 0.6);
+
+  /* The bluish black of Find My Journey's words and the fade along its bottom,
+     sampled from the mockup. */
+  --night: rgb(12, 23, 43);
+  /* The word being read aloud: picked out with a soft peach highlight. */
+  --spoken-bg: rgba(249, 195, 165, 0.55);
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+/* Browsers don't pass the page font down to buttons, so without this they
+   fall back to Arial. */
+button {
+  font-family: inherit;
+}
+
+#root {
+  min-height: 100svh;
+  text-align: center;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}

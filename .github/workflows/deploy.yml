@@ -17,11 +17,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      # The app, from main-app/.
       - run: npm ci
+        working-directory: main-app
       - run: npm run build
+        working-directory: main-app
+      # Unfold Studio, from studio/, put live at the app's address with
+      # /studio/ on the end.
+      - run: npm ci
+        working-directory: studio
+      - run: npm run build
+        working-directory: studio
+      - run: cp -r studio/dist main-app/dist/studio
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./main-app/dist
 
   deploy:
     needs: build
