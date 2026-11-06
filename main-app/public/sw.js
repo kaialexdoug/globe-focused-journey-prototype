@@ -88,6 +88,11 @@ self.addEventListener('fetch', (event) => {
   if (!url.pathname.startsWith(BASE)) {
     return
   }
+  // Unfold Studio lives under the app's address too, at /studio/, but it's a
+  // separate app. Left alone, or its page would be saved as the app's.
+  if (url.pathname.startsWith(`${BASE}studio/`)) {
+    return
+  }
 
   if (request.mode === 'navigate') {
     event.respondWith(fromNetworkFirst(request))
