@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { LocateIcon } from './Icons.jsx'
+import { CompassIcon, LocateIcon } from './Icons.jsx'
 import { MAP_ID, MAPS_API_KEY } from './config.js'
 
 // The live map on a stop's directions screen: Google's interactive map, with
@@ -54,6 +54,37 @@ function metersBetween(a, b) {
   return Math.hypot(x, y) * 6371000
 }
 
+// Which way you're facing comes from the phone's compass, and shows as a
+// beam from your dot, like in Google Maps. An Android phone gives it straight
+// away. An iPhone only gives it once you've said yes, which it only asks
+// after a tap, so the map has a Show Direction button for that.
+const COMPASS_NEEDS_ASKING =
+  typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'
+
+// Once you've said yes, every map after has the compass straight away, until
+// the app's closed or reloaded.
+let compassAllowed = !COMPASS_NEEDS_ASKING
+
+// How far the screen's turned from upright (on its side, say), so the beam
+// still points the way the top of the phone does.
+function screenTurn() {
+  return window.screen?.orientation?.angle ?? window.orientation ?? 0
+}
+
+// The compass heading, in degrees clockwise from north, from one reading of
+// the phone's orientation, or null if it doesn't say. An iPhone gives it
+// as is; elsewhere it's worked out from `alpha`, if that's measured from
+// north (`absolute`) rather than from wherever the phone started.
+function compassHeading(event) {
+  if (typeof event.webkitCompassHeading === 'number') {
+    return event.webkitCompassHeading + screenTurn()
+  }
+  if (event.absolute && typeof event.alpha === 'number') {
+    return 360 - event.alpha + screenTurn()
+  }
+  return null
+}
+
 // The route from `from` to the stop, as points along it, or null if there
 // isn't one.
 async function findRoute(Route, from, stop) {
@@ -84,6 +115,10 @@ function LiveMap({ stop, onFail }) {
   const [lost, setLost] = useState(false)
   // You've moved the map off yourself, so it's stopped following you.
   const [wandered, setWandered] = useState(false)
+  // On an iPhone, until you've tapped Show Direction.
+  const [askCompass, setAskCompass] = useState(() => !compassAllowed)
+  // Turns the compass on, once the map's up.
+  const compassRef = useRef(null)
 
   useEffect(() => {
     failRef.current = onFail
@@ -93,6 +128,69 @@ function LiveMap({ stop, onFail }) {
     let cancelled = false
     let watchId = null
     let lostTimer = null
+
+    // You: a blue dot, with the beam for which way you're facing behind it,
+    // hidden until there's a heading.
+    const you = document.createElement('div')
+    you.className = 'liveMapYou'
+    const beam = document.createElement('div')
+    beam.className = 'liveMapBeam'
+    const dot = document.createElement('div')
+    dot.className = 'liveMapDot'
+    you.append(beam, dot)
+
+    // The heading, smoothed out, as a compass jitters. Drawn at most once a
+    // frame. Until the compass says anything, the way you're walking stands
+    // in for it.
+    let heading = null
+    let fromCompass = false
+    let frame = 0
+    function showHeading(degrees) {
+      if (heading === null) {
+        heading = degrees
+      } else {
+        // The short way round: from 350° to 10° is 20°, not 340°. The heading
+        // itself can go past 360°, so the beam never spins the long way back.
+        const turn = ((((degrees - heading) % 360) + 540) % 360) - 180
+        heading += turn * 0.3
+      }
+      if (!frame) {
+        frame = requestAnimationFrame(() => {
+          frame = 0
+          beam.style.transform = `rotate(${heading}deg)`
+          beam.classList.add('isShown')
+        })
+      }
+    }
+    function onOrientation(event) {
+      const degrees = compassHeading(event)
+      if (degrees !== null) {
+        fromCompass = true
+        showHeading(degrees)
+      }
+    }
+    // Android's reading measured from north has its own event. Elsewhere it's
+    // the usual one, which says whether it's measured from north.
+    const orientationEvent = 'ondeviceorientationabsolute' in window ? 'deviceorientationabsolute' : 'deviceorientation'
+    function listenToCompass() {
+      window.addEventListener(orientationEvent, onOrientation)
+    }
+    if (compassAllowed) {
+      listenToCompass()
+    } else {
+      // Has to be asked straight from the tap, before anything else waits.
+      compassRef.current = () => {
+        DeviceOrientationEvent.requestPermission()
+          .then((answer) => {
+            if (answer === 'granted') {
+              compassAllowed = true
+              listenToCompass()
+            }
+          })
+          .catch((error) => console.warn('No compass:', error))
+          .finally(() => setAskCompass(false))
+      }
+    }
 
     function fail(error) {
       console.error('Live map not shown:', error)
@@ -133,10 +231,8 @@ function LiveMap({ stop, onFail }) {
       // The stop: Google's red pin.
       new AdvancedMarkerElement({ map, position: stop.mapPoint, title: stop.name })
 
-      // You: a blue dot, in a pale circle as wide as the phone's unsure of.
-      const dot = document.createElement('div')
-      dot.className = 'liveMapDot'
-      const you = new AdvancedMarkerElement({ content: dot, zIndex: 1 })
+      // You, in a pale circle as wide as the phone's unsure of.
+      const youMarker = new AdvancedMarkerElement({ content: you, zIndex: 1 })
       const halo = new Circle({ clickable: false, strokeOpacity: 0, fillColor: '#4285f4', fillOpacity: 0.15 })
 
       let following = true
@@ -147,8 +243,8 @@ function LiveMap({ stop, onFail }) {
       recenterRef.current = () => {
         following = true
         setWandered(false)
-        if (you.position) {
-          map.panTo(you.position)
+        if (youMarker.position) {
+          map.panTo(youMarker.position)
         }
       }
 
@@ -168,8 +264,13 @@ function LiveMap({ stop, onFail }) {
           clearTimeout(lostTimer)
           setLost(false)
           const here = { lat: position.coords.latitude, lng: position.coords.longitude }
-          you.position = here
-          you.map = map
+          youMarker.position = here
+          youMarker.map = map
+          // No compass (or not yet): the way you're walking, while you are.
+          const { heading: walkingHeading, speed } = position.coords
+          if (!fromCompass && Number.isFinite(walkingHeading) && speed > 0.5) {
+            showHeading(walkingHeading)
+          }
           halo.setCenter(here)
           halo.setRadius(position.coords.accuracy)
           halo.setMap(map)
@@ -227,6 +328,9 @@ function LiveMap({ stop, onFail }) {
     return () => {
       cancelled = true
       clearTimeout(lostTimer)
+      cancelAnimationFrame(frame)
+      window.removeEventListener(orientationEvent, onOrientation)
+      compassRef.current = null
       if (watchId !== null) {
         navigator.geolocation.clearWatch(watchId)
       }
@@ -238,6 +342,12 @@ function LiveMap({ stop, onFail }) {
       {lost && <p className="mapNote">We couldn't find your location — here's {stop.name}.</p>}
       <div className="liveMap">
         <div className="liveMapCanvas" ref={canvasRef}></div>
+        {askCompass && (
+          <button className="liveMapCompass" onClick={() => compassRef.current?.()}>
+            <CompassIcon />
+            Show direction
+          </button>
+        )}
         {wandered && (
           <button className="liveMapRecenter" onClick={() => recenterRef.current?.()} aria-label="Back to where you are">
             <LocateIcon />

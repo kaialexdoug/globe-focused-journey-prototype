@@ -1844,9 +1844,21 @@ button:focus-visible {
   height: 100%;
 }
 
-/* You: Google's blue dot. Moved down by half, as a marker otherwise sits
-   just above its spot, like a pin. */
+/* You: Google's blue dot, in the middle of a square with room for the beam.
+   Moved down by half, as a marker otherwise sits just above its spot, like a
+   pin. */
+.liveMapYou {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  transform: translateY(50%);
+  pointer-events: none;
+}
+
 .liveMapDot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
   box-sizing: border-box;
   width: 18px;
   height: 18px;
@@ -1854,7 +1866,50 @@ button:focus-visible {
   border-radius: 50%;
   background-color: #4285f4;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-  transform: translateY(50%);
+  transform: translate(-50%, -50%);
+}
+
+/* Which way you're facing: a blue wedge from the dot, fading out as it
+   goes, like Google Maps' beam. It points up (north) until it's turned to
+   the heading, and only shows once there is one. */
+.liveMapBeam {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from -32deg, rgba(66, 133, 244, 0.7) 0deg 64deg, transparent 64deg);
+  mask-image: radial-gradient(circle closest-side, black 25%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.liveMapBeam.isShown {
+  opacity: 1;
+}
+
+/* Show Direction, on an iPhone, which only lets the app use the compass
+   once you've said yes. A small white pill in the opposite corner to the
+   button for getting back to where you are. */
+.liveMapCompass {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px 0 10px;
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0;
+  color: var(--accent-ink);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.liveMapCompass svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Back to following you, once you've moved the map off yourself. */
