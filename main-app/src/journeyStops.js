@@ -13,6 +13,7 @@
 // which (see kawagoeJourney, below).
 
 import { AI_JOURNEYS } from './aiJourneys/index.js'
+import wasedaTestJourney from './testJourney.js'
 import { hoursText, journeyHours } from './journeyTimes.js'
 
 import emaTunnelPhoto from './assets/journey/ema-tunnel.jpg'
@@ -657,7 +658,8 @@ export function placeName(location) {
 
 // Every journey, the featured one first: it's the first on Home. The AI-made
 // ones (aiJourneys/) come after the checked ones.
-export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS]
+// Last of all, the test journey for the live map (testJourney.js).
+export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS, wasedaTestJourney]
 
 // Each journey's time, "~4 hours" on its card and 4 for matching, is worked
 // out from its stops' times (journeyTimes.js) rather than written in, so the
