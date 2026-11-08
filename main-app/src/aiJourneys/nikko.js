@@ -161,7 +161,7 @@ export default {
     with: { Solo: 85, Couple: 75, Family: 60, 'Friends / Group': 70 },
     preferences: { 'Pet friendly': 15, 'Avoid alcohol': 95, 'More nature': 75, 'Food stops': 35 },
   },
-  why: [
+  description: [
     'Nikko is where Japan went all out. The shrines and temples here sit in a forest of giant cedars, and the greatest of them is covered from top to bottom in carving and gold. This journey crosses the sacred bridge, climbs through the temples to the shrine everyone comes for, and ends somewhere much quieter, by the river.',
   ],
   route: [station, shinkyo, rinnoji, toshogu, kanmangafuchi],

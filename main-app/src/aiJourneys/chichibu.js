@@ -155,7 +155,7 @@ export default {
     with: { Solo: 80, Couple: 75, Family: 75, 'Friends / Group': 75 },
     preferences: { 'Pet friendly': 45, 'Avoid alcohol': 85, 'More nature': 90, 'Food stops': 40 },
   },
-  why: [
+  description: [
     'Chichibu feels much further from Tokyo than it is: mountains all around, a slower pace, and a river running through the valley. This journey starts in town, with a view over everything, and then follows the valley down to the water, where the best place to be is sitting on a warm rock doing nothing at all.',
   ],
   route: [station, hitsujiyama, chichibuShrine, iwadatami, hodosan],

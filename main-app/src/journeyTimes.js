@@ -9,6 +9,13 @@
 //
 // They're estimates, and only ever a guide: there to help plan the day, not
 // to hurry anyone along.
+//
+// A journey being tried out with the route preview (see RoutePreview.jsx) has
+// more about the walk to each stop: `distanceMeters`, how far it is, and for
+// a detour, `extraMeters`, how much further it makes the walk.
+
+// A walking pace, in metres a minute, for turning extra distance into time.
+const METERS_A_MINUTE = 70
 
 // The middle of a stop's suggested time.
 function middle([shortest, longest]) {
@@ -23,7 +30,7 @@ function hoursNumber(hours) {
 }
 
 // "45 min", "1 hour" or "1½ hours".
-function durationText(minutes) {
+export function durationText(minutes) {
   if (minutes < 60) {
     return `${minutes} min`
   }
@@ -45,7 +52,36 @@ function rangeText(shortest, longest) {
 
 // The suggested time to spend at a stop: "About 30–45 min".
 export function stayText(stop) {
-  return `About ${rangeText(...stop.stayMinutes)}`
+  return `About ${stayRangeText(stop)}`
+}
+
+// Just the range: "30–45 min".
+export function stayRangeText(stop) {
+  return rangeText(...stop.stayMinutes)
+}
+
+// A distance: "650 m", or "1.5 km".
+export function metersText(meters) {
+  if (meters < 1000) {
+    return `${Math.round(meters / 10) * 10} m`
+  }
+  return `${Math.round(meters / 100) / 10} km`
+}
+
+// Whether a journey has what the route preview needs (RoutePreview.jsx): how
+// far the walk to each stop is, and how hard.
+export function hasRoutePreview(journey) {
+  return journey.route.slice(1).every((stop) => typeof stop.distanceMeters === 'number' && stop.effort)
+}
+
+// All the walking on a journey, from stop to stop, detours left out: how far,
+// and about how long, to the nearest 5 minutes.
+export function walkingTotals(journey) {
+  const stops = journey.route.slice(1)
+  return {
+    meters: stops.reduce((total, stop) => total + stop.distanceMeters, 0),
+    minutes: Math.round(stops.reduce((total, stop) => total + stop.travelMinutes, 0) / 5) * 5,
+  }
 }
 
 // The whole journey, in hours, to the nearest half hour: getting from stop to
@@ -61,10 +97,14 @@ export function hoursText(hours) {
   return `~${durationText(hours * 60)}`
 }
 
-// How much longer a detour makes the day, to the nearest quarter hour: there
-// and back from the stop it branches off, and the middle of its suggested time.
+// How much longer a detour makes the day, to the nearest quarter hour: the
+// extra walking, and the middle of its suggested time. The extra walking is
+// worked out from `extraMeters` if it has it, or else taken as there and back
+// from the stop it branches off.
 function detourMinutes(detour) {
-  const minutes = 2 * detour.travelMinutes + middle(detour.stayMinutes)
+  const walking =
+    typeof detour.extraMeters === 'number' ? detour.extraMeters / METERS_A_MINUTE : 2 * detour.travelMinutes
+  const minutes = walking + middle(detour.stayMinutes)
   return Math.max(15, Math.round(minutes / 15) * 15)
 }
 

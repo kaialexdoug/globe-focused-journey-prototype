@@ -152,7 +152,7 @@ export default {
     with: { Solo: 60, Couple: 95, Family: 60, 'Friends / Group': 75 },
     preferences: { 'Pet friendly': 55, 'Avoid alcohol': 60, 'More nature': 40, 'Food stops': 65 },
   },
-  why: [
+  description: [
     'Stillwater is the kind of river town that makes you want to slow down: old brick streets, bookshops, and a wide, quiet river with a bridge you can walk across. This journey takes you through the town, up the hill for a look at it all, over the water, and back again in time for the lights.',
   ],
   route: [lowellPark, mainStreet, courthouse, liftBridge, riverfront],

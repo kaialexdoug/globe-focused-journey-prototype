@@ -158,7 +158,7 @@ export default {
     with: { Solo: 80, Couple: 70, Family: 85, 'Friends / Group': 90 },
     preferences: { 'Pet friendly': 35, 'Avoid alcohol': 90, 'More nature': 95, 'Food stops': 50 },
   },
-  why: [
+  description: [
     'Mount Takao is the easiest way out of Tokyo and into the forest: a short train ride, and suddenly you’re among cedars on a mountain path. This journey takes you up by cable car, through a temple that pilgrims have climbed to for centuries, to a view that on a good day reaches all the way to Fuji, and then down to a hot bath.',
   ],
   route: [station, cableCar, yakuoin, summit, gokurakuyu],

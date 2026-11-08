@@ -11,6 +11,9 @@ import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
 import SearchPage from './SearchPage.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
+import RoutePreview from './RoutePreview.jsx'
+import { hasRoutePreview } from './journeyTimes.js'
+import { askForCompass } from './compass.js'
 import {
   NavBar,
   MyJourneysPage,
@@ -267,7 +270,12 @@ function App() {
   // You can only be on one journey at a time, so with another left partway,
   // you're asked first whether to exit it. Otherwise, with a profile, a journey
   // is saved as you go. Without one, you're asked first whether to make one.
+  //
+  // This is straight from tapping BEGIN, so it's when an iPhone can ask to use
+  // the compass, for which way you're facing on the live map (compass.js). So
+  // is resumeJourney.
   function beginJourney(firstPage) {
+    askForCompass()
     if (underWay && underWay.journeyId !== journey.id) {
       setPendingSwitch(firstPage)
     } else if (profile) {
@@ -292,6 +300,7 @@ function App() {
   }
 
   function resumeJourney() {
+    askForCompass()
     setJourneyId(progress.journeyId)
     setDetour(ALL_DETOURS.find((each) => each.id === progress.detourId) ?? null)
     setDetoursTaken(progress.detoursTaken)
@@ -948,9 +957,11 @@ function FindJourneyPage({ onStart }) {
 }
 
 // Like a journey stop: the journey's photo across the top, then its name, then
-// everything about it, which scrolls. ✕ goes back to where you opened it from. `underWay` is where you left this journey, if it's on your profile
-// partway through: then it offers RESUME JOURNEY instead. `completed` says
-// you've finished it before.
+// everything about it, which scrolls: its quick facts, what it is (the hook),
+// where it starts, and on journeys that have one, a preview of the whole route
+// (RoutePreview.jsx). ✕ goes back to where you opened it from. `underWay` is
+// where you left this journey, if it's on your profile partway through: then
+// it offers RESUME JOURNEY instead. `completed` says you've finished it before.
 function SeeJourneyPage({
   journey,
   onClose,
@@ -990,24 +1001,30 @@ function SeeJourneyPage({
         </span>
       </div>
 
-      <div className="startCard">
-        <p className="startCardLabel">START HERE</p>
-        <div className="startCardRow">
-          <PinIcon />
-          <div>
-            <p className="startCardName">{journey.departure.name}</p>
-            <p className="startCardArea">{journey.startArea}</p>
-            <p className="startCardNote">{journey.startNote}</p>
-          </div>
-        </div>
-      </div>
-
-      <h2 className="sectionTitle">Why we recommend this journey</h2>
-      <div className="bodyText">
-        {journey.why.map((paragraph, index) => (
+      {/* The hook: what the journey is, to get you excited about it. */}
+      <div className="bodyText journeyDescription">
+        {journey.description.map((paragraph, index) => (
           <p key={index}>{paragraph}</p>
         ))}
       </div>
+
+      {/* A journey with a route preview starts its route with where to start,
+          so it doesn't need START HERE as well. */}
+      {hasRoutePreview(journey) ? (
+        <RoutePreview journey={journey} />
+      ) : (
+        <div className="startCard">
+          <p className="startCardLabel">START HERE</p>
+          <div className="startCardRow">
+            <PinIcon />
+            <div>
+              <p className="startCardName">{journey.departure.name}</p>
+              <p className="startCardArea">{journey.startArea}</p>
+              <p className="startCardNote">{journey.startNote}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="divider sectionBreak"></div>
 
