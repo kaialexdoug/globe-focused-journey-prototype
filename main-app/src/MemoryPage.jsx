@@ -115,6 +115,8 @@ function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSur
           </>
         )}
 
+        <div className="divider sectionBreak"></div>
+
         <h2 className="sectionTitle">Your route</h2>
         <ol className="memoryTimeline">
           {entries.map((entry, index) =>

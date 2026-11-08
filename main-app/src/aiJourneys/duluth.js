@@ -159,7 +159,7 @@ export default {
     with: { Solo: 75, Couple: 85, Family: 85, 'Friends / Group': 80 },
     preferences: { 'Pet friendly': 70, 'Avoid alcohol': 70, 'More nature': 80, 'Food stops': 60 },
   },
-  why: [
+  description: [
     'Duluth sits at the very tip of Lake Superior, and the lake is in everything here: the ships, the weather, the way the whole city leans toward the water. This journey starts down on the waterfront, follows the shore, and climbs to a view that puts it all together, then brings you back down to the sand to end the day.',
   ],
   route: [canalPark, liftBridge, lakewalk, engerTower, parkPoint],

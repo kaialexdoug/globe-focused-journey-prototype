@@ -68,7 +68,11 @@ export const kawagoeStation = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   // One entry per paragraph. className "narrationLead" makes it the big
-  // opening line, and "narrationClose" the italic last line.
+  // opening line, and "narrationClose" the italic last line. An entry can
+  // also be a little subheading, { kind: 'heading', text }, or something to
+  // look for there, { kind: 'find', text }, shown in a box headed CAN YOU
+  // FIND IT? (see Narration.jsx; the Waseda journey in testJourney.js uses
+  // both).
   narration: [
     {
       className: 'narrationLead',
@@ -355,8 +359,9 @@ export const kawagoeJourney = {
     preferences: { 'Pet friendly': 20, 'Avoid alcohol': 90, 'More nature': 20, 'Food stops': 90 },
   },
 
-  // "Why we recommend this journey", one entry per paragraph.
-  why: [
+  // What the journey is, on See Your Journey after the quick facts: the hook,
+  // to get you excited about it. One entry per paragraph.
+  description: [
     'Everyone who comes to Kawagoe sees the same bell tower, the same warehouse street, the same photo. This journey starts there too — but it doesn’t end there.',
     'Past the crowds, down streets most visitors never think to turn down, there’s a reason the locals still call this town “Koedo” (little Edo). A gate that’s marked time here for over a century. A quiet shrine tucked away from the noise, holding something most people walk straight past.',
     'We won’t tell you what it is. You’ll have to go see for yourself.',
@@ -629,7 +634,7 @@ export const odawaraJourney = {
     preferences: { 'Pet friendly': 25, 'Avoid alcohol': 90, 'More nature': 40, 'Food stops': 85 },
   },
 
-  why: [
+  description: [
     'For centuries, travelers on the road between Edo and Kyoto stopped here to rest, eat, and look at the water. The town hasn’t changed that much: fish from the bay, shops that have been open longer than anyone can remember, and a quiet stretch of coast waiting at the end of the day. We’ll walk you through it, and somewhere along the way there’s one moment that makes the whole trip worth it.',
   ],
 
@@ -658,7 +663,8 @@ export function placeName(location) {
 
 // Every journey, the featured one first: it's the first on Home. The AI-made
 // ones (aiJourneys/) come after the checked ones.
-// Last of all, the test journey for the live map (testJourney.js).
+// Last of all, the test journey for the live map and the route preview, The
+// Edge of Old Edo (testJourney.js).
 export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS, wasedaTestJourney]
 
 // Each journey's time, "~4 hours" on its card and 4 for matching, is worked

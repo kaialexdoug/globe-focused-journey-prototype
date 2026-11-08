@@ -1588,6 +1588,527 @@ button:focus-visible {
   text-align: left;
 }
 
+/* What the journey is, just after the quick facts and before START HERE. */
+.journeyDescription {
+  margin-bottom: 26px;
+}
+
+/* --- The route (RoutePreview.jsx) ---
+   On See Your Journey, after the description: each stop in order down a
+   line, with numbers, and between them the walk on to the next one. Then the
+   totals, and the map. All folded away behind a bar until it's tapped. */
+
+.routePreview {
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.routeFoldHeading {
+  margin: 0;
+}
+
+/* The bar: the route icon, SHOW ROUTE DETAILS with the stops, walking
+   and time under it, and a chevron that turns up once it's open. White, so
+   it looks like something to tap among the outlined cards. */
+.routeFoldBar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 14px 14px 14px 18px;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  font: inherit;
+  text-align: left;
+  color: var(--text-h);
+  background-color: var(--surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.routeFoldBar:active {
+  background-color: var(--surface-low);
+}
+
+.routeFoldIcon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: var(--accent-ink);
+}
+
+.routeFoldText {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+  min-width: 0;
+}
+
+.routeFoldTitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.routeFoldSummary {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+  color: var(--ink-muted);
+}
+
+.routeFoldChevron {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--ink-muted);
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
+.routeFoldBar.isOpen .routeFoldChevron {
+  transform: rotate(-90deg);
+}
+
+/* What unfolds: its height opens up from nothing (the grid row grows from
+   0fr to 1fr) as it fades in. */
+.routeFold {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+
+.routeFold.isOpen {
+  grid-template-rows: 1fr;
+}
+
+.routeFoldInner {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.routeFold.isOpen .routeFoldInner {
+  opacity: 1;
+  transition-delay: 0.05s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routeFold,
+  .routeFoldInner,
+  .routeFoldChevron {
+    transition: none;
+  }
+}
+
+.routeStops {
+  margin: 24px 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each stop in a white card of its own: the number on the left, and
+   everything about the stop beside it. */
+.routeStopCard {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  column-gap: 12px;
+  padding: 14px 14px 14px 12px;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  background-color: var(--surface);
+}
+
+.routeNumber {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--unfold-green);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: white;
+}
+
+/* Departure, Discovery, Build... (and Optional detour), small, above a name. */
+.routePart {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.routeStopBody > .routePart {
+  margin-top: 1px;
+}
+
+.routeName {
+  margin: 2px 0 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-h);
+}
+
+/* A stop's name and details on the left, and its little photo on the right. */
+.routeStopHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.routeThumb {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  /* For the moment before it's loaded. */
+  background-color: var(--placeholder-dim);
+  border-radius: 10px;
+}
+
+.routeThumb.isSmall {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+/* On the first stop, which is where you start: the area under its name, and
+   the note about getting there under all that. */
+.routeStartArea {
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+.routeStartNote {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-body);
+}
+
+.routeStay,
+.routeLegWay {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.routeStay {
+  margin-top: 4px;
+  color: var(--ink-muted);
+}
+
+.routeStay svg,
+.routeLegWay svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+/* The walk on to the next stop, between the two cards and not in one: a
+   line runs down from one card's number to the next card's, in the route's
+   green (as on the map), with the walk beside it. */
+.routeLeg {
+  position: relative;
+  padding: 14px 0 14px 50px;
+}
+
+.routeLeg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* Under the middle of the numbers: the card's edge and padding, then half
+     a number, less half the line. */
+  left: 26px;
+  border-left: 2px solid color-mix(in srgb, var(--unfold-green) 45%, transparent);
+}
+
+.routeLegWay {
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.routeLegWay svg {
+  color: var(--unfold-green);
+}
+
+.routeLegEffort {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--ink-body);
+}
+
+/* Easy, Moderate or Hard: a small tinted label before what the walk is like. */
+.routeEffort {
+  display: inline-block;
+  margin-right: 7px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.routeEffort.is-easy {
+  background-color: rgba(46, 112, 70, 0.12);
+  color: var(--green-ink);
+}
+
+.routeEffort.is-moderate {
+  background-color: rgba(214, 140, 20, 0.16);
+  color: rgb(150, 92, 0);
+}
+
+.routeEffort.is-hard {
+  background-color: rgba(200, 50, 55, 0.12);
+  color: rgb(170, 40, 45);
+}
+
+/* A detour off a stop, in a dashed box: it's optional. */
+.routeDetour {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px dashed var(--outline);
+  border-radius: 10px;
+}
+
+.routeDetourName {
+  margin-top: 2px;
+  font-size: 15px;
+  color: var(--text-h);
+}
+
+.routeDetourFacts {
+  margin-top: 2px;
+  font-size: 13px;
+  letter-spacing: 0;
+  color: var(--ink-muted);
+}
+
+/* The walking altogether, and the whole journey's time. */
+.routeTotals .startCardRow + .startCardRow {
+  margin-top: 14px;
+}
+
+.routeTotal {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--text-h);
+}
+
+.routeTotalNote {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+/* The route on a map, under ALTOGETHER (RouteMap.jsx). */
+.routeMap {
+  margin-top: 16px;
+}
+
+.routeMapCanvas {
+  height: 300px;
+  overflow: hidden;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  background-color: var(--surface-low);
+}
+
+/* A stop's pin on a map (mapPins.js), on the route map and the live map:
+   its photo in a circle, centred on the spot (Google puts the bottom of a
+   pin there), with its number in a badge if it has one, and its name beside
+   it, on whichever side is clearest (data-side). */
+.mapPin {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  transform: translateY(50%);
+}
+
+.mapPin.isDetour {
+  width: 26px;
+  height: 26px;
+}
+
+/* On the live map, where it's the only stop. */
+.mapPin.isLarge {
+  width: 42px;
+  height: 42px;
+}
+
+.mapPin.isLarge .mapPinName {
+  font-size: 12px;
+}
+
+/* The name's own pin, over all the photos: only the name itself is seen,
+   and it doesn't get in the way of moving the map. */
+.mapPin.isName {
+  pointer-events: none;
+}
+
+.mapPinPhoto {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid white;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* A detour's ring is dashed, like its line. */
+.mapPin.isDetour .mapPinPhoto {
+  outline: 1.5px dashed var(--unfold-green);
+  outline-offset: 1px;
+}
+
+.mapPinNumber {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  display: grid;
+  place-items: center;
+  min-width: 17px;
+  height: 17px;
+  border: 1.5px solid white;
+  border-radius: 9px;
+  box-sizing: border-box;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  color: white;
+  background-color: var(--unfold-green);
+}
+
+.mapPinName {
+  position: absolute;
+  padding: 2px 7px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--ink);
+  background-color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.mapPin.isDetour .mapPinName {
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* 5px from the photo, as NAME_GAP in mapPins.js, or tucked 6px in over
+   one of its corners (CORNER_TUCK), except the top left, below. */
+.mapPin[data-side='right'] .mapPinName {
+  top: 50%;
+  left: calc(100% + 5px);
+  transform: translateY(-50%);
+}
+
+.mapPin[data-side='left'] .mapPinName {
+  top: 50%;
+  right: calc(100% + 5px);
+  transform: translateY(-50%);
+}
+
+.mapPin[data-side='below'] .mapPinName {
+  top: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mapPin[data-side='above'] .mapPinName {
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mapPin[data-side='above-right'] .mapPinName {
+  bottom: calc(100% - 6px);
+  left: calc(100% - 6px);
+}
+
+.mapPin[data-side='below-right'] .mapPinName {
+  top: calc(100% - 6px);
+  left: calc(100% - 6px);
+}
+
+.mapPin[data-side='below-left'] .mapPinName {
+  top: calc(100% - 6px);
+  right: calc(100% - 6px);
+}
+
+/* Left off, where there's nowhere clear for it. Still there (just unseen),
+   so it can be measured the next time the names are placed. */
+.mapPin[data-side='hidden'] .mapPinName {
+  visibility: hidden;
+}
+
+/* At the top left, just above the stop's number rather than over it
+   (OVER_NUMBER and OVER_NUMBER_REACH in mapPins.js). */
+.mapPin[data-side='above-left'] .mapPinName {
+  bottom: calc(100% + 6px);
+  right: calc(100% - 10px);
+}
+
+/* What the lines mean, under the map. */
+.routeMapKey {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--ink-muted);
+}
+
+.routeMapKeyItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.routeMapKeyLine {
+  width: 22px;
+  height: 0;
+  border-top: 4px solid var(--unfold-green);
+  border-radius: 2px;
+}
+
+.routeMapKeyLine.isDotted {
+  height: 4px;
+  border: 0;
+  border-radius: 0;
+  background-image: radial-gradient(circle, var(--unfold-green) 2px, transparent 2.5px);
+  background-size: 8px 4px;
+}
+
 .startCardLabel {
   margin-bottom: 12px;
   font-size: 10px;
@@ -2167,7 +2688,8 @@ button:focus-visible {
 }
 
 /* For voices that don't say which word they're on: the whole paragraph. */
-.narration p.isSpoken {
+.narration p.isSpoken,
+.narration h3.isSpoken {
   color: var(--ink);
   transition: color 0.3s ease;
 }
@@ -2184,6 +2706,52 @@ button:focus-visible {
   font-style: italic;
   font-size: 19px;
   color: var(--ink-soft);
+}
+
+/* A little subheading, breaking the narration into short sections. */
+.narration .narrationHeading {
+  margin: 26px 0 6px;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--text-h);
+}
+
+.narration .narrationHeading:first-child {
+  margin-top: 0;
+}
+
+/* Something to look for while you're there, in a softly tinted box headed
+   CAN YOU FIND IT?, with a magnifying glass. */
+.narrationFind {
+  margin: 24px 0;
+  padding: 14px 16px 16px;
+  background-color: color-mix(in srgb, var(--unfold-green) 6%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--unfold-green) 22%, var(--surface));
+  border-radius: 15px;
+}
+
+.narrationFind:last-child {
+  margin-bottom: 0;
+}
+
+.narration .narrationFindLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 3px;
+  color: var(--accent-ink);
+}
+
+.narrationFindLabel svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
 /* SKIP THIS DETOUR, under I'M HERE on a detour's directions screen. */
@@ -2508,6 +3076,12 @@ button:focus-visible {
 
 .memoryPage .divider.sectionBreak {
   margin-top: 8px;
+}
+
+/* The line over YOUR ROUTE, straight after the story: about as far from
+   the story's last line as from the heading under it. */
+.memoryPage .memoryStory + .divider.sectionBreak {
+  margin-top: -16px;
 }
 
 /* --- Survey ---

@@ -1,7 +1,15 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import { SearchIcon } from './Icons.jsx'
 
 // Reads a stop's narration aloud with the browser's own voice, lighting up
 // each word as it's said.
+//
+// Most of the narration is plain paragraphs, but an entry can also be a
+// little subheading ({ kind: 'heading', text }) to break it into short
+// sections, or something to look for while you're there ({ kind: 'find',
+// text }), in a box headed CAN YOU FIND IT?. Both are read aloud too, in
+// their place; the box's heading isn't, so the text should make sense on
+// its own ("Find the…", "Look for…").
 //
 // The browser's own pause() and resume() aren't used: Android Chrome ignores
 // pause(), and desktop Chrome can cut a long utterance off after about 15
@@ -264,23 +272,42 @@ function Narration({ paragraphs }) {
 
       <div className="bodyText narration" ref={textRef}>
         {paragraphs.map((paragraph, p) => {
-          const classes = [paragraph.className]
+          const classes = [paragraph.kind === 'heading' && 'narrationHeading', paragraph.className]
           if (lightParagraph && spot.paragraph === p) {
             classes.push('isSpoken')
           }
+          const className = classes.filter(Boolean).join(' ') || undefined
+          const said = words[p].map((word, w) => (
+            <Fragment key={w}>
+              <span
+                className={lightWord && spot.paragraph === p && spot.word === w ? 'isSpoken' : undefined}
+              >
+                {word.text}
+              </span>{' '}
+            </Fragment>
+          ))
+
+          if (paragraph.kind === 'heading') {
+            return (
+              <h3 key={p} className={className}>
+                {said}
+              </h3>
+            )
+          }
+          if (paragraph.kind === 'find') {
+            return (
+              <div key={p} className="narrationFind">
+                <p className="narrationFindLabel">
+                  <SearchIcon />
+                  CAN YOU FIND IT?
+                </p>
+                <p className={className}>{said}</p>
+              </div>
+            )
+          }
           return (
-            <p key={p} className={classes.filter(Boolean).join(' ')}>
-              {words[p].map((word, w) => (
-                <Fragment key={w}>
-                  <span
-                    className={
-                      lightWord && spot.paragraph === p && spot.word === w ? 'isSpoken' : undefined
-                    }
-                  >
-                    {word.text}
-                  </span>{' '}
-                </Fragment>
-              ))}
+            <p key={p} className={className}>
+              {said}
             </p>
           )
         })}

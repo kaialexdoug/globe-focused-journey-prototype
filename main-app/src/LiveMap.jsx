@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { askForCompass, compassState, onCompassAnswer } from './compass.js'
 import { CompassIcon, LocateIcon } from './Icons.jsx'
-import { MAP_ID, MAPS_API_KEY } from './config.js'
+import { MAP_ID } from './config.js'
+import { findRoute, loadGoogleMaps } from './googleMaps.js'
+import { makePin, namePlacer } from './mapPins.js'
 
 // The live map on a stop's directions screen: Google's interactive map, with
-// the route from where you are to the stop, and a blue dot that moves with
-// you while the app's open. It needs the stop's exact spot (`mapPoint` on
+// the stop's photo and name where it is, the route from where you are to it,
+// and a blue dot that moves with you while the app's open. It needs the stop's exact spot (`mapPoint` on
 // its card). Stops without one get the simpler embedded map instead
 // (EmbedMap in StopPages.jsx), and so does any stop if this one can't load,
 // or can't find a route from where you are (`onFail`).
@@ -14,56 +17,15 @@ import { MAP_ID, MAPS_API_KEY } from './config.js'
 // request. Both are free up to a monthly allowance, and capped per day in
 // Google Cloud. The dot moving costs nothing: that all happens on the phone.
 
-// Google's map script, loaded the first time a live map's needed, and
-// shared by every one after.
-let mapsLoading = null
-
-function loadGoogleMaps() {
-  if (!mapsLoading) {
-    mapsLoading = new Promise((resolve, reject) => {
-      window.unfoldMapsReady = resolve
-      const script = document.createElement('script')
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&v=weekly&loading=async&callback=unfoldMapsReady`
-      script.async = true
-      script.onerror = () => {
-        // So the next map tries again.
-        mapsLoading = null
-        script.remove()
-        reject(new Error('Google’s map script didn’t load'))
-      }
-      document.head.append(script)
-    })
-  }
-  return mapsLoading
-}
-
-// A stop's travelMode, in Google's words.
-const TRAVEL_MODES = { walking: 'WALKING', transit: 'TRANSIT', driving: 'DRIVING', bicycling: 'BICYCLING' }
-
-// The route-finding here has no train routes in Japan (Google Maps itself,
-// and so the embedded map, does). For a stop you'd get to by train, you get
-// a walking route instead if you're this close, and otherwise the embedded
-// map, with the trains.
-const WALKABLE_METERS = 3000
-
-// Near enough, over a few kilometres.
-function metersBetween(a, b) {
-  const radians = Math.PI / 180
-  const x = (b.lng - a.lng) * radians * Math.cos(((a.lat + b.lat) / 2) * radians)
-  const y = (b.lat - a.lat) * radians
-  return Math.hypot(x, y) * 6371000
-}
+// Google's map script and the route-finding are shared with the map of the
+// whole route on See Your Journey (googleMaps.js). A stop you'd get to by
+// train only gets a route if you're within walking distance; otherwise it's
+// the embedded map, with the trains.
 
 // Which way you're facing comes from the phone's compass, and shows as a
-// beam from your dot, like in Google Maps. An Android phone gives it straight
-// away. An iPhone only gives it once you've said yes, which it only asks
-// after a tap, so the map has a Show Direction button for that.
-const COMPASS_NEEDS_ASKING =
-  typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function'
-
-// Once you've said yes, every map after has the compass straight away, until
-// the app's closed or reloaded.
-let compassAllowed = !COMPASS_NEEDS_ASKING
+// beam from your dot, like in Google Maps. On an iPhone, the app asks to use
+// it when you start the journey (compass.js), so it's there by the time the
+// map is. If it somehow hasn't asked yet, the map has a Show Direction button.
 
 // How far the screen's turned from upright (on its side, say), so the beam
 // still points the way the top of the phone does.
@@ -85,27 +47,6 @@ function compassHeading(event) {
   return null
 }
 
-// The route from `from` to the stop, as points along it, or null if there
-// isn't one.
-async function findRoute(Route, from, stop) {
-  let travelMode = TRAVEL_MODES[stop.travelMode] ?? 'WALKING'
-  if (stop.travelMode === 'transit') {
-    if (metersBetween(from, stop.mapPoint) >= WALKABLE_METERS) {
-      return null
-    }
-    travelMode = 'WALKING'
-  }
-
-  const { routes } = await Route.computeRoutes({
-    origin: from,
-    destination: stop.mapPoint,
-    travelMode,
-    // Only the line itself: asking for more costs more.
-    fields: ['path'],
-  })
-  return routes?.[0]?.path?.map((point) => ({ lat: point.lat, lng: point.lng })) ?? null
-}
-
 function LiveMap({ stop, onFail }) {
   const canvasRef = useRef(null)
   const failRef = useRef(onFail)
@@ -115,10 +56,8 @@ function LiveMap({ stop, onFail }) {
   const [lost, setLost] = useState(false)
   // You've moved the map off yourself, so it's stopped following you.
   const [wandered, setWandered] = useState(false)
-  // On an iPhone, until you've tapped Show Direction.
-  const [askCompass, setAskCompass] = useState(() => !compassAllowed)
-  // Turns the compass on, once the map's up.
-  const compassRef = useRef(null)
+  // Only if the phone hasn't been asked about the compass yet.
+  const [askCompass, setAskCompass] = useState(() => compassState() === 'unasked')
 
   useEffect(() => {
     failRef.current = onFail
@@ -175,22 +114,17 @@ function LiveMap({ stop, onFail }) {
     function listenToCompass() {
       window.addEventListener(orientationEvent, onOrientation)
     }
-    if (compassAllowed) {
+    // Straight away if it's allowed, or else as soon as it is: the answer to
+    // the question asked when the journey started can come after the map.
+    if (compassState() === 'allowed') {
       listenToCompass()
-    } else {
-      // Has to be asked straight from the tap, before anything else waits.
-      compassRef.current = () => {
-        DeviceOrientationEvent.requestPermission()
-          .then((answer) => {
-            if (answer === 'granted') {
-              compassAllowed = true
-              listenToCompass()
-            }
-          })
-          .catch((error) => console.warn('No compass:', error))
-          .finally(() => setAskCompass(false))
-      }
     }
+    const stopWaiting = onCompassAnswer((state) => {
+      if (state === 'allowed') {
+        listenToCompass()
+      }
+      setAskCompass(state === 'unasked')
+    })
 
     function fail(error) {
       console.error('Live map not shown:', error)
@@ -228,8 +162,13 @@ function LiveMap({ stop, onFail }) {
         clickableIcons: false,
       })
 
-      // The stop: Google's red pin.
-      new AdvancedMarkerElement({ map, position: stop.mapPoint, title: stop.name })
+      // The stop: its photo, with its name beside it on whichever side is on
+      // the map (mapPins.js), as on the route map on See Your Journey. Your
+      // dot goes over the photo, and the name over that.
+      const pin = makePin(stop, { large: true })
+      new AdvancedMarkerElement({ map, position: stop.mapPoint, content: pin.photoPin, title: stop.name, zIndex: 0 })
+      new AdvancedMarkerElement({ map, position: stop.mapPoint, content: pin.namePin, zIndex: 2 })
+      map.addListener('idle', namePlacer(canvasRef.current, [pin]))
 
       // You, in a pale circle as wide as the phone's unsure of.
       const youMarker = new AdvancedMarkerElement({ content: you, zIndex: 1 })
@@ -330,7 +269,7 @@ function LiveMap({ stop, onFail }) {
       clearTimeout(lostTimer)
       cancelAnimationFrame(frame)
       window.removeEventListener(orientationEvent, onOrientation)
-      compassRef.current = null
+      stopWaiting()
       if (watchId !== null) {
         navigator.geolocation.clearWatch(watchId)
       }
@@ -343,7 +282,7 @@ function LiveMap({ stop, onFail }) {
       <div className="liveMap">
         <div className="liveMapCanvas" ref={canvasRef}></div>
         {askCompass && (
-          <button className="liveMapCompass" onClick={() => compassRef.current?.()}>
+          <button className="liveMapCompass" onClick={askForCompass}>
             <CompassIcon />
             Show direction
           </button>

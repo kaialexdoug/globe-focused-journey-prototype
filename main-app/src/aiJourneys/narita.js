@@ -150,7 +150,7 @@ export default {
     with: { Solo: 90, Couple: 70, Family: 60, 'Friends / Group': 60 },
     preferences: { 'Pet friendly': 20, 'Avoid alcohol': 90, 'More nature': 45, 'Food stops': 80 },
   },
-  why: [
+  description: [
     'Narita is the first or last place many people see in Japan, and most of them only see the airport. Just down the line is an old temple town with a great temple on the hill, a street of wooden shops, and a lot of very good eel. It’s a whole journey in the time you might spend waiting at a gate.',
   ],
   route: [station, omotesando, shinshoji, pagoda, kawatoyo],

@@ -150,7 +150,7 @@ export default {
     with: { Solo: 80, Couple: 75, Family: 90, 'Friends / Group': 75 },
     preferences: { 'Pet friendly': 65, 'Avoid alcohol': 95, 'More nature': 95, 'Food stops': 20 },
   },
-  why: [
+  description: [
     'One of the biggest rivers in the world starts here as a stream you can step across. This journey takes you through the pine forest that surrounds it, past trees that have stood for centuries, to the spot where it all begins, and ends the day quietly on the lake it flows from.',
   ],
   route: [douglasLodge, preachersGrove, headwatersCenter, headwaters, lakeItasca],

@@ -155,7 +155,7 @@ export default {
     with: { Solo: 75, Couple: 90, Family: 75, 'Friends / Group': 80 },
     preferences: { 'Pet friendly': 15, 'Avoid alcohol': 85, 'More nature': 55, 'Food stops': 65 },
   },
-  why: [
+  description: [
     'In Kusatsu, the hot water is everywhere: running down streams in the park, steaming in channels in the middle of town, and filling baths on every street. This journey follows it around the town, saves the famous pool for the evening, and ends the only way a day in Kusatsu should: in a hot bath.',
   ],
   route: [busTerminal, sainokawaraDori, sainokawaraPark, yubatake, otakinoyu],
