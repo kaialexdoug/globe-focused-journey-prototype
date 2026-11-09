@@ -2572,6 +2572,178 @@ button:focus-visible {
   color: var(--ink-body);
 }
 
+/* A nearby spot as a card (NearbyCard in StopPages.jsx): a short version of
+   a Journeys for You card on top, its photo with the name and distance on a
+   dark fade, then what it is, SEE DIRECTIONS and Open in Google Maps, and the
+   map under those when it's open. */
+.nearbyCards {
+  display: grid;
+  gap: 14px;
+}
+
+.nearbyCard {
+  overflow: hidden;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  background-color: var(--surface);
+}
+
+.nearbyCardPhoto {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 128px;
+  padding: 0 14px 11px;
+  /* For the moment before its photo has loaded. */
+  background-color: var(--night);
+  color: white;
+}
+
+.nearbyCardPhoto img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark along the bottom, for the words, as on Journeys for You. */
+.nearbyCardPhoto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    rgba(5, 8, 15, 0.88) 0%,
+    rgba(5, 8, 15, 0.6) 30%,
+    rgba(5, 8, 15, 0) 70%
+  );
+}
+
+.nearbyCardName {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.nearbyCardDistance {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-size: 12.5px;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.nearbyCardDistance svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.nearbyCardNote {
+  padding: 12px 14px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--ink-body);
+}
+
+/* SEE DIRECTIONS (a small outlined pill, its arrow turning up once it's
+   open) and Open in Google Maps, side by side. */
+.nearbyCardActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 14px;
+  padding: 12px 14px 14px;
+}
+
+.nearbyDirections {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px 8px 14px;
+  border: 1px solid var(--unfold-green);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--accent-ink);
+  background: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.nearbyDirections:active,
+.nearbyDirections.isOpen {
+  background-color: color-mix(in srgb, var(--unfold-green) 8%, var(--surface));
+}
+
+.nearbyDirections svg {
+  width: 15px;
+  height: 15px;
+  transform: rotate(90deg);
+  transition: transform 0.25s ease;
+}
+
+.nearbyDirections.isOpen svg {
+  transform: rotate(-90deg);
+}
+
+.nearbyMapsLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  letter-spacing: 0;
+  color: var(--ink-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nearbyMapsLink svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+/* The map, inside the card under the buttons. */
+.nearbyMap {
+  padding: 0 14px 14px;
+}
+
+.nearbyMap .liveMap,
+.nearbyMap .mapContainer,
+.nearbyMap .mapPlaceholder {
+  margin-top: 0;
+}
+
+/* "We couldn't find your location", over the map. */
+.nearbyMap .mapNote {
+  margin: 0 0 10px;
+}
+
+.nearbyMap .liveMap,
+.nearbyMap .mapContainer iframe,
+.nearbyMap .mapPlaceholder {
+  height: 260px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nearbyDirections svg {
+    transition: none;
+  }
+}
+
 /* How much time a detour would add, with a small clock: on the card offering
    the detours, and under each one on the Detours page. */
 .detourAdds {

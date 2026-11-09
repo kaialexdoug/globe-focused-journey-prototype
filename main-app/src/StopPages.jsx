@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
-import { ClockIcon, NavigateIcon } from './Icons.jsx'
+import { ChevronRightIcon, ClockIcon, NavigateIcon, PinIcon } from './Icons.jsx'
 import LiveMap from './LiveMap.jsx'
 import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
@@ -202,20 +202,94 @@ function distanceText(meters) {
 
 // Interesting spots close to a stop (`nearby` on its card), after the
 // suggested time: each one's name, how far it is, and what it is.
+//
+// If every spot has a photo and its exact spot (`photo` and `mapPoint`, as on
+// the Waseda, Miami Beach and Nassau journeys), each is a card with
+// directions to it (NearbyCard), and only one card's map is open at a time.
+// Otherwise it's a simple list.
 function NearbySpots({ spots }) {
+  const [openSpot, setOpenSpot] = useState(null)
+  const asCards = spots.every((spot) => spot.photo && spot.mapPoint)
+
   return (
     <div className="nearby">
       <p className="startCardLabel">{spots.length === 1 ? 'INTERESTING SPOT NEARBY' : 'INTERESTING SPOTS NEARBY'}</p>
-      <ul className="nearbyList">
-        {spots.map((spot) => (
-          <li key={spot.name}>
-            <p className="nearbyName">
-              {spot.name} <span className="nearbyDistance">{distanceText(spot.meters)}</span>
-            </p>
-            <p className="nearbyNote">{spot.note}</p>
-          </li>
-        ))}
-      </ul>
+      {asCards ? (
+        <div className="nearbyCards">
+          {spots.map((spot) => (
+            <NearbyCard
+              key={spot.name}
+              spot={spot}
+              open={openSpot === spot.name}
+              onToggle={() => setOpenSpot(openSpot === spot.name ? null : spot.name)}
+            />
+          ))}
+        </div>
+      ) : (
+        <ul className="nearbyList">
+          {spots.map((spot) => (
+            <li key={spot.name}>
+              <p className="nearbyName">
+                {spot.name} <span className="nearbyDistance">{distanceText(spot.meters)}</span>
+              </p>
+              <p className="nearbyNote">{spot.note}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+// A nearby spot as a card, like a small one from Journeys for You: its photo,
+// with its name and how far it is along the bottom, then what it is. SEE
+// DIRECTIONS opens the live map under it, from wherever you are to the spot
+// (or the embedded map, if the live one can't load), and HIDE DIRECTIONS
+// closes it again. Open in Google Maps is there too, for turn-by-turn
+// directions. Like a stop's map, each opening counts as a Google map load.
+function NearbyCard({ spot, open, onToggle }) {
+  const mapRef = useRef(null)
+  const [liveFailed, setLiveFailed] = useState(false)
+  // The spot as the maps take a stop: somewhere to walk to. Kept the same
+  // between renders, so the live map doesn't start again.
+  const place = useMemo(() => ({ ...spot, travelMode: 'walking' }), [spot])
+
+  // Brought into view when it opens, as it can open below the screen.
+  useEffect(() => {
+    if (open) {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      mapRef.current?.scrollIntoView({ block: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' })
+    }
+  }, [open])
+
+  const distance = distanceText(spot.meters)
+
+  return (
+    <div className="nearbyCard">
+      <div className="nearbyCardPhoto">
+        <img src={spot.photo} alt={spot.photoAlt ?? ''} style={{ objectPosition: spot.photoPosition }} loading="lazy" />
+        <p className="nearbyCardName">{spot.name}</p>
+        <p className="nearbyCardDistance">
+          <PinIcon />
+          {distance[0].toUpperCase() + distance.slice(1)}
+        </p>
+      </div>
+      <p className="nearbyCardNote">{spot.note}</p>
+      <div className="nearbyCardActions">
+        <button className={open ? 'nearbyDirections isOpen' : 'nearbyDirections'} onClick={onToggle} aria-expanded={open}>
+          {open ? 'HIDE DIRECTIONS' : 'SEE DIRECTIONS'}
+          <ChevronRightIcon />
+        </button>
+        <a className="nearbyMapsLink" href={googleMapsUrl(place)} target="_blank" rel="noopener noreferrer">
+          <NavigateIcon />
+          Open in Google Maps
+        </a>
+      </div>
+      {open && (
+        <div className="nearbyMap" ref={mapRef}>
+          {liveFailed ? <EmbedMap stop={place} /> : <LiveMap stop={place} onFail={() => setLiveFailed(true)} />}
+        </div>
+      )}
     </div>
   )
 }

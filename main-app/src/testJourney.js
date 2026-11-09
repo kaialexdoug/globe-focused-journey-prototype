@@ -29,6 +29,15 @@ import libraryPhoto from './assets/journey/yanaka/scai.jpg'
 import auditoriumPhoto from './assets/journey/yanaka/yanaka-ginza.jpg'
 import hosokawaPhoto from './assets/journey/yanaka/cemetery.jpg'
 
+// The spots near the stops, which have their own photos (from Wikimedia
+// Commons, credited in the README).
+import mizuInariPhoto from './assets/journey/waseda/mizu-inari.jpg'
+import sosekiPhoto from './assets/journey/waseda/soseki-birthplace.jpg'
+import okumaGardenPhoto from './assets/journey/waseda/okuma-garden.jpg'
+import bashoAnPhoto from './assets/journey/waseda/basho-an.jpg'
+import eiseiBunkoPhoto from './assets/journey/waseda/eisei-bunko.jpg'
+import todenWasedaPhoto from './assets/journey/waseda/toden-waseda.jpg'
+
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
   ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
@@ -73,7 +82,15 @@ const kansenen = {
   effort: { level: 'easy', note: 'Gently downhill most of the way' },
   stayMinutes: [20, 30],
   nearby: [
-    { name: 'Mizu Inari Shrine', note: 'Next door, with Takada Fuji, a little Mount Fuji built in 1780 and said to be the oldest in Edo. It’s only open to climb two days a year, in July', meters: 100 },
+    {
+      name: 'Mizu Inari Shrine',
+      note: 'Next door, with Takada Fuji, a little Mount Fuji built in 1780 and said to be the oldest in Edo. It’s only open to climb two days a year, in July',
+      meters: 173,
+      photo: mizuInariPhoto,
+      photoAlt: 'A stone path under the trees at Mizu Inari Shrine, lined with old stone monuments',
+      mapPlace: 'Mizu Inari Shrine, Nishi-Waseda, Shinjuku, Tokyo',
+      mapPoint: { lat: 35.7113566, lng: 139.7155545 },
+    },
   ],
   ...DISCOVERY,
   narration: [
@@ -130,7 +147,18 @@ const anahachiman = {
   effort: { level: 'moderate', note: 'Uphill: a climb of about 20 metres, ending at the shrine on its hill' },
   stayMinutes: [15, 20],
   nearby: [
-    { name: 'Natsume Sōseki’s birthplace', note: 'A stone marks where the great novelist was born, at the foot of the slope his father named after the family: Natsume-zaka. The old sake shop beside it says it’s where Yasubei stopped for his sake on the way to the duel', meters: 400 },
+    {
+      name: 'Natsume Sōseki’s birthplace',
+      note: 'A stone marks where the great novelist was born, at the foot of the slope his father named after the family: Natsume-zaka. The old sake shop beside it says it’s where Yasubei stopped for his sake on the way to the duel',
+      meters: 468,
+      photo: sosekiPhoto,
+      photoAlt: 'The tall stone pillar marking Natsume Sōseki’s birthplace, carved with Japanese characters',
+      photoPosition: 'center 30%',
+      mapPlace: '夏目漱石誕生之地, 喜久井町, 新宿区, 東京都',
+      // Nearly: by exit 2 of Waseda Station on the Tozai Line, where the
+      // marker stands (no map has its exact spot).
+      mapPoint: { lat: 35.70535, lng: 139.72115 },
+    },
   ],
   ...BUILD,
   detours: [murakamiLibrary],
@@ -158,7 +186,17 @@ const okumaAuditorium = {
   travelMinutes: 9,
   effort: { level: 'easy', note: 'Downhill from the shrine, then flat into the campus' },
   stayMinutes: [20, 30],
-  nearby: [{ name: 'Okuma Garden', note: 'A lawn and garden right behind the auditorium', meters: 100 }],
+  nearby: [
+    {
+      name: 'Okuma Garden',
+      note: 'A lawn and garden right behind the auditorium',
+      meters: 97,
+      photo: okumaGardenPhoto,
+      photoAlt: 'The lawn and trees of Okuma Garden, with the Okuma Auditorium’s clock tower behind',
+      mapPlace: 'Okuma Garden, Waseda University, Shinjuku, Tokyo',
+      mapPoint: { lat: 35.7095718, lng: 139.7220692 },
+    },
+  ],
   ...PEAK,
   narration: [
     PEAK_LEAD,
@@ -186,9 +224,34 @@ const higoHosokawa = {
   effort: { level: 'easy', note: 'Mostly flat, with a short rise into the garden at the end' },
   stayMinutes: [30, 45],
   nearby: [
-    { name: 'Sekiguchi Bashō-an', note: 'Where Bashō is said to have lived by the river, now a small, quiet garden on the slope', meters: 150 },
-    { name: 'Eisei Bunko Museum', note: 'The Hosokawa family’s art collection, just up the hill', meters: 250 },
-    { name: 'Toden Waseda stop', note: 'The end of the line for the Toden Arakawa Line, the last of Tokyo’s old streetcars', meters: 350 },
+    {
+      name: 'Eisei Bunko Museum',
+      note: 'The Hosokawa family’s art collection, just up the hill',
+      meters: 70,
+      photo: eiseiBunkoPhoto,
+      photoAlt: 'The pale walls of the Eisei Bunko Museum among autumn trees',
+      mapPlace: 'Eisei Bunko Museum, Mejirodai, Bunkyo, Tokyo',
+      mapPoint: { lat: 35.7131093, lng: 139.7233554 },
+    },
+    {
+      name: 'Sekiguchi Bashō-an',
+      note: 'Where Bashō is said to have lived by the river, now a small, quiet garden on the slope',
+      meters: 190,
+      photo: bashoAnPhoto,
+      photoAlt: 'The old wooden gate of Sekiguchi Bashō-an, under a tiled roof',
+      mapPlace: 'Sekiguchi Basho-an, Sekiguchi, Bunkyo, Tokyo',
+      mapPoint: { lat: 35.7120836, lng: 139.7236631 },
+    },
+    {
+      name: 'Toden Waseda stop',
+      note: 'The end of the line for the Toden Arakawa Line, the last of Tokyo’s old streetcars',
+      meters: 577,
+      photo: todenWasedaPhoto,
+      photoAlt: 'A green Toden streetcar pulling in at Waseda, the end of the line',
+      photoPosition: 'center 40%',
+      mapPlace: 'Waseda Station, Toden Arakawa Line, Shinjuku, Tokyo',
+      mapPoint: { lat: 35.71183333, lng: 139.71888889 },
+    },
   ],
   ...AFTERGLOW,
   narration: [
