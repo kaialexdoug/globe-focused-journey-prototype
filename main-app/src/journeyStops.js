@@ -14,6 +14,8 @@
 
 import { AI_JOURNEYS } from './aiJourneys/index.js'
 import wasedaTestJourney from './testJourney.js'
+import miamiJourney from './miamiJourney.js'
+import nassauJourney from './nassauJourney.js'
 import { hoursText, journeyHours } from './journeyTimes.js'
 
 import emaTunnelPhoto from './assets/journey/ema-tunnel.jpg'
@@ -59,6 +61,10 @@ export const kawagoeStation = {
   // far it is from here, listed after the suggested time. Only ones that are
   // really worth it, so most stops have none. Like this:
   //   nearby: [{ name: 'Kashiya Yokocho', note: 'An alley of sweet shops', meters: 350 }],
+  // If every spot also has a `photo` (and `photoAlt`), and its `mapPlace` and
+  // exact `mapPoint`, like a stop, each is shown as a card with directions to
+  // it (NearbyCard in StopPages.jsx), as on the Waseda, Miami Beach and
+  // Nassau journeys.
 
   // On each screen's photo: the red heading, then the small label above the
   // name.
@@ -664,8 +670,16 @@ export function placeName(location) {
 // Every journey, the featured one first: it's the first on Home. The AI-made
 // ones (aiJourneys/) come after the checked ones.
 // Last of all, the test journey for the live map and the route preview, The
-// Edge of Old Edo (testJourney.js).
-export const ALL_JOURNEYS = [odawaraJourney, kawagoeJourney, ...AI_JOURNEYS, wasedaTestJourney]
+// Edge of Old Edo (testJourney.js), and the two built the same way for Miami
+// Beach and Nassau (miamiJourney.js, nassauJourney.js).
+export const ALL_JOURNEYS = [
+  odawaraJourney,
+  kawagoeJourney,
+  ...AI_JOURNEYS,
+  wasedaTestJourney,
+  miamiJourney,
+  nassauJourney,
+]
 
 // Each journey's time, "~4 hours" on its card and 4 for matching, is worked
 // out from its stops' times (journeyTimes.js) rather than written in, so the
