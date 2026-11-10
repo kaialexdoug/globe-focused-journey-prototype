@@ -27,10 +27,8 @@ import {
 import {
   ArrowRightIcon,
   ClockIcon,
-  FourStarsIcon,
   HeartIcon,
   NavigateIcon,
-  NeedleCompassIcon,
   PinIcon,
   RouteIcon,
   SearchIcon,
@@ -906,52 +904,31 @@ function HomePage({ journeys, likes, onSelect, onToggleLike, onSearch, positionR
   )
 }
 
-// The first screen of Find My Journey. Its steps are in FindMyJourney.jsx.
+// The first screen of Find My Journey: the question, a picture of a path
+// splitting in two, and the button that starts the steps (FindMyJourney.jsx).
 function FindJourneyPage({ onStart }) {
   return (
     <div className="findPage">
-      <img className="findPicture" src={findPicture} alt="" />
+      <Header />
+      <h1 className="findTitle">
+        What kind of day
+        <br />
+        do you want?
+      </h1>
+      <p className="findText">
+        Tell us your mood, who’s coming,
+        <br />
+        and how much time you have.
+      </p>
 
-      <div className="findWords">
-        <Header />
-        <h1 className="findTitle">
-          Find
-          <br />
-          My
-          <br />
-          Journey
-        </h1>
-        <p className="findText">
-          Tell us what kind of day
-          <br />
-          you want, and we’ll find
-          <br />
-          the perfect journey
-          <br />
-          for you.
-        </p>
+      <div className="findHero">
+        <img src={findPicture} alt="" />
       </div>
 
-      <div className="findBottom">
-        <ul className="findPoints">
-          <li>
-            <NeedleCompassIcon />
-            Handcrafted experiences
-          </li>
-          <li>
-            <PinIcon />
-            Hidden gems
-          </li>
-          <li>
-            <FourStarsIcon />
-            Journeys for every mood
-          </li>
-        </ul>
-        <button className="findStart" onClick={onStart}>
-          Let’s Find My Journey
-          <ArrowRightIcon />
-        </button>
-      </div>
+      <button className="findStart" onClick={onStart}>
+        Find My Journey
+        <ArrowRightIcon />
+      </button>
     </div>
   )
 }

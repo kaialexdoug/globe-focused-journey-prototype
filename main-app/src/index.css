@@ -6,6 +6,10 @@
      soft peach for progress. */
   --unfold-green: #13393a;
   --unfold-peach: #f9c3a5;
+  /* The new style, sampled from the Find My Journey mockup: its deep blue
+     button, and the bright orange of the arrow on it. */
+  --unfold-blue: rgb(1, 66, 84);
+  --unfold-orange: rgb(245, 106, 7);
   --globe-green: rgb(116, 191, 63);
 
   --text: rgb(92, 88, 83);
@@ -38,6 +42,10 @@
   --page-top: rgb(240, 233, 226);
   --nav-bg: rgba(255, 255, 255, 0.96);
   --nav-line: rgb(236, 231, 225);
+  /* The navbar's slate blue lines and words, and the darker orange of the tab
+     you're on, both from the same mockup. */
+  --nav-ink: rgb(64, 70, 98);
+  --nav-current: rgb(188, 58, 20);
   --placeholder-dim: rgb(240, 235, 229);
   --placeholder-lit: rgb(231, 225, 218);
   --photo-outline: rgba(0, 0, 0, 0.08);
