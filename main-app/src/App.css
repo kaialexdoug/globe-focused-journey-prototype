@@ -657,164 +657,116 @@ button:focus-visible {
 }
 
 /* --- Find My Journey ---
-   Its first screen (FindJourneyPage in App.jsx). The picture fills the screen,
-   and the bottom fades into the bluish black, behind the white words. */
+   Its first screen (FindJourneyPage in App.jsx), on white as in the mockup: the
+   question, the picture of a path splitting in two, and the button to start.
+   The page is exactly the height of the screen, so on a short phone the
+   picture gives up some of its height rather than the button going off the
+   bottom. */
 
 .findPage {
-  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  padding: 0 22px 10px;
-  overflow: hidden;
-  /* The picture's sky, for the moment before it has loaded. */
-  background-color: rgb(136, 196, 233);
+  height: 100%;
+  padding: 0 22px 16px;
+  background-color: white;
   text-align: left;
   animation: fadeUp 0.5s ease both;
 }
 
-/* Bigger than the screen, so the sky reaches down behind the title and Mount
-   Fuji comes out just below the words. The left and top say where on the
-   screen, and the transform which part of the picture sits there: the peak a
-   quarter of the way across, and the tip of the top branch above the title. */
-.findPicture {
-  position: absolute;
-  top: calc(var(--frame-top) + 30px);
-  left: 25%;
-  width: 146%;
-  max-width: none;
-  transform: translate(-30.6%, -13.1%);
-}
-
-.findPage::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 240px;
-  background: linear-gradient(
-    to top,
-    var(--night) 40%,
-    rgba(12, 23, 43, 0.85) 58%,
-    rgba(12, 23, 43, 0.5) 74%,
-    rgba(12, 23, 43, 0.18) 88%,
-    rgba(12, 23, 43, 0) 100%
-  );
-}
-
-.findWords,
-.findBottom {
-  position: relative;
-  z-index: 1;
-}
-
 .findTitle {
-  margin: 12px 0 0;
+  margin: 22px 0 0;
   font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 52px;
+  /* In step with the width of the screen, so "What kind of day" stays on one
+     line on narrower phones. */
+  font-size: min(40px, 10.2vw);
   font-weight: 600;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: 0;
   color: var(--night);
 }
 
 .findText {
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 17px;
   line-height: 1.45;
   letter-spacing: 0;
-  color: rgba(12, 23, 43, 0.85);
+  color: var(--night);
 }
 
-.findBottom {
-  margin-top: auto;
-  padding-top: 16px;
+/* Right across the screen. The picture already fades to white at the top and
+   bottom; the mask keeps those edges soft when a short phone crops it. */
+.findHero {
+  flex: 0 1 auto;
+  min-height: 0;
+  margin: 18px -22px 0;
 }
 
-.findPoints {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.findPoints li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 15px;
-  letter-spacing: 0;
-  color: white;
-}
-
-.findPoints svg {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+.findHero img {
+  --fade: linear-gradient(to bottom, transparent, black 10%, black 88%, transparent);
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Cropped towards the figure, a little below the middle. */
+  object-position: 50% 60%;
+  -webkit-mask-image: var(--fade);
+  mask-image: var(--fade);
 }
 
 .findStart {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
   box-sizing: border-box;
   width: 100%;
-  height: 50px;
-  margin-top: 10px;
-  background-color: var(--unfold-green);
-  border: 3px solid white;
+  height: 56px;
+  margin-top: 20px;
+  background-color: var(--unfold-blue);
+  border: none;
   border-radius: 999px;
-  font-size: 17px;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 24px;
   letter-spacing: 0;
   color: white;
   cursor: pointer;
   transition: transform 0.15s ease;
 }
 
+/* The arrow in orange, and a little bolder than the other line icons, as in
+   the mockup. */
 .findStart svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.2;
+  color: var(--unfold-orange);
 }
 
 .findStart:active {
   transform: scale(0.98);
 }
 
-/* Smaller on a short screen, to leave a gap for the picture. */
+/* A little tighter on a short screen, to leave the picture more room. */
 @media (max-height: 700px) {
   .findTitle {
-    margin-top: 10px;
-    font-size: 42px;
+    margin-top: 14px;
   }
 
   .findText {
     margin-top: 8px;
-    font-size: 15px;
-    line-height: 1.4;
+    font-size: 16px;
   }
 
-  .findPoints {
-    gap: 4px;
-  }
-
-  .findPoints li {
-    font-size: 14px;
-  }
-
-  .findPoints svg {
-    width: 22px;
-    height: 22px;
+  .findHero {
+    margin-top: 12px;
   }
 
   .findStart {
-    height: 46px;
-    margin-top: 8px;
-    font-size: 16px;
+    height: 52px;
+    margin-top: 14px;
+    font-size: 22px;
   }
 }
 
@@ -3433,7 +3385,7 @@ button:focus-visible {
   border: none;
   font-size: 11px;
   letter-spacing: 0.5px;
-  color: var(--ink-faint);
+  color: var(--nav-ink);
   cursor: pointer;
   transition: color 0.2s ease;
 }
@@ -3443,14 +3395,14 @@ button:focus-visible {
   height: 23px;
 }
 
-/* The tab you're on turns green. */
+/* The tab you're on turns orange. */
 .navTab.isCurrent {
-  color: var(--accent-ink);
+  color: var(--nav-current);
 }
 
 @media (hover: hover) {
   .navTab:not(.isCurrent):hover {
-    color: var(--ink);
+    color: var(--night);
   }
 }
 

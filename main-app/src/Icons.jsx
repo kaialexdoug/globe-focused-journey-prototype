@@ -321,29 +321,6 @@ export function ArrowLeftIcon({ className }) {
   )
 }
 
-// On Find My Journey: a compass whose needle reaches out past its rim.
-export function NeedleCompassIcon({ className }) {
-  return (
-    <Icon className={className}>
-      <path d="M20.16 8.2A9 9 0 0 1 8.2 20.16M3.84 15.8A9 9 0 0 1 15.8 3.84" />
-      <path d="M21.5 2.5Q15.2 15.2 2.5 21.5 8.8 8.8 21.5 2.5zM2.5 21.5 12 12" />
-    </Icon>
-  )
-}
-
-// On Find My Journey: four stars, one big and three smaller.
-export function FourStarsIcon({ className }) {
-  return (
-    <Icon className={className}>
-      <path
-        d="M7 3.5Q8 9 13.5 10 8 11 7 16.5 6 11 .5 10 6 9 7 3.5zM18.5 1Q19.2 4.3 22.5 5 19.2 5.7 18.5 9 17.8 5.7 14.5 5 17.8 4.3 18.5 1zM18 11.5Q18.9 15.6 23 16.5 18.9 17.4 18 21.5 17.1 17.4 13 16.5 17.1 15.6 18 11.5zM8 17.8Q8.5 20 10.7 20.5 8.5 21 8 23.2 7.5 21 5.3 20.5 7.5 20 8 17.8z"
-        fill="currentColor"
-        stroke="none"
-      />
-    </Icon>
-  )
-}
-
 // The rest are solid rather than drawn in lines, for the place and the tags on
 // a journey on Home.
 
