@@ -24,7 +24,7 @@ import {
 } from './Icons.jsx'
 
 import adventurousPicture from './assets/moods/adventurous.jpg'
-import culturalPicture from './assets/moods/cultural.webp'
+import culturalPicture from './assets/moods/cultural.jpg'
 import curiousPicture from './assets/moods/curious.jpg'
 import peacefulPicture from './assets/moods/peaceful.jpg'
 import playfulPicture from './assets/moods/playful.jpg'
@@ -40,7 +40,7 @@ import soloPicture from './assets/companions/solo.webp'
 const STEP_COUNT = 3
 
 // The top of every step: the logo in the middle, with the way back on one side
-// and Skip on the other, then how far along you are.
+// and Skip on the other (on a step that has it), then how far along you are.
 function StepTop({ step, onBack, onSkip }) {
   return (
     <>
@@ -49,9 +49,11 @@ function StepTop({ step, onBack, onSkip }) {
           <ArrowLeftIcon />
         </button>
         <Header />
-        <button className="stepSkip" onClick={onSkip}>
-          Skip
-        </button>
+        {onSkip && (
+          <button className="stepSkip" onClick={onSkip}>
+            Skip
+          </button>
+        )}
       </div>
       <p className="stepCount">
         STEP {step} OF {STEP_COUNT}
@@ -85,87 +87,50 @@ function PictureCard({ className, index, picture, position, color, children, ...
   )
 }
 
+// The moods, each with its origami picture (a crane, a bird, a heart, a fox, a
+// frog and a ballerina), and the colour of its arrow, picked from the figure.
 const MOODS = [
-  {
-    name: 'Peaceful',
-    about: ['SLOW DOWN', 'AND UNWIND'],
-    picture: peacefulPicture,
-    position: 'center 58%',
-    color: 'rgb(160, 130, 225)',
-  },
-  {
-    name: 'Adventurous',
-    about: ['EXPLORE', 'SOMETHING NEW'],
-    picture: adventurousPicture,
-    position: 'center 36%',
-    color: 'rgb(74, 111, 165)',
-  },
-  {
-    name: 'Romantic',
-    about: ['SHARED', 'MOMENTS'],
-    picture: romanticPicture,
-    position: 'center 100%',
-    color: 'rgb(224, 96, 132)',
-  },
-  {
-    name: 'Curious',
-    about: ['DISCOVER', 'HIDDEN GEMS'],
-    picture: curiousPicture,
-    position: 'center 100%',
-    color: 'rgb(62, 140, 84)',
-  },
-  {
-    name: 'Playful',
-    about: ['FUN FOR', 'EVERYONE'],
-    picture: playfulPicture,
-    position: 'center 69%',
-    color: 'rgb(216, 164, 32)',
-  },
-  {
-    name: 'Cultural',
-    about: ['DEEPER', 'CONNECTIONS'],
-    picture: culturalPicture,
-    position: '35% center',
-    color: 'rgb(44, 82, 190)',
-  },
+  { name: 'Peaceful', about: 'Slow down and unwind', picture: peacefulPicture, color: 'rgb(74, 128, 186)' },
+  { name: 'Adventurous', about: 'Explore something new', picture: adventurousPicture, color: 'rgb(232, 122, 38)' },
+  { name: 'Romantic', about: 'Shared moments', picture: romanticPicture, color: 'rgb(222, 118, 100)' },
+  { name: 'Curious', about: 'Discover hidden gems', picture: curiousPicture, color: 'rgb(112, 150, 82)' },
+  { name: 'Playful', about: 'Fun for everyone', picture: playfulPicture, color: 'rgb(222, 166, 32)' },
+  { name: 'Cultural', about: 'Deeper connections', picture: culturalPicture, color: 'rgb(70, 140, 205)' },
 ]
 
-// Step 1. Tapping a mood chooses it and moves straight on to the next step.
+// A mood to pick: its picture across the top, fading into the white of the
+// card, with its name and an arrow beside it, and what it's like underneath.
+// `index` is its place in the order the cards fade in.
+function MoodChoice({ mood, index, onChoose }) {
+  return (
+    <button className="moodChoice" style={{ '--i': index }} onClick={onChoose}>
+      <img src={mood.picture} alt="" />
+      <span className="moodChoiceName">{mood.name}</span>
+      <span className="moodChoiceAbout">{mood.about}</span>
+      <span className="moodChoiceArrow" style={{ backgroundColor: mood.color }} aria-hidden="true">
+        <ArrowRightIcon />
+      </span>
+    </button>
+  )
+}
+
+// Step 1, after its mockup. Tapping a mood chooses it and moves straight on to
+// the next step; Skip moves on without one.
 export function MoodPage({ onChoose, onSkip, onBack }) {
   return (
-    <div className="stepPage">
+    <div className="stepPage moodPage">
       <StepTop step={1} onBack={onBack} onSkip={onSkip} />
 
       <h1 className="stepTitle">
-        How do you want
+        How do you want to
         <br />
-        to feel today?
+        feel today?
       </h1>
-      <p className="stepText">
-        Choose how you want to feel,
-        <br />
-        and we’ll find the perfect
-        <br />
-        journey for you.
-      </p>
+      <p className="stepText">Find a journey that fits your mood.</p>
 
-      <div className="moodCards">
+      <div className="moodChoices">
         {MOODS.map((mood, index) => (
-          <PictureCard
-            key={mood.name}
-            index={index}
-            picture={mood.picture}
-            position={mood.position}
-            color={mood.color}
-            onClick={() => onChoose(mood.name)}
-          >
-            <span className="moodName">{mood.name}</span>
-            <span className="moodAbout">
-              {mood.about[0]}
-              <br />
-              {mood.about[1]}
-            </span>
-          </PictureCard>
+          <MoodChoice key={mood.name} mood={mood} index={index} onChoose={() => onChoose(mood.name)} />
         ))}
       </div>
     </div>
