@@ -10,6 +10,9 @@
      button, and the bright orange of the arrow on it. */
   --unfold-blue: rgb(1, 66, 84);
   --unfold-orange: rgb(245, 106, 7);
+  /* The deeper orange on Find My Journey's steps, from their mockup: the
+     progress bar. */
+  --find-orange: rgb(212, 86, 4);
   --globe-green: rgb(116, 191, 63);
 
   --text: rgb(92, 88, 83);

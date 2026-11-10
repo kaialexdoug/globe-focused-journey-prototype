@@ -28,7 +28,6 @@ import {
   ArrowRightIcon,
   ClockIcon,
   HeartIcon,
-  NavigateIcon,
   PinIcon,
   RouteIcon,
   SearchIcon,
@@ -567,8 +566,6 @@ function App() {
         journey={journey}
         onClose={() => setPage(journeyOpenedFrom)}
         onBeginJourney={() => beginJourney('departure')}
-        // Already at the start: skip the departure and head for the first stop.
-        onSkipToFirstStop={() => beginJourney('discovery')}
         onResume={resumeJourney}
         onViewMemory={viewMemory}
         completed={journeyRecord?.timesCompleted > 0}
@@ -769,10 +766,10 @@ function App() {
 
 // One of the four bubbles on a journey on Home: a symbol, a value, and what
 // it's a value of.
-function FeedTag({ Icon, iconClass, value, label }) {
+function FeedTag({ Icon, value, label }) {
   return (
     <div className="feedTag">
-      <Icon className={`feedTagIcon ${iconClass}`} />
+      <Icon className="feedTagIcon" />
       <p>
         <span className="feedTagValue">{value}</span>
         <span className="feedTagLabel">{label}</span>
@@ -859,25 +856,21 @@ function HomePage({ journeys, likes, onSelect, onToggleLike, onSearch, positionR
             <div className="feedTags">
               <FeedTag
                 Icon={SolidClockIcon}
-                iconClass="isYellow"
                 value={journey.time.replace('hours', 'hrs')}
                 label="DURATION"
               />
               <FeedTag
                 Icon={SolidWalkIcon}
-                iconClass="isGreen"
                 value={journey.difficulty}
                 label="DIFFICULTY"
               />
               <FeedTag
                 Icon={SolidPinIcon}
-                iconClass="isRed"
                 value={`${journey.route.length} stops`}
                 label="ITINERARY"
               />
               <FeedTag
                 Icon={EXPERIENCE_ICONS[journey.experience]}
-                iconClass="isBlue"
                 value={journey.experience}
                 label="EXPERIENCE"
               />
@@ -936,14 +929,15 @@ function FindJourneyPage({ onStart }) {
 // Like a journey stop: the journey's photo across the top, then its name, then
 // everything about it, which scrolls: its quick facts, what it is (the hook),
 // where it starts, and on journeys that have one, a preview of the whole route
-// (RoutePreview.jsx). ✕ goes back to where you opened it from. `underWay` is
-// where you left this journey, if it's on your profile partway through: then
-// it offers RESUME JOURNEY instead. `completed` says you've finished it before.
+// (RoutePreview.jsx), then BEGIN JOURNEY. ✕ goes back to where you opened it
+// from. `underWay` is where you left this journey, if it's on your profile
+// partway through: then it offers RESUME JOURNEY instead. `completed` says
+// you've finished it before, which adds a tick above BEGIN JOURNEY and VIEW
+// MEMORY below it.
 function SeeJourneyPage({
   journey,
   onClose,
   onBeginJourney,
-  onSkipToFirstStop,
   onResume,
   onViewMemory,
   completed,
@@ -1036,28 +1030,18 @@ function SeeJourneyPage({
             </div>
           </>
         ) : (
+          // Just the one button, whether or not you're at the start already:
+          // it begins with the way there, and if you're there, I'M HERE is
+          // the next tap. After a finished run, a quiet way back to its memory.
           <>
             {completed && <p className="completedNote">✓ You’ve completed this journey</p>}
-            <h2 className="mainHook">
-              {completed ? 'Ready to do it again?' : 'Are you ready to embark on this adventure?'}
-            </h2>
-            <button className="introBtn hasIcon" onClick={onBeginJourney}>
-              <NavigateIcon />
-              GET DIRECTIONS TO THE START
+            <button className="introBtn" onClick={onBeginJourney}>
+              BEGIN JOURNEY ➜
             </button>
-            <div className="alreadyThere">
-              <p>Already at the starting point?</p>
-              <button className="textLink" onClick={onSkipToFirstStop}>
-                {completed ? 'BEGIN JOURNEY AGAIN ➜' : 'BEGIN JOURNEY ➜'}
-              </button>
-            </div>
             {completed && (
-              <div className="alreadyThere">
-                <p>Want to look back on it?</p>
-                <button className="textLink" onClick={onViewMemory}>
-                  VIEW MEMORY ➜
-                </button>
-              </div>
+              <button className="textLink viewMemoryLink" onClick={onViewMemory}>
+                VIEW MEMORY
+              </button>
             )}
           </>
         )}

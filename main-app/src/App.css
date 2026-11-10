@@ -13,14 +13,12 @@
   text-align: left;
 }
 
-/* The origami logo's navy tile, with a hairline round it so it doesn't
-   disappear into a dark screen. */
+/* The origami logo on its own, with no tile behind it, a little wider than
+   it is tall. */
 .headerLogo {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 5px;
-  box-shadow: 0 0 0 1px var(--photo-outline);
+  width: auto;
+  height: 26px;
 }
 
 .title {
@@ -519,26 +517,12 @@ button:focus-visible {
   border-radius: 999px;
 }
 
+/* All in orange, as in the mockup. */
 .feedTagIcon {
   flex-shrink: 0;
   width: 18px;
   height: 18px;
-}
-
-.feedTagIcon.isYellow {
-  color: var(--tag-yellow);
-}
-
-.feedTagIcon.isGreen {
-  color: var(--tag-green);
-}
-
-.feedTagIcon.isRed {
-  color: var(--tag-red);
-}
-
-.feedTagIcon.isBlue {
-  color: var(--tag-blue);
+  color: var(--unfold-orange);
 }
 
 .feedTagValue,
@@ -818,30 +802,40 @@ button:focus-visible {
   letter-spacing: 0;
 }
 
-.stepCount {
-  margin-top: 14px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 2px;
+/* UNFOLD beside the logo, in the serif of the mockup, spaced out. */
+.stepBar .title {
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 4px;
   color: var(--night);
 }
 
+.stepCount {
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--night);
+}
+
+/* A bar for each step, right across the page: orange up to the one you're
+   on, as in the mockup. */
 .stepProgress {
   display: flex;
-  gap: 3px;
-  width: 80%;
-  margin-top: 6px;
+  gap: 6px;
+  margin-top: 8px;
 }
 
 .stepProgress span {
   flex: 1;
   height: 5px;
-  background-color: var(--line);
+  background-color: rgb(229, 221, 220);
   border-radius: 3px;
 }
 
 .stepProgress span.isDone {
-  background-color: var(--night);
+  background-color: var(--find-orange);
 }
 
 .stepTitle {
@@ -864,16 +858,147 @@ button:focus-visible {
   color: rgba(12, 23, 43, 0.6);
 }
 
-.moodCards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 18px;
+/* --- Step 1, the moods (MoodPage in FindMyJourney.jsx), after its mockup ---
+   A heavier title, then the six moods in two columns a little wider than the
+   words. Tapping one goes straight on to step 2. */
+
+/* On white, as in the mockup (and Find My Journey's first screen). */
+.moodPage {
+  background-color: white;
 }
 
-/* The picture fills the card and fades away towards the bottom, into the white
-   of the card, for the words and the arrow to sit on. The card keeps the
-   mockup's shape. */
+/* In step with the width of the screen, so "How do you want to" stays on one
+   line, as in the mockup. */
+.moodPage .stepTitle {
+  font-size: min(31px, 7.95vw);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.moodPage .stepText {
+  margin-top: 6px;
+  font-size: 17px;
+  color: rgba(12, 23, 43, 0.85);
+}
+
+.moodChoices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 10px;
+  margin: 16px -8px 18px;
+}
+
+/* The picture right across the top, at its own shape, fading into the white
+   of the card, with the name and what it's like on the white underneath. */
+.moodChoice {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 1.19;
+  padding: 0 12px 11px;
+  overflow: hidden;
+  background-color: white;
+  border: 1px solid rgba(12, 23, 43, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(12, 23, 43, 0.06);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  /* Each its own beat after the page, one after another. "backwards" rather
+     than "both", so that once it's in, pressing it can still shrink it. */
+  animation: fadeUp 0.5s ease backwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+}
+
+.moodChoice:active {
+  transform: scale(0.98);
+}
+
+.moodChoice img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 92%);
+  mask-image: linear-gradient(to bottom, black 50%, transparent 92%);
+}
+
+/* The name, with room on its right for the arrow. */
+.moodChoiceName {
+  margin-right: 32px;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--night);
+}
+
+.moodChoiceAbout {
+  margin-top: 3px;
+  font-size: 12.5px;
+  line-height: 1.3;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: rgba(12, 23, 43, 0.82);
+}
+
+/* The arrow, in a circle the colour of the mood's origami figure, level with
+   the name, on the right. */
+.moodChoiceArrow {
+  position: absolute;
+  right: 9px;
+  bottom: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: white;
+}
+
+.moodChoiceArrow svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* The narrowest phones, so the longest names still clear the arrow. */
+@media (max-width: 350px) {
+  .moodChoice {
+    padding: 0 10px 10px;
+  }
+
+  .moodChoiceName {
+    margin-right: 26px;
+    font-size: 14px;
+  }
+
+  .moodChoiceAbout {
+    font-size: 11px;
+  }
+
+  .moodChoiceArrow {
+    right: 7px;
+    bottom: 24px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .moodChoiceArrow svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+/* Step 2's cards (PictureCard in FindMyJourney.jsx). The picture fills the
+   card and fades away towards the bottom, into the white of the card, for the
+   words and the arrow to sit on. */
 .moodCard {
   position: relative;
   display: flex;
@@ -921,15 +1046,6 @@ button:focus-visible {
   color: var(--night);
 }
 
-.moodAbout {
-  margin-top: 4px;
-  font-size: 10px;
-  line-height: 1.35;
-  letter-spacing: 1.2px;
-  white-space: nowrap;
-  color: rgba(12, 23, 43, 0.72);
-}
-
 .moodArrow {
   position: absolute;
   right: 9px;
@@ -952,11 +1068,6 @@ button:focus-visible {
 @media (max-width: 350px) {
   .moodName {
     font-size: 18px;
-  }
-
-  .moodAbout {
-    font-size: 9px;
-    letter-spacing: 0.6px;
   }
 
   .moodArrow {
@@ -3893,6 +4004,15 @@ button:focus-visible {
   color: var(--green-ink);
 }
 
+/* Under BEGIN JOURNEY once you've finished a journey: small and quiet, so
+   the button stays the one thing to do. */
+.viewMemoryLink {
+  display: block;
+  margin: 12px auto 0;
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+
 /* The Profile page. */
 .profileCard {
   display: flex;
@@ -4042,6 +4162,7 @@ button:focus-visible {
   .findPage,
   .stepPage,
   .moodCard,
+  .moodChoice,
   .detailCard,
   .matchCard,
   .photoScreen,

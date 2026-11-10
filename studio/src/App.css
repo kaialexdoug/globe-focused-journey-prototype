@@ -18,10 +18,10 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* The app's origami logo on its own, as at the top of the app. */
 .studioLogo {
-  width: 30px;
+  width: auto;
   height: 30px;
-  border-radius: 8px;
 }
 
 .studioName {
