@@ -265,7 +265,10 @@ export default {
   match: {
     moods: { Peaceful: 40, Adventurous: 30, Romantic: 70, Curious: 75, Playful: 65, Cultural: 80 },
     with: { Solo: 80, Couple: 90, Family: 65, 'Friends / Group': 85 },
-    preferences: { 'Pet friendly': 50, 'Avoid alcohol': 60, 'More nature': 30, 'Food stops': 75 },
+    preferences: {
+      'Pet friendly': 50, 'Avoid alcohol': 60, 'More nature': 30, 'Food stops': 75,
+      Coastal: 90, 'More urban': 80, 'Hiking involved': 5, 'Budget friendly': 50,
+    },
   },
   description: [
     'A little over a century ago, South Beach was a strip of sand and mangrove swamp that nobody wanted. Then a farmer built a bridge to it, a millionaire who’d made his fortune in car headlights turned it into a playground, and a hurricane blew the whole dream apart.',

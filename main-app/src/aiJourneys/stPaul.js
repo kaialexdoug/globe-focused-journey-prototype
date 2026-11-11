@@ -154,7 +154,10 @@ export default {
   match: {
     moods: { Peaceful: 55, Adventurous: 25, Romantic: 65, Curious: 80, Playful: 25, Cultural: 90 },
     with: { Solo: 85, Couple: 80, Family: 45, 'Friends / Group': 55 },
-    preferences: { 'Pet friendly': 35, 'Avoid alcohol': 75, 'More nature': 15, 'Food stops': 45 },
+    preferences: {
+      'Pet friendly': 35, 'Avoid alcohol': 75, 'More nature': 15, 'Food stops': 45,
+      Coastal: 5, 'More urban': 85, 'Hiking involved': 5, 'Budget friendly': 80,
+    },
   },
   description: [
     'St. Paul is the older, quieter of the Twin Cities, and Summit Avenue is where it shows off. This journey is a long, easy walk past one grand house after another, all the way to the biggest of them, and to the cathedral that’s been in view the whole time.',

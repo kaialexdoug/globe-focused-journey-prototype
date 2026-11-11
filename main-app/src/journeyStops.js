@@ -362,7 +362,10 @@ export const kawagoeJourney = {
   match: {
     moods: { Peaceful: 55, Adventurous: 35, Romantic: 65, Curious: 75, Playful: 50, Cultural: 95 },
     with: { Solo: 85, Couple: 85, Family: 75, 'Friends / Group': 80 },
-    preferences: { 'Pet friendly': 20, 'Avoid alcohol': 90, 'More nature': 20, 'Food stops': 90 },
+    preferences: {
+      'Pet friendly': 20, 'Avoid alcohol': 90, 'More nature': 20, 'Food stops': 90,
+      Coastal: 5, 'More urban': 45, 'Hiking involved': 5, 'Budget friendly': 80,
+    },
   },
 
   // What the journey is, on See Your Journey after the quick facts: the hook,
@@ -637,7 +640,10 @@ export const odawaraJourney = {
   match: {
     moods: { Peaceful: 60, Adventurous: 50, Romantic: 65, Curious: 75, Playful: 55, Cultural: 90 },
     with: { Solo: 85, Couple: 85, Family: 80, 'Friends / Group': 80 },
-    preferences: { 'Pet friendly': 25, 'Avoid alcohol': 90, 'More nature': 40, 'Food stops': 85 },
+    preferences: {
+      'Pet friendly': 25, 'Avoid alcohol': 90, 'More nature': 40, 'Food stops': 85,
+      Coastal: 75, 'More urban': 40, 'Hiking involved': 10, 'Budget friendly': 70,
+    },
   },
 
   description: [

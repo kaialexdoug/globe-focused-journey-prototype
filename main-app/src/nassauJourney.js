@@ -246,7 +246,10 @@ export default {
   match: {
     moods: { Peaceful: 40, Adventurous: 60, Romantic: 50, Curious: 85, Playful: 50, Cultural: 90 },
     with: { Solo: 80, Couple: 80, Family: 60, 'Friends / Group': 80 },
-    preferences: { 'Pet friendly': 30, 'Avoid alcohol': 50, 'More nature': 30, 'Food stops': 80 },
+    preferences: {
+      'Pet friendly': 30, 'Avoid alcohol': 50, 'More nature': 30, 'Food stops': 80,
+      Coastal: 80, 'More urban': 60, 'Hiking involved': 20, 'Budget friendly': 50,
+    },
   },
   description: [
     'Three hundred years ago, Nassau was a pirates’ republic. Blackbeard sailed from its harbour, and the town answered to no one, until a British governor sailed in to clean it up and gave the colony a motto: pirates expelled, commerce restored.',

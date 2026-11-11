@@ -10,9 +10,16 @@
      button, and the bright orange of the arrow on it. */
   --unfold-blue: rgb(1, 66, 84);
   --unfold-orange: rgb(245, 106, 7);
-  /* The deeper orange on Find My Journey's steps, from their mockup: the
-     progress bar. */
+  /* Find My Journey's progress bar, from its mockups: the step you're on in
+     a deeper orange, and the ones you've done in teal. */
   --find-orange: rgb(212, 86, 4);
+  --find-teal: rgb(45, 133, 157);
+  /* Step 3's mockup: what's picked is a soft peach with an orange edge,
+     "Now" is a green teal, and the quieter words a muted violet. */
+  --choice-peach: rgb(253, 235, 219);
+  --choice-edge: rgb(232, 145, 70);
+  --find-now: rgb(30, 120, 115);
+  --find-violet: rgb(98, 94, 140);
   --globe-green: rgb(116, 191, 63);
 
   --text: rgb(92, 88, 83);

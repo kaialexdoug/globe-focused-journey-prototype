@@ -161,7 +161,10 @@ export default {
   match: {
     moods: { Peaceful: 85, Adventurous: 25, Romantic: 60, Curious: 85, Playful: 40, Cultural: 85 },
     with: { Solo: 95, Couple: 80, Family: 55, 'Friends / Group': 65 },
-    preferences: { 'Pet friendly': 40, 'Avoid alcohol': 85, 'More nature': 35, 'Food stops': 70 },
+    preferences: {
+      'Pet friendly': 40, 'Avoid alcohol': 85, 'More nature': 35, 'Food stops': 70,
+      Coastal: 5, 'More urban': 75, 'Hiking involved': 5, 'Budget friendly': 95,
+    },
   },
   description: [
     'Yanaka is the Tokyo that a lot of visitors never find: slow, low-rise and quiet, with more temples than tower blocks. This journey is all on foot, and it takes its time, through a cemetery that feels like a park and a shopping street that feels like a village, to a shrine that’s one of the city’s quiet wonders.',

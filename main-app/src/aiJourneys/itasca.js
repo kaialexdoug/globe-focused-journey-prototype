@@ -148,7 +148,10 @@ export default {
   match: {
     moods: { Peaceful: 90, Adventurous: 65, Romantic: 50, Curious: 70, Playful: 50, Cultural: 25 },
     with: { Solo: 80, Couple: 75, Family: 90, 'Friends / Group': 75 },
-    preferences: { 'Pet friendly': 65, 'Avoid alcohol': 95, 'More nature': 95, 'Food stops': 20 },
+    preferences: {
+      'Pet friendly': 65, 'Avoid alcohol': 95, 'More nature': 95, 'Food stops': 20,
+      Coastal: 15, 'More urban': 5, 'Hiking involved': 70, 'Budget friendly': 80,
+    },
   },
   description: [
     'One of the biggest rivers in the world starts here as a stream you can step across. This journey takes you through the pine forest that surrounds it, past trees that have stood for centuries, to the spot where it all begins, and ends the day quietly on the lake it flows from.',
