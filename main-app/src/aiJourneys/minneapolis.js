@@ -154,7 +154,10 @@ export default {
   match: {
     moods: { Peaceful: 40, Adventurous: 35, Romantic: 70, Curious: 90, Playful: 45, Cultural: 80 },
     with: { Solo: 85, Couple: 85, Family: 65, 'Friends / Group': 75 },
-    preferences: { 'Pet friendly': 40, 'Avoid alcohol': 65, 'More nature': 30, 'Food stops': 50 },
+    preferences: {
+      'Pet friendly': 40, 'Avoid alcohol': 65, 'More nature': 30, 'Food stops': 50,
+      Coastal: 10, 'More urban': 95, 'Hiking involved': 5, 'Budget friendly': 75,
+    },
   },
   description: [
     'Most people see Minneapolis as a city of towers and skyways, but it started down by the river, at a waterfall and a row of mills. This journey goes back to the beginning, through the ruins of the mills, across the river on an old stone bridge, and out to the street where the city first began.',

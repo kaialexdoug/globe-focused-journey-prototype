@@ -153,7 +153,10 @@ export default {
   match: {
     moods: { Peaceful: 85, Adventurous: 50, Romantic: 80, Curious: 70, Playful: 45, Cultural: 40 },
     with: { Solo: 75, Couple: 90, Family: 70, 'Friends / Group': 70 },
-    preferences: { 'Pet friendly': 70, 'Avoid alcohol': 85, 'More nature': 80, 'Food stops': 65 },
+    preferences: {
+      'Pet friendly': 70, 'Avoid alcohol': 85, 'More nature': 80, 'Food stops': 65,
+      Coastal: 90, 'More urban': 10, 'Hiking involved': 50, 'Budget friendly': 75,
+    },
   },
   description: [
     'Grand Marais is a long way up the shore, and that’s part of its charm. It’s a small town wrapped around a harbor, with the lake in front and the forest behind. This journey stays close to the water all day, and ends at the little lighthouse as the sun goes down.',

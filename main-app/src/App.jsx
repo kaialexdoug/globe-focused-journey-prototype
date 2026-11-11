@@ -6,7 +6,7 @@ import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
-import { CompanionPage, DetailsPage, MatchesPage, MoodPage } from './FindMyJourney.jsx'
+import { CompanionPage, DetailsPage, MatchesPage, MoodPage, PreferencesPage } from './FindMyJourney.jsx'
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
 import SearchPage from './SearchPage.jsx'
@@ -93,6 +93,7 @@ const NAVBAR_TAB_OF = {
   findMood: 'find',
   findWho: 'find',
   findDetails: 'find',
+  findPreferences: 'find',
   findMatches: 'find',
   search: 'home',
   completedJourneys: 'myJourneys',
@@ -106,8 +107,18 @@ function navbarTabOf(page) {
 }
 
 // What Find My Journey's answers start as: nothing yet, except that its details
-// step starts with a time and a pace already picked, as on the mockup.
-const NEW_FIND_ANSWERS = { mood: null, companion: null, time: '2–4 hrs', pace: 'Moderate', preferences: [] }
+// step starts with a time and a pace already picked, as on the mockup. `place`
+// is what's typed in Where to?, and `date` the day you're going ("2026-11-14"),
+// or null for now.
+const NEW_FIND_ANSWERS = {
+  mood: null,
+  companion: null,
+  place: '',
+  date: null,
+  time: '2–4 hrs',
+  pace: 'Moderate',
+  preferences: [],
+}
 
 // Every journey's detours.
 const ALL_DETOURS = ALL_JOURNEYS.flatMap((journey) => journey.route.flatMap((stop) => stop.detours ?? []))
@@ -137,7 +148,8 @@ function whereLeftOff(progress) {
 
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
-  // "findMood", "findWho", "findDetails", "findMatches", "completedJourneys",
+  // "findMood", "findWho", "findDetails", "findPreferences", "findMatches",
+  // "completedJourneys",
   // "likedJourneys", "search", "seeJourney", any of the JOURNEY_PAGES above,
   // "memory" or "survey".
   const [page, setPage] = useState('home')
@@ -598,14 +610,33 @@ function App() {
         onBack={() => setPage('findDetails')}
       />
     )
+  } else if (page === 'findPreferences') {
+    const { preferences } = findAnswers
+    content = (
+      <PreferencesPage
+        chosen={preferences}
+        onToggle={(name) =>
+          setFindAnswers({
+            ...findAnswers,
+            preferences: preferences.includes(name)
+              ? preferences.filter((each) => each !== name)
+              : [...preferences, name],
+          })
+        }
+        onDone={() => setPage('findDetails')}
+        onBack={() => setPage('findDetails')}
+      />
+    )
   } else if (page === 'findDetails') {
     content = (
       <DetailsPage
+        journeys={ALL_JOURNEYS}
         answers={findAnswers}
         onAnswer={(change) => setFindAnswers({ ...findAnswers, ...change })}
+        onMore={() => setPage('findPreferences')}
         onFind={seeMatches}
         onSkip={() => {
-          setFindAnswers({ ...findAnswers, time: null, pace: null, preferences: [] })
+          setFindAnswers({ ...findAnswers, place: '', date: null, time: null, pace: null, preferences: [] })
           seeMatches()
         }}
         onBack={() => setPage('findWho')}

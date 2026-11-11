@@ -15,7 +15,7 @@
 // Change this (to "2", "3"...) to throw away everything saved on people's
 // phones and start again, like after changing an icon or the manifest, which
 // keep their names.
-const CACHE_VERSION = '3'
+const CACHE_VERSION = '4'
 const CACHE_NAME = `unfold-${CACHE_VERSION}`
 
 // Where the app lives: "/globe-focused-journey-prototype/" on GitHub Pages,

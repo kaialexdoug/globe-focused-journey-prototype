@@ -157,7 +157,10 @@ export default {
   match: {
     moods: { Peaceful: 75, Adventurous: 65, Romantic: 65, Curious: 70, Playful: 55, Cultural: 50 },
     with: { Solo: 75, Couple: 85, Family: 85, 'Friends / Group': 80 },
-    preferences: { 'Pet friendly': 70, 'Avoid alcohol': 70, 'More nature': 80, 'Food stops': 60 },
+    preferences: {
+      'Pet friendly': 70, 'Avoid alcohol': 70, 'More nature': 80, 'Food stops': 60,
+      Coastal: 85, 'More urban': 45, 'Hiking involved': 30, 'Budget friendly': 65,
+    },
   },
   description: [
     'Duluth sits at the very tip of Lake Superior, and the lake is in everything here: the ships, the weather, the way the whole city leans toward the water. This journey starts down on the waterfront, follows the shore, and climbs to a view that puts it all together, then brings you back down to the sand to end the day.',

@@ -802,15 +802,6 @@ button:focus-visible {
   letter-spacing: 0;
 }
 
-/* UNFOLD beside the logo, in the serif of the mockup, spaced out. */
-.stepBar .title {
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  color: var(--night);
-}
-
 .stepCount {
   margin-top: 14px;
   font-size: 12px;
@@ -819,8 +810,8 @@ button:focus-visible {
   color: var(--night);
 }
 
-/* A bar for each step, right across the page: orange up to the one you're
-   on, as in the mockup. */
+/* A bar for each step, right across the page, as in the mockups: teal for
+   the ones you've done, orange for the one you're on. */
 .stepProgress {
   display: flex;
   gap: 6px;
@@ -835,6 +826,10 @@ button:focus-visible {
 }
 
 .stepProgress span.isDone {
+  background-color: var(--find-teal);
+}
+
+.stepProgress span.isCurrent {
   background-color: var(--find-orange);
 }
 
@@ -869,7 +864,8 @@ button:focus-visible {
 
 /* In step with the width of the screen, so "How do you want to" stays on one
    line, as in the mockup. */
-.moodPage .stepTitle {
+.moodPage .stepTitle,
+.whoPage .stepTitle {
   font-size: min(31px, 7.95vw);
   font-weight: 700;
   line-height: 1.1;
@@ -996,23 +992,83 @@ button:focus-visible {
   }
 }
 
-/* Step 2's cards (PictureCard in FindMyJourney.jsx). The picture fills the
-   card and fades away towards the bottom, into the white of the card, for the
-   words and the arrow to sit on. */
-.moodCard {
+/* --- Step 2, who's coming (CompanionPage in FindMyJourney.jsx), after its
+   mockup ---
+   On white, with the origami family behind the right of the heading, then
+   four white cards, each with its symbol, its name and who it means, and an
+   arrow in the corner. Tapping one goes straight on to step 3. */
+
+/* A little less room under the cards, so they reach nearly to the navbar. */
+.whoPage {
+  padding-bottom: 16px;
+  background-color: white;
+}
+
+/* The heading, with the picture behind it: as wide as most of the screen,
+   right up to its edge, its top just under the progress bar. Its own fade to
+   white on the left and top keeps the words clear. */
+.whoHero {
+  position: relative;
+  isolation: isolate;
+}
+
+/* The step and its bar always over the picture, should they ever meet. */
+.whoPage .stepCount,
+.whoPage .stepProgress {
+  position: relative;
+  z-index: 1;
+}
+
+.whoHeroArt {
+  position: absolute;
+  z-index: -1;
+  top: -12px;
+  right: -22px;
+  width: min(342px, 88vw);
+  height: auto;
+  pointer-events: none;
+  /* Its edges faded out, so it melts into the white: the left, the bottom,
+     and gently along the top, under the progress bar. */
+  --fade-left: linear-gradient(to right, transparent, black 22%);
+  --fade-top-bottom: linear-gradient(to bottom, transparent, black 16%, black 68%, transparent 96%);
+  -webkit-mask-image: var(--fade-left), var(--fade-top-bottom);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--fade-left), var(--fade-top-bottom);
+  mask-composite: intersect;
+}
+
+.whoPage .stepText {
+  margin-top: 26px;
+  font-size: 16.5px;
+  line-height: 1.37;
+  color: rgb(80, 88, 109);
+}
+
+/* Below the picture's people, so the cards start where it fades out. They
+   share out the height that's left, down to the navbar, but never get
+   shorter than the mockup's; on a short screen the page scrolls instead. */
+.whoChoices {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(116px, auto);
+  gap: 12px 11px;
+  margin: 56px -4px 0;
+}
+
+.whoChoice {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  aspect-ratio: 0.78;
-  padding: 0 44px 13px 13px;
-  overflow: hidden;
-  isolation: isolate;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
   background-color: white;
-  border: none;
+  border: 1px solid rgba(12, 23, 43, 0.07);
   border-radius: 14px;
-  box-shadow: 0 2px 10px rgba(12, 23, 43, 0.1);
-  text-align: left;
+  box-shadow: 0 2px 8px rgba(12, 23, 43, 0.07);
+  text-align: center;
   cursor: pointer;
   transition: transform 0.15s ease;
   /* Each its own beat after the page, one after another. "backwards" rather
@@ -1021,190 +1077,517 @@ button:focus-visible {
   animation-delay: calc(var(--i, 0) * 70ms + 120ms);
 }
 
-.moodCard:active {
+.whoChoice:active {
   transform: scale(0.98);
 }
 
-.moodCard img {
-  --fade: linear-gradient(to bottom, black 42%, rgba(0, 0, 0, 0.18) 60%, transparent 72%);
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  -webkit-mask-image: var(--fade);
-  mask-image: var(--fade);
+/* The symbol: the same height for each, wider for more people. */
+.whoFigure {
+  flex-shrink: 0;
+  width: auto;
+  height: 36px;
+  color: var(--night);
 }
 
-.moodName {
+.whoChoiceName {
+  margin-top: 12px;
   font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 21px;
-  line-height: 1.2;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.15;
   letter-spacing: 0;
   white-space: nowrap;
   color: var(--night);
 }
 
-.moodArrow {
+.whoChoiceAbout {
+  margin-top: 3px;
+  font-size: 14px;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: rgb(80, 88, 109);
+}
+
+/* The arrow, in the corner, in the deep teal of the app's buttons. */
+.whoChoiceArrow {
   position: absolute;
   right: 9px;
-  bottom: 11px;
+  bottom: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--unfold-blue);
+  color: white;
+}
+
+.whoChoiceArrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* So "Friends / Group" still fits on one line on the narrowest phones. */
+@media (max-width: 350px) {
+  .whoChoiceName {
+    font-size: 16px;
+  }
+
+  .whoChoiceAbout {
+    font-size: 12.5px;
+  }
+}
+
+/* --- Step 3, Make it yours (DetailsPage in FindMyJourney.jsx), after its
+   mockup ---
+   On white, with the pagoda to the right of the heading. Then two bars, where
+   you're going and when, the two questions as rows of cards, a bar into
+   Anything else? (PreferencesPage), and the button to find your journeys. */
+
+.detailsPage {
+  background-color: white;
+}
+
+/* The step and its bar always over the picture, should they ever meet. */
+.detailsPage .stepCount,
+.detailsPage .stepProgress {
+  position: relative;
+  z-index: 1;
+}
+
+.detailsHero {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Right up to the edge of the screen, its top just under the progress bar,
+   fading out to the left and along the bottom so the words stay clear. */
+.detailsHeroArt {
+  position: absolute;
+  z-index: -1;
+  top: 3px;
+  right: -17px;
+  width: min(140px, 36vw);
+  height: auto;
+  pointer-events: none;
+  --fade-left: linear-gradient(to right, transparent, black 30%);
+  --fade-bottom: linear-gradient(to bottom, black 70%, transparent);
+  -webkit-mask-image: var(--fade-left), var(--fade-bottom);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--fade-left), var(--fade-bottom);
+  mask-composite: intersect;
+}
+
+/* As wide as the mockup's, which leaves room for the pagoda. */
+.detailsPage .stepTitle {
+  margin-top: 20px;
+  font-size: min(35px, 9vw);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.8px;
+}
+
+.detailsPage .stepText {
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 18px;
+  color: rgb(38, 46, 66);
+}
+
+/* Where to? and When are you going?, a little wider than the words. Over what
+   comes after, so the suggestions open on top of it. */
+.detailBars {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 26px -6px 0;
+}
+
+/* A white bar with a symbol at the start: these two, and Anything else?. */
+.detailBar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 40px;
+  margin: 0;
+  padding: 0 11px 0 14px;
+  background-color: white;
+  border: 1px solid rgba(12, 23, 43, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(12, 23, 43, 0.06);
+  font-size: 15px;
+  letter-spacing: 0;
+  text-align: left;
+  color: var(--night);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+button.detailBar:active {
+  transform: scale(0.99);
+}
+
+.detailBarIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+/* --- Where to? --- */
+
+.placeField {
+  position: relative;
+}
+
+.placeBar {
+  cursor: text;
+}
+
+.placeBar:focus-within {
+  border-color: rgba(12, 23, 43, 0.28);
+}
+
+.placeInput {
+  flex: 1;
+  min-width: 0;
+  height: 38px;
+  padding: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font: inherit;
+  letter-spacing: 0;
+  color: var(--night);
+}
+
+.placeInput::placeholder {
+  color: var(--find-violet);
+  opacity: 1;
+}
+
+/* The magnifying glass a little smaller than the pin, as in the mockup. */
+.placeSearchIcon {
+  width: 22px;
+  height: 22px;
+}
+
+.placeClear {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-right: -3px;
+  padding: 0;
+  background-color: rgba(12, 23, 43, 0.06);
+  border: none;
+  border-radius: 50%;
+  color: var(--night);
+  cursor: pointer;
+}
+
+.placeClear svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+/* The places to pick from, in a box that opens just under the bar, over
+   everything below it. */
+.placeSuggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: 0;
+  z-index: 3;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background-color: white;
+  border: 1px solid rgba(12, 23, 43, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(12, 23, 43, 0.16);
+  animation: fadeIn 0.15s ease both;
+}
+
+.placeSuggestion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.placeSuggestion:hover,
+.placeSuggestion.isActive {
+  background-color: var(--choice-peach);
+}
+
+.placeSuggestionIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--unfold-orange);
+}
+
+.placeSuggestionWords {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.placeSuggestionName {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--night);
+}
+
+.placeSuggestionWithin,
+.placeSuggestionCount {
+  font-size: 12.5px;
+  line-height: 1.3;
+  color: var(--find-violet);
+}
+
+.placeSuggestionCount {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.placeNowhere {
+  padding: 8px 10px;
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: rgb(80, 88, 109);
+}
+
+/* --- When are you going? --- */
+
+.whenBar {
+  padding-right: 6px;
+  padding-left: 13px;
+}
+
+.whenLabel {
+  flex: 1;
+  font-weight: 600;
+}
+
+.whenValue {
+  color: var(--find-now);
+}
+
+.whenChevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+}
+
+/* The calendar, in a box over the whole phone (it uses the app's modalScrim
+   behind it). */
+.calendarBox {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 340px;
+  padding: 16px 16px 14px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  text-align: left;
+  outline: none;
+  animation: fadeUp 0.3s ease both;
+}
+
+.calendarTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.calendarTitle {
+  margin: 0;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--night);
+}
+
+.calendarClose {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  color: white;
+  margin-right: -6px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--night);
+  cursor: pointer;
 }
 
-.moodArrow svg {
-  width: 17px;
-  height: 17px;
+.calendarClose svg {
+  width: 20px;
+  height: 20px;
 }
 
-/* The narrowest phones, so the longest words still clear the arrow. */
-@media (max-width: 350px) {
-  .moodName {
-    font-size: 18px;
-  }
-
-  .moodArrow {
-    right: 7px;
-    width: 26px;
-    height: 26px;
-  }
-
-  .moodArrow svg {
-    width: 14px;
-    height: 14px;
-  }
+.calendarMonth {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
 }
 
-/* Step 2's four cards share out whatever height there is below the words, down
-   to the bottom of the screen. On a short screen they stop shrinking, and the
-   page scrolls. */
-.whoCards {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: minmax(190px, auto);
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.whoCard {
-  aspect-ratio: auto;
-  padding: 0 13px 18px;
-}
-
-/* The pictures are nearly square, with the people low down in them, so each
-   stops short of the bottom of its card: that keeps the people clear of the
-   words. It fades over a fixed distance, to be nearly gone where the words
-   start (they're about 88px tall), however tall the card is. */
-.whoCard img {
-  --fade: linear-gradient(
-    to bottom,
-    black calc(100% - 55px),
-    rgba(0, 0, 0, 0.25) calc(100% - 21px),
-    transparent 100%
-  );
-  bottom: auto;
-  height: calc(100% - 67px);
-}
-
-.whoIcon {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  margin-bottom: 3px;
+.calendarMonth p {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
   color: var(--night);
 }
 
-.whoCard .moodName {
-  font-size: 20px;
+.calendarStep {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background-color: white;
+  border: 1px solid rgba(12, 23, 43, 0.12);
+  border-radius: 50%;
+  color: var(--night);
+  cursor: pointer;
 }
 
-.whoAbout {
-  margin-top: 1px;
-  font-size: 13px;
-  line-height: 1.35;
-  letter-spacing: 0;
-  white-space: nowrap;
-  color: rgba(12, 23, 43, 0.72);
+.calendarStep:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
-/* Smaller here, to clear "Friends / Group", which runs right across its card. */
-.whoCard .moodArrow {
-  right: 8px;
-  bottom: 8px;
-  width: 28px;
-  height: 28px;
+.calendarStep svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
 }
 
-.whoCard .moodArrow svg {
-  width: 15px;
-  height: 15px;
+.calendarStep .isBack {
+  transform: scaleX(-1);
 }
 
-/* Step 3's questions, each with a row of small cards. The three rows share out
-   the height between the words and the button, up to a limit, so that the cards
-   are taller on a taller screen, as on the mockup. */
-.detailQuestion {
-  flex: 1 1 auto;
+.calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px 2px;
+  margin-top: 12px;
+}
+
+.calendarWeekday {
+  padding-bottom: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  color: var(--find-violet);
+}
+
+.calendarDay {
   display: flex;
   flex-direction: column;
-  max-height: 190px;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-size: 15px;
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: var(--night);
+  cursor: pointer;
 }
 
+.calendarDay:disabled {
+  color: rgba(12, 23, 43, 0.22);
+  cursor: default;
+}
+
+.calendarDay.isToday {
+  font-weight: 700;
+  color: var(--find-now);
+}
+
+.calendarNow {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.calendarDay.isPicked {
+  background-color: var(--choice-peach);
+  border-color: var(--choice-edge);
+}
+
+/* --- The two questions --- */
+
 .detailQuestion h2 {
-  margin: 20px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin: 12px 0 0;
   font-family: inherit;
-  font-size: 17px;
-  font-weight: 400;
+  font-size: 16.5px;
+  font-weight: 600;
   line-height: 1.3;
   letter-spacing: 0;
   color: var(--night);
 }
 
-/* With a gap above the button, which sits at the bottom of the screen. */
-.detailQuestion:last-of-type {
-  margin-bottom: 18px;
+.detailQuestionIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
 }
 
-.detailOptional {
-  color: rgba(12, 23, 43, 0.6);
-}
-
+/* A little wider than the words, as in the mockup. */
 .detailCards {
-  flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  margin-top: 10px;
-}
-
-.detailCards.isFour {
-  grid-template-columns: repeat(4, 1fr);
+  margin: 10px -3px 0;
 }
 
 .detailCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-width: 0;
-  padding: 11px 3px;
-  background-color: var(--surface-low);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  min-height: 70px;
+  padding: 5px 4px;
+  background-color: white;
+  border: 1px solid rgba(12, 23, 43, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(12, 23, 43, 0.05);
   color: var(--night);
   cursor: pointer;
   transition:
     background-color 0.15s ease,
     border-color 0.15s ease,
-    color 0.15s ease,
     transform 0.15s ease;
   /* In one after another, like the cards on the steps before. */
   animation: fadeUp 0.5s ease backwards;
@@ -1216,52 +1599,143 @@ button:focus-visible {
 }
 
 .detailCard.isChosen {
-  background-color: var(--unfold-green);
-  border-color: var(--unfold-green);
+  background-color: var(--choice-peach);
+  border-color: var(--choice-edge);
+}
+
+/* The orange tick in the top corner of what's picked. */
+.detailCheck {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  background-color: var(--unfold-orange);
+  border-radius: 50%;
   color: white;
+  animation: popIn 0.2s ease both;
+}
+
+.detailCheck svg {
+  width: 12px;
+  height: 12px;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .detailIcon {
   flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  margin-bottom: 7px;
+  width: 28px;
+  height: 28px;
+  margin-bottom: 3px;
 }
 
 .detailName {
-  font-size: 15px;
-  line-height: 1.25;
+  font-size: 16.5px;
+  line-height: 1.2;
   letter-spacing: 0;
 }
 
+/* What's under each pace, on two lines, where the mockup breaks them. */
 .detailAbout {
-  margin-top: 1px;
-  font-size: 12px;
-  line-height: 1.25;
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.12;
   letter-spacing: 0;
-  white-space: nowrap;
-  opacity: 0.72;
+  white-space: pre-line;
+  color: rgb(52, 60, 82);
 }
 
-/* As narrow as their longest word, so each word gets its own line. */
-.detailCards.isFour .detailName {
-  width: min-content;
-  font-size: 13px;
-  text-align: center;
+/* --- Anything else? --- */
+
+/* Stretched across, rather than 100% wide, so it reaches past the words
+   like the bars above. */
+.moreBar {
+  width: auto;
+  gap: 12px;
+  min-height: 60px;
+  margin: 14px -6px 0;
+  padding: 9px 8px 9px 15px;
+  border-radius: 16px;
 }
 
+.moreIcon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+}
+
+.moreWords {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.moreTitle {
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 18.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--night);
+}
+
+.moreOptional {
+  margin-left: 3px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--find-violet);
+}
+
+.moreAbout {
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--find-violet);
+}
+
+/* What's been picked, in place of the examples. */
+.moreAbout.isPicked {
+  font-weight: 600;
+  color: var(--find-orange);
+}
+
+.moreChevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+}
+
+/* Find My Journeys, and Done on Anything else?: deep blue, with the words in
+   the serif and the arrow in orange. */
 .stepFind {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   height: 50px;
-  margin-top: auto;
-  background-color: var(--unfold-green);
+  margin: 26px -8px 0;
+  background-color: var(--unfold-blue);
   border: none;
   border-radius: 999px;
-  font-size: 17px;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 22px;
+  font-weight: 600;
   letter-spacing: 0;
   color: white;
   cursor: pointer;
@@ -1269,12 +1743,89 @@ button:focus-visible {
 }
 
 .stepFind svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
+  color: var(--unfold-orange);
+  stroke-width: 2.2;
 }
 
 .stepFind:active {
   transform: scale(0.98);
+}
+
+/* On the narrowest phones, a little smaller, so When are you going? and a
+   day still fit on one line, what's under each pace keeps to two, and the
+   words under the title stay clear of the pagoda. */
+@media (max-width: 350px) {
+  .detailsPage .stepText {
+    font-size: 13.5px;
+    line-height: 17px;
+  }
+
+  .detailBar {
+    gap: 7px;
+    font-size: 14px;
+  }
+
+  .whenBar {
+    padding-left: 11px;
+  }
+
+  .detailCard {
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+
+  .detailAbout {
+    font-size: 11px;
+  }
+
+  .moreAbout {
+    font-size: 11.5px;
+  }
+}
+
+/* --- Anything else? (PreferencesPage), from step 3 ---
+   Laid out like Liked Journeys: back, the logo, a title, then the
+   preferences as cards in two columns, any number picked, and Done. */
+
+.preferencesPage .stepTitle {
+  margin-top: 16px;
+}
+
+.preferenceCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 22px -4px 0;
+}
+
+.preferenceCards .detailCard {
+  min-height: 96px;
+  padding: 10px 8px;
+  border-radius: 14px;
+}
+
+.preferenceCards .detailIcon {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 8px;
+}
+
+.preferenceCards .detailName {
+  font-size: 16px;
+}
+
+/* On Journeys for You, when where you're going has no journeys yet. */
+.matchesNote {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background-color: var(--choice-peach);
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--night);
 }
 
 /* Journeys for You: a list of photo cards, as wide as the page. */
@@ -1572,19 +2123,6 @@ button:focus-visible {
   .matchFacts svg {
     width: 14px;
     height: 14px;
-  }
-}
-
-/* So "Friends / Group" still fits on one line on narrower phones. */
-@media (max-width: 380px) {
-  .whoCard .moodName {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 350px) {
-  .whoCard .moodName {
-    font-size: 16px;
   }
 }
 
@@ -4161,9 +4699,12 @@ button:focus-visible {
   .homePage,
   .findPage,
   .stepPage,
-  .moodCard,
   .moodChoice,
+  .whoChoice,
   .detailCard,
+  .detailCheck,
+  .placeSuggestions,
+  .calendarBox,
   .matchCard,
   .photoScreen,
   .surveyPage,

@@ -165,16 +165,72 @@ export function ArrowRightIcon({ className }) {
   )
 }
 
-// Who's joining, on Find My Journey: on your own, as a couple, as a family (two
-// adults, with a child between them holding their hands), or with friends (one
-// in front, with two behind).
+// Who's joining, on Find My Journey, drawn after its mockup: people as a head
+// over shoulders, all the same height (32), wider for more people. On your
+// own, or as a couple (the second just behind the first), each with a line
+// along the bottom; as a family (two grown-ups with a child between them) or
+// with friends (one in the middle, with two just behind), open at the bottom.
+
+function Figure({ className, width, children }) {
+  return (
+    <svg
+      className={className}
+      viewBox={`0 0 ${width} 32`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  )
+}
 
 export function SoloIcon({ className }) {
   return (
-    <Icon className={className}>
-      <circle cx="12" cy="7.5" r="3.7" />
-      <path d="M5 20.5c0-4.2 3-6.7 7-6.7s7 2.5 7 6.7z" />
-    </Icon>
+    <Figure className={className} width={32}>
+      <circle cx="16" cy="8.5" r="5.4" />
+      <path d="M4 28A12 12 0 0 1 28 28Z" />
+    </Figure>
+  )
+}
+
+export function CoupleIcon({ className }) {
+  return (
+    <Figure className={className} width={52}>
+      <circle cx="16" cy="8.5" r="5.4" />
+      <path d="M4 28A12 12 0 0 1 28 28Z" />
+      <circle cx="36" cy="8.5" r="5.4" />
+      <path d="M27.3 19.7A12 12 0 0 1 48 28H30.5" />
+    </Figure>
+  )
+}
+
+export function FamilyIcon({ className }) {
+  return (
+    <Figure className={className} width={60}>
+      <circle cx="13" cy="7.5" r="5" />
+      <path d="M3 30A10 14.5 0 0 1 20.7 21.2" />
+      <circle cx="47" cy="7.5" r="5" />
+      <path d="M57 30A10 14.5 0 0 0 39.3 21.2" />
+      <circle cx="30" cy="18.4" r="3.6" />
+      <path d="M22.5 30A7.5 7.5 0 0 1 37.5 30" />
+    </Figure>
+  )
+}
+
+export function GroupIcon({ className }) {
+  return (
+    <Figure className={className} width={56}>
+      <circle cx="28" cy="7" r="5" />
+      <path d="M18 30A10 14.5 0 0 1 38 30" />
+      <circle cx="11.5" cy="12.5" r="4.2" />
+      <path d="M3 30A8.5 10.5 0 0 1 17.5 22.6" />
+      <circle cx="44.5" cy="12.5" r="4.2" />
+      <path d="M53 30A8.5 10.5 0 0 0 38.5 22.6" />
+    </Figure>
   )
 }
 
@@ -186,29 +242,6 @@ export function HeartIcon({ className }) {
   )
 }
 
-export function FamilyIcon({ className }) {
-  return (
-    <Icon className={className}>
-      <circle cx="6" cy="4.8" r="2.1" />
-      <circle cx="18" cy="4.8" r="2.1" />
-      <path d="M2.8 14v-2.5A3.2 3.2 0 0 1 6 8.3a3.2 3.2 0 0 1 3.2 3.2V14M14.8 14v-2.5A3.2 3.2 0 0 1 18 8.3a3.2 3.2 0 0 1 3.2 3.2V14" />
-      <path d="M4.6 12v9M7.4 12v9M16.6 12v9M19.4 12v9" />
-      <circle cx="12" cy="12" r="1.5" />
-      <path d="M9.2 14l2.8 1.8 2.8-1.8M12 15.8V21" />
-    </Icon>
-  )
-}
-
-export function GroupIcon({ className }) {
-  return (
-    <Icon className={className}>
-      <circle cx="12" cy="8.2" r="3.3" />
-      <path d="M5.6 20.5c0-3.9 2.7-6.2 6.4-6.2s6.4 2.3 6.4 6.2" />
-      <path d="M6.9 4.9a2.7 2.7 0 0 0-.4 5.4M17.1 4.9a2.7 2.7 0 0 1 .4 5.4" />
-      <path d="M1.5 18c0-3 1.5-4.9 4-5.4M22.5 18c0-3-1.5-4.9-4-5.4" />
-    </Icon>
-  )
-}
 
 // Your pace, on Find My Journey: upright with a short step, then leaning in with
 // a longer stride and swinging arms, then running with the back leg kicked up.
@@ -295,6 +328,79 @@ export function BurgerIcon({ className }) {
       <path d="M8.5 7.7h.01M12 6.9h.01M15.5 7.7h.01" strokeWidth="2" />
       <path d="M2.8 14.3h18.4" />
       <path d="M4 17.8h16c0 1.6-1.1 2.7-2.6 2.7H6.6c-1.5 0-2.6-1.1-2.6-2.7z" />
+    </Icon>
+  )
+}
+
+// A beach umbrella over the waves.
+export function BeachIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3.5 10.5C4 6 7.6 3 12 3s8 3 8.5 7.5c-1.4-1-2.9-1-4.25 0-1.4-1-2.9-1-4.25 0-1.4-1-2.9-1-4.25 0-1.4-1-2.9-1-4.25 0z" />
+      <path d="M12 10.5v7.5" />
+      <path d="M2.5 20.5q2.4-1.6 4.75 0t4.75 0 4.75 0 4.75 0" />
+    </Icon>
+  )
+}
+
+// Three buildings, the middle one tallest.
+export function CityIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M2.5 21h19" />
+      <path d="M4.5 21V10.5h5M9.5 21V3.5h6.5V21M16 12.5h3.5V21" />
+      <path d="M12.3 7h1M12.3 10.5h1M12.3 14h1M6.6 14h.9M6.6 17.3h.9M17.3 16h.4" strokeWidth="2" />
+    </Icon>
+  )
+}
+
+// A mountain with snow on top, drawn in outline like the others here (the
+// solid MountainIcon is for a scenic journey).
+export function HikingIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M2 20 9 7.5l4 6.9 2.6-4L22 20z" />
+      <path d="M6.8 11.4 8.6 12.7l1.8-1.4" />
+    </Icon>
+  )
+}
+
+export function DollarIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M12 2.5v19" />
+      <path d="M16.6 7.3c-.9-1.3-2.5-1.9-4.6-1.9-2.6 0-4.4 1.3-4.4 3.2 0 4.5 9 2.6 9 7.1 0 2-1.9 3.3-4.6 3.3-2.2 0-3.9-.7-4.9-2.1" />
+    </Icon>
+  )
+}
+
+// Step 3 of Find My Journey, after its mockup: a calendar for when you're
+// going, sliders for anything else, and the tick on what's picked.
+
+export function CalendarIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+      <path d="M3.5 9.5h17M8 3v4M16 3v4" />
+      <path d="M7.6 13.2h.9M11.6 13.2h.9M15.6 13.2h.9M7.6 16.6h.9M11.6 16.6h.9M15.6 16.6h.9" strokeWidth="2" />
+    </Icon>
+  )
+}
+
+export function SlidersIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M2.5 8h10M17.5 8h4M2.5 16h4M11.5 16h10" />
+      <circle cx="15" cy="8" r="2.5" />
+      <circle cx="9" cy="16" r="2.5" />
+    </Icon>
+  )
+}
+
+export function CheckIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="m5.5 12.5 4.2 4.2 8.8-9.4" strokeWidth="2.8" />
     </Icon>
   )
 }

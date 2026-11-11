@@ -2,7 +2,7 @@ import { APP_LOGO, APP_NAME } from './config.js'
 
 // The app's name at the top of every screen, with its logo: the origami
 // fold with the path running through it, on its own (the app's icon on a
-// phone's home screen has it on a navy tile). (It used to say JAPAN
+// phone's home screen has it on a white tile). (It used to say JAPAN
 // underneath, until there were journeys elsewhere.)
 function Header() {
   return (

@@ -165,7 +165,10 @@ export default {
   match: {
     moods: { Peaceful: 35, Adventurous: 40, Romantic: 90, Curious: 70, Playful: 80, Cultural: 55 },
     with: { Solo: 65, Couple: 95, Family: 75, 'Friends / Group': 90 },
-    preferences: { 'Pet friendly': 45, 'Avoid alcohol': 60, 'More nature': 25, 'Food stops': 90 },
+    preferences: {
+      'Pet friendly': 45, 'Avoid alcohol': 60, 'More nature': 25, 'Food stops': 90,
+      Coastal: 85, 'More urban': 90, 'Hiking involved': 10, 'Budget friendly': 65,
+    },
   },
   description: [
     'Yokohama grew up around its harbor, and this journey keeps the water in view nearly the whole way. It starts with food and noise in Chinatown, climbs to a quiet view over the bay, and saves the best part for the end of the day, when the lights come on across the harbor.',

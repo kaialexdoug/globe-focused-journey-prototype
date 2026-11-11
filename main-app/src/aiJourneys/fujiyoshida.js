@@ -151,7 +151,10 @@ export default {
   match: {
     moods: { Peaceful: 70, Adventurous: 70, Romantic: 80, Curious: 60, Playful: 35, Cultural: 70 },
     with: { Solo: 80, Couple: 90, Family: 65, 'Friends / Group': 80 },
-    preferences: { 'Pet friendly': 30, 'Avoid alcohol': 90, 'More nature': 85, 'Food stops': 55 },
+    preferences: {
+      'Pet friendly': 30, 'Avoid alcohol': 90, 'More nature': 85, 'Food stops': 55,
+      Coastal: 15, 'More urban': 25, 'Hiking involved': 55, 'Budget friendly': 80,
+    },
   },
   description: [
     'In Fujiyoshida, Mount Fuji isn’t a distant view. It’s right there, at the end of the main street and over the rooftops. This journey walks you through the town at its foot, climbs to the pagoda that frames it best, and ends by the lake, where on a still evening you get the mountain twice.',

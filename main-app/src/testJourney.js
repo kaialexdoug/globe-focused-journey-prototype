@@ -288,7 +288,10 @@ export default {
   match: {
     moods: { Peaceful: 70, Adventurous: 30, Romantic: 50, Curious: 70, Playful: 40, Cultural: 80 },
     with: { Solo: 90, Couple: 75, Family: 60, 'Friends / Group': 70 },
-    preferences: { 'Pet friendly': 40, 'Avoid alcohol': 85, 'More nature': 50, 'Food stops': 40 },
+    preferences: {
+      'Pet friendly': 40, 'Avoid alcohol': 85, 'More nature': 50, 'Food stops': 40,
+      Coastal: 5, 'More urban': 80, 'Hiking involved': 5, 'Budget friendly': 95,
+    },
   },
   description: [
     'Long before the students came, this corner of Tokyo was the edge of Edo. There was a riding ground here, and in 1694 a young swordsman ran across the city to stand beside his uncle in a duel on it, and walked away a legend. Down by the river, Bashō, the great haiku poet, is said to have spent a few years working on the city’s water supply.',

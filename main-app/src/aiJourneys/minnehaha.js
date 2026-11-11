@@ -150,7 +150,10 @@ export default {
   match: {
     moods: { Peaceful: 80, Adventurous: 45, Romantic: 65, Curious: 50, Playful: 70, Cultural: 45 },
     with: { Solo: 70, Couple: 80, Family: 95, 'Friends / Group': 75 },
-    preferences: { 'Pet friendly': 85, 'Avoid alcohol': 90, 'More nature': 80, 'Food stops': 40 },
+    preferences: {
+      'Pet friendly': 85, 'Avoid alcohol': 90, 'More nature': 80, 'Food stops': 40,
+      Coastal: 5, 'More urban': 45, 'Hiking involved': 35, 'Budget friendly': 95,
+    },
   },
   description: [
     'It’s not every city that has a waterfall in it. Minnehaha Falls is a short train ride from downtown Minneapolis, and it comes with a story: a famous poem, a poet who never visited, and a park full of the traces it left behind. This is a short journey, easy enough for a whole family, with the falls right at its heart.',
