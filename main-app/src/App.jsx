@@ -20,6 +20,9 @@ import {
   CompletedJourneysPage,
   LikedJourneysPage,
   ProfilePage,
+  InterestsPage,
+  TravelPreferencesPage,
+  SettingsPage,
   SaveProgressPrompt,
   SaveExitPrompt,
   ExitCurrentPrompt,
@@ -49,7 +52,12 @@ import {
   withJourneyStarted,
   withJourneyCompleted,
 } from './profileStore'
+import { preloadImages } from './preloadImages.js'
 import './App.css'
+
+// Find My Journey's picture, fetched as soon as the app's open, so it's there
+// the moment you tap Find.
+preloadImages([findPicture])
 
 // The prototype follows the flow chart:
 //   your journey → Departure → Discovery → Build, with optional detours
@@ -98,6 +106,9 @@ const NAVBAR_TAB_OF = {
   search: 'home',
   completedJourneys: 'myJourneys',
   likedJourneys: 'myJourneys',
+  profileInterests: 'profile',
+  profilePreferences: 'profile',
+  settings: 'profile',
 }
 
 // Which tab is lit on a page, or null for none (a journey under way, and the
@@ -149,7 +160,7 @@ function whereLeftOff(progress) {
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
   // "findMood", "findWho", "findDetails", "findPreferences", "findMatches",
-  // "completedJourneys",
+  // "profileInterests", "profilePreferences", "settings", "completedJourneys",
   // "likedJourneys", "search", "seeJourney", any of the JOURNEY_PAGES above,
   // "memory" or "survey".
   const [page, setPage] = useState('home')
@@ -374,9 +385,44 @@ function App() {
     content = (
       <ProfilePage
         profile={profile}
+        journeys={ALL_JOURNEYS}
         onCreateProfile={createProfile}
         onRename={(name) => setProfile({ ...profile, name })}
-        onDelete={deleteProfile}
+        onOpenInterests={() => setPage('profileInterests')}
+        onOpenPreferences={() => setPage('profilePreferences')}
+        onOpenSettings={() => setPage('settings')}
+      />
+    )
+  } else if (page === 'profileInterests' || page === 'profilePreferences') {
+    // Both kept on the profile, as lists of names. Older profiles don't have
+    // them yet.
+    const list = page === 'profileInterests' ? 'interests' : 'preferences'
+    const PickPage = page === 'profileInterests' ? InterestsPage : TravelPreferencesPage
+    content = (
+      <PickPage
+        chosen={profile?.[list] ?? []}
+        onToggle={(name) =>
+          setProfile((current) => {
+            const chosen = current[list] ?? []
+            return {
+              ...current,
+              [list]: chosen.includes(name) ? chosen.filter((each) => each !== name) : [...chosen, name],
+            }
+          })
+        }
+        onDone={() => setPage('profile')}
+        onBack={() => setPage('profile')}
+      />
+    )
+  } else if (page === 'settings') {
+    content = (
+      <SettingsPage
+        profile={profile}
+        onDelete={() => {
+          deleteProfile()
+          setPage('profile')
+        }}
+        onBack={() => setPage('profile')}
       />
     )
   } else if (page === 'myJourneys') {
@@ -611,17 +657,18 @@ function App() {
       />
     )
   } else if (page === 'findPreferences') {
-    const { preferences } = findAnswers
     content = (
       <PreferencesPage
-        chosen={preferences}
+        chosen={findAnswers.preferences}
+        // From the answers as they are at that moment, so taps in quick
+        // succession all count.
         onToggle={(name) =>
-          setFindAnswers({
-            ...findAnswers,
-            preferences: preferences.includes(name)
-              ? preferences.filter((each) => each !== name)
-              : [...preferences, name],
-          })
+          setFindAnswers((answers) => ({
+            ...answers,
+            preferences: answers.preferences.includes(name)
+              ? answers.preferences.filter((each) => each !== name)
+              : [...answers.preferences, name],
+          }))
         }
         onDone={() => setPage('findDetails')}
         onBack={() => setPage('findDetails')}
@@ -632,7 +679,7 @@ function App() {
       <DetailsPage
         journeys={ALL_JOURNEYS}
         answers={findAnswers}
-        onAnswer={(change) => setFindAnswers({ ...findAnswers, ...change })}
+        onAnswer={(change) => setFindAnswers((answers) => ({ ...answers, ...change }))}
         onMore={() => setPage('findPreferences')}
         onFind={seeMatches}
         onSkip={() => {
@@ -1030,19 +1077,6 @@ function SeeJourneyPage({
 
       <div className="divider sectionBreak"></div>
 
-      {/* Right before BEGIN, so it's the last thing read before setting off. */}
-      {journey.aiMade && (
-        <div className="aiNote">
-          <p className="startCardLabel">
-            <AiBadge /> NOT YET VERIFIED
-          </p>
-          <p className="aiNoteText">
-            This journey was put together with AI and hasn’t been checked by Unfold yet. The
-            places are real, but opening times, prices and access may have changed, and the map
-            finds each stop by its name. Check before you go.
-          </p>
-        </div>
-      )}
 
       <div className="testTakeBtnContainer">
         {underWay ? (

@@ -51,6 +51,10 @@ export function newProfile(name) {
     // lastDetoursTaken }. Being here means you "own" the journey.
     journeys: {},
     stats: { journeysStarted: 0, journeysCompleted: 0, stopsVisited: 0, detoursTaken: 0 },
+    // The names picked on My Interests and My Preferences. (Profiles made
+    // before these existed don't have them.)
+    interests: [],
+    preferences: [],
   }
 }
 

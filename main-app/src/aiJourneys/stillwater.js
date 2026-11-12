@@ -132,6 +132,7 @@ export default {
   aiMade: true,
   name: 'Down by the St. Croix',
   location: 'STILLWATER · MINNESOTA, USA',
+  city: 'Stillwater',
   photo: liftBridgePhoto,
   photoAlt: liftBridge.photoAlt,
   blurb: 'An old river town, a walk across the water, and a bridge that lights up at dusk.',

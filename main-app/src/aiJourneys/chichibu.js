@@ -135,6 +135,7 @@ export default {
   aiMade: true,
   name: 'Into the Chichibu Hills',
   location: 'CHICHIBU · SAITAMA, JAPAN',
+  city: 'Chichibu',
   photo: iwadatamiPhoto,
   photoAlt: iwadatami.photoAlt,
   blurb: 'From a hilltop park down the valley, to flat river rocks at Nagatoro.',

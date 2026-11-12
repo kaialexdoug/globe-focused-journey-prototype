@@ -135,6 +135,7 @@ export default {
   aiMade: true,
   name: 'The Harbor at the Edge of the Woods',
   location: 'GRAND MARAIS · MINNESOTA, USA',
+  city: 'Grand Marais',
   photo: lighthousePhoto,
   photoAlt: lighthouse.photoAlt,
   blurb: 'Around a little harbor, from donuts by the water to the lighthouse at sunset.',

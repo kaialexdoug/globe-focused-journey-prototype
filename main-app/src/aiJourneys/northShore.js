@@ -138,6 +138,7 @@ export default {
   aiMade: true,
   name: 'Up the North Shore',
   location: 'NORTH SHORE · MINNESOTA, USA',
+  city: 'Two Harbors',
   // The falls rather than the lighthouse: it's tall, like the screens it
   // fills.
   photo: gooseberryFallsPhoto,

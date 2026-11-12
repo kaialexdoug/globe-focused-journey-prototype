@@ -147,6 +147,7 @@ export default {
   aiMade: true,
   name: 'Where the Harbor Lights Come On',
   location: 'YOKOHAMA · KANAGAWA, JAPAN',
+  city: 'Yokohama',
   photo: chinatownPhoto,
   photoAlt: chinatown.photoAlt,
   blurb: 'Through Chinatown and out onto the pier, as the city lights up over the water.',

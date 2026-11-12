@@ -3,15 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <!-- viewport-fit=cover lets the photos run up under a phone's notch; the
-         app keeps its text clear of it (--frame-top in App.css). -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+         app keeps its text clear of it (--frame-top in App.css).
+         maximum-scale and user-scalable keep the app from zooming, like an
+         app rather than a web page: iPhones would otherwise zoom in on any
+         text box with text smaller than 16px (like Where to? on Find My
+         Journey) and stay zoomed. iPhones still allow a pinch, which
+         main.jsx stops. The maps zoom themselves, so they still do. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
     <title>Unfold · Japan</title>
     <meta name="description" content="Curated. Authentic. Unforgettable. Guided journeys in Japan." />
 
     <!-- Installing it on a phone. The app's name here and in the manifest
          isn't read from src/config.js, so change it in both if it changes. -->
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="#f8f3ee" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <meta name="mobile-web-app-capable" content="yes" />

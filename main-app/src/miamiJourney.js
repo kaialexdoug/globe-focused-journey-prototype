@@ -246,6 +246,7 @@ export default {
   id: 'miamiBeach',
   name: 'From Mangroves to Neon',
   location: 'MIAMI BEACH · FLORIDA, USA',
+  city: 'Miami Beach',
   photo: colonyHotelPhoto,
   photoAlt: colonyHotel.photoAlt,
   photoPosition: colonyHotel.photoPosition,

@@ -2,8 +2,7 @@
 // checked ones, one to a file. Each is built the same way as the journeys
 // in journeyStops.js, around real places, with two differences:
 //
-//   aiMade: true  shows the AI badge, and a note before you begin saying
-//                 nothing on it has been checked yet.
+//   aiMade: true  shows the AI GENERATED tag on its card on Home.
 //   no mapPoint   no exact spot for the live map, since an AI guess could
 //                 be wrong. Every stop gets the embedded map, which finds
 //                 it by name.
@@ -12,6 +11,10 @@
 // no opening times, prices or dates. Once a journey has been walked and
 // checked, it can move to journeyStops.js with `verified: true` in place of
 // `aiMade`.
+//
+// `city` is the city or municipality the journey is in (one of Tokyo's wards
+// counts), for Cities Visited on Profile, or null if it isn't in one, like
+// a state park. The journeys in journeyStops.js and the others have it too.
 //
 // `match` is for Find My Journey (journeyMatch.js): how well it suits each
 // answer, out of 100. These are estimates from what's on the journey, not

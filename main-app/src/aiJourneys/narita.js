@@ -130,6 +130,7 @@ export default {
   aiMade: true,
   name: 'The Temple Town Before Your Flight',
   location: 'NARITA · CHIBA, JAPAN',
+  city: 'Narita',
   photo: pagodaPhoto,
   photoAlt: pagoda.photoAlt,
   blurb: 'An old street of eel shops and a great temple, a short train ride from the airport.',

@@ -129,6 +129,7 @@ export default {
   aiMade: true,
   name: 'Cliffs Over the St. Croix',
   location: 'TAYLORS FALLS · MINNESOTA, USA',
+  city: 'Taylors Falls',
   photo: dallesPhoto,
   photoAlt: dalles.photoAlt,
   blurb: 'Holes drilled by the ice age, cliffs over the river, and a meadow of sculptures.',

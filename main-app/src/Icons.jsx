@@ -374,6 +374,92 @@ export function DollarIcon({ className }) {
   )
 }
 
+// Profile, after its mockup: the cog for Settings, and the pencil on Edit
+// Profile.
+
+export function SettingsIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M10.14 5.05 10.5 2.52h3l.36 2.53A7.2 7.2 0 0 1 15.6 5.76l2.04-1.53 2.13 2.13-1.53 2.04a7.2 7.2 0 0 1 .71 1.74l2.53.36v3l-2.53.36a7.2 7.2 0 0 1-.71 1.74l1.53 2.04-2.13 2.13-2.04-1.53a7.2 7.2 0 0 1-1.74.71l-.36 2.53h-3l-.36-2.53a7.2 7.2 0 0 1-1.74-.71l-2.04 1.53-2.13-2.13 1.53-2.04a7.2 7.2 0 0 1-.71-1.74l-2.53-.36v-3l2.53-.36a7.2 7.2 0 0 1 .71-1.74L4.23 6.36l2.13-2.13 2.04 1.53a7.2 7.2 0 0 1 1.74-.71z" />
+      <circle cx="12" cy="12" r="3.2" />
+    </Icon>
+  )
+}
+
+export function PencilIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M4.5 19.5l.9-4.1L15.9 4.9a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.6 18.6z" />
+      <path d="M14.2 6.6l3.2 3.2" />
+    </Icon>
+  )
+}
+
+// Interests on Profile: outdoors and food use the mountain and burger from
+// above, and local culture the torii from below.
+
+export function CameraIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3 9a2 2 0 0 1 2-2h2.4l1.6-2.5h6l1.6 2.5H19a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <circle cx="12" cy="13.2" r="3.8" />
+    </Icon>
+  )
+}
+
+export function BicycleIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="5.5" cy="16" r="3.6" />
+      <circle cx="18.5" cy="16" r="3.6" />
+      <path d="M5.5 16 9.2 9h6.6l2.7 7M9.2 9l2.8 7H5.5M12 16l3.8-7M7.6 7h3M14.6 6.5h2.4" />
+    </Icon>
+  )
+}
+
+export function TrainIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <rect x="5" y="3" width="14" height="14" rx="3" />
+      <path d="M5 10h14M9.5 6h5M8 21l2-4M16 21l-2-4" />
+      <path d="M8.8 13.6h.01M15.2 13.6h.01" strokeWidth="2.6" />
+    </Icon>
+  )
+}
+
+export function FishIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M2.5 12c2.2-3.7 5.6-5.6 9.4-5.6 3.2 0 5.7 1.7 7.1 3.6L22 7.8v8.4L19 14c-1.4 1.9-3.9 3.6-7.1 3.6-3.8 0-7.2-1.9-9.4-5.6z" />
+      <path d="M7.4 11.2h.01" strokeWidth="2.4" />
+    </Icon>
+  )
+}
+
+// Preferences on Profile: accessibility and history. (Dietary has the burger,
+// and travel pace the walking figure, from above.)
+
+// Someone in a wheelchair.
+export function AccessibilityIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="10.5" cy="4" r="1.9" fill="currentColor" stroke="none" />
+      <path d="M10.5 7.6v6h5.4l2.6 5.6M10.5 10.6h5" />
+      <path d="M7.8 11.3a5 5 0 1 0 7.4 6.4" />
+    </Icon>
+  )
+}
+
+// A temple with columns, like the Parthenon.
+export function ParthenonIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3 8.5 12 4l9 4.5z" />
+      <path d="M6 11v7M10 11v7M14 11v7M18 11v7M4.5 18.5h15M3 21h18" />
+    </Icon>
+  )
+}
+
 // Step 3 of Find My Journey, after its mockup: a calendar for when you're
 // going, sliders for anything else, and the tick on what's picked.
 

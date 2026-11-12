@@ -5,6 +5,7 @@ import { EXPERIENCE_ICONS } from './experienceIcons.js'
 import Header from './Header.jsx'
 import { placeOfAnswers, rankJourneys } from './journeyMatch.js'
 import { catalogPlaces, suggestPlaces } from './journeyPlaces.js'
+import { preloadImages } from './preloadImages.js'
 import {
   ActivePaceIcon,
   ArrowLeftIcon,
@@ -46,6 +47,19 @@ import romanticPicture from './assets/moods/romantic.jpg'
 import whoPicture from './assets/companions/who-hero.webp'
 
 import detailsPicture from './assets/details/pagoda-hero.webp'
+
+// The steps' pictures, fetched as soon as the app's open, so each step shows
+// with its pictures already there.
+preloadImages([
+  peacefulPicture,
+  adventurousPicture,
+  romanticPicture,
+  curiousPicture,
+  playfulPicture,
+  culturalPicture,
+  whoPicture,
+  detailsPicture,
+])
 
 // The steps of Find My Journey after its intro, and the journeys they lead to.
 
@@ -271,7 +285,7 @@ function PlaceField({ journeys, value, onChange }) {
   const nowhere = open && value.trim() !== '' && suggestions.length === 0
 
   function choose(place) {
-    onChange(place.label)
+    onChange(place.name)
     setOpen(false)
     inputRef.current.blur()
   }
@@ -622,10 +636,11 @@ export function DetailsPage({ journeys, answers, onAnswer, onMore, onFind, onSki
   )
 }
 
-// Anything else?, from step 3: the preferences, as cards to tap on and off,
-// as many as you like. `chosen` is the names of those picked, and `onToggle`
-// gets the one tapped. Done (or back) goes back to step 3.
-export function PreferencesPage({ chosen, onToggle, onDone, onBack }) {
+// A page of cards to tap on and off, as many as you like, with the way back
+// and Done: Anything else? here, and My Interests and My Preferences on
+// Profile. `options` are the cards ({ name, Icon }), `chosen` the names of
+// those picked, and `onToggle` gets the one tapped.
+export function PickManyPage({ title, text, options, chosen, onToggle, onDone, onBack }) {
   return (
     <div className="stepPage detailsPage preferencesPage">
       <div className="stepBar">
@@ -635,11 +650,11 @@ export function PreferencesPage({ chosen, onToggle, onDone, onBack }) {
         <Header />
       </div>
 
-      <h1 className="stepTitle">Anything else?</h1>
-      <p className="stepText">Pick as many as you like, or none at all.</p>
+      <h1 className="stepTitle">{title}</h1>
+      <p className="stepText">{text}</p>
 
       <div className="preferenceCards">
-        {PREFERENCES.map((option, index) => (
+        {options.map((option, index) => (
           <DetailCard
             key={option.name}
             option={option}
@@ -656,6 +671,19 @@ export function PreferencesPage({ chosen, onToggle, onDone, onBack }) {
         <ArrowRightIcon />
       </button>
     </div>
+  )
+}
+
+// Anything else?, from step 3: the preferences. Done (or back) goes back to
+// step 3.
+export function PreferencesPage(page) {
+  return (
+    <PickManyPage
+      title="Anything else?"
+      text="Pick as many as you like, or none at all."
+      options={PREFERENCES}
+      {...page}
+    />
   )
 }
 

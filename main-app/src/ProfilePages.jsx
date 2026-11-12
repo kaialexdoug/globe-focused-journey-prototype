@@ -1,20 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
-import fujiPicture from './assets/my-journeys-fuji.webp'
+import fujiPicture from './assets/my-journeys-fuji.jpg'
+import cityPicture from './assets/profile/profile-city.jpg'
+import cranePicture from './assets/profile/crane-avatar.jpg'
 
+import { PickManyPage } from './FindMyJourney.jsx'
 import Header from './Header.jsx'
 import PromptBox from './PromptBox.jsx'
 import { APP_VERSION } from './config.js'
 import {
+  AccessibilityIcon,
   ArrowLeftIcon,
+  ArrowRightIcon,
+  BicycleIcon,
+  BurgerIcon,
+  CameraIcon,
   ChevronRightIcon,
   ClockIcon,
   CompassIcon,
+  FishIcon,
   HeartIcon,
+  HikingIcon,
   HomeIcon,
+  ModeratePaceIcon,
+  ParthenonIcon,
+  PencilIcon,
   PersonIcon,
   PinIcon,
   RouteIcon,
+  SettingsIcon,
+  ToriiIcon,
+  TrainIcon,
   WalkIcon,
 } from './Icons.jsx'
 import { placeName } from './journeyStops'
@@ -209,9 +225,11 @@ function likedJourneys(journeys, likes) {
     .reverse()
 }
 
-// A journey as a small photo card: the same for finished and liked ones, in a
-// sideways row on My Journeys or a grid on their own pages. Tapping it opens the
-// journey, and the heart likes it (or unlikes it).
+// A journey as a photo card, after the My Journeys mockup: the photo fading
+// into white, the name under it, and its time and difficulty. The same for
+// finished and liked ones, in the sideways row on My Journeys or a grid on
+// their own pages. Tapping it opens the journey, and the heart likes it (or
+// unlikes it).
 function JourneyCard({ journey, liked, onOpen, onToggleLike }) {
   return (
     <div className="journeyCard">
@@ -224,15 +242,13 @@ function JourneyCard({ journey, liked, onOpen, onToggleLike }) {
         />
         <span className="journeyCardWords">
           <span className="journeyCardTitle">{journey.name}</span>
-          <span className="journeyFacts">
-            <span>
-              <ClockIcon />
-              {shortTime(journey)}
+          <span className="journeyCardFacts">
+            <ClockIcon />
+            {shortTime(journey)}
+            <span className="journeyCardDot" aria-hidden="true">
+              •
             </span>
-            <span>
-              <WalkIcon />
-              {journey.difficulty}
-            </span>
+            {journey.difficulty}
           </span>
         </span>
       </button>
@@ -249,19 +265,54 @@ function JourneyCard({ journey, liked, onOpen, onToggleLike }) {
   )
 }
 
-// The name of a section of My Journeys, with the way to see all of it if there's
-// anything to see.
-function SectionHead({ label, onSeeAll }) {
+// Whether a sideways row has more to see before or after what's showing,
+// passed to `setEdges` if that's changed.
+function showEdges(row, setEdges) {
+  const before = row.scrollLeft > 2
+  const after = row.scrollLeft + row.clientWidth < row.scrollWidth - 2
+  setEdges((edges) => (edges.before === before && edges.after === after ? edges : { before, after }))
+}
+
+// A sideways row of journey cards, two to the screen, that you swipe through.
+// Its edge fades to white on whichever side there's more to see.
+function JourneyRow({ children }) {
+  const rowRef = useRef(null)
+  const [edges, setEdges] = useState({ before: false, after: false })
+
+  // Once it's drawn, and again if the screen changes size.
+  useEffect(() => {
+    const row = rowRef.current
+    const observer = new ResizeObserver(() => showEdges(row, setEdges))
+    observer.observe(row)
+    return () => observer.disconnect()
+  }, [])
+
+  const classes = ['journeyRowFrame', edges.before && 'hasBefore', edges.after && 'hasAfter'].filter(Boolean)
   return (
-    <div className="myPanelHead">
-      <h2 className="myPanelLabel">{label}</h2>
-      {onSeeAll && (
-        <button className="mySeeAll" onClick={onSeeAll}>
-          See All
-          <ChevronRightIcon />
-        </button>
-      )}
+    <div className={classes.join(' ')}>
+      <div className="journeyRow" ref={rowRef} onScroll={() => showEdges(rowRef.current, setEdges)}>
+        {children}
+      </div>
     </div>
+  )
+}
+
+// A section of My Journeys under its heading, with the way to see all of it
+// if there's anything to see.
+function MySection({ title, onSeeAll, children }) {
+  return (
+    <section className="mySection">
+      <div className="mySectionHead">
+        <h2 className="mySectionTitle">{title}</h2>
+        {onSeeAll && (
+          <button className="mySeeAll" onClick={onSeeAll}>
+            See All
+            <ChevronRightIcon />
+          </button>
+        )}
+      </div>
+      {children}
+    </section>
   )
 }
 
@@ -269,9 +320,9 @@ function SectionHead({ label, onSeeAll }) {
 // left off. `where` says how far along it is.
 function CurrentJourney({ journey, where, onResume }) {
   return (
-    <button className="myPanel myCurrent" onClick={onResume}>
-      <span className="myPanelHead">
-        <span className="myPanelLabel">CURRENT JOURNEY</span>
+    <button className="myCard myCurrent" onClick={onResume}>
+      <span className="myCardHead">
+        <span className="myCardLabel">CURRENT JOURNEY</span>
         <ChevronRightIcon className="myCurrentChevron" />
       </span>
       <span className="myCurrentBody">
@@ -309,10 +360,11 @@ function CurrentJourney({ journey, where, onResume }) {
   )
 }
 
-// Your place for your journeys, under a photo that fades into the page: the one
-// you're partway through (there's only ever one), the ones you've finished, and
-// the one you liked last. Without a profile, nothing's kept but your likes, so a
-// way to make one takes the place of the first two.
+// My Journeys, after its mockup: the heading with Mount Fuji beside it, then
+// the journey you're partway through (there's only ever one), the ones you've
+// finished in a row you swipe through, and the one you liked last. Without a
+// profile, nothing's kept but your likes, so a way to make one takes the
+// place of the first two.
 export function MyJourneysPage({
   profile,
   journeys,
@@ -334,7 +386,7 @@ export function MyJourneysPage({
   return (
     <div className="myJourneysPage">
       <div className="myHero">
-        <img className="myHeroPhoto" src={fujiPicture} alt="" />
+        <img className="myHeroArt" src={fujiPicture} alt="" />
         <Header />
         <h1 className="myTitle">
           My
@@ -348,7 +400,7 @@ export function MyJourneysPage({
         </p>
       </div>
 
-      <div className="myPanels">
+      <div className="myBody">
         {!profile && (
           <SignUpCard
             label="NO PROFILE YET"
@@ -359,20 +411,22 @@ export function MyJourneysPage({
 
         {profile && underWay && <CurrentJourney journey={underWay} where={where} onResume={onResume} />}
         {profile && !underWay && (
-          <div className="myPanel">
-            <SectionHead label="CURRENT JOURNEY" />
-            <p className="myEmpty">You’re not partway through a journey.</p>
-            <button className="textLink" onClick={onBrowse}>
-              BROWSE JOURNEYS ➜
+          <div className="myCard">
+            <h2 className="myCardLabel">CURRENT JOURNEY</h2>
+            <p className="myCardText">You’re not partway through a journey.</p>
+            <button className="myBrowse" onClick={onBrowse}>
+              BROWSE JOURNEYS
+              <ArrowRightIcon />
             </button>
           </div>
         )}
 
+        {/* Every journey you've finished, the latest first: two on the
+            screen, and the rest a swipe away. */}
         {profile && (
-          <div className="myPanel">
-            <SectionHead label="COMPLETED JOURNEYS" onSeeAll={completed.length > 0 ? onSeeCompleted : null} />
+          <MySection title="Completed Journeys" onSeeAll={completed.length > 0 ? onSeeCompleted : null}>
             {completed.length > 0 ? (
-              <div className="journeyRow">
+              <JourneyRow>
                 {completed.map((journey) => (
                   <JourneyCard
                     key={journey.id}
@@ -382,15 +436,17 @@ export function MyJourneysPage({
                     onToggleLike={onToggleLike}
                   />
                 ))}
-              </div>
+              </JourneyRow>
             ) : (
-              <p className="myEmpty">Journeys you finish will show up here.</p>
+              <div className="myEmptyCard">
+                <RouteIcon className="myEmptyIcon" />
+                <p>Your completed journeys will appear here.</p>
+              </div>
             )}
-          </div>
+          </MySection>
         )}
 
-        <div className="myPanel">
-          <SectionHead label="LIKED JOURNEYS" onSeeAll={latestLiked ? onSeeLiked : null} />
+        <MySection title="Liked Journeys" onSeeAll={latestLiked ? onSeeLiked : null}>
           {latestLiked ? (
             <button className="myLiked" onClick={() => onOpenJourney(latestLiked)}>
               <img
@@ -409,7 +465,7 @@ export function MyJourneysPage({
           ) : (
             <p className="myEmpty">Journeys you like will show up here.</p>
           )}
-        </div>
+        </MySection>
       </div>
     </div>
   )
@@ -452,89 +508,245 @@ export function LikedJourneysPage({ journeys, likes, ...page }) {
 
 // --- Profile ---
 
-// When this copy of the app was built, so you can tell whether a phone has
-// picked up the latest version. (Dark mode's switch used to sit above it;
-// it's gone for the redesign and will come back later.)
-function AppVersion() {
-  return <p className="appVersion">Version · {APP_VERSION}</p>
+// What you're into, on My Interests.
+const INTERESTS = [
+  { name: 'Outdoors', Icon: HikingIcon },
+  { name: 'Local culture', Icon: ToriiIcon },
+  { name: 'Photography', Icon: CameraIcon },
+  { name: 'Food', Icon: BurgerIcon },
+  { name: 'Cycling', Icon: BicycleIcon },
+  { name: 'Trains', Icon: TrainIcon },
+  { name: 'Fishing', Icon: FishIcon },
+]
+
+// What matters to you on a journey, on My Preferences.
+const TRAVEL_PREFERENCES = [
+  { name: 'Dietary', Icon: BurgerIcon },
+  { name: 'Accessibility', Icon: AccessibilityIcon },
+  { name: 'Travel pace', Icon: ModeratePaceIcon },
+  { name: 'History', Icon: ParthenonIcon },
+]
+
+// "Outdoors, local culture, and photography", or "None listed": the `options`
+// whose names are in `names`, in the order of the cards.
+function listText(names, options) {
+  const picked = options.filter((option) => names.includes(option.name))
+  if (picked.length === 0) {
+    return 'None listed'
+  }
+  const words = picked.map(({ name }, index) => (index === 0 ? name : name.toLowerCase()))
+  return new Intl.ListFormat('en', { type: 'conjunction' }).format(words)
 }
 
-export function ProfilePage({ profile, onCreateProfile, onRename, onDelete }) {
-  const [editingName, setEditingName] = useState(false)
-  const [confirmDelete, setConfirmDelete] = useState(false)
+// The country in a journey's location: "JAPAN" from "KAMAKURA · KANAGAWA,
+// JAPAN", or "THE BAHAMAS" from "NASSAU · THE BAHAMAS".
+const countryOf = (journey) => journey.location.split(' · ')[1].split(', ').at(-1)
 
-  if (!profile) {
-    return (
-      <div className="profilePage">
-        <Header />
-        <div className="pageBody">
-          <h1 className="mainHook pageTitle">Profile</h1>
-          <SignUpCard
-            label="MAKE A PROFILE"
-            text="Just a name, no password. Your journeys and stats are then kept on this device."
-            onCreate={onCreateProfile}
-          />
-          <AppVersion />
-        </div>
-      </div>
-    )
-  }
-
-  const since = new Date(profile.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
-  const stats = [
-    [profile.stats.journeysCompleted, 'Journeys completed'],
-    [profile.stats.journeysStarted, 'Journeys started'],
-    [profile.stats.stopsVisited, 'Stops visited'],
-    [profile.stats.detoursTaken, 'Detours taken'],
+// Your Journey Stats, from the journeys you've finished, each counted once
+// however many times you've walked it: how many, the stops on them (with the
+// detours you took last time), and the cities and countries they're in. A
+// journey's `city` is the city or municipality it's in, or null if it isn't in
+// one (like a state park).
+function journeyStats(profile, journeys) {
+  const done = journeys.filter((journey) => profile.journeys[journey.id]?.timesCompleted > 0)
+  const places = done.reduce(
+    (total, journey) => total + journey.route.length + (profile.journeys[journey.id].lastDetoursTaken?.length ?? 0),
+    0,
+  )
+  const cities = new Set(done.filter((journey) => journey.city).map((journey) => `${journey.city}, ${countryOf(journey)}`))
+  const countries = new Set(done.map(countryOf))
+  return [
+    [done.length, 'Journeys\nUnfolded'],
+    [places, 'Places\nDiscovered'],
+    [cities.size, 'Cities\nVisited'],
+    [countries.size, 'Countries\nVisited'],
   ]
+}
+
+// A row with a serif title, a line under it, and an arrow, which opens its
+// page. Without `onOpen` it can't be tapped yet, like Account & Plan.
+function ProfileRow({ title, text, onOpen }) {
+  const inside = (
+    <>
+      <span className="profileRowWords">
+        <span className="profileRowTitle">{title}</span>
+        <span className="profileRowText">{text}</span>
+      </span>
+      <ChevronRightIcon className="profileRowChevron" />
+    </>
+  )
+  return onOpen ? (
+    <button className="profileRow" onClick={onOpen}>
+      {inside}
+    </button>
+  ) : (
+    <div className="profileRow">{inside}</div>
+  )
+}
+
+// Your name on Profile, on one line beside Edit Profile: a long one is made
+// smaller until it fits, down to 18px, and past that ends in "…". It's
+// fitted again whenever its space changes size.
+function ProfileName({ name }) {
+  const nameRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const element = nameRef.current
+    function fit() {
+      element.style.fontSize = ''
+      let size = parseFloat(getComputedStyle(element).fontSize)
+      while (element.scrollWidth > element.clientWidth && size > 18) {
+        size -= 1
+        element.style.fontSize = `${size}px`
+      }
+    }
+    fit()
+    const observer = new ResizeObserver(fit)
+    observer.observe(element.parentElement)
+    return () => observer.disconnect()
+  }, [name])
+
+  return (
+    <p className="profileName" ref={nameRef}>
+      {name}
+    </p>
+  )
+}
+
+// Changing your name, in a box over the page.
+function EditProfilePrompt({ name, onSave, onCancel }) {
+  return (
+    <PromptBox title="Edit profile" text="Your name, as it shows on your profile." onDismiss={onCancel}>
+      <NameForm submitLabel="SAVE" initialName={name} autoFocus onSubmit={onSave} onCancel={onCancel} />
+    </PromptBox>
+  )
+}
+
+// Profile, after its mockup: the heading with the city beside it and the cog
+// for Settings, then who you are, your stats, your interests and preferences,
+// and your plan. Without a profile, a way to make one takes the place of all
+// that. `journeys` is every journey, for the stats.
+export function ProfilePage({ profile, journeys, onCreateProfile, onRename, onOpenInterests, onOpenPreferences, onOpenSettings }) {
+  const [editing, setEditing] = useState(false)
 
   return (
     <div className="profilePage">
-      <Header />
-      <div className="pageBody">
-        <h1 className="mainHook pageTitle">Profile</h1>
-
-        <div className="profileCard">
-          <p className="profileAvatar" aria-hidden="true">
-            {profile.name[0].toUpperCase()}
-          </p>
-          {editingName ? (
-            <NameForm
-              submitLabel="SAVE"
-              initialName={profile.name}
-              autoFocus
-              onSubmit={(name) => {
-                onRename(name)
-                setEditingName(false)
-              }}
-              onCancel={() => setEditingName(false)}
-            />
-          ) : (
-            <>
-              <p className="profileName">{profile.name}</p>
-              <p className="profileSince">Exploring since {since}</p>
-              <button className="textLink" onClick={() => setEditingName(true)}>
-                CHANGE NAME
-              </button>
-            </>
-          )}
-        </div>
-
-        <h2 className="sectionTitle">Your stats</h2>
-        <div className="statsGrid">
-          {stats.map(([value, label]) => (
-            <div key={label} className="statTile">
-              <p className="statValue">{value}</p>
-              <p className="statLabel">{label}</p>
-            </div>
-          ))}
-        </div>
-
-        <AppVersion />
-
-        <button className="backBtn pageEndLink deleteLink" onClick={() => setConfirmDelete(true)}>
-          DELETE PROFILE
+      <div className="profileHero">
+        <img className="profileHeroArt" src={cityPicture} alt="" />
+        <Header />
+        <button className="profileSettings" onClick={onOpenSettings} aria-label="Settings">
+          <SettingsIcon />
         </button>
+        <h1 className="profileTitle">My Profile</h1>
+        <p className="profileText">
+          Your journeys, interests,
+          <br />
+          preferences, and account.
+        </p>
+      </div>
+
+      <div className="profileBody">
+        {profile ? (
+          <>
+            <div className="profileWho">
+              <img className="profileAvatar" src={cranePicture} alt="" />
+              <div className="profileWhoWords">
+                <ProfileName name={profile.name} />
+                <p className="profileJoined">
+                  Joined {new Date(profile.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                </p>
+              </div>
+              <button className="profileEdit" onClick={() => setEditing(true)}>
+                <PencilIcon />
+                Edit Profile
+              </button>
+            </div>
+
+            <section className="profileStats" aria-labelledby="profileStatsTitle">
+              <h2 className="profileStatsTitle" id="profileStatsTitle">
+                Your Journey Stats
+              </h2>
+              <div className="profileStatsRow">
+                {journeyStats(profile, journeys).map(([value, label]) => (
+                  <div key={label} className="profileStat">
+                    <p className="profileStatValue">{value}</p>
+                    <p className="profileStatLabel">{label}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <ProfileRow title="My Interests" text={listText(profile.interests ?? [], INTERESTS)} onOpen={onOpenInterests} />
+            <ProfileRow title="My Preferences" text={listText(profile.preferences ?? [], TRAVEL_PREFERENCES)} onOpen={onOpenPreferences} />
+            <ProfileRow title="Account & Plan" text="No plan" />
+          </>
+        ) : (
+          <SignUpCard
+            label="MAKE A PROFILE"
+            text="Just a name, no password. Your journeys, stats and interests are then kept on this device."
+            onCreate={onCreateProfile}
+          />
+        )}
+      </div>
+
+      {editing && (
+        <EditProfilePrompt
+          name={profile.name}
+          onSave={(name) => {
+            onRename(name)
+            setEditing(false)
+          }}
+          onCancel={() => setEditing(false)}
+        />
+      )}
+    </div>
+  )
+}
+
+// My Interests and My Preferences, from Profile: cards to tap on and off, as
+// many as you like. `chosen` is the names of those picked.
+export function InterestsPage(page) {
+  return <PickManyPage title="My Interests" text="What you love to do on a journey." options={INTERESTS} {...page} />
+}
+
+export function TravelPreferencesPage(page) {
+  return (
+    <PickManyPage
+      title="My Preferences"
+      text="What matters to you when you travel."
+      options={TRAVEL_PREFERENCES}
+      {...page}
+    />
+  )
+}
+
+// Settings, from the cog on Profile: which version of the app this is, so
+// you can tell whether a phone has picked up the latest (dark mode's switch
+// will come back here), and deleting your profile, if you have one.
+export function SettingsPage({ profile, onDelete, onBack }) {
+  const [confirmDelete, setConfirmDelete] = useState(false)
+
+  return (
+    <div className="stepPage settingsPage">
+      <div className="stepBar">
+        <button className="stepBack" onClick={onBack} aria-label="Back">
+          <ArrowLeftIcon />
+        </button>
+        <Header />
+      </div>
+
+      <h1 className="stepTitle">Settings</h1>
+
+      <div className="settingsRows">
+        <div className="settingsRow">
+          <span>Version</span>
+          <span className="settingsValue">{APP_VERSION}</span>
+        </div>
+        {profile && (
+          <button className="settingsRow settingsDelete" onClick={() => setConfirmDelete(true)}>
+            Delete profile
+          </button>
+        )}
       </div>
 
       {confirmDelete && (

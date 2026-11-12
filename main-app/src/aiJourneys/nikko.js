@@ -141,6 +141,7 @@ export default {
   aiMade: true,
   name: 'The Shrines in the Cedars',
   location: 'NIKKO · TOCHIGI, JAPAN',
+  city: 'Nikko',
   photo: shinkyoPhoto,
   photoAlt: shinkyo.photoAlt,
   blurb: 'Over the sacred red bridge, through temples and shrines in the cedar forest.',
