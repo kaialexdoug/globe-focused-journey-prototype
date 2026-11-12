@@ -24,7 +24,6 @@ import {
   TravelPreferencesPage,
   SettingsPage,
   SaveProgressPrompt,
-  SaveExitPrompt,
   ExitCurrentPrompt,
 } from './ProfilePages.jsx'
 import {
@@ -34,7 +33,6 @@ import {
   PinIcon,
   RouteIcon,
   SearchIcon,
-  SolidClockIcon,
   SolidPinIcon,
   SolidWalkIcon,
   WalkIcon,
@@ -53,6 +51,7 @@ import {
   withJourneyCompleted,
 } from './profileStore'
 import { preloadImages } from './preloadImages.js'
+import { useShrinkToFit } from './shrinkToFit.js'
 import './App.css'
 
 // Find My Journey's picture, fetched as soon as the app's open, so it's there
@@ -71,12 +70,13 @@ preloadImages([findPicture])
 // Journeys for You, every journey from the best match for your answers to the
 // worst.
 // Every page has a navbar along the bottom, for moving between Home, Find My
-// Journey, My Journeys and Profile. On a journey, it asks first, the same as
-// stopping the journey with ✕.
+// Journey, My Journeys and Profile. On a journey, it leaves the journey where
+// it is, to pick up again with RESUME (on the journey's page, or its card on
+// My Journeys). A journey only ends with ✕, or by beginning another one.
 
 // The pages of the journey itself, and which part of the journey each one is
 // about (a detour's pages are about whichever detour you're on). Used to
-// save where you are, and to say where you left off.
+// keep where you are, and to say where you left off.
 const JOURNEY_PAGES = {
   departure: 'departure',
   departureInfo: 'departure',
@@ -186,8 +186,9 @@ function App() {
   // The ids of the journeys you've liked, kept on this device.
   const [likes, setLikes] = useState(loadLikes)
 
-  // Your profile, if you've made one, and the journey you left partway
-  // through, if it was being saved. Both are kept on this device.
+  // Your profile, if you've made one, and where you are in the journey you're
+  // on, while you're somewhere else in the app (or it's been closed). Both
+  // are kept on this device.
   const [profile, setProfile] = useState(loadProfile)
   const [progress, setProgress] = useState(loadProgress)
 
@@ -196,10 +197,7 @@ function App() {
   const [journeyId, setJourneyId] = useState(() => progress?.journeyId ?? ALL_JOURNEYS[0].id)
   const journey = journeyWithId(journeyId) ?? ALL_JOURNEYS[0]
 
-  const [showStopConfirmation, setShowStopConfirmation] = useState(false);
-  // Where leaving a journey partway goes: Home, from ✕, or else the navbar
-  // tab that was tapped.
-  const [leaveTo, setLeaveTo] = useState('home')
+  const [showStopConfirmation, setShowStopConfirmation] = useState(false)
 
   // The detour you're on (its card from journeyStops.js), and the ids of the
   // ones you've taken. A detour counts as taken once you press I'M HERE.
@@ -207,14 +205,10 @@ function App() {
   const [detoursTaken, setDetoursTaken] = useState([])
   const [showSkipDetour, setShowSkipDetour] = useState(false)
 
-  // Whether the journey under way is being saved as you go. Only ever with a
-  // profile: starting one without saves nothing.
-  const [saving, setSaving] = useState(false)
-  // The page a journey will start on, while "Save your progress?" asks first.
+  // The page a journey will start on, while "Make a profile?" asks first.
   const [pendingStart, setPendingStart] = useState(null)
-  // The same, while "Exit your current journey?" asks first.
+  // The same, while "End your current journey?" asks first.
   const [pendingSwitch, setPendingSwitch] = useState(null)
-  const [showSaveExit, setShowSaveExit] = useState(false)
   // Looking back at a finished journey's Memory page, from My Journeys.
   const [revisitingMemory, setRevisitingMemory] = useState(false)
 
@@ -227,13 +221,15 @@ function App() {
     storeLikes(likes)
   }, [likes])
 
-  // So is where you are in a journey that's being saved, at every step, so
-  // it can be picked up again even after closing the app.
+  // On a journey, where you are, at every step, so it can be picked up again
+  // after going elsewhere in the app, or even after closing it. With or
+  // without a profile.
+  const onJourney = page in JOURNEY_PAGES
   useEffect(() => {
-    if (saving && page in JOURNEY_PAGES) {
+    if (onJourney) {
       storeProgress({ journeyId: journey.id, page, detourId: detour?.id ?? null, detoursTaken })
     }
-  }, [saving, page, detour, detoursTaken, journey.id])
+  }, [onJourney, page, detour, detoursTaken, journey.id])
 
   function createProfile(name) {
     setProfile(newProfile(name))
@@ -244,28 +240,22 @@ function App() {
     storeProgress(null)
     setProgress(null)
     setLikes([])
-    setSaving(false)
   }
 
   function toggleLike(journeyId) {
     setLikes(likes.includes(journeyId) ? likes.filter((each) => each !== journeyId) : [...likes, journeyId])
   }
 
-  // Asks first whether to end the journey under way, then goes to `to`.
-  function askToLeave(to) {
-    setLeaveTo(to)
-    setShowStopConfirmation(true)
-  }
+  // ✕ on a journey: "End your journey?" asks first.
+  const stopJourney = () => setShowStopConfirmation(true)
 
-  const stopJourney = () => askToLeave('home')
-
-  // A tab on the navbar. On a journey under way, it asks first.
+  // A tab on the navbar. On a journey, it leaves the journey where it is, as
+  // the one you're on, to pick up again later.
   function goToTab(tab) {
-    if (page in JOURNEY_PAGES) {
-      askToLeave(tab)
-    } else {
-      setPage(tab)
+    if (onJourney) {
+      setProgress({ journeyId: journey.id, page, detourId: detour?.id ?? null, detoursTaken })
     }
+    setPage(tab)
   }
 
   // A new set of matches, so from the top of the list.
@@ -288,8 +278,8 @@ function App() {
   }
 
   // You can only be on one journey at a time, so with another left partway,
-  // you're asked first whether to exit it. Otherwise, with a profile, a journey
-  // is saved as you go. Without one, you're asked first whether to make one.
+  // you're asked first whether to end it. Otherwise, with a profile, it's
+  // started on it. Without one, you're asked first whether to make one.
   //
   // This is straight from tapping BEGIN, so it's when an iPhone can ask to use
   // the compass, for which way you're facing on the live map (compass.js). So
@@ -305,16 +295,16 @@ function App() {
     }
   }
 
-  // Every run starts with no detours taken. `saveTo` is the profile to save
-  // it to, or null not to save it.
+  // Every run starts with no detours taken, and ends any other: there's only
+  // ever one journey you're on. `saveTo` is the profile to record it on, or
+  // null without one.
   function startJourney(firstPage, saveTo) {
     setDetour(null)
     setDetoursTaken([])
     setRevisitingMemory(false)
-    setSaving(Boolean(saveTo))
+    setProgress(null)
     if (saveTo) {
       setProfile(withJourneyStarted(saveTo, journey.id))
-      setProgress(null)
     }
     setPage(firstPage)
   }
@@ -325,34 +315,30 @@ function App() {
     setDetour(ALL_DETOURS.find((each) => each.id === progress.detourId) ?? null)
     setDetoursTaken(progress.detoursTaken)
     setRevisitingMemory(false)
-    setSaving(true)
     setPage(progress.page)
   }
 
+  // The end of a journey: it's no longer the one you're on, and with a
+  // profile, it's recorded there as finished.
   function finishJourney() {
-    if (saving) {
+    if (profile) {
       const stopCount = journey.route.length + detoursTaken.length
       setProfile(withJourneyCompleted(profile, journey.id, detoursTaken, stopCount))
-      storeProgress(null)
-      setProgress(null)
-      setSaving(false)
     }
+    storeProgress(null)
+    setProgress(null)
     setRevisitingMemory(false)
     setPage('memory')
   }
 
-  // Leaving partway, to Home or the navbar tab tapped (`leaveTo`). `keep`
-  // keeps where you are, to pick up again from My Journeys; otherwise anything
-  // saved of this run is dropped.
-  function leaveJourney(keep) {
-    if (keep) {
-      setProgress({ journeyId: journey.id, page, detourId: detour?.id ?? null, detoursTaken })
-    } else if (saving) {
-      storeProgress(null)
-      setProgress(null)
-    }
-    setSaving(false)
-    setPage(leaveTo)
+  // Ending a journey partway, from ✕: where you were is cleared, and it's
+  // back to Home.
+  function endJourney() {
+    storeProgress(null)
+    setProgress(null)
+    setDetour(null)
+    setDetoursTaken([])
+    setPage('home')
   }
 
   // Looking back on a journey you've finished.
@@ -369,9 +355,9 @@ function App() {
     setProfile(withJourneyCompleted(started, journey.id, detoursTaken, stopCount))
   }
 
-  // The journey left partway, if it's on your profile (whichever journey it
-  // is), and this journey's record there.
-  const underWay = profile && progress && journeyWithId(progress.journeyId) ? progress : null
+  // The journey you're on, while you're somewhere else in the app (whichever
+  // journey it is), and this journey's record on your profile.
+  const underWay = progress && journeyWithId(progress.journeyId) ? progress : null
   const journeyRecord = profile?.journeys[journey.id]
 
   // The build stop's detours you haven't taken yet, and of those, the ones
@@ -748,8 +734,7 @@ function App() {
     navbarTab = 'myJourneys'
   }
 
-  const boxOpen =
-    showStopConfirmation || showSkipDetour || showSaveExit || pendingStart !== null || pendingSwitch !== null
+  const boxOpen = showStopConfirmation || showSkipDetour || pendingStart !== null || pendingSwitch !== null
 
   // On a phone this is the whole screen. On a laptop it's drawn as a phone
   // in the middle of the window — see the bottom of App.css.
@@ -763,7 +748,13 @@ function App() {
         {content}
       </div>
 
-      <NavBar current={navbarTab} onNavigate={goToTab} inert={boxOpen} />
+      {/* My Journeys is marked while you're away from a journey you're on. */}
+      <NavBar
+        current={navbarTab}
+        onNavigate={goToTab}
+        journeyGoing={underWay !== null && !onJourney}
+        inert={boxOpen}
+      />
 
       {showSkipDetour && (
         <SkipDetourPrompt
@@ -784,28 +775,9 @@ function App() {
         <StopConfirmation
           onConfirm={() => {
             setShowStopConfirmation(false)
-            // With a profile, there's a choice of keeping your progress.
-            if (saving) {
-              setShowSaveExit(true)
-            } else {
-              leaveJourney(false)
-            }
+            endJourney()
           }}
           onCancel={() => setShowStopConfirmation(false)}
-        />
-      )}
-
-      {showSaveExit && (
-        <SaveExitPrompt
-          onSaveExit={() => {
-            setShowSaveExit(false)
-            leaveJourney(true)
-          }}
-          onExitWithoutSaving={() => {
-            setShowSaveExit(false)
-            leaveJourney(false)
-          }}
-          onStay={() => setShowSaveExit(false)}
         />
       )}
 
@@ -813,9 +785,17 @@ function App() {
         <ExitCurrentPrompt
           currentName={journeyWithId(underWay.journeyId).name}
           nextName={journey.name}
+          // The one you were on ends there and then, then the new one
+          // starts as any other does.
           onExit={() => {
             setPendingSwitch(null)
-            startJourney(pendingSwitch, profile)
+            storeProgress(null)
+            setProgress(null)
+            if (profile) {
+              startJourney(pendingSwitch, profile)
+            } else {
+              setPendingStart(pendingSwitch)
+            }
           }}
           onResume={() => {
             setPendingSwitch(null)
@@ -842,16 +822,29 @@ function App() {
   )
 }
 
-// One of the four bubbles on a journey on Home: a symbol, a value, and what
-// it's a value of.
-function FeedTag({ Icon, value, label }) {
+// One of the four tags on a journey on Home: a symbol and a value, in a
+// frosted white pill.
+function FeedTag({ Icon, value }) {
   return (
     <div className="feedTag">
       <Icon className="feedTagIcon" />
-      <p>
-        <span className="feedTagValue">{value}</span>
-        <span className="feedTagLabel">{label}</span>
-      </p>
+      <p className="feedTagValue">{value}</p>
+    </div>
+  )
+}
+
+// A journey's four tags, in a row across the screen. A journey with longer
+// ones ("Moderate", "Cultural") has them a little smaller, so they still fit
+// on one line on any phone.
+function FeedTags({ journey }) {
+  const tagsRef = useRef(null)
+  useShrinkToFit(tagsRef, 10.5, journey.id)
+  return (
+    <div className="feedTags" ref={tagsRef}>
+      <FeedTag Icon={ClockIcon} value={journey.time.replace('hours', 'hrs')} />
+      <FeedTag Icon={SolidWalkIcon} value={journey.difficulty} />
+      <FeedTag Icon={SolidPinIcon} value={`${journey.route.length} stops`} />
+      <FeedTag Icon={EXPERIENCE_ICONS[journey.experience]} value={journey.experience} />
     </div>
   )
 }
@@ -931,28 +924,7 @@ function HomePage({ journeys, likes, onSelect, onToggleLike, onSearch, positionR
             </div>
             <h2 className="feedTitle">{journey.name}</h2>
             <p className="feedTeaser">{journey.blurb}</p>
-            <div className="feedTags">
-              <FeedTag
-                Icon={SolidClockIcon}
-                value={journey.time.replace('hours', 'hrs')}
-                label="DURATION"
-              />
-              <FeedTag
-                Icon={SolidWalkIcon}
-                value={journey.difficulty}
-                label="DIFFICULTY"
-              />
-              <FeedTag
-                Icon={SolidPinIcon}
-                value={`${journey.route.length} stops`}
-                label="ITINERARY"
-              />
-              <FeedTag
-                Icon={EXPERIENCE_ICONS[journey.experience]}
-                value={journey.experience}
-                label="EXPERIENCE"
-              />
-            </div>
+            <FeedTags journey={journey} />
             <button className="feedDiscover">
               Discover This Journey
               <ArrowRightIcon />
@@ -1008,8 +980,8 @@ function FindJourneyPage({ onStart }) {
 // everything about it, which scrolls: its quick facts, what it is (the hook),
 // where it starts, and on journeys that have one, a preview of the whole route
 // (RoutePreview.jsx), then BEGIN JOURNEY. ✕ goes back to where you opened it
-// from. `underWay` is where you left this journey, if it's on your profile
-// partway through: then it offers RESUME JOURNEY instead. `completed` says
+// from. `underWay` is where you left this journey, if it's the one you're on
+// (with or without a profile): then it offers RESUME JOURNEY instead. `completed` says
 // you've finished it before, which adds a tick above BEGIN JOURNEY and VIEW
 // MEMORY below it.
 function SeeJourneyPage({
@@ -1033,8 +1005,6 @@ function SeeJourneyPage({
       onClose={onClose}
       closeLabel="Close"
     >
-      <p className="heroTagline">{journey.tagline}</p>
-
       <div className="factsRow">
         <span className="fact">
           <ClockIcon />

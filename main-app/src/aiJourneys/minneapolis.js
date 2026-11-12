@@ -9,7 +9,7 @@ import stAnthonyMainPhoto from '../assets/journey/minneapolis/st-anthony-main.jp
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const stadium = {
@@ -140,7 +140,6 @@ export default {
   photoAlt: millCity.photoAlt,
   photoPosition: '24% center',
   blurb: 'Through the ruins of the old flour mills, and across a bridge of stone arches.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',

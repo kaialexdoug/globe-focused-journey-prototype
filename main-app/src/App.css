@@ -371,28 +371,29 @@ button:focus-visible {
   color: white;
 }
 
-/* A magnifying glass on frosted glass, level with the logo. */
+/* A plain white magnifying glass, level with the logo, with a soft shadow so
+   it holds up over a pale sky. */
 .feedSearch {
   position: absolute;
   top: calc(3px + var(--frame-top));
-  right: 14px;
+  right: 10px;
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   padding: 0;
-  background-color: rgba(40, 32, 36, 0.42);
-  backdrop-filter: blur(10px);
+  background: none;
   border: none;
-  border-radius: 50%;
   color: white;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
   cursor: pointer;
 }
 
 .feedSearch svg {
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.8;
 }
 
 /* Scrolling always comes to rest on one whole journey, never between two. */
@@ -480,99 +481,101 @@ button:focus-visible {
 }
 
 .feedTitle {
-  margin: 8px 0 0;
+  margin: 10px 0 0;
   font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 39px;
-  font-weight: 400;
-  letter-spacing: 0;
+  font-size: 35px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
   line-height: 1.06;
   color: white;
   text-wrap: balance;
 }
 
 .feedTeaser {
-  margin-top: 8px;
-  font-size: 15px;
-  line-height: 1.35;
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 1.3;
   color: white;
   text-wrap: balance;
 }
 
-/* Four bubbles in a row: see-through behind a solid symbol and words. */
+/* Four tags across: frosted white pills, with the symbol in orange and the
+   value in dark navy. Sized in em, from the row's 14px, so a journey whose
+   tags don't fit can make the whole row smaller (FeedTags in App.jsx). */
 .feedTags {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
+  display: flex;
   justify-content: space-between;
-  gap: 5px;
+  gap: 6px;
   margin-top: 14px;
+  font-size: 14px;
 }
 
 .feedTag {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 8px 6px 5px;
-  background-color: rgba(40, 32, 36, 0.42);
+  gap: 0.36em;
+  height: 2.15em;
+  padding: 0 0.72em 0 0.5em;
+  background-color: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(8px);
   border-radius: 999px;
 }
 
-/* All in orange, as in the mockup. */
 .feedTagIcon {
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 1.36em;
+  height: 1.36em;
+  stroke-width: 2;
   color: var(--unfold-orange);
 }
 
-.feedTagValue,
-.feedTagLabel {
-  display: block;
-  color: white;
-  white-space: nowrap;
-}
-
 .feedTagValue {
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.25;
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--night);
 }
 
-.feedTagLabel {
-  font-size: 7.5px;
-  font-weight: 500;
-  letter-spacing: 0.4px;
-  line-height: 1.3;
-}
-
-/* Pushed down to the bottom of the journey, leaving the gap above it. */
+/* Pushed down to the bottom of the journey, leaving the gap above it, and
+   across to the heart beside it: deep blue, with the words in the serif and
+   the arrow in orange. */
 .feedDiscover {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
-  align-self: flex-start;
-  margin-top: auto;
-  padding: 11px 20px 11px 24px;
-  background-color: white;
+  height: 44px;
+  margin: auto 58px 0 0;
+  padding: 0 18px;
+  background-color: var(--unfold-blue);
   border: none;
   border-radius: 999px;
-  font-size: 15px;
-  font-weight: 500;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 21px;
+  font-weight: 600;
   letter-spacing: 0;
-  color: var(--ink);
+  white-space: nowrap;
+  color: white;
   cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
+  transition: transform 0.1s ease;
 }
 
 .feedDiscover svg {
+  flex-shrink: 0;
   width: 22px;
   height: 22px;
+  stroke-width: 2.2;
+  color: var(--unfold-orange);
 }
 
-/* Level with the button, on the same frosted glass as the search button so it
-   holds up over any photo. */
+.feedDiscover:active {
+  transform: scale(0.98);
+}
+
+/* Level with the button, on dark frosted glass so it holds up over any
+   photo. */
 .feedCard .matchHeart {
   right: 16px;
   bottom: 18px;
@@ -588,55 +591,35 @@ button:focus-visible {
   height: 24px;
 }
 
-@media (hover: hover) {
-  .feedDiscover:hover {
-    background-color: var(--bg);
-  }
-}
-
-.feedDiscover:active {
-  transform: scale(0.98);
-}
-
-/* A little smaller on a narrower phone, to keep the four tags in a row. */
+/* A little smaller on a narrower phone. */
 @media (max-width: 389px) {
-  .feedTitle {
-    font-size: 36px;
-  }
-
-  .feedTags {
-    gap: 3px;
-  }
-
-  .feedTag {
-    gap: 3px;
-    padding: 5px 6px 5px 5px;
-  }
-
-  .feedTagIcon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .feedTagValue {
-    font-size: 11.5px;
-  }
-
-  .feedTagLabel {
-    font-size: 7px;
-    letter-spacing: 0.3px;
-  }
-}
-
-/* They won't fit on the narrowest phones, so two rows of two. */
-@media (max-width: 350px) {
   .feedTitle {
     font-size: 32px;
   }
 
   .feedTags {
-    grid-template-columns: repeat(2, auto);
-    justify-content: start;
+    gap: 4px;
+  }
+
+  .feedDiscover {
+    font-size: 19px;
+  }
+}
+
+/* The tags won't fit on the narrowest phones, so they go onto two rows. */
+@media (max-width: 350px) {
+  .feedTitle {
+    font-size: 29px;
+  }
+
+  .feedTags {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .feedDiscover {
+    gap: 10px;
+    font-size: 17px;
   }
 }
 
@@ -2146,6 +2129,12 @@ button.detailBar:active {
 .factsRow {
   display: flex;
   margin-bottom: 22px;
+}
+
+/* First thing under the journey's name on See Your Journey, as far below the
+   line under it as the description is below the facts. */
+.journeyPage .factsRow {
+  margin-top: 18px;
 }
 
 .fact {
@@ -3993,6 +3982,7 @@ button.detailBar:active {
 }
 
 .navTab {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -4017,6 +4007,19 @@ button.detailBar:active {
 /* The tab you're on turns orange. */
 .navTab.isCurrent {
   color: var(--nav-current);
+}
+
+/* On My Journeys while a journey's waiting there for you: an orange dot on
+   the top corner of its symbol, ringed in white so it stands off it. */
+.navDot {
+  position: absolute;
+  top: 6px;
+  left: calc(50% + 6px);
+  width: 8px;
+  height: 8px;
+  background-color: var(--unfold-orange);
+  border: 2px solid white;
+  border-radius: 50%;
 }
 
 @media (hover: hover) {
@@ -4129,6 +4132,12 @@ button.detailBar:active {
   border: 1px solid rgb(208, 208, 216);
   border-radius: 12px;
   text-align: left;
+}
+
+/* Without a profile, the way to make one goes under the journey you're on,
+   if there is one. */
+.myBody .myCurrent + .signUpCard {
+  margin-top: 14px;
 }
 
 .myCardHead {

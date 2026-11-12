@@ -529,15 +529,6 @@ export function SolidPinIcon({ className }) {
   )
 }
 
-export function SolidClockIcon({ className }) {
-  return (
-    <Icon className={className}>
-      <circle cx="12" cy="12" r="10" fill="currentColor" stroke="none" />
-      <path d="M12 6.5V12l3.5 2" stroke="rgba(0, 0, 0, 0.7)" strokeWidth="2" />
-    </Icon>
-  )
-}
-
 export function SolidWalkIcon({ className }) {
   return (
     <Icon className={className}>

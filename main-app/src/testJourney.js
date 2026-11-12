@@ -40,7 +40,7 @@ import todenWasedaPhoto from './assets/journey/waseda/toden-waseda.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
 } from './aiJourneys/parts.js'
 
 const takadanobaba = {
@@ -274,7 +274,6 @@ export default {
   photo: auditoriumPhoto,
   photoAlt: okumaAuditorium.photoAlt,
   blurb: 'A swordsman’s duel, a poet’s river and a clock tower, where Edo once ended.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',

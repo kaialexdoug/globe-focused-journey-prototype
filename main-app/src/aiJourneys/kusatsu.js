@@ -9,7 +9,7 @@ import otakinoyuPhoto from '../assets/journey/kusatsu/otakinoyu.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const busTerminal = {
@@ -139,7 +139,6 @@ export default {
   photo: yubatakePhoto,
   photoAlt: yubatake.photoAlt,
   blurb: 'Through a mountain hot-spring town, from steaming streams into a bath.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',

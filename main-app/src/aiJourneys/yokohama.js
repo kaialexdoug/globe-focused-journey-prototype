@@ -9,7 +9,7 @@ import redBrickPhoto from '../assets/journey/yokohama/red-brick.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const motomachi = {
@@ -151,7 +151,6 @@ export default {
   photo: chinatownPhoto,
   photoAlt: chinatown.photoAlt,
   blurb: 'Through Chinatown and out onto the pier, as the city lights up over the water.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',

@@ -31,7 +31,7 @@ import graycliffPhoto from './assets/journey/nassau/graycliff.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
 } from './aiJourneys/parts.js'
 
 const parliamentSquare = {
@@ -232,7 +232,6 @@ export default {
   photo: parliamentPhoto,
   photoAlt: parliamentSquare.photoAlt,
   blurb: 'A pirate harbour, a staircase cut by hand and forts that never fired, to a fish fry by the sea.',
-  tagline: TAGLINE,
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',

@@ -331,7 +331,6 @@ export const kawagoeJourney = {
   // The line under its name on Home, short enough to fit on two.
   blurb: 'Explore the historic streets of Kawagoe.',
   // The first line under the photo on See Your Journey.
-  tagline: 'Yours to explore, whenever you’re ready.',
 
   // The three quick facts under it, along with its time, which is worked out
   // from its stops (see ALL_JOURNEYS, below).
@@ -623,7 +622,6 @@ export const odawaraJourney = {
   photoAlt: 'The white keep of Odawara Castle above its stone walls, under a blue summer sky',
 
   blurb: 'From the old Tokaido road to the castle, and down to the sea.',
-  tagline: 'Yours to explore, whenever you’re ready.',
 
   walking: 'Easy walking',
   stops: '~5 stops',

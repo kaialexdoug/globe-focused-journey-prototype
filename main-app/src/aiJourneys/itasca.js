@@ -9,7 +9,7 @@ import lakeItascaPhoto from '../assets/journey/itasca/lake-itasca.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const douglasLodge = {
@@ -134,7 +134,6 @@ export default {
   photo: preachersGrovePhoto,
   photoAlt: preachersGrove.photoAlt,
   blurb: 'Through old pine forest, to where the Mississippi is small enough to step across.',
-  tagline: TAGLINE,
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',

@@ -9,7 +9,7 @@ import kawatoyoPhoto from '../assets/journey/narita/kawatoyo.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
 } from './parts.js'
 
 const station = {
@@ -134,7 +134,6 @@ export default {
   photo: pagodaPhoto,
   photoAlt: pagoda.photoAlt,
   blurb: 'An old street of eel shops and a great temple, a short train ride from the airport.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
