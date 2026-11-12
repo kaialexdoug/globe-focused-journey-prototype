@@ -228,6 +228,7 @@ export default {
   id: 'nassau',
   name: 'Forward, Upward, Onward',
   location: 'NASSAU · THE BAHAMAS',
+  city: 'Nassau',
   photo: parliamentPhoto,
   photoAlt: parliamentSquare.photoAlt,
   blurb: 'A pirate harbour, a staircase cut by hand and forts that never fired, to a fish fry by the sea.',

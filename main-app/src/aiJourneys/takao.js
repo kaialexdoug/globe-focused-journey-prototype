@@ -138,6 +138,7 @@ export default {
   aiMade: true,
   name: 'A Mountain on the Edge of Tokyo',
   location: 'MOUNT TAKAO · TOKYO, JAPAN',
+  city: 'Hachioji',
   photo: yakuoinPhoto,
   photoAlt: yakuoin.photoAlt,
   blurb: 'Up a steep cable car into the forest, past a mountain temple to the summit.',

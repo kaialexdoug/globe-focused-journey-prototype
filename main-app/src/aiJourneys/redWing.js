@@ -135,6 +135,7 @@ export default {
   aiMade: true,
   name: 'The River Town Under the Bluff',
   location: 'RED WING · MINNESOTA, USA',
+  city: 'Red Wing',
   photo: depotPhoto,
   photoAlt: depot.photoAlt,
   photoPosition: '38% center',

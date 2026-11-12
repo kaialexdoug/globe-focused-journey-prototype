@@ -136,6 +136,7 @@ export default {
   aiMade: true,
   name: 'Up on Summit Avenue',
   location: 'ST. PAUL · MINNESOTA, USA',
+  city: 'St. Paul',
   photo: cathedralPhoto,
   photoAlt: cathedral.photoAlt,
   blurb: 'Along an avenue of grand old mansions, to the great cathedral on the hill.',

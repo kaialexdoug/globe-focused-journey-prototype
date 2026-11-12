@@ -135,6 +135,7 @@ export default {
   aiMade: true,
   name: 'Where the City Began',
   location: 'MINNEAPOLIS · MINNESOTA, USA',
+  city: 'Minneapolis',
   photo: millCityPhoto,
   photoAlt: millCity.photoAlt,
   photoPosition: '24% center',

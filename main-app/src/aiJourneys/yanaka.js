@@ -143,6 +143,7 @@ export default {
   aiMade: true,
   name: 'The Tokyo That Stayed',
   location: 'YANAKA · TOKYO, JAPAN',
+  city: 'Taito',
   photo: nezuShrinePhoto,
   photoAlt: nezuShrine.photoAlt,
   blurb: 'Old lanes, the sunset steps, and a tunnel of red gates to a lotus pond.',

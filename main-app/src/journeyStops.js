@@ -324,6 +324,7 @@ export const kawagoeJourney = {
   verified: true,
   name: 'Adventure in Kawagoe',
   location: 'KAWAGOE · SAITAMA, JAPAN',
+  city: 'Kawagoe',
   photo: emaTunnelPhoto,
   photoAlt: 'A tunnel of wooden prayer plaques at a shrine in Kawagoe',
 
@@ -617,6 +618,7 @@ export const odawaraJourney = {
   verified: true,
   name: 'Where the Old Road Meets the Sea',
   location: 'ODAWARA · KANAGAWA, JAPAN',
+  city: 'Odawara',
   photo: odawaraCastlePhoto,
   photoAlt: 'The white keep of Odawara Castle above its stone walls, under a blue summer sky',
 

@@ -52,9 +52,9 @@ function placesOf(journey) {
 }
 
 // Every place with a journey, each once, with how many journeys it has. A
-// place's `label` is what goes in the box once it's picked: its name, and the
-// country unless it is one ("Kamakura, Japan"). `within` is where it is, to
-// go beside it in a suggestion ("Kanagawa, Japan"), or "" for a country.
+// place's `name` is what goes in the box once it's picked ("Minnesota"), so
+// it's found again if the box is tapped again. `within` is where it is, to go
+// beside it in a suggestion ("Kanagawa, Japan"), or "" for a country.
 export function catalogPlaces(journeys) {
   const byName = new Map()
   for (const journey of journeys) {
@@ -65,13 +65,12 @@ export function catalogPlaces(journeys) {
         known.count += 1
       } else {
         const country = titleCase(place.country)
-        const label = place.kind === 'country' ? place.name : `${place.name}, ${country}`
         const within = {
           area: place.region ? `${titleCase(place.region)}, ${country}` : country,
           region: country,
           country: '',
         }[place.kind]
-        byName.set(key, { ...place, key, label, within, count: 1 })
+        byName.set(key, { ...place, key, within, count: 1 })
       }
     }
   }
@@ -79,10 +78,11 @@ export function catalogPlaces(journeys) {
 }
 
 // Up to `limit` places to suggest for what's been typed: those whose name
-// starts with it first, then those with a later word that does. With nothing
-// typed yet, the countries and regions with the most journeys.
+// starts with it first, then those with a later word that does. Only what's
+// before a comma counts, so "Minnesota, USA" still finds Minnesota. With
+// nothing typed yet, the countries and regions with the most journeys.
 export function suggestPlaces(places, typed, limit = 5) {
-  const wanted = normalize(typed)
+  const wanted = normalize(typed.split(',')[0])
   const mostFirst = (a, b) => b.count - a.count || a.name.localeCompare(b.name)
   if (!wanted) {
     return places
@@ -97,8 +97,8 @@ export function suggestPlaces(places, typed, limit = 5) {
   return [...starts, ...later].slice(0, limit)
 }
 
-// The place in the box: its own name, or a picked label ("Kamakura, Japan"),
-// or the start of a name (at least three letters), as long as only one place
+// The place in the box: its own name, or with where it is after a comma
+// ("Kamakura, Japan"), or the start of a name (at least three letters), as long as only one place
 // starts that way. Null if it's empty, or not anywhere with a journey yet.
 export function findPlace(places, typed) {
   const whole = normalize(typed)

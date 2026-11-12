@@ -135,6 +135,7 @@ export default {
   aiMade: true,
   name: 'The Town That Steams',
   location: 'KUSATSU · GUNMA, JAPAN',
+  city: 'Kusatsu',
   photo: yubatakePhoto,
   photoAlt: yubatake.photoAlt,
   blurb: 'Through a mountain hot-spring town, from steaming streams into a bath.',

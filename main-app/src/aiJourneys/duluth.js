@@ -137,6 +137,7 @@ export default {
   aiMade: true,
   name: 'At the Edge of the Big Lake',
   location: 'DULUTH · MINNESOTA, USA',
+  city: 'Duluth',
   // The Lakewalk rather than the bridge: it's tall, like the screens it
   // fills, and the bridge is in it anyway, in the distance.
   photo: lakewalkPhoto,

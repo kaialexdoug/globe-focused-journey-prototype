@@ -142,6 +142,7 @@ export default {
   aiMade: true,
   name: 'Bamboo, Bronze and the Bay',
   location: 'KAMAKURA · KANAGAWA, JAPAN',
+  city: 'Kamakura',
   photo: greatBuddhaPhoto,
   photoAlt: greatBuddha.photoAlt,
   blurb: 'Through the old samurai capital, from the Great Buddha down to the sea.',

@@ -129,6 +129,7 @@ export default {
   aiMade: true,
   name: 'Where the Mississippi Begins',
   location: 'ITASCA STATE PARK · MINNESOTA, USA',
+  city: null,
   // The headwaters photo is wide, and the card crops the stones out.
   photo: preachersGrovePhoto,
   photoAlt: preachersGrove.photoAlt,

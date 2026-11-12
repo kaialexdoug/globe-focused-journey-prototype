@@ -135,6 +135,7 @@ export default {
   aiMade: true,
   name: 'Up the Mountain, Down to the Lake',
   location: 'HAKONE · KANAGAWA, JAPAN',
+  city: 'Hakone',
   photo: hakoneShrinePhoto,
   photoAlt: hakoneShrine.photoAlt,
   blurb: 'Up the mountains by ropeway, past a steaming valley, to a red gate in the lake.',

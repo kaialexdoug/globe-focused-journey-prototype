@@ -132,6 +132,7 @@ export default {
   aiMade: true,
   name: 'In the Shadow of Fuji',
   location: 'FUJIYOSHIDA · YAMANASHI, JAPAN',
+  city: 'Fujiyoshida',
   photo: chureitoPhoto,
   photoAlt: chureito.photoAlt,
   photoPosition: '10% center',

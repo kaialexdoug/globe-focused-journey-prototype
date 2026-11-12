@@ -270,6 +270,7 @@ export default {
   // like the real thing.
   name: 'The Edge of Old Edo',
   location: 'WASEDA · TOKYO, JAPAN',
+  city: 'Shinjuku',
   photo: auditoriumPhoto,
   photoAlt: okumaAuditorium.photoAlt,
   blurb: 'A swordsman’s duel, a poet’s river and a clock tower, where Edo once ended.',

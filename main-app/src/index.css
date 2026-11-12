@@ -24,8 +24,11 @@
 
   --text: rgb(92, 88, 83);
   --text-h: rgb(20, 24, 33);
-  /* The page is a warm cream, so the white cards on it stand out. */
-  --bg: rgb(248, 243, 238);
+  /* Every page is white, as in the newer mockups. */
+  --bg: white;
+  /* The warm cream the pages used to be, kept for the boxes in a journey's
+     route details, which are easier to read set off from the white. */
+  --cream: rgb(248, 243, 238);
   --border: rgb(228, 223, 217);
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -61,24 +64,24 @@
   --photo-outline: rgba(0, 0, 0, 0.08);
 
   /* The full-width photos (the tops of the journey screens) fade
-     into the cream page, shaded at the top for the header and at the bottom
+     into the white page, shaded at the top for the header and at the bottom
      for the title, with dark words on them. */
   --hero-fade: linear-gradient(
     to bottom,
-    rgba(248, 243, 238, 0.82) 0%,
-    rgba(248, 243, 238, 0) 32%,
-    rgba(248, 243, 238, 0) 40%,
-    rgba(248, 243, 238, 0.88) 74%,
-    rgb(248, 243, 238) 100%
+    rgba(255, 255, 255, 0.82) 0%,
+    rgba(255, 255, 255, 0) 32%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.88) 74%,
+    rgb(255, 255, 255) 100%
   );
   /* A journey stop's photo, across the top of the screen: clear, then fading
      into the page at the bottom, where the stop's name starts on it. */
   --stop-fade: linear-gradient(
     to bottom,
-    rgba(248, 243, 238, 0) 0%,
-    rgba(248, 243, 238, 0) 60%,
-    rgba(248, 243, 238, 0.9) 85%,
-    rgb(248, 243, 238) 100%
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.9) 85%,
+    rgb(255, 255, 255) 100%
   );
   /* A journey on the Home feed: shaded dark behind the white words at the top,
      then not at all from the middle down, so the photo is clear. */
@@ -98,18 +101,18 @@
      the big journey cards, and the smaller photo strips. */
   --card-fade: linear-gradient(
     to bottom,
-    rgba(248, 243, 238, 0.7) 0%,
-    rgba(248, 243, 238, 0) 20%,
-    rgba(248, 243, 238, 0) 34%,
-    rgba(248, 243, 238, 0.88) 58%,
-    rgba(248, 243, 238, 0.97) 100%
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0) 34%,
+    rgba(255, 255, 255, 0.88) 58%,
+    rgba(255, 255, 255, 0.97) 100%
   );
   --thumb-fade: linear-gradient(
     to bottom,
-    rgba(248, 243, 238, 0.65) 0%,
-    rgba(248, 243, 238, 0) 30%,
-    rgba(248, 243, 238, 0) 42%,
-    rgba(248, 243, 238, 0.92) 100%
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, 0.92) 100%
   );
   --photo-ink: rgb(20, 24, 33);
   --photo-ink-soft: rgb(56, 56, 62);

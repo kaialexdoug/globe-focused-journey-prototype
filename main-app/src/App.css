@@ -1585,10 +1585,8 @@ button.detailBar:active {
   box-shadow: 0 2px 8px rgba(12, 23, 43, 0.05);
   color: var(--night);
   cursor: pointer;
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    transform 0.15s ease;
+  /* Only the press is eased: being picked shows the moment it's tapped. */
+  transition: transform 0.15s ease;
   /* In one after another, like the cards on the steps before. */
   animation: fadeUp 0.5s ease backwards;
   animation-delay: calc(var(--i, 0) * 40ms + 120ms);
@@ -1616,23 +1614,11 @@ button.detailBar:active {
   background-color: var(--unfold-orange);
   border-radius: 50%;
   color: white;
-  animation: popIn 0.2s ease both;
 }
 
 .detailCheck svg {
   width: 12px;
   height: 12px;
-}
-
-@keyframes popIn {
-  from {
-    transform: scale(0.4);
-    opacity: 0;
-  }
-  to {
-    transform: none;
-    opacity: 1;
-  }
 }
 
 .detailIcon {
@@ -1800,10 +1786,13 @@ button.detailBar:active {
   margin: 22px -4px 0;
 }
 
+/* Quicker in than on the steps, so they're all there to tap straight away. */
 .preferenceCards .detailCard {
   min-height: 96px;
   padding: 10px 8px;
   border-radius: 14px;
+  animation-duration: 0.3s;
+  animation-delay: calc(var(--i, 0) * 20ms);
 }
 
 .preferenceCards .detailIcon {
@@ -2315,8 +2304,9 @@ button.detailBar:active {
   list-style: none;
 }
 
-/* Each stop in a white card of its own: the number on the left, and
-   everything about the stop beside it. */
+/* Each stop in a cream card of its own, so it stands out from the white
+   page and the walks between: the number on the left, and everything about
+   the stop beside it. */
 .routeStopCard {
   display: grid;
   grid-template-columns: 28px 1fr;
@@ -2324,7 +2314,7 @@ button.detailBar:active {
   padding: 14px 14px 14px 12px;
   border: 1px solid var(--outline);
   border-radius: 15px;
-  background-color: var(--surface);
+  background-color: var(--cream);
 }
 
 .routeNumber {
@@ -2506,7 +2496,12 @@ button.detailBar:active {
   color: var(--ink-muted);
 }
 
-/* The walking altogether, and the whole journey's time. */
+/* The walking altogether, and the whole journey's time, in cream like the
+   stops. */
+.routeTotals {
+  background-color: var(--cream);
+}
+
 .routeTotals .startCardRow + .startCardRow {
   margin-top: 14px;
 }
@@ -2747,31 +2742,6 @@ button.detailBar:active {
 .startCardNote {
   margin-top: 10px;
   font-size: 13px;
-  line-height: 1.5;
-  color: var(--ink-body);
-}
-
-/* On a journey made with AI, right before you begin: what hasn't been
-   checked. Tinted peach so it stands apart from the rest of the details. */
-.aiNote {
-  margin-bottom: 26px;
-  padding: 16px 18px;
-  background-color: color-mix(in srgb, var(--unfold-peach) 22%, var(--surface));
-  border: 1px solid var(--unfold-peach);
-  border-radius: 15px;
-  text-align: left;
-}
-
-.aiNote .startCardLabel {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-  color: var(--ink-soft);
-}
-
-.aiNoteText {
-  font-size: 14px;
   line-height: 1.5;
   color: var(--ink-body);
 }
@@ -4080,16 +4050,14 @@ button.detailBar:active {
   animation: fadeUp 0.5s ease both;
 }
 
-.profilePage .pageTitle {
-  margin: 6px 0 18px;
-}
-
-/* My Journeys: a white page, with Mount Fuji fading into it at the top, and its
-   sections in cards that overlap the bottom of the photo. */
+/* My Journeys (MyJourneysPage in ProfilePages.jsx), after its mockup: a white
+   page, with Mount Fuji to the right of the heading. Then the journey you're
+   partway through in an outlined card, and the ones you've finished and liked
+   under serif headings, straight on the page. */
 .myJourneysPage {
   box-sizing: border-box;
   min-height: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 24px;
   background-color: white;
   text-align: left;
 }
@@ -4097,127 +4065,116 @@ button.detailBar:active {
 .myHero {
   position: relative;
   isolation: isolate;
-  height: calc(240px + var(--frame-top));
   padding: 0 22px;
-  overflow: hidden;
 }
 
-/* Further across than the page and up a little, to put the mountain on the right,
-   the blossom over the middle, and the words on plain white. */
-.myHeroPhoto {
+/* Up against the right of the screen, its top level with the logo, so the
+   mountain sits beside the title. Its reflection fades out at the bottom, and
+   its far side gently on the left, under the words. */
+.myHeroArt {
   position: absolute;
-  top: calc(var(--frame-top) - 62px);
-  left: 20%;
-  z-index: -2;
-  width: 100%;
-  max-width: none;
-}
-
-/* White comes in from the left, for the words, up from the bottom, and a little
-   down from the top, for the logo. */
-.myHero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
   z-index: -1;
-  background:
-    linear-gradient(to right, white 26%, rgba(255, 255, 255, 0.85) 44%, rgba(255, 255, 255, 0) 66%),
-    linear-gradient(to top, white 0%, rgba(255, 255, 255, 0) 36%),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.75) calc(var(--frame-top) + 24px), rgba(255, 255, 255, 0) calc(var(--frame-top) + 62px));
+  top: calc(var(--frame-top) + 16px);
+  right: 0;
+  width: min(214px, 55vw);
+  height: auto;
+  pointer-events: none;
+  --fade-left: linear-gradient(to right, transparent, black 18%);
+  --fade-bottom: linear-gradient(to bottom, black 70%, transparent 98%);
+  -webkit-mask-image: var(--fade-left), var(--fade-bottom);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--fade-left), var(--fade-bottom);
+  mask-composite: intersect;
 }
 
 .myHero .header {
   margin: 0 -22px;
 }
 
+/* As wide as the mockup's, so "Journeys" ends before the mountain. */
 .myTitle {
   margin: 4px 0 0;
   font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: min(44px, 11.5vw);
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: 0;
+  font-size: min(34px, 8.7vw);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.4px;
   color: var(--night);
 }
 
 .myText {
-  margin-top: 8px;
-  font-size: 15.5px;
-  line-height: 1.3;
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.1;
   letter-spacing: 0;
-  color: rgba(12, 23, 43, 0.6);
+  color: rgb(38, 46, 66);
 }
 
-.myPanels {
-  position: relative;
+.myBody {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: -18px;
+  margin-top: 24px;
   padding: 0 16px;
 }
 
-.myPanels .signUpCard {
-  margin-top: 0;
-  background-color: white;
-}
-
-.myPanel {
+/* An outlined card: the journey you're partway through, the way to browse
+   when there isn't one, and making a profile. */
+.myCard,
+.myBody .signUpCard {
   box-sizing: border-box;
   width: 100%;
-  padding: 13px 14px 14px;
+  margin: 0;
+  padding: 13px 18px 12px;
   background-color: white;
-  border: none;
-  border-radius: 18px;
-  box-shadow: 0 2px 14px rgba(12, 23, 43, 0.06);
+  border: 1px solid rgb(208, 208, 216);
+  border-radius: 12px;
   text-align: left;
 }
 
-.myPanelHead {
+.myCardHead {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 22px;
 }
 
-.myPanelLabel {
+.myCardLabel {
   margin: 0;
   font-family: inherit;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 2px;
-  color: rgba(12, 23, 43, 0.6);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 3px;
+  color: var(--night);
 }
 
-.mySeeAll {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  padding: 0;
-  background: none;
-  border: none;
-  font-size: 14px;
+.myCardText {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.3;
   letter-spacing: 0;
   color: var(--night);
+}
+
+/* BROWSE JOURNEYS, in the navbar's orange, with an arrow. */
+.myBrowse {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0 0 -2px;
+  padding: 4px 2px;
+  background: none;
+  border: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--nav-current);
   cursor: pointer;
 }
 
-.mySeeAll svg {
-  width: 18px;
-  height: 18px;
-}
-
-.myEmpty {
-  margin-top: 8px;
-  font-size: 14px;
-  line-height: 1.4;
-  letter-spacing: 0;
-  color: rgba(12, 23, 43, 0.6);
-}
-
-.myPanel .textLink {
-  margin-top: 6px;
+.myBrowse svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2.4;
 }
 
 /* The journey under way. */
@@ -4318,17 +4275,125 @@ button.detailBar:active {
   height: 15px;
 }
 
-/* A journey as a small card: its photo fades away into white at the bottom, for
-   its words. In a row, it's a fixed width, and the row runs off the right of the
-   screen to show there's more. */
+/* Completed Journeys and Liked Journeys: a serif heading on the page, with
+   See All in orange beside it. */
+.mySection {
+  margin-top: 18px;
+}
+
+.mySectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mySectionTitle {
+  margin: 0;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: min(22px, 5.8vw);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+  color: var(--night);
+}
+
+.mySeeAll {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+  background: none;
+  border: none;
+  font-size: 15px;
+  letter-spacing: 0;
+  color: var(--nav-current);
+  cursor: pointer;
+}
+
+.mySeeAll svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+}
+
+.myEmpty {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: rgba(12, 23, 43, 0.6);
+}
+
+/* Before you've finished one: a card in their place, saying they'll be here. */
+.myEmptyCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  padding: 22px 18px;
+  border: 1px solid rgb(208, 208, 216);
+  border-radius: 12px;
+  font-size: 15px;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: rgb(38, 46, 66);
+}
+
+.myEmptyIcon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  color: var(--unfold-orange);
+}
+
+/* The finished journeys, swiped through sideways: right across the screen,
+   so they slide under its edges, two cards to the width of the page and
+   each stopping where the page's words start. Whichever side has more to see
+   fades to white. */
+.journeyRowFrame {
+  position: relative;
+  margin: 8px -16px 0;
+}
+
+.journeyRowFrame::before,
+.journeyRowFrame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 30px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.journeyRowFrame::before {
+  left: 0;
+  background: linear-gradient(to right, white 20%, rgba(255, 255, 255, 0));
+}
+
+.journeyRowFrame::after {
+  right: 0;
+  background: linear-gradient(to left, white 20%, rgba(255, 255, 255, 0));
+}
+
+.journeyRowFrame.hasBefore::before,
+.journeyRowFrame.hasAfter::after {
+  opacity: 1;
+}
+
+/* Room above and below for the cards' shadows, which the row would cut off. */
 .journeyRow {
   display: flex;
-  gap: 10px;
-  margin: 8px -30px -6px 0;
-  padding: 2px 16px 6px 0;
+  gap: 12px;
+  padding: 4px 0 10px 16px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
+  scroll-padding-left: 16px;
+  scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
 
@@ -4336,8 +4401,17 @@ button.detailBar:active {
   display: none;
 }
 
+/* The space after the last card, as some browsers leave off a row's padding
+   at the end: with the gap before it, the same 16px as at the start. */
+.journeyRow::after {
+  content: '';
+  flex: 0 0 4px;
+}
+
+/* Its width less the space on the right and the gap, shared by two (the
+   space on the left is already outside 100%, as the row's padding). */
 .journeyRow .journeyCard {
-  flex: 0 0 144px;
+  flex: 0 0 calc((100% - 16px - 12px) / 2);
   scroll-snap-align: start;
 }
 
@@ -4352,14 +4426,18 @@ button.detailBar:active {
   background-color: white;
 }
 
+/* A journey as a card: its photo fades into white, with its name and facts on
+   the white. */
 .journeyCard {
   position: relative;
-  aspect-ratio: 0.83;
+  box-sizing: border-box;
+  aspect-ratio: 0.78;
   overflow: hidden;
   isolation: isolate;
   background-color: white;
-  border-radius: 14px;
-  box-shadow: 0 1px 8px rgba(12, 23, 43, 0.08);
+  border: 1px solid rgb(226, 226, 232);
+  border-radius: 13px;
+  box-shadow: 0 2px 8px rgba(12, 23, 43, 0.06);
   transition: transform 0.15s ease;
 }
 
@@ -4385,12 +4463,12 @@ button.detailBar:active {
 .journeyCardWords {
   display: flex;
   flex-direction: column;
-  padding: 20px 10px 10px;
+  padding: 22px 13px 13px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.86) 20px, white 34px);
 }
 
 .journeyCardOpen img {
-  --fade: linear-gradient(to bottom, black 62%, transparent 86%);
+  --fade: linear-gradient(to bottom, black 55%, transparent 82%);
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -4403,34 +4481,83 @@ button.detailBar:active {
 
 .journeyCardTitle {
   font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 15.5px;
-  line-height: 1.15;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.18;
   letter-spacing: 0;
 }
 
-.journeyCardOpen .journeyFacts {
-  flex-wrap: nowrap;
-  gap: 6px;
-  margin-top: 5px;
-  font-size: 11px;
+/* "~2½ hrs • Easy", with the clock in front. */
+.journeyCardFacts {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 7px;
+  font-size: 13.5px;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
-.journeyCardOpen .journeyFacts svg {
-  width: 14px;
-  height: 14px;
+.journeyCardFacts svg {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
 }
 
+.journeyCardDot {
+  margin: 0 3px;
+  font-size: 10px;
+}
+
+/* An outline, with a soft shadow so it shows on a pale sky. */
 .journeyCard .matchHeart {
-  top: 4px;
-  right: 4px;
+  top: 3px;
+  right: 7px;
   bottom: auto;
   width: 34px;
   height: 34px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 
 .journeyCard .matchHeart svg {
   width: 23px;
   height: 23px;
+}
+
+/* On the narrowest phones the cards are narrower, so their words are a
+   little smaller to keep "~2½ hrs • Easy" on one line, and the words under
+   the title a little smaller to keep clear of the mountain. */
+@media (max-width: 350px) {
+  .myText {
+    font-size: 14px;
+  }
+
+  .myHeroArt {
+    width: 50vw;
+  }
+
+  .journeyCardWords {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .journeyCardTitle {
+    font-size: 16px;
+  }
+
+  .journeyCardFacts {
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .journeyCardFacts svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .journeyCardDot {
+    margin: 0 1px;
+  }
 }
 
 /* The journey you liked last. */
@@ -4439,7 +4566,7 @@ button.detailBar:active {
   align-items: center;
   gap: 14px;
   width: 100%;
-  margin-top: 9px;
+  margin-top: 12px;
   padding: 0;
   background: none;
   border: none;
@@ -4450,8 +4577,8 @@ button.detailBar:active {
 
 .myLiked img {
   flex-shrink: 0;
-  width: 80px;
-  height: 60px;
+  width: 92px;
+  height: 58px;
   border-radius: 10px;
   object-fit: cover;
 }
@@ -4464,7 +4591,8 @@ button.detailBar:active {
 .myLikedTitle {
   display: block;
   font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 17px;
+  font-size: 18px;
+  font-weight: 600;
   line-height: 1.15;
   letter-spacing: 0;
 }
@@ -4551,94 +4679,351 @@ button.detailBar:active {
   color: var(--ink-muted);
 }
 
-/* The Profile page. */
-.profileCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 28px;
-  padding: 22px 18px 16px;
-  border: 1px solid var(--outline);
-  border-radius: 15px;
-}
+/* --- Profile (ProfilePage in ProfilePages.jsx), after its mockup ---
+   A white page, with the city to the right of the heading and the cog for
+   Settings in the corner. Then the crane and your name, your stats in an
+   outlined box split four ways, and rows for your interests, preferences
+   and plan. */
 
-.profileCard .nameForm {
-  width: 100%;
-  margin-top: 10px;
-}
-
-/* Your initial, in the same ringed circle as the narration's play button. */
-.profileAvatar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  margin-bottom: 8px;
-  border: 1px solid var(--unfold-green);
-  border-radius: 50%;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 30px;
-  color: var(--ink);
-}
-
-.profileName {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 26px;
-  color: var(--text-h);
-}
-
-.profileSince {
-  font-size: 13px;
-  color: var(--ink-faint);
-}
-
-.profileCard .textLink {
-  margin-top: 6px;
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.statTile {
-  padding: 14px;
-  background-color: var(--surface-low);
-  border: 1px solid var(--outline);
-  border-radius: 12px;
+.profilePage {
+  box-sizing: border-box;
+  min-height: 100%;
+  padding-bottom: 24px;
+  background-color: white;
   text-align: left;
 }
 
-.statValue {
-  font-family: 'Times New Roman', Times, serif;
+.profileHero {
+  position: relative;
+  isolation: isolate;
+  padding: 0 20px;
+}
+
+.profileHero .header {
+  margin: 0 -20px;
+}
+
+/* Up against the right of the screen, its top just under the logo. Its pale
+   sky fades into the white on the left, along the top and at the bottom. */
+.profileHeroArt {
+  position: absolute;
+  z-index: -1;
+  top: calc(var(--frame-top) + 33px);
+  right: 0;
+  width: min(211px, 54vw);
+  height: auto;
+  pointer-events: none;
+  --fade-left: linear-gradient(to right, transparent, black 28%);
+  --fade-top-bottom: linear-gradient(to bottom, transparent, black 22%, black 72%, transparent);
+  -webkit-mask-image: var(--fade-left), var(--fade-top-bottom);
+  -webkit-mask-composite: source-in;
+  mask-image: var(--fade-left), var(--fade-top-bottom);
+  mask-composite: intersect;
+}
+
+/* Level with the logo, in the corner. */
+.profileSettings {
+  position: absolute;
+  top: calc(var(--frame-top) + 11px);
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--night);
+  cursor: pointer;
+}
+
+.profileSettings svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* As wide as the mockup's. */
+.profileTitle {
+  margin: 22px 0 0;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: min(32px, 8.2vw);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.4px;
+  color: var(--night);
+}
+
+.profileText {
+  margin-top: 10px;
+  font-size: 14.5px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: rgb(38, 46, 66);
+}
+
+.profileBody {
+  margin-top: 29px;
+  padding: 0 14px;
+}
+
+/* Without a profile, the way to make one, outlined like My Journeys' cards. */
+.profileBody .signUpCard {
+  margin-top: 0;
+  border: 1px solid rgb(208, 208, 216);
+  border-radius: 12px;
+}
+
+/* The crane, your name and when you joined, and Edit Profile. */
+.profileWho {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profileAvatar {
+  flex-shrink: 0;
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileWhoWords {
+  flex: 1;
+  min-width: 0;
+}
+
+.profileName {
+  overflow: hidden;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
   font-size: 30px;
-  line-height: 1;
-  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.3px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--night);
 }
 
-.statLabel {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--ink-faint);
+.profileJoined {
+  margin-top: 4px;
+  font-size: 14.5px;
+  letter-spacing: 0;
+  color: rgb(38, 46, 66);
 }
 
-/* When this copy of the app was built, small at the end of Profile. */
-.appVersion {
-  margin-top: 30px;
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  color: var(--ink-faint);
+/* A white pill, in orange. */
+.profileEdit {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px 0 9px;
+  background-color: white;
+  border: 1px solid rgb(208, 208, 216);
+  border-radius: 999px;
+  font-size: 14px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: var(--nav-current);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.profileEdit:active {
+  transform: scale(0.97);
+}
+
+.profileEdit svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.9;
+}
+
+/* Your Journey Stats: four numbers in an outlined box, with a line between
+   each. */
+.profileStats {
+  margin-top: 28px;
+  padding: 11px 0 13px;
+  border: 1px solid rgb(208, 208, 216);
+  border-radius: 12px;
+}
+
+.profileStatsTitle {
+  margin: 0;
+  padding: 0 14px;
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+  color: var(--night);
+}
+
+.profileStatsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 8px;
+}
+
+.profileStat {
+  min-width: 0;
+  text-align: center;
+}
+
+.profileStat + .profileStat {
+  border-left: 1px solid rgb(208, 208, 216);
+}
+
+.profileStatValue {
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 31px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--night);
+}
+
+/* Two words, one to a line. */
+.profileStatLabel {
+  margin-top: 2px;
+  font-size: 13.5px;
+  line-height: 1.06;
+  letter-spacing: 0;
+  white-space: pre-line;
+  color: rgb(38, 46, 66);
+}
+
+/* My Interests, My Preferences, and Account & Plan: a serif title over what's
+   in it, with a line under each, and an arrow. */
+.profileRow {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: calc(100% - 8px);
+  margin: 0 4px;
+  padding: 9px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgb(208, 208, 216);
+  font: inherit;
+  text-align: left;
+  color: var(--night);
+}
+
+button.profileRow {
+  cursor: pointer;
+}
+
+.profileStats + .profileRow {
+  margin-top: 8px;
+}
+
+.profileRowWords {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profileRowTitle {
+  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+}
+
+.profileRowText {
+  overflow: hidden;
+  font-size: 14.5px;
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgb(38, 46, 66);
+}
+
+.profileRowChevron {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  margin-right: -9px;
+  stroke-width: 1.8;
+}
+
+/* On the narrowest phones, Edit Profile and the stats a little smaller, so
+   they fit beside your name and in their columns. */
+@media (max-width: 350px) {
+  .profileAvatar {
+    width: 68px;
+    height: 68px;
+  }
+
+  .profileName {
+    font-size: 25px;
+  }
+
+  .profileEdit {
+    padding: 0 9px 0 8px;
+    font-size: 13px;
+  }
+
+  .profileStatValue {
+    font-size: 26px;
+  }
+
+  .profileStatLabel {
+    font-size: 12px;
+  }
+}
+
+/* --- Settings (SettingsPage in ProfilePages.jsx), from the cog on Profile ---
+   A row for each thing, with a line under it. */
+
+.settingsPage {
+  background-color: white;
+}
+
+.settingsRows {
+  margin-top: 18px;
+  border-top: 1px solid rgb(208, 208, 216);
+}
+
+.settingsRow {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 2px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgb(208, 208, 216);
+  font: inherit;
+  font-size: 16px;
+  letter-spacing: 0;
+  text-align: left;
+  color: var(--night);
+}
+
+.settingsValue {
+  font-size: 14px;
+  color: rgb(80, 88, 109);
+}
+
+.settingsDelete {
+  color: rgb(180, 40, 45);
+  cursor: pointer;
 }
 
 .backBtn.deleteLink {
   color: var(--accent-ink);
-}
-
-.profilePage .deleteLink {
-  margin-top: 30px;
 }
 
 @media (hover: hover) {
@@ -4702,7 +5087,6 @@ button.detailBar:active {
   .moodChoice,
   .whoChoice,
   .detailCard,
-  .detailCheck,
   .placeSuggestions,
   .calendarBox,
   .matchCard,
@@ -4739,6 +5123,13 @@ button.detailBar:active {
 html,
 body {
   overscroll-behavior: none;
+}
+
+/* No double-tap to zoom. Without it, a phone waits after each tap to see if
+   a second is coming, so tapping cards one after another (like on Anything
+   else?) lags, or the second tap zooms instead. Maps still pinch to zoom. */
+html {
+  touch-action: manipulation;
 }
 
 .phone {
