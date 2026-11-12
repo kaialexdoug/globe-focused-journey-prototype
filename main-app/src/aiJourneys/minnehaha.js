@@ -9,7 +9,7 @@ import glenPhoto from '../assets/journey/minnehaha/glen.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const park = {
@@ -136,7 +136,6 @@ export default {
   photo: fallsPhoto,
   photoAlt: falls.photoAlt,
   blurb: 'A waterfall in the middle of the city, and the poem that made it famous.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',

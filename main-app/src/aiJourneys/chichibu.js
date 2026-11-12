@@ -9,7 +9,7 @@ import hodosanPhoto from '../assets/journey/chichibu/hodosan.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const station = {
@@ -139,7 +139,6 @@ export default {
   photo: iwadatamiPhoto,
   photoAlt: iwadatami.photoAlt,
   blurb: 'From a hilltop park down the valley, to flat river rocks at Nagatoro.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',

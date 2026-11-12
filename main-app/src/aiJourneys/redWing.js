@@ -9,7 +9,7 @@ import riverfrontPhoto from '../assets/journey/red-wing/riverfront.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const depot = {
@@ -140,7 +140,6 @@ export default {
   photoAlt: depot.photoAlt,
   photoPosition: '38% center',
   blurb: 'A river town famous for its boots, and the great bluff that towers over it.',
-  tagline: TAGLINE,
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',

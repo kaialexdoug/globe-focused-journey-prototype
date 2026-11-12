@@ -9,7 +9,7 @@ import parkPointPhoto from '../assets/journey/duluth/park-point.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const canalPark = {
@@ -143,7 +143,6 @@ export default {
   photo: lakewalkPhoto,
   photoAlt: lakewalk.photoAlt,
   blurb: 'Along Lake Superior, from the Lift Bridge up to the best view in town.',
-  tagline: TAGLINE,
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',

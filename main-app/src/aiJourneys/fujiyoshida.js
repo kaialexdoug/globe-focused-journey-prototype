@@ -9,7 +9,7 @@ import lakeKawaguchiPhoto from '../assets/journey/fujiyoshida/lake-kawaguchi.jpg
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const station = {
@@ -137,7 +137,6 @@ export default {
   photoAlt: chureito.photoAlt,
   photoPosition: '10% center',
   blurb: 'Through the town at the foot of Mount Fuji, up the steps to its most famous view.',
-  tagline: TAGLINE,
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',

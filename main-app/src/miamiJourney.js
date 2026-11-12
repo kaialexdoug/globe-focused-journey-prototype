@@ -31,7 +31,7 @@ import joesPhoto from './assets/journey/miami-beach/joes-stone-crab.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE,
 } from './aiJourneys/parts.js'
 
 const lincolnRoad = {
@@ -251,7 +251,6 @@ export default {
   photoAlt: colonyHotel.photoAlt,
   photoPosition: colonyHotel.photoPosition,
   blurb: 'A farmer’s bridge, a hurricane, and the woman who saved Ocean Drive.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',

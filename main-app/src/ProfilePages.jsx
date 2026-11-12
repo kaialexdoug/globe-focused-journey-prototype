@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import fujiPicture from './assets/my-journeys-fuji.jpg'
 import cityPicture from './assets/profile/profile-city.jpg'
@@ -34,6 +34,7 @@ import {
   WalkIcon,
 } from './Icons.jsx'
 import { placeName } from './journeyStops'
+import { useShrinkToFit } from './shrinkToFit.js'
 
 // Everything for the profile: the navbar along the bottom of every page;
 // the My Journeys and Profile pages; and the small pieces for making a
@@ -51,20 +52,27 @@ const TABS = [
 
 // `current` is the tab that's lit, or null for none. `inert` while a box is
 // up over the screen, so it can't be tapped or tabbed to.
-export function NavBar({ current, onNavigate, inert }) {
+// `journeyGoing` puts an orange dot on My Journeys, while you're away from a
+// journey you're partway through, as that's where it's waiting for you.
+export function NavBar({ current, onNavigate, journeyGoing, inert }) {
   return (
     <nav className="navBar" aria-label="Main" inert={inert}>
-      {TABS.map(({ page, label, Icon }) => (
-        <button
-          key={page}
-          className={current === page ? 'navTab isCurrent' : 'navTab'}
-          aria-current={current === page ? 'page' : undefined}
-          onClick={() => onNavigate(page)}
-        >
-          <Icon className="navIcon" />
-          <span>{label}</span>
-        </button>
-      ))}
+      {TABS.map(({ page, label, Icon }) => {
+        const marked = journeyGoing && page === 'myJourneys'
+        return (
+          <button
+            key={page}
+            className={current === page ? 'navTab isCurrent' : 'navTab'}
+            aria-current={current === page ? 'page' : undefined}
+            aria-label={marked ? `${label}, journey in progress` : undefined}
+            onClick={() => onNavigate(page)}
+          >
+            <Icon className="navIcon" />
+            {marked && <span className="navDot" aria-hidden="true"></span>}
+            <span>{label}</span>
+          </button>
+        )
+      })}
     </nav>
   )
 }
@@ -128,58 +136,34 @@ export function SignUpCard({ label, text, onCreate }) {
 export function SaveProgressPrompt({ onSave, onSkip, onCancel }) {
   return (
     <PromptBox
-      title="Save your progress?"
-      text="Add your name to make a profile. Your journey is saved as you go, so you can pick up where you left off, even if you close the app."
+      title="Make a profile?"
+      text="Add your name, and the journeys you finish are kept on your profile, with your stats. Your place in a journey is kept either way."
       onDismiss={onCancel}
     >
       <NameForm submitLabel="SAVE & START" onSubmit={onSave} autoFocus />
       <button className="backBtn" onClick={onSkip}>
-        START WITHOUT SAVING
+        START WITHOUT A PROFILE
       </button>
     </PromptBox>
   )
 }
 
-// Ending a journey that's being saved: keep where you are for later, or
-// throw it away. Tapping outside or Escape goes back to the journey.
-export function SaveExitPrompt({ onSaveExit, onExitWithoutSaving, onStay }) {
-  return (
-    <PromptBox
-      title="Save your progress?"
-      text="Save it, and you can pick up right where you left off from My Journeys."
-      onDismiss={onStay}
-    >
-      <button className="introBtn" onClick={onSaveExit} autoFocus>
-        SAVE & EXIT
-      </button>
-      <button className="introBtn isGhost" onClick={onExitWithoutSaving}>
-        EXIT WITHOUT SAVING
-      </button>
-      <button className="backBtn" onClick={onStay}>
-        BACK TO THE JOURNEY
-      </button>
-    </PromptBox>
-  )
-}
-
-// Starting a journey with another left partway: you can only be on one at a
-// time, so it's exit that one, or carry on with it. Tapping outside or Escape
-// goes back to where you were.
+// Beginning a journey while you're partway through another: you can only be
+// on one at a time, so it's keep going with that one (the big button), or end
+// it, which clears where you were, and start the new one. Tapping outside or
+// Escape stays where you are.
 export function ExitCurrentPrompt({ currentName, nextName, onExit, onResume, onStay }) {
   return (
     <PromptBox
-      title="Exit your current journey?"
-      text={`You’re partway through ${currentName}, and you can only be on one journey at a time. Starting ${nextName} will exit it, and your place won’t be kept.`}
+      title="End your current journey?"
+      text={`You’re partway through ${currentName}. Starting ${nextName} will end it, and your progress on it will be cleared.`}
       onDismiss={onStay}
     >
-      <button className="introBtn" onClick={onExit} autoFocus>
-        EXIT & START
+      <button className="introBtn" onClick={onResume} autoFocus>
+        KEEP GOING
       </button>
-      <button className="introBtn isGhost" onClick={onResume}>
-        RESUME CURRENT JOURNEY
-      </button>
-      <button className="backBtn" onClick={onStay}>
-        NOT NOW
+      <button className="backBtn" onClick={onExit}>
+        END JOURNEY
       </button>
     </PromptBox>
   )
@@ -363,8 +347,8 @@ function CurrentJourney({ journey, where, onResume }) {
 // My Journeys, after its mockup: the heading with Mount Fuji beside it, then
 // the journey you're partway through (there's only ever one), the ones you've
 // finished in a row you swipe through, and the one you liked last. Without a
-// profile, nothing's kept but your likes, so a way to make one takes the
-// place of the first two.
+// profile, the journeys you finish aren't kept, so a way to make one takes
+// the place of those.
 export function MyJourneysPage({
   profile,
   journeys,
@@ -401,15 +385,7 @@ export function MyJourneysPage({
       </div>
 
       <div className="myBody">
-        {!profile && (
-          <SignUpCard
-            label="NO PROFILE YET"
-            text="With a profile, your current and completed journeys are kept here, and you can pick one up where you left off. It’s just your name."
-            onCreate={onCreateProfile}
-          />
-        )}
-
-        {profile && underWay && <CurrentJourney journey={underWay} where={where} onResume={onResume} />}
+        {underWay && <CurrentJourney journey={underWay} where={where} onResume={onResume} />}
         {profile && !underWay && (
           <div className="myCard">
             <h2 className="myCardLabel">CURRENT JOURNEY</h2>
@@ -419,6 +395,14 @@ export function MyJourneysPage({
               <ArrowRightIcon />
             </button>
           </div>
+        )}
+
+        {!profile && (
+          <SignUpCard
+            label="NO PROFILE YET"
+            text="With a profile, the journeys you finish are kept here, with your stats. It’s just your name."
+            onCreate={onCreateProfile}
+          />
         )}
 
         {/* Every journey you've finished, the latest first: two on the
@@ -585,26 +569,10 @@ function ProfileRow({ title, text, onOpen }) {
 }
 
 // Your name on Profile, on one line beside Edit Profile: a long one is made
-// smaller until it fits, down to 18px, and past that ends in "…". It's
-// fitted again whenever its space changes size.
+// smaller until it fits, down to 18px, and past that ends in "…".
 function ProfileName({ name }) {
   const nameRef = useRef(null)
-
-  useLayoutEffect(() => {
-    const element = nameRef.current
-    function fit() {
-      element.style.fontSize = ''
-      let size = parseFloat(getComputedStyle(element).fontSize)
-      while (element.scrollWidth > element.clientWidth && size > 18) {
-        size -= 1
-        element.style.fontSize = `${size}px`
-      }
-    }
-    fit()
-    const observer = new ResizeObserver(fit)
-    observer.observe(element.parentElement)
-    return () => observer.disconnect()
-  }, [name])
+  useShrinkToFit(nameRef, 18, name)
 
   return (
     <p className="profileName" ref={nameRef}>

@@ -48,9 +48,7 @@ export const AFTERGLOW = {
 export const ONE_DETOUR_NOTE =
   'This part of the journey comes with a detour: a short side trip worth taking if you’re curious. It’s entirely up to you.'
 
-// The first line under the photo on See Your Journey, and the note under
-// START HERE.
-export const TAGLINE = 'Yours to explore, whenever you’re ready.'
+// The note under START HERE.
 export const START_NOTE = 'Travel to the start is separate from journey time.'
 
 // The opening and closing lines of the peak's narration.

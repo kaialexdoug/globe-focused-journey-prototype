@@ -9,7 +9,7 @@ import franconiaPhoto from '../assets/journey/taylors-falls/franconia.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const angelHill = {
@@ -133,7 +133,6 @@ export default {
   photo: dallesPhoto,
   photoAlt: dalles.photoAlt,
   blurb: 'Holes drilled by the ice age, cliffs over the river, and a meadow of sculptures.',
-  tagline: TAGLINE,
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',

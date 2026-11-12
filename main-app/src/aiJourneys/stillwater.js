@@ -9,7 +9,7 @@ import liftBridgeNightPhoto from '../assets/journey/stillwater/lift-bridge-night
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
-  ONE_DETOUR_NOTE, TAGLINE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
+  ONE_DETOUR_NOTE, START_NOTE, PEAK_LEAD, PEAK_CLOSE, BACK_TO_ROUTE, DINNER,
 } from './parts.js'
 
 const lowellPark = {
@@ -136,7 +136,6 @@ export default {
   photo: liftBridgePhoto,
   photoAlt: liftBridge.photoAlt,
   blurb: 'An old river town, a walk across the water, and a bridge that lights up at dusk.',
-  tagline: TAGLINE,
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
