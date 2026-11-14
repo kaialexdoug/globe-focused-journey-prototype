@@ -1,4 +1,20 @@
-// The Falls in the City (Minnehaha Park, Minneapolis, Minnesota)
+// The Falls in the City (Minnehaha Park, Minneapolis), built the same way as
+// the Waseda journey (testJourney.js). Every stop has its exact spot
+// (`mapPoint`, from Wikipedia and OpenStreetMap), so it gets the live map,
+// and the walk to it from the stop before: how far (`distanceMeters`), how
+// long (`travelMinutes`) and how hard (`effort`), from Google's walking
+// routes and the heights along them (Open-Meteo), worked out once, in
+// November 2026.
+//
+// The narration tells one story from stop to stop: a waterfall with a Dakota
+// name, made famous by a poem whose poet never saw it, the visitors who came
+// by train, a showman's copy of the poet's house, and the glen the falls
+// have carved on their way back from the river. The history was checked
+// against published sources (Wikipedia) in November 2026.
+//
+// The photos are from Wikimedia Commons, and need crediting (see Photo
+// credits in the README). Nobody from Unfold has walked it yet, and the
+// times at each stop are estimates.
 
 import parkPhoto from '../assets/journey/minnehaha/park.jpg'
 import depotPhoto from '../assets/journey/minnehaha/depot.jpg'
@@ -6,6 +22,9 @@ import longfellowHousePhoto from '../assets/journey/minnehaha/longfellow-house.j
 import statuePhoto from '../assets/journey/minnehaha/statue.jpg'
 import fallsPhoto from '../assets/journey/minnehaha/falls.jpg'
 import glenPhoto from '../assets/journey/minnehaha/glen.jpg'
+
+// The spots near the stops.
+import stevensHousePhoto from '../assets/journey/minnehaha/stevens-house.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
@@ -19,14 +38,19 @@ const park = {
   photoAlt: 'The words Minnehaha Park on the white wall of a park building, with autumn leaves on the path',
   memory: 'Where the day began.',
   mapPlace: '50th Street/Minnehaha Park Station',
+  mapPoint: { lat: 44.9123, lng: -93.2101 },
   travelMode: 'transit',
   travelMinutes: 0,
   stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re at Minnehaha Park.' },
-    { text: 'This is one of the best-loved parks in Minneapolis, and it’s built around a waterfall. The falls became famous through a poem, Longfellow’s The Song of Hiawatha, though Longfellow himself never came to see them.' },
-    { className: 'narrationClose', text: 'Before the falls, a little detour into the park’s past. The first stop is just by the station.' },
+    { kind: 'heading', text: 'Curling water' },
+    { text: 'The name is Dakota, from mni, water, and ȟaȟa, curling: the falls and the creek were named long before the city grew up around them. Early soldiers and settlers called them Brown’s Falls, or Little Falls, but the Dakota name is the one that stuck.' },
+    { kind: 'heading', text: 'A poem’s fame' },
+    { text: 'In 1855, Henry Wadsworth Longfellow published The Song of Hiawatha, about an Ojibwe hero and his love for Minnehaha, a Dakota woman. It made these falls famous across the world. Longfellow himself never came to see them.' },
+    { kind: 'find', text: 'Listen for the falls as you walk into the park. You’ll hear them before you see them.' },
+    { className: 'narrationClose', text: 'The first stop is an old railroad station, a few minutes’ walk into the park.' },
   ],
 }
 
@@ -37,32 +61,59 @@ const depot = {
   photoAlt: 'The historical marker for the Minnehaha Depot, telling the story of the little station called “the Princess”',
   memory: 'The little station called the Princess.',
   mapPlace: 'Minnehaha Depot',
+  mapPoint: { lat: 44.914168, lng: -93.2113248 },
   travelMode: 'walking',
-  travelMinutes: 5,
+  distanceMeters: 294,
+  travelMinutes: 4,
+  effort: { level: 'easy', note: 'Flat, into the park' },
   stayMinutes: [10, 15],
+  nearby: [
+    {
+      name: 'John H. Stevens House',
+      note: 'The first authorized house on the west bank of what became Minneapolis, from 1849, carried here in 1896 by thousands of schoolchildren and ten horses',
+      meters: 130,
+      photo: stevensHousePhoto,
+      photoAlt: 'The John H. Stevens House, a small white wooden house with green shutters',
+      mapPlace: 'John H. Stevens House, Minnehaha Park, Minneapolis',
+      mapPoint: { lat: 44.91388889, lng: -93.20972222 },
+    },
+  ],
   ...DISCOVERY,
   narration: [
-    { text: 'This little wooden station was nicknamed “the Princess” for its fancy trim. Crowds of picnickers and sightseers used to arrive here by train to see the falls.' },
-    { text: 'Read the marker, look at the gingerbread details along the roof, and imagine the platform full of people in their Sunday best.' },
-    { className: 'narrationClose', text: 'Next, a house with a story of its own.' },
+    { kind: 'heading', text: 'The Princess' },
+    { text: 'The Milwaukee Road built this little station in 1875 to bring visitors out to the falls. With its fine wooden trim, people called it the Princess, and the name stuck to it ever after.' },
+    { kind: 'heading', text: 'A house carried by children' },
+    { text: 'Just along from here is a house with an even better journey. The John H. Stevens House, from 1849, was the first authorized house on the west bank of what became Minneapolis. In 1896 it was moved here, pulled by ten horses and thousands of schoolchildren taking turns.' },
+    { kind: 'find', text: 'Find the depot’s deep, overhanging roof and its fancy wooden trim, the details that earned it its nickname.' },
+    { className: 'narrationClose', text: 'Next, a house built to look like the poet’s own, a short walk away.' },
   ],
 }
 
 const statue = {
   id: 'hiawathaStatue',
   name: 'Hiawatha and Minnehaha',
+  mapName: 'Hiawatha statue',
   photo: statuePhoto,
   photoAlt: 'A bronze statue of Hiawatha carrying Minnehaha, beside the creek among red and gold autumn trees',
   memory: 'The statue by the creek.',
-  teaser: 'A statue of the poem’s two lovers, by the creek just above the falls. A short walk upstream.',
+  teaser: 'A statue of the poem’s two lovers, by the creek just above the falls. A few steps off the path.',
   mapPlace: 'Hiawatha and Minnehaha Statue, Minneapolis',
+  mapPoint: { lat: 44.9155, lng: -93.2117 },
   travelMode: 'walking',
-  travelMinutes: 5,
+  // From the Longfellow House. It's just off the path to the falls, so the
+  // extra walking is only the few steps there and back.
+  distanceMeters: 267,
+  travelMinutes: 4,
+  extraMeters: 112,
+  effort: { level: 'easy', note: 'Flat, along the creek' },
   stayMinutes: [10, 15],
   ...DETOUR,
   narration: [
-    { text: 'In Longfellow’s poem, Hiawatha carries Minnehaha across a stream. Here they are, in bronze, by the creek.' },
-    { text: 'It’s a quiet spot, a little away from the crowds at the falls. Sit by the water for a moment.' },
+    { kind: 'heading', text: 'The lovers of the poem' },
+    { text: 'Here they are, the two from Longfellow’s poem: Hiawatha, an Ojibwe hero, carrying Minnehaha across the water. In the poem she dies in a hard winter, and Hiawatha mourns her.' },
+    { kind: 'heading', text: 'Paid for by children' },
+    { text: 'Like the Stevens House, this statue owes a lot to schoolchildren. The sculptor, Jacob Fjelde, made it in plaster, and Minnesota children gave small donations toward it. It was finally cast in bronze and unveiled here in 1912, while local children sang and recited parts of the poem.' },
+    { kind: 'find', text: 'Look at how Hiawatha holds Minnehaha, and find which way they’re facing: toward the falls, or away?' },
     BACK_TO_ROUTE,
   ],
 }
@@ -74,16 +125,22 @@ const longfellowHouse = {
   photoAlt: 'The Longfellow House, a yellow two-storey house with a white picket fence and tall evergreens either side',
   memory: 'A copy of the poet’s house.',
   mapPlace: 'Longfellow House, Minnehaha Park, Minneapolis',
+  mapPoint: { lat: 44.915972, lng: -93.21375 },
   travelMode: 'walking',
+  distanceMeters: 370,
   travelMinutes: 5,
+  effort: { level: 'easy', note: 'Flat, through the park' },
   stayMinutes: [15, 20],
   ...BUILD,
   detours: [statue],
   detoursNote: ONE_DETOUR_NOTE,
   narration: [
-    { text: 'This yellow house is a smaller copy of Longfellow’s own home in Massachusetts, built here long ago by an admirer of the poem.' },
-    { text: 'It’s a strange, sweet thing to find in a city park: a tribute to a poet who made this place famous without ever seeing it.' },
-    { text: 'Up the creek, there’s a statue from the poem, if you’d like a detour. Otherwise, follow the sound of the water.' },
+    { kind: 'heading', text: 'A showman’s zoo' },
+    { text: 'Robert “Fish” Jones was a Minneapolis businessman and showman who collected animals. In 1906 he opened a zoo here, with zebras, monkeys and a polar bear said to have come from Norway, and he built himself this house, styled after Longfellow’s own home in Cambridge, Massachusetts.' },
+    { kind: 'heading', text: 'The guest who never came' },
+    { text: 'In 1908, Alice Longfellow, the poet’s daughter, wrote to say she hoped to visit the gardens one day. She never did, just like her father. The zoo is long gone, but the house still stands.' },
+    { kind: 'find', text: 'Find the white picket fence, and imagine zebras grazing just beyond it.' },
+    { className: 'narrationClose', text: 'There’s a statue of the poem’s lovers by the creek, if you’d like a detour. Otherwise, follow the sound of the water.' },
   ],
 }
 
@@ -94,17 +151,20 @@ const falls = {
   photoAlt: 'Minnehaha Falls pouring over a limestone ledge into a green glen, with people on the path beside it',
   memory: 'At the foot of the falls.',
   mapPlace: 'Minnehaha Falls',
+  mapPoint: { lat: 44.9153316, lng: -93.210983 },
   travelMode: 'walking',
-  travelMinutes: 5,
+  distanceMeters: 323,
+  travelMinutes: 4,
+  effort: { level: 'easy', note: 'Flat, along the creek to the top of the falls' },
   stayMinutes: [20, 30],
-  nearby: [
-    { name: 'Sea Salt Eatery', note: 'A popular seafood spot in the park, near the falls', meters: 100 },
-  ],
   ...PEAK,
   narration: [
     PEAK_LEAD,
-    { text: 'Here, Minnehaha Creek pours over a limestone ledge and drops into the glen below.' },
-    { text: 'Look at it from the top first. Then take the stairs down to the bottom, stand in the cool air, and look up.' },
+    { kind: 'heading', text: 'Falls on the move' },
+    { text: 'Ten thousand years ago, at the end of the last ice age, these falls poured straight into the Mississippi. Since then the water has worn its way back, several thousand feet upstream, carving out the glen below you as it went.' },
+    { kind: 'heading', text: 'Frozen in winter' },
+    { text: 'In winter the falls freeze into a wall of ice, and people come out to see them all year round: in 2024, the park had an estimated 2.3 million visits.' },
+    { kind: 'find', text: 'Take the steps down into the glen and stand at the foot of the falls. Find the spot where the spray reaches you.' },
     PEAK_CLOSE,
   ],
 }
@@ -115,14 +175,21 @@ const glen = {
   photo: glenPhoto,
   photoAlt: 'Minnehaha Creek running through a wooded glen under an old stone bridge, among autumn trees',
   memory: 'Down the glen toward the river.',
-  mapPlace: 'Minnehaha Regional Park, Minneapolis',
+  // Where the creek meets the Mississippi, at the end of the glen.
+  mapPlace: 'Minnehaha Creek, Minnehaha Regional Park, Minneapolis',
+  mapPoint: { lat: 44.9088543, lng: -93.2004996 },
   travelMode: 'walking',
-  travelMinutes: 5,
+  distanceMeters: 1253,
+  travelMinutes: 17,
+  effort: { level: 'moderate', note: 'Down steps into the glen, then along the creek to the river. Coming back means climbing out again' },
   stayMinutes: [30, 60],
   ...AFTERGLOW,
   narration: [
-    { text: 'That’s the last stop. Follow the creek downstream from the falls, into the glen.' },
-    { text: 'The path winds along the water under old stone bridges, on its way to the Mississippi. Walk as far as you like, and let the sound of the falls fade behind you.' },
+    { kind: 'heading', text: 'The path the falls carved' },
+    { text: 'This glen is the trail the falls have left behind them, all the way from the river. Minnehaha Creek has come 22 miles from Lake Minnetonka to get here, and this is the last stretch before it joins the Mississippi.' },
+    { kind: 'heading', text: 'An old mill dam' },
+    { text: 'People tried to put the creek to work, too. In 1853 or 1854 a mill dam of stone and earth was built down here, and what’s left of it is still beside the creek.' },
+    { kind: 'find', text: 'Find the remains of the old mill dam beside the creek. Then follow the water to where it meets the Mississippi.' },
     DINNER,
   ],
 }
@@ -139,7 +206,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
-  experience: 'Scenic',
+  experiences: ['Nature', 'Scenic', 'Historical'],
   departure: park,
   discovery: depot,
   build: longfellowHouse,
@@ -147,6 +214,12 @@ export default {
   afterglow: glen,
   startArea: 'Minneapolis, Minnesota, USA',
   startNote: START_NOTE,
+  // When to go (Weather & Best Time to Go, BestTime.jsx).
+  bestTime: {
+    season: 'Spring',
+    seasonNote: 'When the falls run fullest, after the snow melts. In a cold winter they freeze solid, which is worth a trip too.',
+    timeOfDay: 'During daylight hours',
+  },
   match: {
     moods: { Peaceful: 80, Adventurous: 45, Romantic: 65, Curious: 50, Playful: 70, Cultural: 45 },
     with: { Solo: 70, Couple: 80, Family: 95, 'Friends / Group': 75 },
@@ -156,7 +229,8 @@ export default {
     },
   },
   description: [
-    'It’s not every city that has a waterfall in it. Minnehaha Falls is a short train ride from downtown Minneapolis, and it comes with a story: a famous poem, a poet who never visited, and a park full of the traces it left behind. This is a short journey, easy enough for a whole family, with the falls right at its heart.',
+    'Minnehaha Falls has a Dakota name and a poet’s fame: Longfellow made it known around the world in The Song of Hiawatha, without ever coming to see it. Ever since, people have come out to the falls by train, by streetcar and on foot, and the park around them has gathered stories of its own.',
+    'This journey walks you from a little station called the Princess, past a pioneer house carried here by schoolchildren and a showman’s copy of the poet’s home, to the falls themselves, then down the glen they’ve carved all the way to the Mississippi.',
   ],
   route: [park, depot, longfellowHouse, falls, glen],
   wrapUp: {

@@ -13,7 +13,7 @@ function StopConfirmation({ onConfirm, onCancel }) {
       onDismiss={onCancel}
     >
       <button className="introBtn" onClick={onCancel} autoFocus>
-        KEEP GOING
+        Keep Going
       </button>
       <button className="backBtn" onClick={onConfirm}>
         END JOURNEY

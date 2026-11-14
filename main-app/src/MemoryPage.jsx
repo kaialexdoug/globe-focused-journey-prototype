@@ -1,5 +1,5 @@
 import { PhotoHero } from './Header.jsx'
-import { ClockIcon, PinIcon, RouteIcon } from './Icons.jsx'
+import { ArrowRightIcon, ClockIcon, PinIcon, RouteIcon } from './Icons.jsx'
 import { SignUpCard } from './ProfilePages.jsx'
 
 // The end of the journey: the day told as a short story, then a timeline of
@@ -163,7 +163,8 @@ function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSur
 
         {onSurvey && (
           <button className="introBtn" onClick={onSurvey}>
-            TAKE THE SURVEY ➜
+            Take the Survey
+            <ArrowRightIcon />
           </button>
         )}
         <button className="introBtn isGhost" onClick={onDone}>

@@ -27,6 +27,10 @@ import kawagoeCastlePhoto from './assets/journey/kawagoecastle.jpg'
 import hikawaShrinePhoto from './assets/journey/hikawa.jpg'
 import maruyaPhoto from './assets/journey/maruya.jpg'
 
+// The spots near Kawagoe's stops.
+import kashiyaYokochoPhoto from './assets/journey/kawagoe/kashiya-yokocho.jpg'
+import miyoshinoShrinePhoto from './assets/journey/kawagoe/miyoshino-shrine.jpg'
+
 // The "-new" photos are from Wikimedia Commons, and need crediting (see
 // Photo credits in the README).
 import odawaraStationPhoto from './assets/journey/odawarastation-new.jpg'
@@ -36,7 +40,27 @@ import ninjaMuseumPhoto from './assets/journey/ninjacenter.jpg'
 import odawaraCastlePhoto from './assets/journey/odawaracastle-new.jpg'
 import miyukinohamaPhoto from './assets/journey/miyukinohama.jpg'
 
+// The spots near Odawara's stops.
+import sounStatuePhoto from './assets/journey/odawara/soun-statue.jpg'
+import nariwaiPhoto from './assets/journey/odawara/nariwai.jpg'
+import hotokuNinomiyaPhoto from './assets/journey/odawara/hotoku-ninomiya.jpg'
+import uiroPhoto from './assets/journey/odawara/uiro.jpg'
+
 // --- Adventure in Kawagoe ---
+//
+// Built the same way as the Waseda journey (testJourney.js). Every stop has
+// its exact spot (`mapPoint`, from Wikipedia, OpenStreetMap and Google Maps),
+// so it gets the live map, and the walk to it from the stop before: how far
+// (`distanceMeters`), how long (`travelMinutes`) and how hard (`effort`),
+// from Google's walking routes and the heights along them (Open-Meteo),
+// worked out once, in November 2026. The times at each stop are from walking
+// it.
+//
+// The narration tells one story from stop to stop: "little Edo", the castle
+// town that fed and guarded the capital, burned in 1893 and rebuilt itself
+// in clay-walled storehouses, around a shrine older than all of it. The
+// history was checked against published sources (Wikipedia, in English and
+// Japanese) in November 2026.
 
 export const kawagoeStation = {
   // A short name the app uses to tell the stops apart.
@@ -50,21 +74,23 @@ export const kawagoeStation = {
   // What the map looks for, and how you'll get there: "transit" (train),
   // "walking", "driving" or "bicycling".
   mapPlace: 'Kawagoe Station',
+  // Its exact spot, for the live map that follows you as you go (LiveMap.jsx).
+  mapPoint: { lat: 35.90694444, lng: 139.48277778 },
   travelMode: 'transit',
   // About how many minutes it takes to get here from the stop before (0 for
   // the departure), and the suggested time to spend here, shortest and
   // longest, shown after the narration. The journey's total time is worked
-  // out from these (journeyTimes.js). Only ever a guide.
+  // out from these (journeyTimes.js). Only ever a guide. A stop after the
+  // first also has how far the walk is (`distanceMeters`) and how hard
+  // (`effort`), for the route preview (RoutePreview.jsx).
   travelMinutes: 0,
   stayMinutes: [5, 10],
   // Optional: interesting spots close by, each with what it is and about how
   // far it is from here, listed after the suggested time. Only ones that are
-  // really worth it, so most stops have none. Like this:
-  //   nearby: [{ name: 'Kashiya Yokocho', note: 'An alley of sweet shops', meters: 350 }],
-  // If every spot also has a `photo` (and `photoAlt`), and its `mapPlace` and
-  // exact `mapPoint`, like a stop, each is shown as a card with directions to
-  // it (NearbyCard in StopPages.jsx), as on the Waseda, Miami Beach and
-  // Nassau journeys.
+  // really worth it, so most stops have none. With a `photo` (and
+  // `photoAlt`), and its `mapPlace` and exact `mapPoint`, like a stop, each
+  // is shown as a card with directions to it (NearbyCard in StopPages.jsx),
+  // as at Toki no Kane, below.
 
   // On each screen's photo: the red heading, then the small label above the
   // name.
@@ -77,26 +103,15 @@ export const kawagoeStation = {
   // opening line, and "narrationClose" the italic last line. An entry can
   // also be a little subheading, { kind: 'heading', text }, or something to
   // look for there, { kind: 'find', text }, shown in a box headed CAN YOU
-  // FIND IT? (see Narration.jsx; the Waseda journey in testJourney.js uses
-  // both).
+  // FIND IT? (see Narration.jsx).
   narration: [
-    {
-      className: 'narrationLead',
-      text: "You've made it.",
-    },
-    {
-      text: "Step off, and take a second before you start walking. This is Kawagoe Station. Unassuming, a little worn at the edges, nothing like what's waiting a few minutes from here.",
-    },
-    {
-      text: "Most people who come through this station are heading somewhere else. Commuters, students, people just passing through to the bigger stops down the line. You're not. You're here on purpose.",
-    },
-    {
-      text: "From here, it's a short walk into the old part of town. No need to rush, the first stop isn't going anywhere, and neither is the day. Just follow the path, and we'll take it from there.",
-    },
-    {
-      className: 'narrationClose',
-      text: "Ready? Let's go.",
-    },
+    { className: 'narrationLead', text: "You've made it." },
+    { kind: 'heading', text: 'Here on purpose' },
+    { text: "Step off, and take a second before you start walking. This is Kawagoe Station. Unassuming, a little worn at the edges, nothing like what's waiting a few minutes from here. Most people who come through are heading somewhere else. You're here on purpose." },
+    { kind: 'heading', text: 'Little Edo' },
+    { text: 'Kawagoe was a castle town that lived alongside Edo, the old name for Tokyo. Goods went back and forth between the two by boat, on the Shingashi River, and thanks to all its old buildings, people still call the town Koedo: little Edo.' },
+    { kind: 'find', text: 'On your way into town, find the name Koedo on a sign or a shop. Once you start looking, you’ll see it everywhere.' },
+    { className: 'narrationClose', text: "From here, it's a short walk into the old part of town. No need to rush. Just follow the path, and we'll take it from there." },
   ],
 }
 
@@ -111,8 +126,11 @@ export const imofukudo = {
   photoPosition: 'center 62%',
 
   mapPlace: 'Koedo Imoya Imofukudo, Kawagoe',
+  mapPoint: { lat: 35.919505, lng: 139.4832066 },
   travelMode: 'walking',
-  travelMinutes: 25,
+  distanceMeters: 1568,
+  travelMinutes: 22,
+  effort: { level: 'easy', note: 'Flat, straight up through town' },
   stayMinutes: [20, 30],
 
   directionsHeading: 'Discovery',
@@ -121,27 +139,25 @@ export const imofukudo = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      text: 'Kawagoe’s been known for its sweet potatoes for centuries, the soil here just happens to be perfect for them, and the town never let anyone forget it.',
-    },
-    {
-      text: 'Imofukudo’s one of the places locals actually go for it, not just tourists passing through. Their torched grilled sweet potato is the one to watch for, they heat it right in front of you, so don’t be surprised if you end up just standing there watching before you even taste it. If that’s not your thing, they’ve got plenty of other potato-flavored snacks and soft-serve worth a look too.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'No rush. Taste it, look around, then when you’re ready, we’ll keep moving.',
-    },
+    { kind: 'heading', text: 'Better than chestnuts' },
+    { text: 'Kawagoe’s been known for its sweet potatoes since the days of Edo. A lord of Kawagoe gave some to the shogun, who named them Kawagoe imo, and the roast potato sellers of Edo advertised them with a pun: “tastier than chestnuts, thirteen ri.” Kuri, chestnut, sounds like nine ri, and yori, than, like four. Together they make thirteen, and Kawagoe was thirteen ri from Edo.' },
+    { kind: 'heading', text: 'Torched in front of you' },
+    { text: 'Imofukudo’s one of the places locals actually go for it, not just tourists passing through. Their torched grilled sweet potato is the one to watch for. They heat it right in front of you, so don’t be surprised if you end up just standing there watching before you even taste it. If that’s not your thing, they’ve got plenty of other potato snacks worth a look too.' },
+    { kind: 'find', text: 'Watch them torch your sweet potato, and catch the moment the top starts to caramelize.' },
+    { className: 'narrationClose', text: 'No rush. Taste it, look around, then when you’re ready, we’ll keep moving.' },
   ],
 }
 
 // --- Detours ---
 // A detour is a stop like any other, with a `teaser` for the Detours page,
 // saying what it's about without giving the narration away. A stop lists its
-// detours in `detours` (see Toki no Kane, below).
+// detours in `detours` (see Toki no Kane, below). On foot, `extraMeters` is
+// how much further it makes the day's walk.
 
 export const kawagoeMuseum = {
   id: 'kawagoeMuseum',
   name: 'Kawagoe City Museum',
+  mapName: 'City Museum',
   photo: kawagoeMuseumPhoto,
   photoAlt: 'Inside the museum: a recreated merchant street, an old sweet potato cart and a model of the town',
   memory: 'The town’s story, told up close.',
@@ -150,8 +166,13 @@ export const kawagoeMuseum = {
   // The Japanese name, because "Kawagoe City Museum" finds the art museum
   // next door first.
   mapPlace: '川越市立博物館',
+  mapPoint: { lat: 35.9258523, lng: 139.491508 },
   travelMode: 'walking',
-  travelMinutes: 10,
+  // From Toki no Kane, then on to Hikawa Shrine from here.
+  distanceMeters: 885,
+  travelMinutes: 12,
+  extraMeters: 432,
+  effort: { level: 'easy', note: 'Flat, east through town' },
   stayMinutes: [30, 45],
 
   directionsHeading: 'Detour',
@@ -160,16 +181,12 @@ export const kawagoeMuseum = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      text: 'You’re here. Most people walk right past this one on their way to the famous streets, which is a little unfair to it.',
-    },
-    {
-      text: 'Inside, it tells the story of the town you’ve been walking through: who lived here, what they made, and how the old merchant streets came to look the way they do. You don’t need to read every label. Wander until something catches you, then stay with that one for a bit.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'Whenever you’re done, we’ll head back to the route.',
-    },
+    { kind: 'heading', text: 'The town’s own story' },
+    { text: 'You’re here. Most people walk right past this one on their way to the famous streets, which is a little unfair to it. Inside, it tells the story of the town you’ve been walking through: who lived here, what they made, and how the old merchant streets came to look the way they do.' },
+    { kind: 'heading', text: 'How the street was built' },
+    { text: 'The museum stands on what was part of Kawagoe Castle. Inside, life-size models show the craftsmen at work on a kura, step by step, the way they rebuilt the town after the fire of 1893. You don’t need to read every label. Wander until something catches you, then stay with that one for a bit.' },
+    { kind: 'find', text: 'Find the model of the kura being built, and see how thick its clay walls really are.' },
+    { className: 'narrationClose', text: 'Whenever you’re done, we’ll head back to the route.' },
   ],
 }
 
@@ -183,11 +200,24 @@ export const kawagoeCastle = {
 
   // The palace hall itself (Honmaru Goten), rather than the castle grounds.
   mapPlace: '川越城本丸御殿',
+  mapPoint: { lat: 35.9245029, lng: 139.4914968 },
   travelMode: 'walking',
-  travelMinutes: 10,
+  // From Toki no Kane, then on to Hikawa Shrine from here.
+  distanceMeters: 989,
+  travelMinutes: 14,
+  extraMeters: 618,
+  effort: { level: 'easy', note: 'Flat, east through town' },
   stayMinutes: [20, 30],
   nearby: [
-    { name: 'Miyoshino Shrine', note: 'Said to be where the old children’s song “Tōryanse” comes from', meters: 100 },
+    {
+      name: 'Miyoshino Shrine',
+      note: 'Said to be where the old children’s song “Tōryanse” comes from',
+      meters: 90,
+      photo: miyoshinoShrinePhoto,
+      photoAlt: 'A stone torii and a straight path leading to the red hall of Miyoshino Shrine',
+      mapPlace: '三芳野神社, 川越',
+      mapPoint: { lat: 35.9242257, lng: 139.4924551 },
+    },
   ],
 
   directionsHeading: 'Detour',
@@ -196,16 +226,12 @@ export const kawagoeCastle = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      text: 'This is it. Yes, it really is just a quiet wooden building. The towers and walls are long gone, and what’s left is the old palace hall, the part where the lord actually lived and worked.',
-    },
-    {
-      text: 'Step inside and look at the rooms. It feels more like visiting an old house than a fortress, and that’s the point. It’s one of the few buildings of its kind that survived.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'Take your time here. When you’re ready, we’ll get back on the route.',
-    },
+    { kind: 'heading', text: 'The palace that survived' },
+    { text: 'This is it. Yes, it really is just a quiet wooden building. The towers and walls are long gone, and what’s left is part of the palace hall, built in 1848, where the lord actually lived and worked. Only one other castle in Japan, Kōchi, still has a great hall like it.' },
+    { kind: 'heading', text: 'Easy going, scary coming back' },
+    { text: 'Next door is Miyoshino Shrine. It once stood inside the castle, so ordinary people could only visit at set times, and were searched on the way out in case they were spies. That’s said to be where the old children’s song “Tōryanse” comes from: going in is easy, coming back is scary.' },
+    { kind: 'find', text: 'Step inside and look at the rooms. Then find the narrow path to Miyoshino Shrine, the one from the song.' },
+    { className: 'narrationClose', text: 'Take your time here. When you’re ready, we’ll get back on the route.' },
   ],
 }
 
@@ -217,11 +243,22 @@ export const tokiNoKane = {
   memory: 'Four centuries of ringing out the hours.',
 
   mapPlace: 'Toki no Kane, Kawagoe',
+  mapPoint: { lat: 35.9234837, lng: 139.4833395 },
   travelMode: 'walking',
-  travelMinutes: 5,
+  distanceMeters: 513,
+  travelMinutes: 7,
+  effort: { level: 'easy', note: 'Flat, up the old merchant street' },
   stayMinutes: [10, 20],
   nearby: [
-    { name: 'Kashiya Yokocho', note: 'A little alley of old-fashioned sweet and snack shops', meters: 350 },
+    {
+      name: 'Kashiya Yokocho',
+      note: 'A little stone-paved alley of old-fashioned sweet and snack shops, going since 1796',
+      meters: 300,
+      photo: kashiyaYokochoPhoto,
+      photoAlt: 'A narrow stone-paved lane of old wooden sweet shops, with a blue banner reading 菓子屋横丁',
+      mapPlace: '菓子屋横丁, 川越',
+      mapPoint: { lat: 35.9252, lng: 139.4808 },
+    },
   ],
 
   directionsHeading: 'Build',
@@ -236,15 +273,12 @@ export const tokiNoKane = {
   detoursNote: 'This part of the journey comes with two detours: short side trips worth taking if you’re curious. They’re entirely up to you.',
 
   narration: [
-    {
-      text: 'Walk a little further down the main street and you’ll see it, a wooden bell tower rising above the rooftops. Toki no Kane has been ringing out the hours over Kawagoe for about four centuries. The current tower is a bit younger, rebuilt after a big fire in the 1890s, and the town kept it going anyway.',
-    },
-    {
-      text: 'It’s the one everyone photographs, so you’ll probably have company. Take your photo, then stay a minute. If you happen to be here when the bell rings, it still sounds the way it always has.',
-    },
-    {
-      text: 'From here, the day opens up. If you feel like wandering, the museum and the old castle remains are close by, and either is worth a detour. If you’d rather keep going, that works too. Either way, the best part of the day is still ahead of you. We’ll get there.',
-    },
+    { kind: 'heading', text: 'The bell over the town' },
+    { text: 'Walk a little further down the main street and you’ll see it, a wooden bell tower rising sixteen meters above the rooftops. A bell has rung out the hours over Kawagoe here for about four centuries, and it still rings four times a day: at six in the morning, at noon, and at three and six in the afternoon.' },
+    { kind: 'heading', text: 'After the great fire' },
+    { text: 'In 1893, a fire swept through the town. Kawagoe rebuilt in the kura style, with thick clay walls made to stand up to fire, and that’s the street around you. The tower went back up the next year, paid for by the town’s merchants, with help from as far away as the Emperor. In 1996, its bell was named one of Japan’s hundred best soundscapes.' },
+    { kind: 'find', text: 'Walk through the bottom of the tower to the little shrine behind it, said to help with troubles of the eyes.' },
+    { className: 'narrationClose', text: 'From here, the day opens up. If you feel like wandering, the museum and the old castle are close by, and either is worth a detour. If you’d rather keep going, that works too. Either way, the best part of the day is still ahead of you.' },
   ],
 }
 
@@ -256,12 +290,12 @@ export const hikawaShrine = {
   memory: 'Fifteen hundred years of wishes, overhead.',
 
   mapPlace: 'Kawagoe Hikawa Shrine',
+  mapPoint: { lat: 35.92782, lng: 139.48865 },
   travelMode: 'walking',
-  travelMinutes: 15,
+  distanceMeters: 926,
+  travelMinutes: 13,
+  effort: { level: 'easy', note: 'Flat, through quieter streets' },
   stayMinutes: [30, 45],
-  nearby: [
-    { name: 'Shingashi River', note: 'A riverside path behind the shrine, lined with cherry trees', meters: 100 },
-  ],
 
   directionsHeading: 'Peak',
   directionsLabel: 'YOUR NEXT STOP',
@@ -269,17 +303,13 @@ export const hikawaShrine = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      className: 'narrationLead',
-      text: 'You made it. This is what the day was building toward.',
-    },
-    {
-      text: 'Hikawa Shrine has stood here for roughly fifteen hundred years, long before the sweet potatoes, the bell, or the merchant streets. People have been coming to this spot to ask for good things for a very long time. Look up at the long tunnel of ema, the wooden wishes hung overhead, each one left by someone who stood where you’re standing.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'The crowds stayed back on the main street. You took the quieter way here.',
-    },
+    { className: 'narrationLead', text: 'You made it. This is what the day was building toward.' },
+    { kind: 'heading', text: 'Older than all of it' },
+    { text: 'Hikawa Shrine is said to have stood here since the year 541, long before the sweet potatoes, the bell, or the merchant streets. Ōta Dōkan, who built Kawagoe Castle, came to pray here in 1457 and left a poem behind.' },
+    { kind: 'heading', text: 'A shrine for good matches' },
+    { text: 'Two married couples of gods are honored here, so for a very long time people have come to ask for love and good matches. Look up at the long tunnel of ema, the wooden wishes hung overhead, each one left by someone who stood where you’re standing.' },
+    { kind: 'find', text: 'Walk through the tunnel of ema. Then, just behind the shrine, find the Shingashi River, the old waterway that carried Kawagoe’s goods to Edo.' },
+    { className: 'narrationClose', text: 'The crowds stayed back on the main street. You took the quieter way here.' },
   ],
 }
 
@@ -292,8 +322,11 @@ export const maruya = {
 
   // The shop's own name on the map, so it finds this MARUYA.
   mapPlace: '炭焼き親子丼 MARUYA 川越',
+  mapPoint: { lat: 35.92411958, lng: 139.48283714 },
   travelMode: 'walking',
-  travelMinutes: 10,
+  distanceMeters: 901,
+  travelMinutes: 13,
+  effort: { level: 'easy', note: 'Flat, back toward the old merchant street' },
   stayMinutes: [45, 60],
 
   directionsHeading: 'Afterglow',
@@ -302,16 +335,12 @@ export const maruya = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      text: 'That’s the last stop. The best part of the day is behind you, and it’s fine to just let it settle.',
-    },
-    {
-      text: 'If you’re hungry, MARUYA is worth the walk. It’s a small place known for oyakodon made with charcoal-grilled chicken, which is simple and warm and exactly what the moment calls for.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'Sit down, eat slowly, and take your time. You’ve earned it.',
-    },
+    { kind: 'heading', text: 'Let it settle' },
+    { text: 'That’s the last stop. The best part of the day is behind you, and it’s fine to just let it settle. You’re back near the bell tower, where the town’s hours have been rung for four centuries.' },
+    { kind: 'heading', text: 'Charcoal and chicken' },
+    { text: 'If you’re hungry, MARUYA is worth the walk. It’s a small place known for oyakodon made with charcoal-grilled chicken, which is simple and warm and exactly what the moment calls for. It’s a lunchtime place, so check the hours if the day has run late.' },
+    { kind: 'find', text: 'Find the egg yolk sitting on top of your bowl, and break it over the rice.' },
+    { className: 'narrationClose', text: 'Sit down, eat slowly, and take your time. You’ve earned it.' },
   ],
 }
 
@@ -340,7 +369,7 @@ export const kawagoeJourney = {
   // For its tags on Home. How hard it is: 'Easy', 'Moderate' or 'Active'. What
   // it's mostly about: 'Scenic', 'Foodie' or 'Cultural' (each has its own symbol).
   difficulty: 'Easy',
-  experience: 'Cultural',
+  experiences: ['Historical', 'Cultural', 'Culinary'],
 
   // Its stops, part by part. "Already at the starting point?" skips straight
   // past the departure to the discovery. The build is the stop with the
@@ -359,6 +388,13 @@ export const kawagoeJourney = {
   // well it suits each answer, out of 100, and how many hours it takes, which
   // is worked out from its stops. These are estimates from what's on the
   // journey, not checked facts.
+  // When to go (Weather & Best Time to Go, BestTime.jsx).
+  bestTime: {
+    season: 'Spring or fall',
+    seasonNote: 'For the cherry trees along the Shingashi River in early April, or the Kawagoe Festival’s floats on the third weekend of October.',
+    timeOfDay: 'From mid-morning, on a weekday',
+    timeNote: 'MARUYA is open at lunchtime, and the old streets are much calmer on weekdays.',
+  },
   match: {
     moods: { Peaceful: 55, Adventurous: 35, Romantic: 65, Curious: 75, Playful: 50, Cultural: 95 },
     with: { Solo: 85, Couple: 85, Family: 75, 'Friends / Group': 80 },
@@ -401,6 +437,19 @@ export const kawagoeJourney = {
 }
 
 // --- Where the Old Road Meets the Sea (Odawara) ---
+//
+// Built the same way as the Waseda journey (testJourney.js). Every stop has
+// its exact spot (`mapPoint`, from its Google Maps link), so it gets the live
+// map, and the walk to it from the stop before: how far (`distanceMeters`),
+// how long (`travelMinutes`) and how hard (`effort`), from Google's walking
+// routes and the heights along them (Open-Meteo), worked out once, in
+// November 2026. The times at each stop are from walking it.
+//
+// The narration tells one story from stop to stop: the Hōjō, who took the
+// castle with a trick and held it for a century, the Tokaido travelers who
+// stopped here to eat and buy medicine, the siege that ended it all, and the
+// sea at the end of the day. The history was checked against published
+// sources (Wikipedia, in English and Japanese) in November 2026.
 
 export const odawaraStation = {
   id: 'odawaraStation',
@@ -410,13 +459,21 @@ export const odawaraStation = {
   memory: 'Where the day began.',
 
   mapPlace: 'Odawara Station',
-  // Its exact spot (from its Google Maps link), for the live map that
-  // follows you as you go (LiveMap.jsx). Stops without one, like Kawagoe's,
-  // get the simpler embedded map.
   mapPoint: { lat: 35.2564449, lng: 139.1553932 },
   travelMode: 'transit',
   travelMinutes: 0,
   stayMinutes: [5, 10],
+  nearby: [
+    {
+      name: 'Hōjō Sōun statue',
+      note: 'The founder of the Hōjō, on horseback, with the oxen of the legend charging beside him',
+      meters: 100,
+      photo: sounStatuePhoto,
+      photoAlt: 'A bronze statue of Hōjō Sōun on horseback, with oxen charging around him, on a stone base',
+      mapPlace: '北条早雲公像, 小田原',
+      mapPoint: { lat: 35.2568714, lng: 139.1544611 },
+    },
+  ],
 
   directionsHeading: 'Departure',
   directionsLabel: 'YOUR JOURNEY BEGINS AT',
@@ -424,17 +481,13 @@ export const odawaraStation = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      className: 'narrationLead',
-      text: 'You’re in Odawara.',
-    },
-    {
-      text: 'The first stop is a street on the old Tokaido road, about fifteen minutes on foot toward the sea.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'Follow the map, and tap “I’m Here” when you reach Kamaboko-dori.',
-    },
+    { className: 'narrationLead', text: 'You’re in Odawara.' },
+    { kind: 'heading', text: 'A thousand oxen' },
+    { text: 'Outside the west exit, a bronze samurai rides with a herd of oxen charging beside him. That’s Hōjō Sōun, who took Odawara Castle around 1495. The legend goes that he asked the castle’s lord for leave to hunt deer in the hills, then came back at night with torches tied to the horns of a thousand oxen. The castle thought a huge army was coming, and fled. How much of it is true, nobody knows.' },
+    { kind: 'heading', text: 'A castle town on the road' },
+    { text: 'Sōun’s family, the Hōjō, ruled from Odawara for nearly a century. Later, it was a stop on the Tokaido, the great road between Edo and Kyoto, and the first castle town travelers came to after leaving Edo.' },
+    { kind: 'find', text: 'Find the statue of Hōjō Sōun outside the west exit, and count the oxen charging beside him.' },
+    { className: 'narrationClose', text: 'The first stop is Kamaboko-dori, on the old Tokaido road, about twenty minutes on foot toward the sea.' },
   ],
 }
 
@@ -453,10 +506,20 @@ export const kamabokoDori = {
   mapPlace: 'Cafe & Restaurant Yamajo',
   mapPoint: { lat: 35.2511529, lng: 139.1660913 },
   travelMode: 'walking',
-  travelMinutes: 15,
+  distanceMeters: 1398,
+  travelMinutes: 20,
+  effort: { level: 'easy', note: 'Gently downhill through town toward the sea' },
   stayMinutes: [30, 60],
   nearby: [
-    { name: 'Uirō', note: 'A shop that has made uirō, a soft sweet, for centuries, in a building like a small castle', meters: 500 },
+    {
+      name: 'Nariwai Kōryūkan',
+      note: 'A fishing-net merchant’s building from the early Shōwa years, now a rest stop and meeting place on the old Tokaido',
+      meters: 640,
+      photo: nariwaiPhoto,
+      photoAlt: 'The Nariwai Kōryūkan, a dark two-storey wooden merchant’s building with a tiled roof, beside a willow',
+      mapPlace: '小田原宿なりわい交流館',
+      mapPoint: { lat: 35.2483002, lng: 139.1599528 },
+    },
   ],
 
   directionsHeading: 'Discovery',
@@ -465,22 +528,19 @@ export const kamabokoDori = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      text: 'This street was part of the old Tokaido road, and the shops along it have been making kamaboko for generations. Grab something hot and fried to eat as you walk, and stop at whichever shops catch your eye.',
-    },
-    {
-      text: 'If you’d rather sit down, Cafe & Restaurant Yamajo is just behind the street, upstairs in a kamaboko factory with a view over the bay. It’s run by a maker with more than a century of history, and lunch there is built around their kamaboko.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'Either way, there’s no rush. When you’re ready, we’ll turn back toward the castle.',
-    },
+    { kind: 'heading', text: 'Food for the road' },
+    { text: 'Travelers on the Tokaido stopped in Odawara to eat, and the shops along this street have been making kamaboko, a fish cake, for generations, first from fish caught in the bay. In 2022, Japan’s Agency for Cultural Affairs named Odawara kamaboko one of its hundred-year foods. Grab something hot and fried to eat as you walk, and stop at whichever shops catch your eye.' },
+    { kind: 'heading', text: 'Lunch with a view' },
+    { text: 'If you’d rather sit down, Cafe & Restaurant Yamajo is just behind the street, upstairs in a kamaboko factory with a view over the bay. It’s run by a maker with more than a century of history, and lunch there is built around their kamaboko.' },
+    { kind: 'find', text: 'Find the tall wooden street sign for Kamaboko-dori. Then find the hottest, freshest thing you can eat on the spot.' },
+    { className: 'narrationClose', text: 'Either way, there’s no rush. When you’re ready, we’ll turn back toward the castle.' },
   ],
 }
 
 export const ninjaMuseum = {
   id: 'ninjaMuseum',
   name: 'Odawara Castle NINJA Museum',
+  mapName: 'NINJA Museum',
   photo: ninjaMuseumPhoto,
   photoAlt: 'Visitors in a dimly lit hall with a recreated wooden house, a pond of stepping stones and ninja figures',
   memory: 'A playful corner of the castle grounds.',
@@ -489,7 +549,12 @@ export const ninjaMuseum = {
   mapPlace: 'Odawara Castle NINJA Museum',
   mapPoint: { lat: 35.250641, lng: 139.155743 },
   travelMode: 'walking',
-  travelMinutes: 5,
+  // From the Local Culture Museum. It's on the way up to the castle, so the
+  // extra walking is small.
+  distanceMeters: 127,
+  travelMinutes: 2,
+  extraMeters: 161,
+  effort: { level: 'easy', note: 'A few steps through the castle grounds' },
   stayMinutes: [30, 45],
 
   directionsHeading: 'Detour',
@@ -498,19 +563,19 @@ export const ninjaMuseum = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      text: 'You’ve found the side trip. It’s a playful corner of the castle grounds, and a few minutes here is plenty.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'When you’re ready, we’ll head back to the route.',
-    },
+    { kind: 'heading', text: 'The Hōjō’s ninja' },
+    { text: 'The Hōjō kept a band of ninja of their own, the Fūma, led by a chief who took the name Fūma Kotarō. An old chronicle tells of a night raid in 1581, when Fūma and 200 of his band crept into an enemy camp.' },
+    { kind: 'heading', text: 'A legend grows' },
+    { text: 'The same chronicle says the enemy’s soldiers swore he was over seven feet tall, with fangs. He’s been a favorite of stories ever since. This is a playful corner of the castle grounds, and a few minutes here is plenty.' },
+    { kind: 'find', text: 'Find the pond of stepping stones, and imagine crossing it without a sound.' },
+    { className: 'narrationClose', text: 'When you’re ready, we’ll head back to the route.' },
   ],
 }
 
 export const cultureMuseum = {
   id: 'cultureMuseum',
   name: 'Odawara Local Culture Museum',
+  mapName: 'Culture Museum',
   photo: cultureMuseumPhoto,
   photoAlt: 'Stone steps up through the trees to the museum, beside its signpost',
   memory: 'The town’s history, in small pieces.',
@@ -518,10 +583,20 @@ export const cultureMuseum = {
   mapPlace: 'Odawara Local Culture Museum',
   mapPoint: { lat: 35.249716, lng: 139.154941 },
   travelMode: 'walking',
-  travelMinutes: 15,
+  distanceMeters: 1212,
+  travelMinutes: 17,
+  effort: { level: 'easy', note: 'Back inland, with a gentle climb at the end into the castle grounds' },
   stayMinutes: [30, 45],
   nearby: [
-    { name: 'Hotoku Ninomiya Shrine', note: 'A shrine to Ninomiya Sontoku, the farmer and thinker Odawara is proud of', meters: 300 },
+    {
+      name: 'Hōtoku Ninomiya Shrine',
+      note: 'A shrine to Ninomiya Sontoku, the farmer’s son from Odawara who rebuilt hundreds of villages',
+      meters: 180,
+      photo: hotokuNinomiyaPhoto,
+      photoAlt: 'A tall bronze torii over a stone path, leading to the shrine’s hall among green trees',
+      mapPlace: '報徳二宮神社',
+      mapPoint: { lat: 35.2498519, lng: 139.1529655 },
+    },
   ],
 
   directionsHeading: 'Build',
@@ -533,16 +608,12 @@ export const cultureMuseum = {
   detoursNote: 'This part of the journey comes with a detour: a short side trip worth taking if you’re curious. It’s entirely up to you.',
 
   narration: [
-    {
-      text: 'Now we head back inland, toward the castle. You’re close, and the best part of the day is still ahead.',
-    },
-    {
-      text: 'The grounds around the castle hold the town’s history in small pieces, and this museum is a good place to pick up a few.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'Look at whatever catches your eye. You don’t need to see it all.',
-    },
+    { kind: 'heading', text: 'Into the castle grounds' },
+    { text: 'Now you’re back inland, in the grounds around the castle. You’re close, and the best part of the day is still ahead. This little museum holds the town’s history in small pieces, in a wooden building from 1945 that was never meant to be a museum at all.' },
+    { kind: 'heading', text: 'The boy with the firewood' },
+    { text: 'Just along the path is a shrine to Ninomiya Sontoku, born near here in 1787 to a poor farming family. He grew up to rebuild about 600 villages, and statues of him as a boy, reading a book as he carries firewood on his back, once stood outside schools all over Japan.' },
+    { kind: 'find', text: 'Look at whatever catches your eye in the museum. Then find the shrine’s tall bronze torii, just along the path.' },
+    { className: 'narrationClose', text: 'There’s a ninja museum in the castle grounds, if you’d like a detour. Otherwise, the castle is just up the hill.' },
   ],
 }
 
@@ -560,7 +631,9 @@ export const odawaraCastle = {
   mapPlace: 'Odawara Castle',
   mapPoint: { lat: 35.2509493, lng: 139.1535136 },
   travelMode: 'walking',
+  distanceMeters: 311,
   travelMinutes: 5,
+  effort: { level: 'easy', note: 'Up through the castle grounds, with some steps' },
   stayMinutes: [45, 60],
 
   directionsHeading: 'Peak',
@@ -569,17 +642,13 @@ export const odawaraCastle = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      className: 'narrationLead',
-      text: 'You made it. This is what the day was building toward.',
-    },
-    {
-      text: 'The keep you’re standing in was rebuilt in 1960, but the hill it sits on once held out against some of the most powerful warlords in Japan, until a siege in 1590 finally ended it. Climb to the top deck and look out toward the bay.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'Take as long as you like.',
-    },
+    { className: 'narrationLead', text: 'You made it. This is what the day was building toward.' },
+    { kind: 'heading', text: 'Five generations' },
+    { text: 'For five generations, the Hōjō built up this castle as the heart of lands that covered most of the Kantō. Then, in 1590, Toyotomi Hideyoshi, who had just brought the whole country under his rule, surrounded it with a huge army.' },
+    { kind: 'heading', text: 'The castle that appeared overnight' },
+    { text: 'There was hardly any fighting. After three months, a castle of Hideyoshi’s seemed to appear overnight on a hill nearby, and the Hōjō lost heart and surrendered. The keep you’re standing in was rebuilt in 1960, on the stone base of the old one, which was pulled down in the 1870s.' },
+    { kind: 'find', text: 'Climb to the top deck and look out toward the bay. Then look for the hills to the southwest, where Hideyoshi’s overnight castle stood.' },
+    { className: 'narrationClose', text: 'Take as long as you like.' },
   ],
 }
 
@@ -593,8 +662,21 @@ export const miyukinohama = {
   mapPlace: 'Miyukinohama Beach',
   mapPoint: { lat: 35.2451164, lng: 139.1593045 },
   travelMode: 'walking',
+  distanceMeters: 1105,
   travelMinutes: 15,
+  effort: { level: 'easy', note: 'Downhill through town to the sea' },
   stayMinutes: [30, 60],
+  nearby: [
+    {
+      name: 'Uirō',
+      note: 'A shop that has sold uirō, a family medicine and a soft sweet, on the same spot on the Tokaido for over 500 years, in a building like a small castle',
+      meters: 390,
+      photo: uiroPhoto,
+      photoAlt: 'The Uirō shop, a white building with layered tiled roofs like a small castle, and banners along its front',
+      mapPlace: 'ういろう, 小田原',
+      mapPoint: { lat: 35.2474685, lng: 139.1560632 },
+    },
+  ],
 
   directionsHeading: 'Afterglow',
   directionsLabel: 'YOUR LAST STOP',
@@ -602,13 +684,12 @@ export const miyukinohama = {
   arrivedLabel: "YOU'VE ARRIVED",
 
   narration: [
-    {
-      text: 'That’s the last stop. Take the long way down to Miyuki-no-Hama and let the day settle. There’s no destination now, only the sound of the sea.',
-    },
-    {
-      className: 'narrationClose',
-      text: 'If you’re hungry, dinner is up to you. You’ve earned it.',
-    },
+    { kind: 'heading', text: 'An emperor on the beach' },
+    { text: 'That’s the last stop. The beach takes its name from an imperial visit: the story told here is that in 1873, the Emperor Meiji and the Empress stopped on their way back from Hakone to watch the fishermen haul in their nets.' },
+    { kind: 'heading', text: 'Back to the sea' },
+    { text: 'It’s the bay the old kamaboko makers fished, and the same water you looked out over from the top of the keep. There’s no destination now, only the sound of the waves.' },
+    { kind: 'find', text: 'Find the sign by the beach that tells the story of its name. Then pick a spot on the pebbles, and listen to the sea.' },
+    { className: 'narrationClose', text: 'If you’re hungry, dinner is up to you. You’ve earned it.' },
   ],
 }
 
@@ -626,7 +707,7 @@ export const odawaraJourney = {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
-  experience: 'Cultural',
+  experiences: ['Historical', 'Culinary', 'Cultural', 'Scenic'],
 
   departure: odawaraStation,
   discovery: kamabokoDori,
@@ -637,6 +718,13 @@ export const odawaraJourney = {
   startArea: 'Odawara, Kanagawa, Japan',
   startNote: 'Travel to the start is separate from journey time.',
 
+  // When to go (Weather & Best Time to Go, BestTime.jsx).
+  bestTime: {
+    season: 'Spring',
+    seasonNote: 'For the 300 or so cherry trees around Odawara Castle, at their best in late March and early April, and mild days by the sea.',
+    timeOfDay: 'From late morning',
+    timeNote: 'So you finish at Miyuki-no-Hama as the sun goes down.',
+  },
   match: {
     moods: { Peaceful: 60, Adventurous: 50, Romantic: 65, Curious: 75, Playful: 55, Cultural: 90 },
     with: { Solo: 85, Couple: 85, Family: 80, 'Friends / Group': 80 },

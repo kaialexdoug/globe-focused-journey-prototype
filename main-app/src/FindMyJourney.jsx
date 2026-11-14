@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-import { EXPERIENCE_ICONS } from './experienceIcons.js'
+import { EXPERIENCE_ICONS, mainExperience } from './experienceIcons.js'
 import Header from './Header.jsx'
 import { placeOfAnswers, rankJourneys } from './journeyMatch.js'
 import { catalogPlaces, suggestPlaces } from './journeyPlaces.js'
 import { preloadImages } from './preloadImages.js'
+import { useShrinkToFit } from './shrinkToFit.js'
 import {
   ActivePaceIcon,
   ArrowLeftIcon,
@@ -693,7 +694,12 @@ export function PreferencesPage(page) {
 // match is left off. On Search, `found` is the names of the stops it was found
 // by, if any, and the first goes where the match would be.
 export function MatchCard({ journey, percent = null, found = [], index, liked, onSelect, onToggleLike }) {
-  const ExperienceIcon = EXPERIENCE_ICONS[journey.experience]
+  const experience = mainExperience(journey)
+  const ExperienceIcon = EXPERIENCE_ICONS[experience]
+  // Its facts on one line, a little smaller on a journey whose are longer
+  // ("Moderate", "Hidden Gems").
+  const factsRef = useRef(null)
+  useShrinkToFit(factsRef, 9.5, journey.id)
 
   return (
     // Only the first few take turns to fade in: the rest are off the screen.
@@ -720,7 +726,7 @@ export function MatchCard({ journey, percent = null, found = [], index, liked, o
           </span>
         )}
         <span className="matchTitle">{journey.name}</span>
-        <span className="matchFacts">
+        <span className="matchFacts" ref={factsRef}>
           <span>
             <ClockIcon />
             {journey.time.replace('hours', 'hrs')}
@@ -735,7 +741,7 @@ export function MatchCard({ journey, percent = null, found = [], index, liked, o
           </span>
           <span>
             <ExperienceIcon />
-            {journey.experience}
+            {experience}
           </span>
         </span>
       </button>

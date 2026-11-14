@@ -244,6 +244,9 @@ const southPointe = {
 
 export default {
   id: 'miamiBeach',
+  // Put together with AI, like the journeys in aiJourneys/, though its stops
+  // have exact spots: shows the AI GENERATED tag on Home.
+  aiMade: true,
   name: 'From Mangroves to Neon',
   location: 'MIAMI BEACH · FLORIDA, USA',
   city: 'Miami Beach',
@@ -254,7 +257,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
-  experience: 'Cultural',
+  experiences: ['Historical', 'Cultural', 'Scenic', 'Culinary'],
   departure: lincolnRoad,
   discovery: espanolaWay,
   build: welcomeCenter,
@@ -262,6 +265,13 @@ export default {
   afterglow: southPointe,
   startArea: 'Lincoln Road, Miami Beach, Florida',
   startNote: START_NOTE,
+  // When to go (Weather & Best Time to Go, BestTime.jsx).
+  bestTime: {
+    season: 'Winter to early spring',
+    seasonNote: 'The dry season, from December to April: warm, less humid, and outside hurricane season.',
+    timeOfDay: 'In the late afternoon and evening',
+    timeNote: 'Time it to see the Art Deco buildings lit up in neon after dark.',
+  },
   match: {
     moods: { Peaceful: 40, Adventurous: 30, Romantic: 70, Curious: 75, Playful: 65, Cultural: 80 },
     with: { Solo: 80, Couple: 90, Family: 65, 'Friends / Group': 85 },

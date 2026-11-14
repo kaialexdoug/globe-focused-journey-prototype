@@ -1,8 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import '@fontsource/noto-serif-display/400.css'
+// Montserrat for everything, and the serif only for the journey titles on
+// Home's feed.
+import '@fontsource/montserrat/400.css'
+import '@fontsource/montserrat/400-italic.css'
+import '@fontsource/montserrat/500.css'
+import '@fontsource/montserrat/600.css'
+import '@fontsource/montserrat/700.css'
 import '@fontsource/noto-serif-display/600.css'
-import '@fontsource/noto-serif-display/700.css'
 import './index.css'
 import App from './App.jsx'
 

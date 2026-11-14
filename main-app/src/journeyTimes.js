@@ -29,12 +29,12 @@ function hoursNumber(hours) {
   return whole === 0 && fraction ? fraction : `${whole}${fraction}`
 }
 
-// "45 min", "1 hour" or "1½ hours".
+// "45 min", "1 hour" or "1½ hours": an hour or more to the nearest quarter.
 export function durationText(minutes) {
   if (minutes < 60) {
     return `${minutes} min`
   }
-  const hours = minutes / 60
+  const hours = Math.round(minutes / 15) / 4
   return `${hoursNumber(hours)} ${hours === 1 ? 'hour' : 'hours'}`
 }
 
@@ -77,7 +77,21 @@ export function hasRoutePreview(journey) {
 // All the walking on a journey, from stop to stop, detours left out: how far,
 // and about how long, to the nearest 5 minutes.
 export function walkingTotals(journey) {
-  const stops = journey.route.slice(1)
+  return legTotals(journey.route.slice(1).filter((stop) => stop.travelMode === 'walking'))
+}
+
+// The rest of the way, by car, train or bike, on a journey that isn't all on
+// foot: the same, and how (`modes`, like ['driving']). Null if it's all
+// walking.
+export function rideTotals(journey) {
+  const legs = journey.route.slice(1).filter((stop) => stop.travelMode !== 'walking' && stop.distanceMeters > 0)
+  if (legs.length === 0) {
+    return null
+  }
+  return { ...legTotals(legs), modes: [...new Set(legs.map((stop) => stop.travelMode))] }
+}
+
+function legTotals(stops) {
   return {
     meters: stops.reduce((total, stop) => total + stop.distanceMeters, 0),
     minutes: Math.round(stops.reduce((total, stop) => total + stop.travelMinutes, 0) / 5) * 5,

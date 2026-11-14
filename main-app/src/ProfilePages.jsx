@@ -108,7 +108,7 @@ export function NameForm({ submitLabel, initialName = '', onSubmit, onCancel, au
       <div className="nameFormButtons">
         {onCancel && (
           <button type="button" className="introBtn isGhost" onClick={onCancel}>
-            CANCEL
+            Cancel
           </button>
         )}
         <button type="submit" className="introBtn" disabled={!trimmed}>
@@ -126,7 +126,7 @@ export function SignUpCard({ label, text, onCreate }) {
     <div className="signUpCard">
       <p className="startCardLabel">{label}</p>
       <p className="detourCardText">{text}</p>
-      <NameForm submitLabel="SAVE TO A PROFILE" onSubmit={onCreate} />
+      <NameForm submitLabel="Save to a Profile" onSubmit={onCreate} />
     </div>
   )
 }
@@ -140,7 +140,7 @@ export function SaveProgressPrompt({ onSave, onSkip, onCancel }) {
       text="Add your name, and the journeys you finish are kept on your profile, with your stats. Your place in a journey is kept either way."
       onDismiss={onCancel}
     >
-      <NameForm submitLabel="SAVE & START" onSubmit={onSave} autoFocus />
+      <NameForm submitLabel="Save & Start" onSubmit={onSave} autoFocus />
       <button className="backBtn" onClick={onSkip}>
         START WITHOUT A PROFILE
       </button>
@@ -160,7 +160,7 @@ export function ExitCurrentPrompt({ currentName, nextName, onExit, onResume, onS
       onDismiss={onStay}
     >
       <button className="introBtn" onClick={onResume} autoFocus>
-        KEEP GOING
+        Keep Going
       </button>
       <button className="backBtn" onClick={onExit}>
         END JOURNEY
@@ -177,7 +177,7 @@ function DeleteProfilePrompt({ onDelete, onKeep }) {
       onDismiss={onKeep}
     >
       <button className="introBtn" onClick={onKeep} autoFocus>
-        KEEP MY PROFILE
+        Keep My Profile
       </button>
       <button className="backBtn deleteLink" onClick={onDelete}>
         DELETE PROFILE
@@ -547,7 +547,7 @@ function journeyStats(profile, journeys) {
   ]
 }
 
-// A row with a serif title, a line under it, and an arrow, which opens its
+// A row with a title in capitals, a line under it, and an arrow, which opens its
 // page. Without `onOpen` it can't be tapped yet, like Account & Plan.
 function ProfileRow({ title, text, onOpen }) {
   const inside = (
@@ -585,7 +585,7 @@ function ProfileName({ name }) {
 function EditProfilePrompt({ name, onSave, onCancel }) {
   return (
     <PromptBox title="Edit profile" text="Your name, as it shows on your profile." onDismiss={onCancel}>
-      <NameForm submitLabel="SAVE" initialName={name} autoFocus onSubmit={onSave} onCancel={onCancel} />
+      <NameForm submitLabel="Save" initialName={name} autoFocus onSubmit={onSave} onCancel={onCancel} />
     </PromptBox>
   )
 }

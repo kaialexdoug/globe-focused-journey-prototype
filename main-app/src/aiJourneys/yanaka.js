@@ -1,4 +1,21 @@
-// The Tokyo That Stayed (Yanaka, Tokyo)
+// The Tokyo That Stayed (Yanaka, Tokyo), built the same way as the Waseda
+// journey (testJourney.js). Every stop has its exact spot (`mapPoint`, from
+// Wikipedia and OpenStreetMap), so it gets the live map, and the walk to it
+// from the stop before: how far (`distanceMeters`), how long
+// (`travelMinutes`) and how hard (`effort`), from Google's walking routes
+// and the heights along them (Open-Meteo), worked out once, in November
+// 2026.
+//
+// The narration tells one story from stop to stop: the old temple town that
+// came through the 1923 earthquake and the war, and the Tokugawa shoguns
+// whose traces run all through it, from the grave of the last of them to the
+// shrine one of them moved and the pond their temple built. The history was
+// checked against published sources (Wikipedia, in English and Japanese, and
+// guides to SCAI The Bathhouse) in November 2026.
+//
+// The photos are from Wikimedia Commons, and need crediting (see Photo
+// credits in the README). Nobody from Unfold has walked it yet, and the
+// times at each stop are estimates.
 
 import nipporiPhoto from '../assets/journey/yanaka/nippori.jpg'
 import cemeteryPhoto from '../assets/journey/yanaka/cemetery.jpg'
@@ -6,6 +23,12 @@ import yanakaGinzaPhoto from '../assets/journey/yanaka/yanaka-ginza.jpg'
 import scaiPhoto from '../assets/journey/yanaka/scai.jpg'
 import nezuShrinePhoto from '../assets/journey/yanaka/nezu-shrine.jpg'
 import shinobazuPhoto from '../assets/journey/yanaka/shinobazu.jpg'
+
+// The spots near the stops.
+import tennojiPhoto from '../assets/journey/yanaka/tennoji.jpg'
+import asakuraPhoto from '../assets/journey/yanaka/asakura-museum.jpg'
+import kiyomizuPhoto from '../assets/journey/yanaka/kiyomizu-kannon-do.jpg'
+import ameyokoPhoto from '../assets/journey/yanaka/ameyoko.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
@@ -19,13 +42,18 @@ const nippori = {
   photoAlt: 'Nippori Station from above, with trains passing below and tall apartment towers behind',
   memory: 'Where the day began.',
   mapPlace: 'Nippori Station',
+  mapPoint: { lat: 35.727588, lng: 139.770781 },
   travelMode: 'transit',
   travelMinutes: 0,
   stayMinutes: [5, 10],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Yanaka.' },
-    { text: 'Much of this corner of Tokyo came through the disasters that reshaped the rest of the city, and it still feels like an older place: wooden houses, narrow lanes, and temples on nearly every corner.' },
+    { kind: 'heading', text: 'The Tokyo that stayed' },
+    { text: 'Yanaka is an old temple town. It came through the great earthquake of 1923 and the bombing of the war with little damage, so much of what was lost elsewhere in Tokyo is still here: wooden houses, narrow lanes, and temples on nearly every corner.' },
+    { kind: 'heading', text: 'The shoguns’ town' },
+    { text: 'Today’s walk keeps crossing paths with the Tokugawa shoguns, who ruled Japan from Edo, the old name for Tokyo: the grave of the very last of them, a shrine one of them moved, and a pond their temple built.' },
+    { kind: 'find', text: 'On your way up the slope, count the temple gates you pass. They start almost straight away.' },
     { className: 'narrationClose', text: 'Leave the station by the west exit and head up the slope. The first stop is only a few minutes away.' },
   ],
 }
@@ -37,17 +65,30 @@ const cemetery = {
   photoAlt: 'People walking down the wide avenue through Yanaka Cemetery, under cherry trees in full blossom',
   memory: 'A slow walk through Yanaka Cemetery.',
   mapPlace: 'Yanaka Cemetery',
+  mapPoint: { lat: 35.72527778, lng: 139.77055556 },
   travelMode: 'walking',
-  travelMinutes: 5,
+  distanceMeters: 279,
+  travelMinutes: 4,
+  effort: { level: 'easy', note: 'A short way up the slope' },
   stayMinutes: [20, 30],
   nearby: [
-    { name: 'Tokugawa Yoshinobu’s grave', note: 'The resting place of the last shogun, inside the cemetery', meters: 300 },
-    { name: 'Tennoji', note: 'A temple by the cemetery with a big seated bronze Buddha', meters: 300 },
+    {
+      name: 'Tennoji',
+      note: 'The temple the cemetery once belonged to, with a big seated bronze Buddha',
+      meters: 160,
+      photo: tennojiPhoto,
+      photoAlt: 'The gate of Tennoji, between tall stone posts, with the temple’s hall beyond',
+      mapPlace: '天王寺, 谷中',
+      mapPoint: { lat: 35.72658333, lng: 139.77136111 },
+    },
   ],
   ...DISCOVERY,
   narration: [
-    { text: 'A cemetery might seem like a strange place to start, but Yanaka’s feels more like a park: wide, quiet paths, old trees, and the odd cat asleep in the sun.' },
-    { text: 'Walk the main avenue. It’s lined with cherry trees, and in spring it turns into a tunnel of blossom. Whenever you come, it’s one of the calmest walks in Tokyo.' },
+    { kind: 'heading', text: 'A temple’s grounds' },
+    { text: 'A cemetery might seem like a strange place to start, but Yanaka’s feels more like a park: wide, quiet paths, old trees, and the odd cat asleep in the sun. It was once part of the grounds of Tennoji, the temple next door, and its main avenue was the way in. In spring, its cherry trees turn it into a tunnel of blossom.' },
+    { kind: 'heading', text: 'The last shogun' },
+    { text: 'Tokugawa Yoshinobu, the last shogun, is buried here. Halfway down the avenue are the remains of a five-storied pagoda, which stood here until it burned one summer night in 1957.' },
+    { kind: 'find', text: 'Find the stone base where the pagoda stood, about halfway down the main avenue.' },
     { className: 'narrationClose', text: 'Keep going, and the lanes will lead you down toward the old shopping street.' },
   ],
 }
@@ -55,21 +96,27 @@ const cemetery = {
 const scai = {
   id: 'scaiTheBathhouse',
   name: 'SCAI The Bathhouse',
+  mapName: 'SCAI',
   photo: scaiPhoto,
   photoAlt: 'SCAI The Bathhouse, an old public bathhouse with a curved tiled roof, now an art gallery',
   memory: 'Art in an old bathhouse.',
-  teaser: 'An old neighbourhood bathhouse turned into a contemporary art gallery. A short walk back up the hill.',
+  teaser: 'An old neighbourhood bathhouse turned into a contemporary art gallery. A walk back past the cemetery.',
   mapPlace: 'SCAI THE BATHHOUSE',
+  mapPoint: { lat: 35.7217514, lng: 139.7705016 },
   travelMode: 'walking',
-  travelMinutes: 10,
+  // From Yanaka Ginza, then on to Nezu Shrine from here.
+  distanceMeters: 986,
+  travelMinutes: 14,
+  extraMeters: 1021,
+  effort: { level: 'easy', note: 'Back up the slope and through the temple lanes' },
   stayMinutes: [20, 30],
-  nearby: [
-    { name: 'Kayaba Coffee', note: 'A coffee house from the 1930s, known for its egg sandwich', meters: 100 },
-  ],
   ...DETOUR,
   narration: [
-    { text: 'This was once a public bathhouse, where the neighbourhood came to wash. Now it’s a contemporary art gallery, with the old roof still on top.' },
-    { text: 'The shows change, so you never quite know what you’ll find inside. That’s half the fun.' },
+    { kind: 'heading', text: 'The old bathhouse' },
+    { text: 'This was Kashiwayu, a public bathhouse that opened in 1787, where the neighbourhood came to wash. In 1993 it became a contemporary art gallery, with the old tiled roof still on top.' },
+    { kind: 'heading', text: 'What’s on' },
+    { text: 'It has shown artists from Anish Kapoor to Louise Bourgeois, and the shows change, so you never quite know what you’ll find inside. That’s half the fun.' },
+    { kind: 'find', text: 'Find the old wooden lockers by the entrance, where bathers once left their shoes.' },
     BACK_TO_ROUTE,
   ],
 }
@@ -81,19 +128,33 @@ const yanakaGinza = {
   photoAlt: 'Looking down the Yuyake Dandan steps toward the busy Yanaka Ginza shopping street',
   memory: 'Down the sunset steps to Yanaka Ginza.',
   mapPlace: 'Yanaka Ginza',
+  mapPoint: { lat: 35.7276689, lng: 139.7653174 },
   travelMode: 'walking',
+  distanceMeters: 730,
   travelMinutes: 10,
+  effort: { level: 'easy', note: 'Through the lanes, then down a short flight of steps' },
   stayMinutes: [30, 45],
   nearby: [
-    { name: 'Asakura Museum of Sculpture', note: 'A sculptor’s old house and studio, with a garden on the roof', meters: 300 },
+    {
+      name: 'Asakura Museum of Sculpture',
+      note: 'The home and studio of Fumio Asakura, the father of modern Japanese sculpture, with a garden on the roof',
+      meters: 300,
+      photo: asakuraPhoto,
+      photoAlt: 'The dark modern front of the Asakura Museum of Sculpture, with a statue on its roof and pine trees by the gate',
+      mapPlace: '台東区立朝倉彫塑館',
+      mapPoint: { lat: 35.7268258, lng: 139.7685379 },
+    },
   ],
   ...BUILD,
   detours: [scai],
   detoursNote: ONE_DETOUR_NOTE,
   narration: [
-    { text: 'You come into Yanaka Ginza down a short flight of steps called Yuyake Dandan, the “sunset steps”, named for the view at the end of the day.' },
-    { text: 'Below is a small shopping street of family-run shops: croquettes, crackers, sweets and pickles. Pick something up and eat it as you walk.' },
-    { text: 'There’s an old bathhouse turned art gallery nearby, if you’d like a detour. Otherwise, the shrine is next.' },
+    { kind: 'heading', text: 'The sunset steps' },
+    { text: 'You come into Yanaka Ginza down Yuyake Dandan, the “sunset steps”: thirty-six gentle stone steps, named in 1990 by a local writer for the view at the end of the day.' },
+    { kind: 'heading', text: 'Since the fifties' },
+    { text: 'Below is a shopping street that’s been going since the 1950s, with around sixty family-run shops: croquettes, crackers, sweets and pickles. Pick something up and eat it as you walk.' },
+    { kind: 'find', text: 'Count the sunset steps on your way down. There should be thirty-six.' },
+    { className: 'narrationClose', text: 'There’s an old bathhouse turned art gallery nearby, if you’d like a detour. Otherwise, the shrine is next.' },
   ],
 }
 
@@ -104,14 +165,20 @@ const nezuShrine = {
   photoAlt: 'A stone torii at Nezu Shrine, with a path of small red torii gates leading away behind it among green shrubs',
   memory: 'Through the red gates at Nezu.',
   mapPlace: 'Nezu Shrine',
+  mapPoint: { lat: 35.7199731, lng: 139.7606625 },
   travelMode: 'walking',
-  travelMinutes: 15,
+  distanceMeters: 1138,
+  travelMinutes: 16,
+  effort: { level: 'easy', note: 'South through the old streets of Sendagi and Nezu' },
   stayMinutes: [30, 45],
   ...PEAK,
   narration: [
     PEAK_LEAD,
-    { text: 'Nezu Shrine is said to be one of the oldest in Tokyo, and it’s one of the loveliest. Beside the main halls, a path of small red torii gates winds up the slope like a tunnel.' },
-    { text: 'Walk through the gates slowly. Then look out over the hillside of azaleas, which flowers in spring, and the pond below.' },
+    { kind: 'heading', text: 'A shogun’s shrine' },
+    { text: 'Legend says Nezu Shrine was founded nearly two thousand years ago. In 1705, the shogun Tokugawa Tsunayoshi moved it here when he chose his heir, and the heir made it his own guardian shrine.' },
+    { kind: 'heading', text: 'Gates and azaleas' },
+    { text: 'Beside the main halls, a path of small red torii gates winds up the slope like a tunnel. Each spring, the hillside beside it bursts into flower for the Azalea Festival, from early April into May.' },
+    { kind: 'find', text: 'Walk through the tunnel of red gates slowly, then look back down over the shrine from the top.' },
     PEAK_CLOSE,
   ],
 }
@@ -122,18 +189,41 @@ const shinobazu = {
   photo: shinobazuPhoto,
   photoAlt: 'Shinobazu Pond covered in green lotus leaves, with a small temple hall and city towers beyond',
   memory: 'The end of the day by the lotus pond.',
+  // The temple hall on the island in the middle.
   mapPlace: 'Shinobazu Pond',
+  mapPoint: { lat: 35.7121395, lng: 139.7711539 },
   travelMode: 'walking',
-  travelMinutes: 15,
+  distanceMeters: 1540,
+  travelMinutes: 21,
+  effort: { level: 'easy', note: 'Gently downhill to the pond' },
   stayMinutes: [30, 45],
   nearby: [
-    { name: 'Kiyomizu Kannon-do', note: 'A temple hall above the pond, with a pine trained into a circle', meters: 300 },
-    { name: 'Ameyoko', note: 'A loud, busy street market under the railway tracks', meters: 600 },
+    {
+      name: 'Kiyomizu Kannon-do',
+      note: 'A temple hall on the hill above the pond, with a pine branch trained into a circle',
+      meters: 220,
+      photo: kiyomizuPhoto,
+      photoAlt: 'The red Kiyomizu Kannon-do hall on the hillside, above shrubs and a pine trained into a ring',
+      mapPlace: '清水観音堂, 上野公園',
+      mapPoint: { lat: 35.7127287, lng: 139.7735302 },
+    },
+    {
+      name: 'Ameyoko',
+      note: 'A loud, busy market street beside the railway, named, some say, for the candy shops that lined it after the war',
+      meters: 390,
+      photo: ameyokoPhoto,
+      photoAlt: 'The busy entrance to Ameyoko under its sign, beside the elevated railway with a train passing',
+      mapPlace: 'アメヤ横丁, 上野',
+      mapPoint: { lat: 35.7100241, lng: 139.7745414 },
+    },
   ],
   ...AFTERGLOW,
   narration: [
-    { text: 'That’s the last stop. Shinobazu Pond sits at the edge of Ueno Park, and in summer it’s covered in lotus leaves. A small temple hall stands on an island in the middle.' },
-    { text: 'Walk out along the causeway to the island, or find a bench by the water. The city is right there, but it feels a long way off.' },
+    { kind: 'heading', text: 'The shoguns’ pond' },
+    { text: 'That’s the last stop. Shinobazu Pond sits at the edge of Ueno Park, on land that belonged to Kan’ei-ji, the temple the shoguns built here in 1625 to guard their castle. Its founder had the island in the middle made to look like one on Lake Biwa, near Kyoto, and built a hall to the goddess Benten on it.' },
+    { kind: 'heading', text: 'Lotus leaves' },
+    { text: 'In summer, the pond is covered in lotus leaves. Walk out along the causeway to the island, or find a bench by the water. The city is right there, but it feels a long way off.' },
+    { kind: 'find', text: 'Look up at the hill above the pond for Kiyomizu Kannon-do, and the pine in front of it trained into a circle.' },
     DINNER,
   ],
 }
@@ -150,7 +240,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
-  experience: 'Cultural',
+  experiences: ['Hidden Gems', 'Cultural', 'Historical', 'Culinary'],
   departure: nippori,
   discovery: cemetery,
   build: yanakaGinza,
@@ -158,6 +248,12 @@ export default {
   afterglow: shinobazu,
   startArea: 'Yanaka, Tokyo, Japan',
   startNote: START_NOTE,
+  // When to go (Weather & Best Time to Go, BestTime.jsx).
+  bestTime: {
+    season: 'Spring',
+    seasonNote: 'For the cherry blossom avenue in Yanaka Cemetery in early April, and the azaleas at Nezu Shrine from April into May.',
+    timeOfDay: 'During daylight hours',
+  },
   match: {
     moods: { Peaceful: 85, Adventurous: 25, Romantic: 60, Curious: 85, Playful: 40, Cultural: 85 },
     with: { Solo: 95, Couple: 80, Family: 55, 'Friends / Group': 65 },
@@ -167,7 +263,8 @@ export default {
     },
   },
   description: [
-    'Yanaka is the Tokyo that a lot of visitors never find: slow, low-rise and quiet, with more temples than tower blocks. This journey is all on foot, and it takes its time, through a cemetery that feels like a park and a shopping street that feels like a village, to a shrine that’s one of the city’s quiet wonders.',
+    'Yanaka came through the great earthquake of 1923 and the bombing of the war with little damage, so the old Tokyo that was lost elsewhere is still here: a temple town of wooden houses and narrow lanes, with traces of the shoguns all through it.',
+    'This journey walks from a cemetery that feels like a park, down the sunset steps to an old shopping street, to a shrine with a tunnel of red gates, and finishes by the lotus pond at the edge of Ueno Park.',
   ],
   route: [nippori, cemetery, yanakaGinza, nezuShrine, shinobazu],
   wrapUp: {

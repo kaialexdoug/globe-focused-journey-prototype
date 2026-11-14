@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
 import { SURVEY_URL } from './config.js'
+import { ArrowLeftIcon, ArrowRightIcon } from './Icons.jsx'
 
 // The survey at the end of a journey: the person's name, then three
 // questions, one at a time. ← PREVIOUS goes back a step with the answers
@@ -114,7 +115,7 @@ function SurveyPage({ journey, detoursTaken, profileName, onBack, onHome }) {
             <h1 className="mainHook">Thanks, {name.trim()}!</h1>
             <p>Your answers have been saved.</p>
             <button className="introBtn" onClick={onHome}>
-              BACK TO HOME
+              Back to Home
             </button>
           </div>
         </div>
@@ -122,9 +123,9 @@ function SurveyPage({ journey, detoursTaken, profileName, onBack, onHome }) {
     )
   }
 
-  let nextLabel = 'NEXT →'
+  let nextLabel = 'Next'
   if (isLast) {
-    nextLabel = { ready: 'FINISH SURVEY', sending: 'SENDING…', failed: 'TRY AGAIN' }[status]
+    nextLabel = { ready: 'Finish Survey', sending: 'Sending…', failed: 'Try Again' }[status]
   }
 
   return (
@@ -206,10 +207,11 @@ function SurveyPage({ journey, detoursTaken, profileName, onBack, onHome }) {
             </p>
           )}
 
-          {/* From the first step, ← PREVIOUS goes back to the Memory page. */}
+          {/* From the first step, Previous goes back to the Memory page. */}
           <div className="surveyNav">
             <button className="introBtn isGhost" onClick={goBack} disabled={status === 'sending'}>
-              ← PREVIOUS
+              <ArrowLeftIcon />
+              Previous
             </button>
             <button
               className="introBtn"
@@ -217,6 +219,7 @@ function SurveyPage({ journey, detoursTaken, profileName, onBack, onHome }) {
               onClick={isLast ? finish : () => setStep(step + 1)}
             >
               {nextLabel}
+              {!isLast && <ArrowRightIcon />}
             </button>
           </div>
         </div>

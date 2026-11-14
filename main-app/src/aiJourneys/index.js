@@ -2,15 +2,22 @@
 // checked ones, one to a file. Each is built the same way as the journeys
 // in journeyStops.js, around real places, with two differences:
 //
-//   aiMade: true  shows the AI GENERATED tag on its card on Home.
-//   no mapPoint   no exact spot for the live map, since an AI guess could
-//                 be wrong. Every stop gets the embedded map, which finds
-//                 it by name.
+//   aiMade: true  shows the AI GENERATED tag on its card on Home. (The
+//                 Waseda, Miami Beach and Nassau journeys have it too.)
 //
-// The writing sticks to what each place is like and what to do there, with
-// no opening times, prices or dates. Once a journey has been walked and
-// checked, it can move to journeyStops.js with `verified: true` in place of
-// `aiMade`.
+// Like those three, every stop has its exact spot (`mapPoint`) and the walk
+// to it, and its history has been checked against published sources (see
+// each file's opening comment). The writing sticks to what each place is
+// like and what to do there, with no opening times or prices.
+//
+// `bestTime` is when to go, for Weather & Best Time to Go on See Your
+// Journey (see BestTime.jsx). Every journey has it.
+//
+// Once a journey has been walked and checked, it can move to journeyStops.js
+// with `verified: true` in place of `aiMade`.
+//
+// `experiences` is the kinds of experience it is (see experienceIcons.js),
+// as many as fit it, its main one first, which is the one shown with it.
 //
 // `city` is the city or municipality the journey is in (one of Tokyo's wards
 // counts), for Cities Visited on Profile, or null if it isn't in one, like

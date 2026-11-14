@@ -99,6 +99,139 @@ export function PersonIcon({ className }) {
   )
 }
 
+// --- The weather (weather.js) ---
+// A cloud in front of the sun or moon is filled with the colour behind it
+// (`--icon-fill`, white unless whatever it's on says otherwise), so it hides
+// the part it's in front of.
+const CLOUD_FILL = { fill: 'var(--icon-fill, var(--surface, white))' }
+
+// A cloud, lower down for a cloudy sky, or higher up, with rain, snow or
+// lightning under it.
+const CLOUD = 'M7.5 19h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 12.3 3.4 3.4 0 0 0 7.5 19z'
+const HIGH_CLOUD = 'M7.5 15h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 8.3 3.4 3.4 0 0 0 7.5 15z'
+
+// Weather & Best Time to Go, on See Your Journey, and a partly cloudy day:
+// the sun peeking out from behind a cloud.
+export function WeatherIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="8.5" cy="8.5" r="3.3" />
+      <path d="M8.5 2.3v1.4M2.3 8.5h1.4M4.1 4.1l1 1M12.9 4.1l-1 1M4.1 12.9l1-1" />
+      <path
+        d="M8.3 20.5h9.4a3.6 3.6 0 0 0 .5-7.17 5.1 5.1 0 0 0-9.85-1.13 4.2 4.2 0 0 0-.05 8.3z"
+        style={CLOUD_FILL}
+      />
+    </Icon>
+  )
+}
+
+// A partly cloudy night: the moon behind a cloud.
+export function MoonCloudIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M9.6 2.8a5.4 5.4 0 1 0 4.6 7.9 4.4 4.4 0 0 1-4.6-7.9z" />
+      <path
+        d="M8.3 20.5h9.4a3.6 3.6 0 0 0 .5-7.17 5.1 5.1 0 0 0-9.85-1.13 4.2 4.2 0 0 0-.05 8.3z"
+        style={CLOUD_FILL}
+      />
+    </Icon>
+  )
+}
+
+export function CloudIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d={CLOUD} />
+    </Icon>
+  )
+}
+
+export function RainIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d={HIGH_CLOUD} />
+      <path d="M8.5 18l-1 2.5M12.5 18l-1 2.5M16.5 18l-1 2.5" />
+    </Icon>
+  )
+}
+
+export function SnowIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d={HIGH_CLOUD} />
+      <path d="M8 18.2v.01M12 18.2v.01M16 18.2v.01M10 21.2v.01M14 21.2v.01" strokeWidth="2.4" />
+    </Icon>
+  )
+}
+
+export function StormIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d={HIGH_CLOUD} />
+      <path d="M12.8 15.5l-2.3 3.4h3l-2.3 3.4" />
+    </Icon>
+  )
+}
+
+export function FogIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M7.5 14h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 7.3 3.4 3.4 0 0 0 7.5 14z" />
+      <path d="M4.5 17.5h15M7 20.5h10" />
+    </Icon>
+  )
+}
+
+export function WindIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3 9h10.5a2.5 2.5 0 1 0-2.5-2.5M3 13h15a2.5 2.5 0 1 1-2.5 2.5M3 17h7" />
+    </Icon>
+  )
+}
+
+// Sunrise and sunset: the sun half up over the horizon, with a little arrow
+// above it, up or down.
+export function SunriseIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M2.5 18.5h19M7.5 18.5a4.5 4.5 0 0 1 9 0M4.6 14.6l1.2.7M19.4 14.6l-1.2.7" />
+      <path d="M12 10V3.5M9.8 5.7 12 3.5l2.2 2.2" />
+    </Icon>
+  )
+}
+
+export function SunsetIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M2.5 18.5h19M7.5 18.5a4.5 4.5 0 0 1 9 0M4.6 14.6l1.2.7M19.4 14.6l-1.2.7" />
+      <path d="M12 3.5V10M9.8 7.8 12 10l2.2-2.2" />
+    </Icon>
+  )
+}
+
+// An "i" in a circle, for the verdict on Get Ready.
+export function InfoIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v5.5M12 7.7v.01" />
+    </Icon>
+  )
+}
+
+// How hard a journey is: three bars going up, as many filled in as it's
+// hard (1 for easy, 2 for moderate, 3 for active), the rest faint.
+export function EffortIcon({ className, level = 1 }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <rect x="3.5" y="14" width="4.2" height="6.5" rx="1.2" />
+      <rect x="9.9" y="9.5" width="4.2" height="11" rx="1.2" opacity={level >= 2 ? 1 : 0.22} />
+      <rect x="16.3" y="4.5" width="4.2" height="16" rx="1.2" opacity={level >= 3 ? 1 : 0.22} />
+    </svg>
+  )
+}
+
 // Light mode, in Settings.
 export function SunIcon({ className }) {
   return (
@@ -544,29 +677,51 @@ export function SolidWalkIcon({ className }) {
   )
 }
 
-// A journey that's mostly scenic.
-export function MountainIcon({ className }) {
+// The experience tags on a journey (experienceIcons.js), drawn after the
+// list of them: Historical is the Parthenon, Nature the leaf and Adventure
+// the compass from above.
+
+// Scenic: a mountain with two peaks.
+export function ScenicIcon({ className }) {
   return (
     <Icon className={className}>
-      <path d="M1.5 20 9 6.5l4.3 7.4 2.2-3.4L22.5 20z" fill="currentColor" stroke="none" />
+      <path d="M2.5 20 8 5.5l4.2 7.6 3.3-4.8L21.5 20z" />
     </Icon>
   )
 }
 
-// A journey that's mostly about food.
-export function ForkKnifeIcon({ className }) {
+// Culinary: a fork and a knife.
+export function CulinaryIcon({ className }) {
   return (
     <Icon className={className}>
-      <g strokeWidth="2">
-        <path d="M6 3v6a2.5 2.5 0 0 0 5 0V3M8.5 3v18" />
-        <path d="M17.5 3v18" />
-      </g>
-      <path d="M17.5 3c-2.4 1.4-3.5 4-3.5 7 0 1.6 1.2 3 3.5 3z" fill="currentColor" stroke="none" />
+      <path d="M4.5 3v5.5a2.5 2.5 0 0 0 5 0V3M7 3v18" />
+      <path d="M19.5 21V3c-2.3 1-3.5 3.6-3.5 7.2V14h3.5" />
     </Icon>
   )
 }
 
-// A journey that's mostly cultural: a torii gate.
+// Interactive: a four-pointed sparkle, with a small one beside it.
+export function InteractiveIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M10 5.5c.6 4.3 3.2 6.9 7.5 7.5-4.3.6-6.9 3.2-7.5 7.5-.6-4.3-3.2-6.9-7.5-7.5 4.3-.6 6.9-3.2 7.5-7.5z" />
+      <circle cx="18.5" cy="5.5" r="2" />
+    </Icon>
+  )
+}
+
+// Hidden Gems: a pin standing on the spot, with a ring on the ground.
+export function HiddenGemIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="5.5" r="2.5" />
+      <path d="M12 8v8.5" />
+      <path d="M8.5 13.6C5.3 14.2 3 15.6 3 17.3c0 2 4 3.7 9 3.7s9-1.7 9-3.7c0-1.7-2.3-3.1-5.5-3.7" />
+    </Icon>
+  )
+}
+
+// Cultural: a torii gate.
 export function ToriiIcon({ className }) {
   return (
     <Icon className={className}>
