@@ -1,4 +1,21 @@
-// The Shrines in the Cedars (Nikko, Tochigi)
+// The Shrines in the Cedars (Nikko, Tochigi), built the same way as the
+// Waseda journey (testJourney.js). Every stop has its exact spot
+// (`mapPoint`, from Wikipedia and OpenStreetMap), so it gets the live map,
+// and the walk to it from the stop before: how far (`distanceMeters`), how
+// long (`travelMinutes`) and how hard (`effort`), from Google's walking
+// routes and the heights along them (Open-Meteo), worked out once, in
+// November 2026.
+//
+// The narration tells one story from stop to stop: the monk who first made
+// these mountains holy in the 760s, and the Tokugawa shoguns who were laid
+// to rest among them nine centuries later, from the sacred bridge to the
+// golden gate of Toshogu, ending by a gorge carved from the sacred
+// mountain's lava. The history was checked against published sources
+// (Wikipedia, in English and Japanese) in November 2026.
+//
+// The photos are from Wikimedia Commons, and need crediting (see Photo
+// credits in the README). Nobody from Unfold has walked it yet, and the
+// times at each stop are estimates.
 
 import stationPhoto from '../assets/journey/nikko/station.jpg'
 import shinkyoPhoto from '../assets/journey/nikko/shinkyo.jpg'
@@ -6,6 +23,12 @@ import rinnojiPhoto from '../assets/journey/nikko/rinnoji.jpg'
 import taiyuinPhoto from '../assets/journey/nikko/taiyuin.jpg'
 import toshoguPhoto from '../assets/journey/nikko/toshogu.jpg'
 import kanmangafuchiPhoto from '../assets/journey/nikko/kanmangafuchi.jpg'
+
+// The spots near the stops.
+import jrStationPhoto from '../assets/journey/nikko/jr-nikko-station.jpg'
+import kanayaPhoto from '../assets/journey/nikko/kanaya-hotel.jpg'
+import futarasanPhoto from '../assets/journey/nikko/futarasan.jpg'
+import shoyoenPhoto from '../assets/journey/nikko/shoyoen.jpg'
 
 import {
   DEPARTURE, DISCOVERY, BUILD, DETOUR, PEAK, AFTERGLOW,
@@ -19,16 +42,29 @@ const station = {
   photoAlt: 'Tobu-Nikko Station, a station building with a steep roof, under a sky of white clouds',
   memory: 'Where the day began.',
   mapPlace: 'Tobu-Nikko Station',
+  mapPoint: { lat: 36.748056, lng: 139.62008 },
   travelMode: 'transit',
   travelMinutes: 0,
   stayMinutes: [5, 10],
   nearby: [
-    { name: 'JR Nikko Station', note: 'A white wooden station building from the early 1900s', meters: 200 },
+    {
+      name: 'JR Nikko Station',
+      note: 'A pale wooden station building from the early 1900s, on a line that opened in 1890',
+      meters: 210,
+      photo: jrStationPhoto,
+      photoAlt: 'JR Nikko Station, a pale pink and white wooden building, with snowy mountains behind',
+      mapPlace: 'JR Nikko Station',
+      mapPoint: { lat: 36.7471805, lng: 139.622122 },
+    },
   ],
   ...DEPARTURE,
   narration: [
     { className: 'narrationLead', text: 'You’re in Nikko.' },
-    { text: 'This town in the mountains has been a sacred place for centuries. When the first Tokugawa shogun died, it was here that his great shrine was built, deep in the cedar forest.' },
+    { kind: 'heading', text: 'A holy mountain town' },
+    { text: 'Nikko has been a sacred place since the 760s, when a monk named Shōdō Shōnin came into these mountains to train, and founded the first temple and shrine here.' },
+    { kind: 'heading', text: 'The shogun’s shrine' },
+    { text: 'Nine centuries later, when Tokugawa Ieyasu, the first Tokugawa shogun, died, his great shrine was built here, deep in the cedar forest. His grandson Iemitsu made it grander still.' },
+    { kind: 'find', text: 'Find JR Nikko Station next door, a pale wooden station building from the early 1900s.' },
     { className: 'narrationClose', text: 'Walk up the main street, or take the bus. The first stop is where the town ends and the shrines begin.' },
   ],
 }
@@ -40,16 +76,30 @@ const shinkyo = {
   photoAlt: 'The red Shinkyo Bridge arching over the clear Daiya River, among trees in autumn colour',
   memory: 'The red bridge over the river.',
   mapPlace: 'Shinkyo Bridge',
+  mapPoint: { lat: 36.75336111, lng: 139.604 },
   travelMode: 'walking',
-  travelMinutes: 30,
+  distanceMeters: 1671,
+  travelMinutes: 26,
+  effort: { level: 'easy', note: 'A steady, gentle climb up the main street' },
   stayMinutes: [10, 20],
   nearby: [
-    { name: 'Nikko Kanaya Hotel', note: 'One of Japan’s oldest Western-style hotels, with a café', meters: 300 },
+    {
+      name: 'Nikko Kanaya Hotel',
+      note: 'Japan’s oldest Western-style resort hotel, opened in 1873 at the suggestion of the American missionary James Hepburn',
+      meters: 140,
+      photo: kanayaPhoto,
+      photoAlt: 'The long white main building of the Nikko Kanaya Hotel, with snow along the drive',
+      mapPlace: 'Nikko Kanaya Hotel',
+      mapPoint: { lat: 36.7520827, lng: 139.6040332 },
+    },
   ],
   ...DISCOVERY,
   narration: [
-    { text: 'This is the Shinkyo, the sacred bridge. Its red arch over the Daiya River marks the way into the shrines and temples of Nikko.' },
-    { text: 'Stand on the road bridge beside it and look down at the water. It’s clear and fast, straight out of the mountains.' },
+    { kind: 'heading', text: 'The sacred bridge' },
+    { text: 'This is the Shinkyo, the sacred bridge, and its red arch over the Daiya River marks the way into the shrines and temples. Legend says that when Shōdō Shōnin couldn’t get across the river, a god threw two snakes over it, and they became a bridge.' },
+    { kind: 'heading', text: 'Only for the shogun' },
+    { text: 'For centuries, only the shogun, the emperor’s envoys and mountain ascetics were allowed to walk over it. Today anyone can, for a small fee, though you have to turn around and come back the way you came.' },
+    { kind: 'find', text: 'Stand on the road bridge beside it and look down at the water, clear and fast, straight out of the mountains.' },
     { className: 'narrationClose', text: 'Across the road, the path climbs into the trees. The temples are just above.' },
   ],
 }
@@ -62,16 +112,32 @@ const taiyuin = {
   memory: 'The quieter mausoleum.',
   teaser: 'The mausoleum of the shogun’s grandson, quieter than Toshogu and almost as beautiful. A short walk through the trees.',
   mapPlace: 'Taiyuin, Nikko',
+  mapPoint: { lat: 36.758001, lng: 139.5959149 },
   travelMode: 'walking',
-  travelMinutes: 10,
+  // From Rinnoji, then on to Toshogu from here.
+  distanceMeters: 708,
+  travelMinutes: 11,
+  extraMeters: 741,
+  effort: { level: 'easy', note: 'Uphill through the cedars' },
   stayMinutes: [30, 45],
   nearby: [
-    { name: 'Futarasan Shrine', note: 'The shrine to Nikko’s sacred mountains, among the cedars', meters: 200 },
+    {
+      name: 'Futarasan Shrine',
+      note: 'The shrine to Nikko’s three sacred mountains, founded in 767 by Shōdō Shōnin',
+      meters: 60,
+      photo: futarasanPhoto,
+      photoAlt: 'A row of stone lanterns in front of the red main hall of Futarasan Shrine, among tall cedars',
+      mapPlace: '日光二荒山神社',
+      mapPoint: { lat: 36.75833333, lng: 139.59638889 },
+    },
   ],
   ...DETOUR,
   narration: [
-    { text: 'Taiyuin is the resting place of Iemitsu, grandson of the first shogun. It’s said he had it built a little more modestly than his grandfather’s shrine, out of respect.' },
-    { text: 'Modest is relative. Climb up through its gates, and enjoy them with fewer people around.' },
+    { kind: 'heading', text: 'The grandson’s resting place' },
+    { text: 'Taiyuin is the resting place of Iemitsu, grandson of the first shogun, and the one who made Toshogu so grand. It’s said he had his own built a little more modestly, out of respect for his grandfather.' },
+    { kind: 'heading', text: 'Modest is relative' },
+    { text: 'Climb up through its gates, one above the other up the slope, and enjoy them with fewer people around.' },
+    { kind: 'find', text: 'Count the gates as you climb up through them to the hall at the top.' },
     BACK_TO_ROUTE,
   ],
 }
@@ -83,19 +149,33 @@ const rinnoji = {
   photoAlt: 'The great red hall of Rinnoji, with its green-tiled roofs, against a blue sky',
   memory: 'Under the great hall at Rinnoji.',
   mapPlace: 'Rinnoji Temple, Nikko',
+  mapPoint: { lat: 36.75438889, lng: 139.60113889 },
   travelMode: 'walking',
-  travelMinutes: 10,
+  distanceMeters: 351,
+  travelMinutes: 7,
+  effort: { level: 'easy', note: 'Up the path into the trees' },
   stayMinutes: [30, 45],
   nearby: [
-    { name: 'Shoyoen', note: 'Rinnoji’s small garden, with a path around its pond', meters: 100 },
+    {
+      name: 'Shoyoen',
+      note: 'Rinnoji’s small garden, with a path around its pond',
+      meters: 30,
+      photo: shoyoenPhoto,
+      photoAlt: 'Clipped shrubs and a little waterfall around the pond in the Shoyoen garden, among tall trees',
+      mapPlace: '逍遥園, 日光',
+      mapPoint: { lat: 36.7542224, lng: 139.6008391 },
+    },
   ],
   ...BUILD,
   detours: [taiyuin],
   detoursNote: ONE_DETOUR_NOTE,
   narration: [
-    { text: 'Rinnoji is Nikko’s great temple. Its main hall is huge and red, and inside sit three enormous gilded statues.' },
-    { text: 'Step inside and take a moment in front of them. They’re much bigger than you expect.' },
-    { text: 'Further into the forest, there’s a quieter mausoleum, if you’d like a detour. Otherwise, Toshogu is waiting.' },
+    { kind: 'heading', text: 'The first temple' },
+    { text: 'Rinnoji was founded in 766 by Shōdō Shōnin himself, and it’s Nikko’s great temple. Its main hall, the Hall of the Three Buddhas, is huge and red.' },
+    { kind: 'heading', text: 'Three golden giants' },
+    { text: 'Inside sit three enormous gilded statues: Amida, a Kannon with a thousand arms, and a Kannon with a horse’s head. They’re said to be the Buddhist forms of the gods of Nikko’s three sacred mountains. Step inside and take a moment in front of them. They’re much bigger than you expect.' },
+    { kind: 'find', text: 'Find the Kannon with a horse’s head on top of his own.' },
+    { className: 'narrationClose', text: 'Further into the forest, there’s a quieter mausoleum, if you’d like a detour. Otherwise, Toshogu is waiting.' },
   ],
 }
 
@@ -106,14 +186,20 @@ const toshogu = {
   photoAlt: 'The Yomeimon Gate at Toshogu, covered in white, gold and coloured carvings, at the top of stone steps',
   memory: 'In front of the Yomeimon Gate.',
   mapPlace: 'Nikko Toshogu',
+  mapPoint: { lat: 36.758064, lng: 139.598958 },
   travelMode: 'walking',
+  distanceMeters: 607,
   travelMinutes: 10,
+  effort: { level: 'easy', note: 'Up the wide avenue through the cedars' },
   stayMinutes: [60, 90],
   ...PEAK,
   narration: [
     PEAK_LEAD,
-    { text: 'Toshogu is the shrine of the first Tokugawa shogun, and nothing about it is plain. Every surface is carved, painted or covered in gold.' },
-    { text: 'The Yomeimon Gate is the most famous of all. People say you could look at it until sunset and still not take it all in. Look out too for the three wise monkeys carved over the stables, and the little sleeping cat.' },
+    { kind: 'heading', text: 'Built for a shogun' },
+    { text: 'Toshogu is the shrine of Tokugawa Ieyasu, who founded the shogunate that ruled Japan for more than 250 years, and he’s buried here. It was first built in 1617, and his grandson Iemitsu made it grander still. Nothing about it is plain: every surface is carved, painted or covered in gold.' },
+    { kind: 'heading', text: 'The sunset gate' },
+    { text: 'The Yomeimon Gate is the most famous of all. People say you could look at it until sunset and still not take it all in. Toshogu, Rinnoji and Futarasan Shrine are a World Heritage Site together.' },
+    { kind: 'find', text: 'Find the three wise monkeys carved over the stables, and the little sleeping cat over a gateway further in.' },
     PEAK_CLOSE,
   ],
 }
@@ -121,17 +207,25 @@ const toshogu = {
 const kanmangafuchi = {
   id: 'kanmangafuchi',
   name: 'Kanmangafuchi Abyss',
+  mapName: 'Kanmangafuchi',
   photo: kanmangafuchiPhoto,
   photoAlt: 'A long row of mossy stone Jizo statues in red caps along a forest path at Kanmangafuchi',
   memory: 'Counting the stone Jizo by the river.',
+  // The row of Jizo statues, along the gorge.
   mapPlace: 'Kanmangafuchi Abyss',
+  mapPoint: { lat: 36.749092, lng: 139.5891809 },
   travelMode: 'walking',
-  travelMinutes: 30,
+  distanceMeters: 1748,
+  travelMinutes: 25,
+  effort: { level: 'easy', note: 'Downhill, across the river and a little way upstream' },
   stayMinutes: [20, 30],
   ...AFTERGLOW,
   narration: [
-    { text: 'That’s the last stop. Kanmangafuchi is a walk across the river and a little way upstream, to a gorge where the water rushes over dark rock.' },
-    { text: 'Along the path sits a long row of stone Jizo statues in red caps. People say that if you count them, you’ll get a different number every time. Try it, and see.' },
+    { kind: 'heading', text: 'Lava and water' },
+    { text: 'That’s the last stop. Kanmangafuchi is a small gorge where the Daiya River has worn its way through lava from Mount Nantai, one of Nikko’s sacred mountains, and the water rushes white over the dark rock.' },
+    { kind: 'heading', text: 'The ghost Jizo' },
+    { text: 'Along the path sits a long row of stone Jizo statues in red caps, known as the Bake Jizo, the ghost Jizo. People say that if you count them, you’ll get a different number every time.' },
+    { kind: 'find', text: 'Count the Jizo on your way along the path, and again on your way back. See if you get the same number.' },
     DINNER,
   ],
 }
@@ -148,7 +242,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
-  experience: 'Cultural',
+  experiences: ['Cultural', 'Historical', 'Nature', 'Scenic'],
   departure: station,
   discovery: shinkyo,
   build: rinnoji,
@@ -156,6 +250,13 @@ export default {
   afterglow: kanmangafuchi,
   startArea: 'Nikko, Tochigi, Japan',
   startNote: START_NOTE,
+  // When to go (Weather & Best Time to Go, BestTime.jsx).
+  bestTime: {
+    season: 'Mid-fall',
+    seasonNote: 'For the autumn leaves around the shrines and along the river, from late October into early November.',
+    timeOfDay: 'Starting in the morning',
+    timeNote: 'The shrines and temples close in the late afternoon, earlier in winter.',
+  },
   match: {
     moods: { Peaceful: 70, Adventurous: 50, Romantic: 50, Curious: 80, Playful: 30, Cultural: 95 },
     with: { Solo: 85, Couple: 75, Family: 60, 'Friends / Group': 70 },
@@ -165,7 +266,8 @@ export default {
     },
   },
   description: [
-    'Nikko is where Japan went all out. The shrines and temples here sit in a forest of giant cedars, and the greatest of them is covered from top to bottom in carving and gold. This journey crosses the sacred bridge, climbs through the temples to the shrine everyone comes for, and ends somewhere much quieter, by the river.',
+    'Nikko has been a holy place since the 760s, when a monk came into these mountains to train. Nine centuries later, the first Tokugawa shogun was laid to rest here, and his grandson built him a shrine so covered in carving and gold that people say you could look at it until sunset.',
+    'This journey walks from the town over the sacred red bridge, through the great temple and the cedar forest to Toshogu, and ends by a quiet gorge, counting the stone statues along the river.',
   ],
   route: [station, shinkyo, rinnoji, toshogu, kanmangafuchi],
   wrapUp: {

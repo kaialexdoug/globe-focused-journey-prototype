@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
-import { ChevronRightIcon, ClockIcon, NavigateIcon, PinIcon } from './Icons.jsx'
+import { ArrowRightIcon, ChevronRightIcon, ClockIcon, NavigateIcon, PinIcon } from './Icons.jsx'
 import LiveMap from './LiveMap.jsx'
 import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
@@ -137,9 +137,12 @@ export function DirectionsPage({ journey, stop, onImHere, onSkip, onStopJourney 
         rel="noopener noreferrer"
       >
         <NavigateIcon />
-        OPEN IN GOOGLE MAPS
+        Open in Google Maps
       </a>
-      <button className="introBtn" onClick={onImHere}>I'M HERE</button>
+      <button className="introBtn" onClick={onImHere}>
+        I’m Here
+        <ArrowRightIcon />
+      </button>
 
       {onSkip && (
         <button className="textLink pageTextLink" onClick={onSkip}>
@@ -308,7 +311,7 @@ function DetourAdds({ detours }) {
 // spend there, and any interesting spots nearby. If there are detours to offer (`detoursLeft`, the ones not
 // taken yet), they come next, saying how much time they'd add, with CONTINUE
 // underneath for skipping them. On a detour, `detoursFrom` is the stop the
-// detours belong to. The last stop says FINISH JOURNEY instead of CONTINUE
+// detours belong to. The last stop says Finish Journey instead of Continue
 // (`continueLabel`).
 export function ArrivedPage({
   journey,
@@ -316,7 +319,7 @@ export function ArrivedPage({
   detoursLeft,
   detoursFrom,
   onSeeDetours,
-  continueLabel = 'CONTINUE ➜',
+  continueLabel = 'Continue',
   onContinue,
   onStopJourney,
 }) {
@@ -344,7 +347,8 @@ export function ArrivedPage({
             <p className="detourCardText">{offer.text}</p>
             <DetourAdds detours={detoursLeft} />
             <button className="introBtn isGhost" onClick={onSeeDetours}>
-              {detoursLeft.length === 1 ? 'SEE DETOUR ➜' : 'SEE DETOURS ➜'}
+              {detoursLeft.length === 1 ? 'See Detour' : 'See Detours'}
+              <ArrowRightIcon />
             </button>
           </div>
           <p className="detourSkip">{offer.skip}</p>
@@ -353,6 +357,7 @@ export function ArrivedPage({
 
       <button className="introBtn" onClick={onContinue}>
         {continueLabel}
+        <ArrowRightIcon />
       </button>
     </StopScreen>
   )
@@ -396,11 +401,12 @@ export function DetoursPage({ from, done, onTakeDetour, onContinue, onStopJourne
                 {!taken && <DetourAdds detours={[detour]} />}
                 {taken ? (
                   <button className="introBtn isDone" disabled>
-                    DETOUR TAKEN
+                    Detour Taken
                   </button>
                 ) : (
                   <button className="introBtn" onClick={() => onTakeDetour(detour)}>
-                    TAKE THIS DETOUR ➜
+                    Take This Detour
+                    <ArrowRightIcon />
                   </button>
                 )}
               </div>
@@ -412,7 +418,8 @@ export function DetoursPage({ from, done, onTakeDetour, onContinue, onStopJourne
           {anyTaken ? 'Or head back to the route.' : 'Or skip the detours and keep going.'}
         </p>
         <button className="introBtn isGhost" onClick={onContinue}>
-          CONTINUE ➜
+          Continue
+          <ArrowRightIcon />
         </button>
 
         <button className="backBtn pageEndLink" onClick={onStopJourney}>

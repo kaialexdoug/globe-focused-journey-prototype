@@ -47,36 +47,58 @@
 }
 
 .mainHook {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 30px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  line-height: 1.05;
+  font-family: var(--heading);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
   color: var(--text-h);
   margin: 0 0 5px;
+  text-transform: uppercase;
 }
 
 /* The one main button. Every green call to action in the app is this size. */
+/* The main button, all through a journey and in the boxes over it: a deep
+   blue pill, the words in white capitals, spaced out, and an orange arrow on
+   the ones that move you on, like Find My Journeys and Discover This Journey. */
 .introBtn {
-  display: block;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   width: 100%;
-  padding: 14px;
+  min-height: 50px;
   margin-top: 10px;
-  background-color: var(--unfold-green);
-  color: rgb(240, 235, 245);
-  border: 1px solid var(--unfold-green);
-  border-radius: 8px;
-  font-size: 12px;
-  letter-spacing: 2px;
+  padding: 8px 20px;
+  background-color: var(--unfold-blue);
+  border: 1.5px solid var(--unfold-blue);
+  border-radius: 999px;
+  font-family: var(--heading);
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-decoration: none;
+  color: white;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
+  text-transform: uppercase;
+}
+
+.introBtn svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.2;
+  color: var(--unfold-orange);
 }
 
 @media (hover: hover) {
   .introBtn:hover {
-    background-color: color-mix(in srgb, var(--unfold-green) 85%, black);
+    background-color: color-mix(in srgb, var(--unfold-blue) 85%, black);
   }
 }
 
@@ -84,25 +106,30 @@
   transform: scale(0.98);
 }
 
-/* The second choice next to a main button: the same shape, just outlined. */
+/* The second choice next to a main button: the same shape, outlined in the
+   deep blue. */
 .introBtn.isGhost {
   background-color: transparent;
-  color: var(--ink);
+  color: var(--unfold-blue);
 }
 
 @media (hover: hover) {
   .introBtn.isGhost:hover {
-    background-color: color-mix(in srgb, var(--unfold-green) 8%, transparent);
+    background-color: color-mix(in srgb, var(--unfold-blue) 7%, transparent);
   }
 }
 
-/* Greyed out until it can be used, like NEXT before there's an answer. */
+/* Greyed out until it can be used, like Next before there's an answer. */
 .introBtn:disabled {
-  background-color: var(--line);
-  border-color: var(--line);
-  color: var(--ink-faint);
+  background-color: rgb(228, 230, 235);
+  border-color: rgb(228, 230, 235);
+  color: rgb(128, 134, 150);
   cursor: not-allowed;
   transform: none;
+}
+
+.introBtn:disabled svg {
+  color: inherit;
 }
 
 .backBtn {
@@ -236,14 +263,15 @@ button:focus-visible {
 }
 
 .sectionTitle {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
+  font-family: var(--heading);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   line-height: 1.2;
   color: var(--text-h);
   text-align: left;
   margin: 0 0 12px;
+  text-transform: uppercase;
 }
 
 /* Longer reading: the journey write-up and the narration. */
@@ -336,14 +364,15 @@ button:focus-visible {
 
 .heroTitle {
   margin: 0;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 36px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  line-height: 1.05;
+  font-family: var(--heading);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
   color: var(--photo-ink);
   /* Two even lines rather than one long one and a word on its own. */
   text-wrap: balance;
+  text-transform: uppercase;
 }
 
 /* --- Home: the feed ---
@@ -480,9 +509,10 @@ button:focus-visible {
   height: 18px;
 }
 
+/* The one place the serif is kept: the journey titles on Home's feed. */
 .feedTitle {
   margin: 10px 0 0;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-family: var(--serif);
   font-size: 35px;
   font-weight: 600;
   letter-spacing: -0.2px;
@@ -539,7 +569,7 @@ button:focus-visible {
 }
 
 /* Pushed down to the bottom of the journey, leaving the gap above it, and
-   across to the heart beside it: deep blue, with the words in the serif and
+   across to the heart beside it: deep blue, with the words in capitals and
    the arrow in orange. */
 .feedDiscover {
   display: flex;
@@ -552,14 +582,15 @@ button:focus-visible {
   background-color: var(--unfold-blue);
   border: none;
   border-radius: 999px;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 21px;
+  font-family: var(--heading);
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: 0.12em;
   white-space: nowrap;
   color: white;
   cursor: pointer;
   transition: transform 0.1s ease;
+  text-transform: uppercase;
 }
 
 .feedDiscover svg {
@@ -602,7 +633,7 @@ button:focus-visible {
   }
 
   .feedDiscover {
-    font-size: 19px;
+    font-size: 14px;
   }
 }
 
@@ -619,7 +650,7 @@ button:focus-visible {
 
   .feedDiscover {
     gap: 10px;
-    font-size: 17px;
+    font-size: 13px;
   }
 }
 
@@ -643,14 +674,15 @@ button:focus-visible {
 
 .findTitle {
   margin: 22px 0 0;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-family: var(--heading);
   /* In step with the width of the screen, so "What kind of day" stays on one
      line on narrower phones. */
-  font-size: min(40px, 10.2vw);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: 0;
+  font-size: min(29px, 7.4vw);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.07em;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .findText {
@@ -694,12 +726,14 @@ button:focus-visible {
   background-color: var(--unfold-blue);
   border: none;
   border-radius: 999px;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 24px;
-  letter-spacing: 0;
+  font-family: var(--heading);
+  font-size: 18px;
+  letter-spacing: 0.14em;
   color: white;
   cursor: pointer;
   transition: transform 0.15s ease;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 /* The arrow in orange, and a little bolder than the other line icons, as in
@@ -733,7 +767,7 @@ button:focus-visible {
   .findStart {
     height: 52px;
     margin-top: 14px;
-    font-size: 22px;
+    font-size: 17px;
   }
 }
 
@@ -818,14 +852,15 @@ button:focus-visible {
 
 .stepTitle {
   margin: 16px 0 0;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  font-family: var(--heading);
   /* In step with the width of the screen, so that "A few quick details" stays
      on one line on narrower phones. */
-  font-size: min(38px, 9.6vw);
-  font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: 0;
+  font-size: min(25px, 6.3vw);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .stepText {
@@ -849,9 +884,9 @@ button:focus-visible {
    line, as in the mockup. */
 .moodPage .stepTitle,
 .whoPage .stepTitle {
-  font-size: min(31px, 7.95vw);
+  font-size: min(25px, 6.3vw);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
 .moodPage .stepText {
@@ -909,13 +944,14 @@ button:focus-visible {
 /* The name, with room on its right for the arrow. */
 .moodChoiceName {
   margin-right: 32px;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 18px;
+  font-family: var(--heading);
+  font-size: 12.5px;
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: 0;
+  letter-spacing: 0.1em;
   white-space: nowrap;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .moodChoiceAbout {
@@ -955,7 +991,7 @@ button:focus-visible {
 
   .moodChoiceName {
     margin-right: 26px;
-    font-size: 14px;
+    font-size: 11.5px;
   }
 
   .moodChoiceAbout {
@@ -1074,13 +1110,14 @@ button:focus-visible {
 
 .whoChoiceName {
   margin-top: 12px;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 19px;
+  font-family: var(--heading);
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: 0;
+  letter-spacing: 0.14em;
   white-space: nowrap;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .whoChoiceAbout {
@@ -1114,7 +1151,7 @@ button:focus-visible {
 /* So "Friends / Group" still fits on one line on the narrowest phones. */
 @media (max-width: 350px) {
   .whoChoiceName {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .whoChoiceAbout {
@@ -1165,10 +1202,10 @@ button:focus-visible {
 /* As wide as the mockup's, which leaves room for the pagoda. */
 .detailsPage .stepTitle {
   margin-top: 20px;
-  font-size: min(35px, 9vw);
+  font-size: min(25px, 6.3vw);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.8px;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
 }
 
 .detailsPage .stepText {
@@ -1401,8 +1438,8 @@ button.detailBar:active {
 
 .calendarTitle {
   margin: 0;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 21px;
+  font-family: var(--heading);
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 0;
   color: var(--night);
@@ -1655,8 +1692,8 @@ button.detailBar:active {
 }
 
 .moreTitle {
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 18.5px;
+  font-family: var(--heading);
+  font-size: 16.5px;
   font-weight: 700;
   line-height: 1.2;
   color: var(--night);
@@ -1690,7 +1727,7 @@ button.detailBar:active {
 }
 
 /* Find My Journeys, and Done on Anything else?: deep blue, with the words in
-   the serif and the arrow in orange. */
+   capitals and the arrow in orange. */
 .stepFind {
   flex-shrink: 0;
   display: flex;
@@ -1702,13 +1739,14 @@ button.detailBar:active {
   background-color: var(--unfold-blue);
   border: none;
   border-radius: 999px;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 22px;
+  font-family: var(--heading);
+  font-size: 16.5px;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: 0.12em;
   color: white;
   cursor: pointer;
   transition: transform 0.15s ease;
+  text-transform: uppercase;
 }
 
 .stepFind svg {
@@ -1894,28 +1932,32 @@ button.detailBar:active {
   line-height: 1.2;
   letter-spacing: 0;
   text-wrap: balance;
+  font-weight: 600;
 }
 
+/* Sized in em, from 12.5px, so a journey whose facts don't fit can make
+   them all smaller (MatchCard in FindMyJourney.jsx). */
 .matchFacts {
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  gap: 0.4em;
   margin-top: 7px;
   font-size: 12.5px;
   letter-spacing: 0;
 }
 
 .matchFacts > span {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.32em;
   white-space: nowrap;
 }
 
 .matchFacts svg {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 1.28em;
+  height: 1.28em;
 }
 
 .matchHeart {
@@ -1984,7 +2026,7 @@ button.detailBar:active {
 
 .searchTop .stepTitle {
   margin-top: 6px;
-  font-size: min(30px, 8vw);
+  font-size: min(24px, 6.2vw);
 }
 
 /* On one line on most phones. */
@@ -2085,19 +2127,6 @@ button.detailBar:active {
   color: var(--ink-body);
 }
 
-/* So the four facts stay on one line on the narrowest phones. */
-@media (max-width: 350px) {
-  .matchFacts {
-    gap: 4px;
-    font-size: 11px;
-  }
-
-  .matchFacts svg {
-    width: 14px;
-    height: 14px;
-  }
-}
-
 /* --- Your journey ---
    Like a journey stop (see A journey stop, below): the journey's photo
    across the top, its name under it, and all of this under that. */
@@ -2117,12 +2146,13 @@ button.detailBar:active {
 
 .heroTagline {
   margin: 4px 0 18px;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 23px;
+  font-family: var(--heading);
+  font-size: 20px;
   line-height: 1.25;
   color: var(--text-h);
   text-align: left;
   text-wrap: balance;
+  font-weight: 600;
 }
 
 /* Time, walking and stops, each with its icon, split by thin lines. */
@@ -2159,6 +2189,35 @@ button.detailBar:active {
   color: var(--unfold-green);
 }
 
+/* On See Your Journey there are four (its main experience too), so each has
+   its symbol over its words, as wide as it needs and sharing out the room
+   left over. Sized in em, from 13px, so a journey whose facts still don't
+   fit on one line can make them all smaller (SeeJourneyPage in App.jsx). */
+.journeyPage .factsRow {
+  font-size: 13px;
+}
+
+.journeyPage .fact {
+  flex: 1 0 auto;
+  flex-direction: column;
+  gap: 0.4em;
+  padding: 0 0.5em;
+  font-size: 1em;
+}
+
+.journeyPage .fact:first-child {
+  padding-left: 0;
+}
+
+.journeyPage .fact:last-child {
+  padding-right: 0;
+}
+
+.journeyPage .fact svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+
 .startCard {
   margin-bottom: 28px;
   padding: 16px 18px 18px;
@@ -2170,6 +2229,443 @@ button.detailBar:active {
 /* What the journey is, just after the quick facts and before START HERE. */
 .journeyDescription {
   margin-bottom: 26px;
+}
+
+/* --- Weather & Best Time to Go (BestTime.jsx) ---
+   On See Your Journey, just above the route, and folded away the same way,
+   with the same bar (the routeFold classes, below). What unfolds: the best
+   season and the best time of day, each in a cream card like a stop on the
+   route, with a little line icon. */
+
+.bestTime {
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.bestTimeList {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bestTimeCard {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  column-gap: 12px;
+  align-items: start;
+  padding: 14px 16px 14px 14px;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  background-color: var(--cream);
+}
+
+.bestTimeIcon {
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  color: var(--accent-ink);
+}
+
+/* RECOMMENDED SEASON, small, like Departure on a stop of the route. */
+.bestTimeLabel {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.bestTimeValue {
+  margin: 3px 0 0;
+  font-family: var(--heading);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text-h);
+}
+
+.bestTimeNote {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+/* Open-Meteo asks to be credited for its weather. */
+.bestTimeCredit {
+  margin: 8px 2px 4px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--ink-faint);
+}
+
+/* --- Get Ready (GetReadyPage.jsx) ---
+   Between BEGIN JOURNEY and the first stop, laid out like Find My Journey's
+   steps: back on the left, the logo, and ✕ on the right to end the journey.
+   Today's conditions in faint cream boxes (the temperature, and sunrise and
+   sunset beside it), the next 24 hours in a strip you can swipe along, and
+   the verdict in green, yellow, orange or red. Then the walk and its effort,
+   and the question with its two buttons. The weather's pictures are in
+   orange, and a cloud in front of the sun is filled with the box's cream
+   (--icon-fill). */
+
+.stepClose {
+  position: absolute;
+  top: calc(11px + var(--frame-top));
+  right: 22px;
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--night);
+  cursor: pointer;
+}
+
+.stepClose svg {
+  width: 22px;
+  height: 22px;
+}
+
+.getReadyPage .stepTitle {
+  margin-top: 22px;
+}
+
+.getReadyPage .stepText {
+  margin-top: 8px;
+}
+
+.readyNow {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.readyBox {
+  --icon-fill: var(--cream);
+  box-sizing: border-box;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  background-color: var(--cream);
+}
+
+.readyTemp {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 12px;
+}
+
+.readyTempIcon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  color: var(--unfold-orange);
+}
+
+.readyTempValue {
+  margin: 0;
+  font-family: var(--heading);
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--night);
+}
+
+.readyTempWords {
+  margin: 3px 0 0;
+  font-size: 13px;
+  line-height: 1.25;
+  color: var(--ink-muted);
+}
+
+/* Sunrise and sunset, side by side, with a line between. */
+.readySun {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 12px 4px;
+}
+
+.readySunItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+}
+
+.readySunItem + .readySunItem {
+  border-left: 1px solid var(--outline);
+}
+
+.readySunIcon {
+  width: 26px;
+  height: 26px;
+  color: var(--unfold-orange);
+}
+
+.readySunLabel {
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--ink-muted);
+}
+
+.readySunTime {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--night);
+}
+
+/* The next 24 hours: five at a time, swiped along, each snapping into
+   place, with no scroll bar. */
+.readyHours {
+  --icon-fill: var(--cream);
+  display: flex;
+  margin: 10px 0 0;
+  padding: 12px 4px;
+  overflow-x: auto;
+  list-style: none;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  background-color: var(--cream);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.readyHours::-webkit-scrollbar {
+  display: none;
+}
+
+.readyHour {
+  flex: 0 0 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  scroll-snap-align: start;
+}
+
+.readyHourTime {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ink-muted);
+}
+
+.readyHour:first-child .readyHourTime {
+  color: var(--night);
+}
+
+.readyHourIcon {
+  width: 28px;
+  height: 28px;
+  color: var(--unfold-orange);
+}
+
+.readyHourTemp {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--night);
+}
+
+.readyNote,
+.readyCredit {
+  margin: 6px 2px 0;
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--ink-faint);
+}
+
+/* The verdict: an i in a circle, coloured for how good it is, on a pale
+   wash of the same colour. */
+.readyVerdict {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  column-gap: 12px;
+  align-items: start;
+  margin-top: 14px;
+  padding: 14px 16px 14px 14px;
+  border: 1px solid;
+  border-radius: 15px;
+}
+
+.readyVerdictIcon {
+  width: 26px;
+  height: 26px;
+  stroke-width: 1.9;
+}
+
+.readyVerdictTitle {
+  margin: 2px 0 0;
+  font-family: var(--heading);
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--night);
+}
+
+.readyVerdictText {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-body);
+}
+
+.readyVerdict.isGood {
+  border-color: rgb(196, 226, 205);
+  background-color: rgb(234, 246, 237);
+}
+
+.readyVerdict.isGood .readyVerdictIcon {
+  color: rgb(30, 135, 75);
+}
+
+.readyVerdict.isMostlyGood {
+  border-color: rgb(238, 222, 160);
+  background-color: rgb(253, 247, 220);
+}
+
+.readyVerdict.isMostlyGood .readyVerdictIcon {
+  color: rgb(190, 145, 0);
+}
+
+.readyVerdict.isRisky {
+  border-color: rgb(248, 206, 172);
+  background-color: rgb(255, 238, 225);
+}
+
+.readyVerdict.isRisky .readyVerdictIcon {
+  color: rgb(230, 105, 15);
+}
+
+.readyVerdict.isPoor {
+  border-color: rgb(240, 196, 196);
+  background-color: rgb(253, 232, 232);
+}
+
+.readyVerdict.isPoor .readyVerdictIcon {
+  color: rgb(200, 40, 40);
+}
+
+.readyVerdict.isUnknown {
+  border-color: var(--outline);
+  background-color: var(--cream);
+}
+
+.readyVerdict.isUnknown .readyVerdictIcon {
+  color: var(--ink-muted);
+}
+
+.readyLoading {
+  margin: 18px 0 0;
+  padding: 28px 16px;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  background-color: var(--cream);
+  font-size: 14px;
+  text-align: center;
+  color: var(--ink-muted);
+}
+
+/* How long, and how hard: side by side, with a line between, and lines
+   above and below. */
+.readyWalk {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 20px;
+  padding: 14px 0;
+  border-top: 1px solid var(--outline);
+  border-bottom: 1px solid var(--outline);
+}
+
+.readyWalkItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.readyWalkItem + .readyWalkItem {
+  padding-left: 16px;
+  border-left: 1px solid var(--outline);
+}
+
+.readyWalkIcon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  color: var(--unfold-orange);
+}
+
+.readyWalkIcon.isEffort {
+  width: 24px;
+  height: 24px;
+}
+
+.readyWalkValue {
+  margin: 0;
+  font-family: var(--heading);
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--night);
+}
+
+.readyWalkSub {
+  margin: 1px 0 0;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--ink-muted);
+}
+
+.readyQuestion {
+  margin: 26px 0 0;
+  font-family: var(--heading);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--night);
+}
+
+/* A little smaller than the usual button, so it fits on one line. */
+.readyStart {
+  margin-top: 16px;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+@media (max-width: 370px) {
+  .readyStart {
+    font-size: 14px;
+  }
+}
+
+.readyDirections {
+  margin-top: 10px;
+}
+
+/* Words for a screen reader only. */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* --- The route (RoutePreview.jsx) ---
@@ -2335,9 +2831,9 @@ button.detailBar:active {
 
 .routeName {
   margin: 2px 0 0;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 21px;
-  font-weight: 400;
+  font-family: var(--heading);
+  font-size: 17px;
+  font-weight: 600;
   line-height: 1.2;
   color: var(--text-h);
 }
@@ -2496,10 +2992,11 @@ button.detailBar:active {
 }
 
 .routeTotal {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 20px;
+  font-family: var(--heading);
+  font-size: 16.5px;
   line-height: 1.2;
   color: var(--text-h);
+  font-weight: 600;
 }
 
 .routeTotalNote {
@@ -2716,10 +3213,11 @@ button.detailBar:active {
 }
 
 .startCardName {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 21px;
+  font-family: var(--heading);
+  font-size: 17px;
   line-height: 1.2;
   color: var(--text-h);
+  font-weight: 600;
 }
 
 .startCardArea {
@@ -2736,17 +3234,15 @@ button.detailBar:active {
 }
 
 /* A main button with an icon before its words, like GET DIRECTIONS. */
+/* A symbol before the words, like Open in Google Maps. */
 .introBtn.hasIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
 }
 
 .introBtn.hasIcon svg {
-  flex-shrink: 0;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.9;
 }
 
 .alreadyThere {
@@ -2867,13 +3363,14 @@ button.detailBar:active {
 
 .photoScreenName {
   margin: 0;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 28px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  line-height: 1.1;
+  font-family: var(--heading);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
   color: var(--text-h);
   text-wrap: balance;
+  text-transform: uppercase;
 }
 
 /* Everything else: the map, the narration, the buttons. */
@@ -3017,12 +3514,9 @@ button.detailBar:active {
   height: 20px;
 }
 
-/* OPEN IN GOOGLE MAPS: a link, made to look like the buttons around it. */
+/* Open in Google Maps: a link, made to look like the buttons around it. */
 .mapsLink {
-  box-sizing: border-box;
   margin-top: 14px;
-  line-height: normal;
-  text-decoration: none;
 }
 
 .mapPlaceholder {
@@ -3427,27 +3921,30 @@ button.detailBar:active {
 }
 
 .narration .narrationLead {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 28px;
-  line-height: 1.15;
+  font-family: var(--heading);
+  font-size: 23px;
+  line-height: 1.25;
   color: var(--ink);
+  font-weight: 600;
 }
 
 .narration .narrationClose {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: var(--heading);
   font-style: italic;
-  font-size: 19px;
+  font-size: 17px;
   color: var(--ink-soft);
 }
 
 /* A little subheading, breaking the narration into short sections. */
 .narration .narrationHeading {
   margin: 26px 0 6px;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 21px;
-  font-weight: 400;
+  font-family: var(--heading);
+  font-size: 15px;
+  font-weight: 700;
   line-height: 1.25;
   color: var(--text-h);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .narration .narrationHeading:first-child {
@@ -3588,7 +4085,7 @@ button.detailBar:active {
   filter: grayscale(1);
 }
 
-/* DETOUR TAKEN: shaped like a button, but nothing to press. */
+/* Detour Taken: shaped like a button, but nothing to press. */
 .introBtn.isDone {
   background-color: transparent;
   border-color: var(--outline);
@@ -3621,15 +4118,16 @@ button.detailBar:active {
   margin-bottom: 0;
 }
 
-/* The peak, made the most of: larger, in serif, with a green line beside it. */
+/* The peak, made the most of: larger and bolder, with a green line beside it. */
 .memoryStory .memoryStoryPeak {
   margin: 22px 0;
   padding-left: 16px;
   border-left: 2px solid var(--unfold-green);
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 21px;
+  font-family: var(--heading);
+  font-size: 18px;
   line-height: 1.4;
   color: var(--text-h);
+  font-weight: 600;
 }
 
 /* The timeline: a green line down the left, with a dot for each stop. */
@@ -3710,10 +4208,11 @@ button.detailBar:active {
 }
 
 .timelineName {
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 19px;
+  font-family: var(--heading);
+  font-size: 16px;
   line-height: 1.2;
   color: var(--text-h);
+  font-weight: 600;
 }
 
 .timelineNote {
@@ -3845,11 +4344,12 @@ button.detailBar:active {
 .surveyPrompt {
   display: block;
   margin-bottom: 16px;
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 24px;
+  font-family: var(--heading);
+  font-size: 20px;
   line-height: 1.25;
   color: var(--text-h);
   text-wrap: balance;
+  font-weight: 600;
 }
 
 /* 16px text, so phones don't zoom in when you tap into it. */
@@ -3931,6 +4431,7 @@ button.detailBar:active {
   flex: 1 1 0;
   width: auto;
   margin-top: 0;
+  padding: 8px 12px;
 }
 
 .surveyError {
@@ -3992,11 +4493,12 @@ button.detailBar:active {
   padding: 0;
   background-color: transparent;
   border: none;
-  font-size: 11px;
-  letter-spacing: 0.5px;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
   color: var(--nav-ink);
   cursor: pointer;
   transition: color 0.2s ease;
+  text-transform: uppercase;
 }
 
 .navIcon {
@@ -4056,7 +4558,7 @@ button.detailBar:active {
 /* My Journeys (MyJourneysPage in ProfilePages.jsx), after its mockup: a white
    page, with Mount Fuji to the right of the heading. Then the journey you're
    partway through in an outlined card, and the ones you've finished and liked
-   under serif headings, straight on the page. */
+   under headings in capitals, straight on the page. */
 .myJourneysPage {
   box-sizing: border-box;
   min-height: 100%;
@@ -4097,12 +4599,13 @@ button.detailBar:active {
 /* As wide as the mockup's, so "Journeys" ends before the mountain. */
 .myTitle {
   margin: 4px 0 0;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: min(34px, 8.7vw);
+  font-family: var(--heading);
+  font-size: min(30px, 7.7vw);
   font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.4px;
+  line-height: 1.15;
+  letter-spacing: 0.08em;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .myText {
@@ -4227,10 +4730,12 @@ button.detailBar:active {
 }
 
 .myCurrentTitle {
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 21px;
-  line-height: 1.15;
-  letter-spacing: 0;
+  font-family: var(--heading);
+  font-size: 16px;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .myCurrentProgress {
@@ -4239,9 +4744,10 @@ button.detailBar:active {
   gap: 8px;
   margin-top: 8px;
   font-size: 12px;
-  letter-spacing: 0;
+  letter-spacing: 0.08em;
   white-space: nowrap;
   color: rgba(12, 23, 43, 0.75);
+  text-transform: uppercase;
 }
 
 .myProgressBar {
@@ -4267,8 +4773,9 @@ button.detailBar:active {
   gap: 4px 8px;
   margin-top: 8px;
   font-size: 11.5px;
-  letter-spacing: 0;
+  letter-spacing: 0.08em;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .journeyFacts > span {
@@ -4284,7 +4791,7 @@ button.detailBar:active {
   height: 15px;
 }
 
-/* Completed Journeys and Liked Journeys: a serif heading on the page, with
+/* Completed Journeys and Liked Journeys: a heading in capitals on the page, with
    See All in orange beside it. */
 .mySection {
   margin-top: 18px;
@@ -4299,12 +4806,13 @@ button.detailBar:active {
 
 .mySectionTitle {
   margin: 0;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: min(22px, 5.8vw);
+  font-family: var(--heading);
+  font-size: min(17px, 4.4vw);
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.1em;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .mySeeAll {
@@ -4315,10 +4823,12 @@ button.detailBar:active {
   padding: 4px 0;
   background: none;
   border: none;
-  font-size: 15px;
-  letter-spacing: 0;
+  font-size: 14px;
+  letter-spacing: 0.1em;
   color: var(--nav-current);
   cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .mySeeAll svg {
@@ -4489,11 +4999,12 @@ button.detailBar:active {
 }
 
 .journeyCardTitle {
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 18px;
+  font-family: var(--heading);
+  font-size: 15px;
   font-weight: 700;
-  line-height: 1.18;
-  letter-spacing: 0;
+  line-height: 1.25;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
 }
 
 /* "~2½ hrs • Easy", with the clock in front. */
@@ -4502,9 +5013,10 @@ button.detailBar:active {
   align-items: center;
   gap: 5px;
   margin-top: 7px;
-  font-size: 13.5px;
-  letter-spacing: 0;
+  font-size: 12px;
+  letter-spacing: 0.06em;
   white-space: nowrap;
+  text-transform: uppercase;
 }
 
 .journeyCardFacts svg {
@@ -4551,12 +5063,12 @@ button.detailBar:active {
   }
 
   .journeyCardTitle {
-    font-size: 16px;
+    font-size: 13.5px;
   }
 
   .journeyCardFacts {
     gap: 4px;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .journeyCardFacts svg {
@@ -4599,11 +5111,12 @@ button.detailBar:active {
 
 .myLikedTitle {
   display: block;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: 0;
+  font-family: var(--heading);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
 }
 
 .myLikedPlace {
@@ -4612,8 +5125,9 @@ button.detailBar:active {
   gap: 4px;
   margin-top: 4px;
   font-size: 12.5px;
-  letter-spacing: 0;
+  letter-spacing: 0.06em;
   color: rgba(12, 23, 43, 0.65);
+  text-transform: uppercase;
 }
 
 .myLikedPlace svg {
@@ -4647,6 +5161,7 @@ button.detailBar:active {
 .nameFormButtons .introBtn {
   flex: 1 1 0;
   width: auto;
+  padding: 8px 12px;
 }
 
 .promptBox .nameForm {
@@ -4755,12 +5270,13 @@ button.detailBar:active {
 /* As wide as the mockup's. */
 .profileTitle {
   margin: 22px 0 0;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: min(32px, 8.2vw);
+  font-family: var(--heading);
+  font-size: min(27px, 6.9vw);
   font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.4px;
+  letter-spacing: 0.08em;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .profileText {
@@ -4805,21 +5321,23 @@ button.detailBar:active {
 
 .profileName {
   overflow: hidden;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 30px;
+  font-family: var(--heading);
+  font-size: 25px;
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.3px;
+  letter-spacing: 0.1em;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .profileJoined {
   margin-top: 4px;
-  font-size: 14.5px;
+  font-size: 13.5px;
   letter-spacing: 0;
   color: rgb(38, 46, 66);
+  white-space: nowrap;
 }
 
 /* A white pill, in orange. */
@@ -4833,12 +5351,14 @@ button.detailBar:active {
   background-color: white;
   border: 1px solid rgb(208, 208, 216);
   border-radius: 999px;
-  font-size: 14px;
-  letter-spacing: 0;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
   white-space: nowrap;
   color: var(--nav-current);
   cursor: pointer;
   transition: transform 0.15s ease;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .profileEdit:active {
@@ -4863,12 +5383,13 @@ button.detailBar:active {
 .profileStatsTitle {
   margin: 0;
   padding: 0 14px;
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 21px;
+  font-family: var(--heading);
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.18em;
   color: var(--night);
+  text-transform: uppercase;
 }
 
 .profileStatsRow {
@@ -4887,9 +5408,9 @@ button.detailBar:active {
 }
 
 .profileStatValue {
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 31px;
-  font-weight: 600;
+  font-family: var(--heading);
+  font-size: 27px;
+  font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0;
   color: var(--night);
@@ -4898,14 +5419,15 @@ button.detailBar:active {
 /* Two words, one to a line. */
 .profileStatLabel {
   margin-top: 2px;
-  font-size: 13.5px;
-  line-height: 1.06;
-  letter-spacing: 0;
+  font-size: 10.5px;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
   white-space: pre-line;
   color: rgb(38, 46, 66);
+  text-transform: uppercase;
 }
 
-/* My Interests, My Preferences, and Account & Plan: a serif title over what's
+/* My Interests, My Preferences, and Account & Plan: a title in capitals over what's
    in it, with a line under each, and an arrow. */
 .profileRow {
   box-sizing: border-box;
@@ -4940,11 +5462,12 @@ button.profileRow {
 }
 
 .profileRowTitle {
-  font-family: 'Noto Serif Display', 'Times New Roman', Times, serif;
-  font-size: 21px;
+  font-family: var(--heading);
+  font-size: 17px;
   font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .profileRowText {
@@ -4974,20 +5497,20 @@ button.profileRow {
   }
 
   .profileName {
-    font-size: 25px;
+    font-size: 22px;
   }
 
   .profileEdit {
     padding: 0 9px 0 8px;
-    font-size: 13px;
+    font-size: 11px;
   }
 
   .profileStatValue {
-    font-size: 26px;
+    font-size: 24px;
   }
 
   .profileStatLabel {
-    font-size: 12px;
+    font-size: 9.5px;
   }
 }
 

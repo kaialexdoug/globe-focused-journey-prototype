@@ -226,6 +226,9 @@ const fishFry = {
 
 export default {
   id: 'nassau',
+  // Put together with AI, like the journeys in aiJourneys/, though its stops
+  // have exact spots: shows the AI GENERATED tag on Home.
+  aiMade: true,
   name: 'Forward, Upward, Onward',
   location: 'NASSAU · THE BAHAMAS',
   city: 'Nassau',
@@ -235,7 +238,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
-  experience: 'Cultural',
+  experiences: ['Historical', 'Culinary', 'Cultural'],
   departure: parliamentSquare,
   discovery: queensStaircase,
   build: governmentHouse,
@@ -243,6 +246,13 @@ export default {
   afterglow: fishFry,
   startArea: 'Bay Street, Nassau, The Bahamas',
   startNote: START_NOTE,
+  // When to go (Weather & Best Time to Go, BestTime.jsx).
+  bestTime: {
+    season: 'Winter to early spring',
+    seasonNote: 'The dry season, from December to April, outside hurricane season (June to November).',
+    timeOfDay: 'From late morning',
+    timeNote: 'It ends at the Arawak Cay Fish Fry, in time for dinner.',
+  },
   match: {
     moods: { Peaceful: 40, Adventurous: 60, Romantic: 50, Curious: 85, Playful: 50, Cultural: 90 },
     with: { Solo: 80, Couple: 80, Family: 60, 'Friends / Group': 80 },

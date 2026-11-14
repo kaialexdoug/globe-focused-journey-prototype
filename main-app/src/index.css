@@ -31,8 +31,10 @@
   --cream: rgb(248, 243, 238);
   --border: rgb(228, 223, 217);
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Montserrat', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'Montserrat', system-ui, 'Segoe UI', Roboto, sans-serif;
+  /* Only for the journey titles on Home's feed. */
+  --serif: 'Noto Serif Display', 'Times New Roman', Times, serif;
   --mono: ui-monospace, Consolas, monospace;
 
   /* Words: near-black with a hint of navy for headings, warm greys for

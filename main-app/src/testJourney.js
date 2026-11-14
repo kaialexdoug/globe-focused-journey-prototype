@@ -266,6 +266,9 @@ const higoHosokawa = {
 
 export default {
   id: 'wasedaTest',
+  // Put together with AI, like the journeys in aiJourneys/, though its stops
+  // have exact spots: shows the AI GENERATED tag on Home.
+  aiMade: true,
   // Named for what it's about rather than as a test, so trying it out feels
   // like the real thing.
   name: 'The Edge of Old Edo',
@@ -277,7 +280,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
-  experience: 'Cultural',
+  experiences: ['Hidden Gems', 'Cultural', 'Historical', 'Interactive'],
   departure: takadanobaba,
   discovery: kansenen,
   build: anahachiman,
@@ -285,6 +288,14 @@ export default {
   afterglow: higoHosokawa,
   startArea: 'Takadanobaba, Tokyo, Japan',
   startNote: START_NOTE,
+  // For Weather & Best Time to Go on See Your Journey (BestTime.jsx): the
+  // best season and time of day to go, and why. Today's weather there is
+  // looked up when it's shown.
+  bestTime: {
+    season: 'Mid–late fall',
+    seasonNote: 'For the yellow ginkgo trees around Waseda, and good weather.',
+    timeOfDay: 'During daylight hours',
+  },
   match: {
     moods: { Peaceful: 70, Adventurous: 30, Romantic: 50, Curious: 70, Playful: 40, Cultural: 80 },
     with: { Solo: 90, Couple: 75, Family: 60, 'Friends / Group': 70 },

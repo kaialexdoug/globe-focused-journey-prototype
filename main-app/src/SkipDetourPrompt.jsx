@@ -16,7 +16,7 @@ function SkipDetourPrompt({ hasOtherDetours, onSeeOtherDetours, onContinueJourne
     >
       {hasOtherDetours && (
         <button className="introBtn" onClick={onSeeOtherDetours} autoFocus>
-          SEE OTHER DETOURS
+          See Other Detours
         </button>
       )}
       <button
@@ -24,7 +24,7 @@ function SkipDetourPrompt({ hasOtherDetours, onSeeOtherDetours, onContinueJourne
         onClick={onContinueJourney}
         autoFocus={!hasOtherDetours}
       >
-        CONTINUE THE JOURNEY
+        Continue the Journey
       </button>
       <button className="backBtn" onClick={onStay}>
         STAY HERE

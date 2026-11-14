@@ -7,6 +7,7 @@ import {
   journeyHours,
   metersText,
   stayRangeText,
+  rideTotals,
   walkingTotals,
 } from './journeyTimes.js'
 import RouteMap from './RouteMap.jsx'
@@ -34,8 +35,21 @@ const EFFORT_LABELS = { easy: 'Easy', moderate: 'Moderate', hard: 'Hard' }
 // How you get to a stop, after how long it takes: "21 min walk".
 const TRAVEL_WORDS = { walking: 'walk', transit: 'by train', driving: 'drive', bicycling: 'by bike' }
 
+// The rest of the way, besides walking: "by car", or "by car and train".
+const RIDE_WORDS = { driving: 'car', transit: 'train', bicycling: 'bike' }
+function rideWords(modes) {
+  return `by ${modes.map((mode) => RIDE_WORDS[mode]).join(' and ')}`
+}
+
+// What that time is: "of driving", or "on the train".
+const RIDE_TIME_WORDS = { driving: 'of driving', transit: 'on the train', bicycling: 'on the bike' }
+function rideTimeWords(modes) {
+  return modes.length === 1 ? RIDE_TIME_WORDS[modes[0]] : 'on the way'
+}
+
 function RoutePreview({ journey }) {
   const walking = walkingTotals(journey)
+  const ride = rideTotals(journey)
   const hours = hoursText(journeyHours(journey))
   const [open, setOpen] = useState(false)
   // The map only loads once it's first opened, then stays.
@@ -59,7 +73,8 @@ function RoutePreview({ journey }) {
           <span className="routeFoldText">
             <span className="routeFoldTitle">{open ? 'Hide route details' : 'Show route details'}</span>
             <span className="routeFoldSummary">
-              {journey.route.length} stops · {metersText(walking.meters)} on foot · {hours}
+              {journey.route.length} stops · {metersText(walking.meters)} on foot
+              {ride && ` · ${metersText(ride.meters)} ${rideWords(ride.modes)}`} · {hours}
             </span>
           </span>
           <ChevronRightIcon className="routeFoldChevron" />
@@ -113,11 +128,27 @@ function RoutePreview({ journey }) {
                 <p className="routeTotalNote">About {durationText(walking.minutes)} on foot</p>
               </div>
             </div>
+            {/* On a journey that isn't all on foot, the rest of the way. */}
+            {ride && (
+              <div className="startCardRow">
+                <RouteIcon />
+                <div>
+                  <p className="routeTotal">
+                    {metersText(ride.meters)} {rideWords(ride.modes)}
+                  </p>
+                  <p className="routeTotalNote">
+                    About {durationText(ride.minutes)} {rideTimeWords(ride.modes)}
+                  </p>
+                </div>
+              </div>
+            )}
             <div className="startCardRow">
               <ClockIcon />
               <div>
                 <p className="routeTotal">{hours} in all</p>
-                <p className="routeTotalNote">The walking and the time at each stop. Detours are extra.</p>
+                <p className="routeTotalNote">
+                  {ride ? 'Getting around' : 'The walking'} and the time at each stop. Detours are extra.
+                </p>
               </div>
             </div>
           </div>

@@ -12,6 +12,8 @@ import SurveyPage from './SurveyPage.jsx'
 import SearchPage from './SearchPage.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
 import RoutePreview from './RoutePreview.jsx'
+import BestTime from './BestTime.jsx'
+import GetReadyPage from './GetReadyPage.jsx'
 import { hasRoutePreview } from './journeyTimes.js'
 import { askForCompass } from './compass.js'
 import {
@@ -37,7 +39,7 @@ import {
   SolidWalkIcon,
   WalkIcon,
 } from './Icons.jsx'
-import { EXPERIENCE_ICONS } from './experienceIcons.js'
+import { EXPERIENCE_ICONS, mainExperience } from './experienceIcons.js'
 import { ALL_JOURNEYS, placeName } from './journeyStops'
 import {
   loadProfile,
@@ -78,6 +80,8 @@ preloadImages([findPicture])
 // about (a detour's pages are about whichever detour you're on). Used to
 // keep where you are, and to say where you left off.
 const JOURNEY_PAGES = {
+  // Get Ready (GetReadyPage.jsx), before the first stop.
+  getReady: 'departure',
   departure: 'departure',
   departureInfo: 'departure',
   discovery: 'discovery',
@@ -468,7 +472,7 @@ function App() {
         // Only straight after finishing: making a profile, and the survey.
         onCreateProfile={profile || revisitingMemory ? null : createProfileFromMemory}
         onSurvey={revisitingMemory ? null : () => setPage('survey')}
-        doneLabel={revisitingMemory ? 'BACK TO MY JOURNEYS' : 'BACK TO HOME'}
+        doneLabel={revisitingMemory ? 'Back to My Journeys' : 'Back to Home'}
         onDone={() => setPage(revisitingMemory ? 'myJourneys' : 'home')}
       />
     )
@@ -477,7 +481,7 @@ function App() {
       <ArrivedPage
         journey={journey}
         stop={journey.afterglow}
-        continueLabel="FINISH JOURNEY ➜"
+        continueLabel="Finish Journey"
         onContinue={finishJourney}
         onStopJourney={stopJourney}
       />
@@ -604,12 +608,24 @@ function App() {
         onStopJourney={stopJourney}
       />
     )
+  } else if (page === 'getReady') {
+    // I'M HERE goes straight to the first stop, and GET DIRECTIONS to the way
+    // there. Back is to the journey's page, with it still the one you're on.
+    content = (
+      <GetReadyPage
+        journey={journey}
+        onBack={() => setPage('seeJourney')}
+        onStopJourney={stopJourney}
+        onImHere={() => setPage('departureInfo')}
+        onDirections={() => setPage('departure')}
+      />
+    )
   } else if (page === 'seeJourney') {
     content = (
       <SeeJourneyPage
         journey={journey}
         onClose={() => setPage(journeyOpenedFrom)}
-        onBeginJourney={() => beginJourney('departure')}
+        onBeginJourney={() => beginJourney('getReady')}
         onResume={resumeJourney}
         onViewMemory={viewMemory}
         completed={journeyRecord?.timesCompleted > 0}
@@ -844,7 +860,7 @@ function FeedTags({ journey }) {
       <FeedTag Icon={ClockIcon} value={journey.time.replace('hours', 'hrs')} />
       <FeedTag Icon={SolidWalkIcon} value={journey.difficulty} />
       <FeedTag Icon={SolidPinIcon} value={`${journey.route.length} stops`} />
-      <FeedTag Icon={EXPERIENCE_ICONS[journey.experience]} value={journey.experience} />
+      <FeedTag Icon={EXPERIENCE_ICONS[mainExperience(journey)]} value={mainExperience(journey)} />
     </div>
   )
 }
@@ -978,8 +994,9 @@ function FindJourneyPage({ onStart }) {
 
 // Like a journey stop: the journey's photo across the top, then its name, then
 // everything about it, which scrolls: its quick facts, what it is (the hook),
-// where it starts, and on journeys that have one, a preview of the whole route
-// (RoutePreview.jsx), then BEGIN JOURNEY. ✕ goes back to where you opened it
+// on journeys that have them, today's weather and the best time to go
+// (BestTime.jsx), where it starts, and on journeys that have one, a preview
+// of the whole route (RoutePreview.jsx), then BEGIN JOURNEY. ✕ goes back to where you opened it
 // from. `underWay` is where you left this journey, if it's the one you're on
 // (with or without a profile): then it offers RESUME JOURNEY instead. `completed` says
 // you've finished it before, which adds a tick above BEGIN JOURNEY and VIEW
@@ -993,6 +1010,13 @@ function SeeJourneyPage({
   completed,
   underWay,
 }) {
+  // Its four facts on one line, a little smaller on a journey whose are
+  // longer.
+  const factsRef = useRef(null)
+  useShrinkToFit(factsRef, 10, journey.id)
+  const experience = mainExperience(journey)
+  const ExperienceIcon = EXPERIENCE_ICONS[experience]
+
   return (
     <PhotoScreen
       className="journeyPage"
@@ -1005,7 +1029,8 @@ function SeeJourneyPage({
       onClose={onClose}
       closeLabel="Close"
     >
-      <div className="factsRow">
+      {/* Its time, walking and stops, and its main experience. */}
+      <div className="factsRow" ref={factsRef}>
         <span className="fact">
           <ClockIcon />
           {journey.time}
@@ -1018,6 +1043,10 @@ function SeeJourneyPage({
           <RouteIcon />
           {journey.stops}
         </span>
+        <span className="fact">
+          <ExperienceIcon />
+          {experience}
+        </span>
       </div>
 
       {/* The hook: what the journey is, to get you excited about it. */}
@@ -1026,6 +1055,10 @@ function SeeJourneyPage({
           <p key={index}>{paragraph}</p>
         ))}
       </div>
+
+      {/* Today's weather there, and the best season and time of day to go,
+          folded away like the route. */}
+      {journey.bestTime && <BestTime journey={journey} />}
 
       {/* A journey with a route preview starts its route with where to start,
           so it doesn't need START HERE as well. */}
@@ -1055,7 +1088,8 @@ function SeeJourneyPage({
             <h2 className="mainHook">Pick up where you left off?</h2>
             <p className="seeJourneyWhere">{underWay.text}</p>
             <button className="introBtn" onClick={onResume}>
-              RESUME JOURNEY ➜
+              Resume Journey
+              <ArrowRightIcon />
             </button>
             <div className="alreadyThere">
               <p>Rather start again from the beginning?</p>
@@ -1066,12 +1100,14 @@ function SeeJourneyPage({
           </>
         ) : (
           // Just the one button, whether or not you're at the start already:
-          // it begins with the way there, and if you're there, I'M HERE is
-          // the next tap. After a finished run, a quiet way back to its memory.
+          // it begins with Get Ready (today's conditions), which asks whether
+          // you're there yet. After a finished run, a quiet way back to its
+          // memory.
           <>
             {completed && <p className="completedNote">✓ You’ve completed this journey</p>}
             <button className="introBtn" onClick={onBeginJourney}>
-              BEGIN JOURNEY ➜
+              Begin Journey
+              <ArrowRightIcon />
             </button>
             {completed && (
               <button className="textLink viewMemoryLink" onClick={onViewMemory}>
