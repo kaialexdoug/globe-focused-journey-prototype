@@ -20,8 +20,9 @@ import {
   NavBar,
   MyJourneysPage,
   CompletedJourneysPage,
-  LikedJourneysPage,
+  SavedJourneysPage,
   ProfilePage,
+  EditProfilePage,
   InterestsPage,
   TravelPreferencesPage,
   SettingsPage,
@@ -30,8 +31,8 @@ import {
 } from './ProfilePages.jsx'
 import {
   ArrowRightIcon,
+  BookmarkIcon,
   ClockIcon,
-  HeartIcon,
   PinIcon,
   RouteIcon,
   SearchIcon,
@@ -46,12 +47,15 @@ import {
   storeProfile,
   loadProgress,
   storeProgress,
-  loadLikes,
-  storeLikes,
+  loadSaved,
+  storeSaved,
+  loadUnits,
+  storeUnits,
   newProfile,
   withJourneyStarted,
   withJourneyCompleted,
 } from './profileStore'
+import { UnitsContext } from './units.js'
 import { preloadImages } from './preloadImages.js'
 import { useShrinkToFit } from './shrinkToFit.js'
 import './App.css'
@@ -109,9 +113,10 @@ const NAVBAR_TAB_OF = {
   findMatches: 'find',
   search: 'home',
   completedJourneys: 'myJourneys',
-  likedJourneys: 'myJourneys',
+  savedJourneys: 'myJourneys',
   profileInterests: 'profile',
   profilePreferences: 'profile',
+  editProfile: 'profile',
   settings: 'profile',
 }
 
@@ -164,8 +169,9 @@ function whereLeftOff(progress) {
 function App() {
   // Which screen is showing: "home", "myJourneys", "profile", "find",
   // "findMood", "findWho", "findDetails", "findPreferences", "findMatches",
-  // "profileInterests", "profilePreferences", "settings", "completedJourneys",
-  // "likedJourneys", "search", "seeJourney", any of the JOURNEY_PAGES above,
+  // "profileInterests", "profilePreferences", "editProfile", "settings",
+  // "completedJourneys",
+  // "savedJourneys", "search", "seeJourney", any of the JOURNEY_PAGES above,
   // "memory" or "survey".
   const [page, setPage] = useState('home')
 
@@ -187,8 +193,8 @@ function App() {
   // Where the journey you've opened goes back to when you close it.
   const [journeyOpenedFrom, setJourneyOpenedFrom] = useState('home')
 
-  // The ids of the journeys you've liked, kept on this device.
-  const [likes, setLikes] = useState(loadLikes)
+  // The ids of the journeys you've saved, kept on this device.
+  const [saved, setSaved] = useState(loadSaved)
 
   // Your profile, if you've made one, and where you are in the journey you're
   // on, while you're somewhere else in the app (or it's been closed). Both
@@ -222,8 +228,25 @@ function App() {
   }, [profile])
 
   useEffect(() => {
-    storeLikes(likes)
-  }, [likes])
+    storeSaved(saved)
+  }, [saved])
+
+  // Metric or imperial (Settings): kept on your profile, or on this device
+  // until you have one. Every page reads it from UnitsContext (units.js).
+  const [deviceUnits, setDeviceUnits] = useState(loadUnits)
+  const units = profile?.units ?? deviceUnits
+
+  useEffect(() => {
+    storeUnits(deviceUnits)
+  }, [deviceUnits])
+
+  function changeUnits(chosen) {
+    if (profile) {
+      setProfile({ ...profile, units: chosen })
+    } else {
+      setDeviceUnits(chosen)
+    }
+  }
 
   // On a journey, where you are, at every step, so it can be picked up again
   // after going elsewhere in the app, or even after closing it. With or
@@ -236,18 +259,20 @@ function App() {
   }, [onJourney, page, detour, detoursTaken, journey.id])
 
   function createProfile(name) {
-    setProfile(newProfile(name))
+    setProfile(newProfile(name, units))
   }
 
+  // Everything on the profile goes, but the units you'd picked stay.
   function deleteProfile() {
+    setDeviceUnits(units)
     setProfile(null)
     storeProgress(null)
     setProgress(null)
-    setLikes([])
+    setSaved([])
   }
 
-  function toggleLike(journeyId) {
-    setLikes(likes.includes(journeyId) ? likes.filter((each) => each !== journeyId) : [...likes, journeyId])
+  function toggleSaved(journeyId) {
+    setSaved(saved.includes(journeyId) ? saved.filter((each) => each !== journeyId) : [...saved, journeyId])
   }
 
   // ✕ on a journey: "End your journey?" asks first.
@@ -354,7 +379,7 @@ function App() {
 
   // Making a profile from the Memory page: this journey goes on it, finished.
   function createProfileFromMemory(name) {
-    const started = withJourneyStarted(newProfile(name), journey.id)
+    const started = withJourneyStarted(newProfile(name, units), journey.id)
     const stopCount = journey.route.length + detoursTaken.length
     setProfile(withJourneyCompleted(started, journey.id, detoursTaken, stopCount))
   }
@@ -377,7 +402,7 @@ function App() {
         profile={profile}
         journeys={ALL_JOURNEYS}
         onCreateProfile={createProfile}
-        onRename={(name) => setProfile({ ...profile, name })}
+        onEditProfile={() => setPage('editProfile')}
         onOpenInterests={() => setPage('profileInterests')}
         onOpenPreferences={() => setPage('profilePreferences')}
         onOpenSettings={() => setPage('settings')}
@@ -404,15 +429,33 @@ function App() {
         onBack={() => setPage('profile')}
       />
     )
-  } else if (page === 'settings') {
+  } else if (page === 'editProfile' && profile) {
+    // DONE goes back to Profile, saving your name if you say so, and so does
+    // deleting your profile.
     content = (
-      <SettingsPage
+      <EditProfilePage
         profile={profile}
+        onSave={(name) => {
+          setProfile({ ...profile, name })
+          setPage('profile')
+        }}
         onDelete={() => {
           deleteProfile()
           setPage('profile')
         }}
-        onBack={() => setPage('profile')}
+        onClose={() => setPage('profile')}
+      />
+    )
+  } else if (page === 'settings') {
+    // The same: DONE goes back to Profile, saving the units if you say so.
+    content = (
+      <SettingsPage
+        units={units}
+        onSave={(chosen) => {
+          changeUnits(chosen)
+          setPage('profile')
+        }}
+        onClose={() => setPage('profile')}
       />
     )
   } else if (page === 'myJourneys') {
@@ -422,12 +465,12 @@ function App() {
         journeys={ALL_JOURNEYS}
         progress={underWay}
         where={underWay ? whereLeftOff(underWay) : null}
-        likes={likes}
+        saved={saved}
         onResume={resumeJourney}
         onOpenJourney={(chosen) => openJourney(chosen, 'myJourneys')}
-        onToggleLike={toggleLike}
+        onToggleSaved={toggleSaved}
         onSeeCompleted={() => setPage('completedJourneys')}
-        onSeeLiked={() => setPage('likedJourneys')}
+        onSeeSaved={() => setPage('savedJourneys')}
         onBrowse={() => setPage('home')}
         onCreateProfile={createProfile}
       />
@@ -437,19 +480,19 @@ function App() {
       <CompletedJourneysPage
         profile={profile}
         journeys={ALL_JOURNEYS}
-        likes={likes}
+        saved={saved}
         onOpenJourney={(chosen) => openJourney(chosen, 'completedJourneys')}
-        onToggleLike={toggleLike}
+        onToggleSaved={toggleSaved}
         onBack={() => setPage('myJourneys')}
       />
     )
-  } else if (page === 'likedJourneys') {
+  } else if (page === 'savedJourneys') {
     content = (
-      <LikedJourneysPage
+      <SavedJourneysPage
         journeys={ALL_JOURNEYS}
-        likes={likes}
-        onOpenJourney={(chosen) => openJourney(chosen, 'likedJourneys')}
-        onToggleLike={toggleLike}
+        saved={saved}
+        onOpenJourney={(chosen) => openJourney(chosen, 'savedJourneys')}
+        onToggleSaved={toggleSaved}
         onBack={() => setPage('myJourneys')}
       />
     )
@@ -639,10 +682,10 @@ function App() {
         journeys={ALL_JOURNEYS}
         query={searchQuery}
         onQueryChange={setSearchQuery}
-        likes={likes}
+        saved={saved}
         positionRef={searchPositionRef}
         onSelect={(chosen) => openJourney(chosen, 'search')}
-        onToggleLike={toggleLike}
+        onToggleSaved={toggleSaved}
         onBack={() => setPage('home')}
       />
     )
@@ -651,10 +694,10 @@ function App() {
       <MatchesPage
         journeys={ALL_JOURNEYS}
         answers={findAnswers}
-        likes={likes}
+        saved={saved}
         positionRef={matchesPositionRef}
         onSelect={(chosen) => openJourney(chosen, 'findMatches')}
-        onToggleLike={toggleLike}
+        onToggleSaved={toggleSaved}
         onBack={() => setPage('findDetails')}
       />
     )
@@ -732,9 +775,9 @@ function App() {
     content = (
       <HomePage
         journeys={ALL_JOURNEYS}
-        likes={likes}
+        saved={saved}
         onSelect={openJourney}
-        onToggleLike={toggleLike}
+        onToggleSaved={toggleSaved}
         onSearch={openSearch}
         positionRef={feedPositionRef}
       />
@@ -756,85 +799,88 @@ function App() {
   // in the middle of the window — see the bottom of App.css.
 
   return (
-    <div className="phone">
-      {/* Keyed by page so each screen starts scrolled to the top. Inert while
-          a box is up over it, so nothing behind can be tapped or tabbed to,
-          and the same goes for the navbar. */}
-      <div className="screen" key={page} inert={boxOpen}>
-        {content}
+    // Metric or imperial, for every page and box (units.js).
+    <UnitsContext value={units}>
+      <div className="phone">
+        {/* Keyed by page so each screen starts scrolled to the top. Inert while
+            a box is up over it, so nothing behind can be tapped or tabbed to,
+            and the same goes for the navbar. */}
+        <div className="screen" key={page} inert={boxOpen}>
+          {content}
+        </div>
+
+        {/* My Journeys is marked while you're away from a journey you're on. */}
+        <NavBar
+          current={navbarTab}
+          onNavigate={goToTab}
+          journeyGoing={underWay !== null && !onJourney}
+          inert={boxOpen}
+        />
+
+        {showSkipDetour && (
+          <SkipDetourPrompt
+            hasOtherDetours={otherDetoursLeft.length > 0}
+            onSeeOtherDetours={() => {
+              setShowSkipDetour(false)
+              setPage('detours')
+            }}
+            onContinueJourney={() => {
+              setShowSkipDetour(false)
+              setPage('peak')
+            }}
+            onStay={() => setShowSkipDetour(false)}
+          />
+        )}
+
+        {showStopConfirmation && (
+          <StopConfirmation
+            onConfirm={() => {
+              setShowStopConfirmation(false)
+              endJourney()
+            }}
+            onCancel={() => setShowStopConfirmation(false)}
+          />
+        )}
+
+        {pendingSwitch && (
+          <ExitCurrentPrompt
+            currentName={journeyWithId(underWay.journeyId).name}
+            nextName={journey.name}
+            // The one you were on ends there and then, then the new one
+            // starts as any other does.
+            onExit={() => {
+              setPendingSwitch(null)
+              storeProgress(null)
+              setProgress(null)
+              if (profile) {
+                startJourney(pendingSwitch, profile)
+              } else {
+                setPendingStart(pendingSwitch)
+              }
+            }}
+            onResume={() => {
+              setPendingSwitch(null)
+              resumeJourney()
+            }}
+            onStay={() => setPendingSwitch(null)}
+          />
+        )}
+
+        {pendingStart && (
+          <SaveProgressPrompt
+            onSave={(name) => {
+              setPendingStart(null)
+              startJourney(pendingStart, newProfile(name, units))
+            }}
+            onSkip={() => {
+              setPendingStart(null)
+              startJourney(pendingStart, null)
+            }}
+            onCancel={() => setPendingStart(null)}
+          />
+        )}
       </div>
-
-      {/* My Journeys is marked while you're away from a journey you're on. */}
-      <NavBar
-        current={navbarTab}
-        onNavigate={goToTab}
-        journeyGoing={underWay !== null && !onJourney}
-        inert={boxOpen}
-      />
-
-      {showSkipDetour && (
-        <SkipDetourPrompt
-          hasOtherDetours={otherDetoursLeft.length > 0}
-          onSeeOtherDetours={() => {
-            setShowSkipDetour(false)
-            setPage('detours')
-          }}
-          onContinueJourney={() => {
-            setShowSkipDetour(false)
-            setPage('peak')
-          }}
-          onStay={() => setShowSkipDetour(false)}
-        />
-      )}
-
-      {showStopConfirmation && (
-        <StopConfirmation
-          onConfirm={() => {
-            setShowStopConfirmation(false)
-            endJourney()
-          }}
-          onCancel={() => setShowStopConfirmation(false)}
-        />
-      )}
-
-      {pendingSwitch && (
-        <ExitCurrentPrompt
-          currentName={journeyWithId(underWay.journeyId).name}
-          nextName={journey.name}
-          // The one you were on ends there and then, then the new one
-          // starts as any other does.
-          onExit={() => {
-            setPendingSwitch(null)
-            storeProgress(null)
-            setProgress(null)
-            if (profile) {
-              startJourney(pendingSwitch, profile)
-            } else {
-              setPendingStart(pendingSwitch)
-            }
-          }}
-          onResume={() => {
-            setPendingSwitch(null)
-            resumeJourney()
-          }}
-          onStay={() => setPendingSwitch(null)}
-        />
-      )}
-
-      {pendingStart && (
-        <SaveProgressPrompt
-          onSave={(name) => {
-            setPendingStart(null)
-            startJourney(pendingStart, newProfile(name))
-          }}
-          onSkip={() => {
-            setPendingStart(null)
-            startJourney(pendingStart, null)
-          }}
-          onCancel={() => setPendingStart(null)}
-        />
-      )}
-    </div>
+    </UnitsContext>
   )
 }
 
@@ -869,9 +915,9 @@ function FeedTags({ journey }) {
 // the screen. `positionRef` remembers which one you were on, so you come back
 // to it after opening a journey or going to another tab. Tapping anywhere on
 // one opens it. Its button is there to make that obvious, and for the
-// keyboard; its click reaches the card too. The heart's click stops short of
-// the card, so liking a journey doesn't open it.
-function HomePage({ journeys, likes, onSelect, onToggleLike, onSearch, positionRef }) {
+// keyboard; its click reaches the card too. The bookmark's click stops short
+// of the card, so saving a journey doesn't open it.
+function HomePage({ journeys, saved, onSelect, onToggleSaved, onSearch, positionRef }) {
   const feedRef = useRef(null)
 
   // Before it's drawn, so the first journey doesn't flash up on the way.
@@ -946,15 +992,15 @@ function HomePage({ journeys, likes, onSelect, onToggleLike, onSearch, positionR
               <ArrowRightIcon />
             </button>
             <button
-              className={likes.includes(journey.id) ? 'matchHeart isLiked' : 'matchHeart'}
+              className={saved.includes(journey.id) ? 'matchSave isSaved' : 'matchSave'}
               onClick={(event) => {
                 event.stopPropagation()
-                onToggleLike(journey.id)
+                onToggleSaved(journey.id)
               }}
-              aria-pressed={likes.includes(journey.id)}
-              aria-label={`Like ${journey.name}`}
+              aria-pressed={saved.includes(journey.id)}
+              aria-label={`Save ${journey.name}`}
             >
-              <HeartIcon />
+              <BookmarkIcon />
             </button>
           </div>
         ))}

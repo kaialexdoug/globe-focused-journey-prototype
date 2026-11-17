@@ -7,7 +7,10 @@
 
 const PROFILE_KEY = 'unfold.profile'
 const PROGRESS_KEY = 'unfold.progress'
-const LIKES_KEY = 'unfold.likes'
+const SAVED_KEY = 'unfold.saved'
+// Saved journeys were "liked" journeys, kept under this, before.
+const OLD_LIKES_KEY = 'unfold.likes'
+const UNITS_KEY = 'unfold.units'
 
 // Browser storage can be switched off or full. Then nothing is kept, and the
 // app carries on without it.
@@ -39,11 +42,23 @@ export const storeProfile = (profile) => write(PROFILE_KEY, profile)
 export const loadProgress = () => read(PROGRESS_KEY)
 export const storeProgress = (progress) => write(PROGRESS_KEY, progress)
 
-// The ids of the journeys you've liked, with or without a profile.
-export const loadLikes = () => read(LIKES_KEY) ?? []
-export const storeLikes = (likes) => write(LIKES_KEY, likes)
+// The ids of the journeys you've saved, with or without a profile. Journeys
+// liked before saving took liking's place carry over as saved ones, and the
+// old list is cleared once they have, leaving its key free for when liking
+// comes back. (Then this fallback can go.)
+export const loadSaved = () => read(SAVED_KEY) ?? read(OLD_LIKES_KEY) ?? []
+export function storeSaved(saved) {
+  write(SAVED_KEY, saved)
+  write(OLD_LIKES_KEY, null)
+}
 
-export function newProfile(name) {
+// Metric or imperial (units.js), for when there's no profile to keep it on.
+// With a profile, it's kept on the profile instead (`units`).
+export const loadUnits = () => read(UNITS_KEY) ?? 'metric'
+export const storeUnits = (units) => write(UNITS_KEY, units)
+
+// `units` is what you'd chosen before having a profile, carried onto it.
+export function newProfile(name, units = 'metric') {
   return {
     name,
     createdAt: new Date().toISOString(),
@@ -55,6 +70,9 @@ export function newProfile(name) {
     // before these existed don't have them.)
     interests: [],
     preferences: [],
+    // 'metric' or 'imperial', from Settings. (Older profiles don't have it,
+    // and go by what's kept on the device.)
+    units,
   }
 }
 

@@ -13,13 +13,13 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
   BicycleIcon,
+  BookmarkIcon,
   BurgerIcon,
   CameraIcon,
   ChevronRightIcon,
   ClockIcon,
   CompassIcon,
   FishIcon,
-  HeartIcon,
   HikingIcon,
   HomeIcon,
   ModeratePaceIcon,
@@ -34,6 +34,7 @@ import {
   WalkIcon,
 } from './Icons.jsx'
 import { placeName } from './journeyStops'
+import { UNIT_CHOICES } from './units.js'
 import { useShrinkToFit } from './shrinkToFit.js'
 
 // Everything for the profile: the navbar along the bottom of every page;
@@ -200,10 +201,10 @@ function completedJourneys(journeys, profile) {
     .sort((a, b) => profile.journeys[b.id].lastCompletedAt.localeCompare(profile.journeys[a.id].lastCompletedAt))
 }
 
-// The journeys you've liked, most recently first. `likes` is their ids, with
+// The journeys you've saved, most recently first. `saved` is their ids, with
 // the latest last.
-function likedJourneys(journeys, likes) {
-  return likes
+function savedJourneys(journeys, saved) {
+  return saved
     .map((id) => journeys.find((journey) => journey.id === id))
     .filter(Boolean)
     .reverse()
@@ -211,10 +212,10 @@ function likedJourneys(journeys, likes) {
 
 // A journey as a photo card, after the My Journeys mockup: the photo fading
 // into white, the name under it, and its time and difficulty. The same for
-// finished and liked ones, in the sideways row on My Journeys or a grid on
-// their own pages. Tapping it opens the journey, and the heart likes it (or
-// unlikes it).
-function JourneyCard({ journey, liked, onOpen, onToggleLike }) {
+// finished and saved ones, in the sideways row on My Journeys or a grid on
+// their own pages. Tapping it opens the journey, and the bookmark saves it
+// (or unsaves it).
+function JourneyCard({ journey, isSaved, onOpen, onToggleSaved }) {
   return (
     <div className="journeyCard">
       <button className="journeyCardOpen" onClick={() => onOpen(journey)}>
@@ -238,12 +239,12 @@ function JourneyCard({ journey, liked, onOpen, onToggleLike }) {
       </button>
       {/* Beside the rest rather than in it, as a button can't hold a button. */}
       <button
-        className={liked ? 'matchHeart isLiked' : 'matchHeart'}
-        onClick={() => onToggleLike(journey.id)}
-        aria-pressed={liked}
-        aria-label={`Like ${journey.name}`}
+        className={isSaved ? 'matchSave isSaved' : 'matchSave'}
+        onClick={() => onToggleSaved(journey.id)}
+        aria-pressed={isSaved}
+        aria-label={`Save ${journey.name}`}
       >
-        <HeartIcon />
+        <BookmarkIcon />
       </button>
     </div>
   )
@@ -346,7 +347,7 @@ function CurrentJourney({ journey, where, onResume }) {
 
 // My Journeys, after its mockup: the heading with Mount Fuji beside it, then
 // the journey you're partway through (there's only ever one), the ones you've
-// finished in a row you swipe through, and the one you liked last. Without a
+// finished in a row you swipe through, and the one you saved last. Without a
 // profile, the journeys you finish aren't kept, so a way to make one takes
 // the place of those.
 export function MyJourneysPage({
@@ -354,18 +355,18 @@ export function MyJourneysPage({
   journeys,
   progress,
   where,
-  likes,
+  saved,
   onResume,
   onOpenJourney,
-  onToggleLike,
+  onToggleSaved,
   onSeeCompleted,
-  onSeeLiked,
+  onSeeSaved,
   onBrowse,
   onCreateProfile,
 }) {
   const underWay = journeys.find((journey) => journey.id === progress?.journeyId)
   const completed = completedJourneys(journeys, profile)
-  const [latestLiked] = likedJourneys(journeys, likes)
+  const [latestSaved] = savedJourneys(journeys, saved)
 
   return (
     <div className="myJourneysPage">
@@ -415,9 +416,9 @@ export function MyJourneysPage({
                   <JourneyCard
                     key={journey.id}
                     journey={journey}
-                    liked={likes.includes(journey.id)}
+                    isSaved={saved.includes(journey.id)}
                     onOpen={onOpenJourney}
-                    onToggleLike={onToggleLike}
+                    onToggleSaved={onToggleSaved}
                   />
                 ))}
               </JourneyRow>
@@ -430,24 +431,24 @@ export function MyJourneysPage({
           </MySection>
         )}
 
-        <MySection title="Liked Journeys" onSeeAll={latestLiked ? onSeeLiked : null}>
-          {latestLiked ? (
-            <button className="myLiked" onClick={() => onOpenJourney(latestLiked)}>
+        <MySection title="Saved Journeys" onSeeAll={latestSaved ? onSeeSaved : null}>
+          {latestSaved ? (
+            <button className="mySaved" onClick={() => onOpenJourney(latestSaved)}>
               <img
-                src={latestLiked.photo}
-                alt={latestLiked.photoAlt}
-                style={{ objectPosition: latestLiked.photoPosition }}
+                src={latestSaved.photo}
+                alt={latestSaved.photoAlt}
+                style={{ objectPosition: latestSaved.photoPosition }}
               />
-              <span className="myLikedWords">
-                <span className="myLikedTitle">{latestLiked.name}</span>
-                <span className="myLikedPlace">
+              <span className="mySavedWords">
+                <span className="mySavedTitle">{latestSaved.name}</span>
+                <span className="mySavedPlace">
                   <PinIcon />
-                  {placeName(latestLiked.location)}
+                  {placeName(latestSaved.location)}
                 </span>
               </span>
             </button>
           ) : (
-            <p className="myEmpty">Journeys you like will show up here.</p>
+            <p className="myEmpty">Journeys you save will show up here.</p>
           )}
         </MySection>
       </div>
@@ -456,7 +457,7 @@ export function MyJourneysPage({
 }
 
 // A page of journeys as a grid of cards, with the way back to My Journeys.
-function JourneyGridPage({ title, journeys, likes, onOpenJourney, onToggleLike, onBack }) {
+function JourneyGridPage({ title, journeys, saved, onOpenJourney, onToggleSaved, onBack }) {
   return (
     <div className="stepPage myGridPage">
       <div className="stepBar">
@@ -471,9 +472,9 @@ function JourneyGridPage({ title, journeys, likes, onOpenJourney, onToggleLike, 
           <JourneyCard
             key={journey.id}
             journey={journey}
-            liked={likes.includes(journey.id)}
+            isSaved={saved.includes(journey.id)}
             onOpen={onOpenJourney}
-            onToggleLike={onToggleLike}
+            onToggleSaved={onToggleSaved}
           />
         ))}
       </div>
@@ -485,9 +486,9 @@ export function CompletedJourneysPage({ profile, journeys, ...page }) {
   return <JourneyGridPage title="Completed Journeys" journeys={completedJourneys(journeys, profile)} {...page} />
 }
 
-// Unliking one takes it straight off this page.
-export function LikedJourneysPage({ journeys, likes, ...page }) {
-  return <JourneyGridPage title="Liked Journeys" journeys={likedJourneys(journeys, likes)} likes={likes} {...page} />
+// Unsaving one takes it straight off this page.
+export function SavedJourneysPage({ journeys, saved, ...page }) {
+  return <JourneyGridPage title="Saved Journeys" journeys={savedJourneys(journeys, saved)} saved={saved} {...page} />
 }
 
 // --- Profile ---
@@ -581,22 +582,19 @@ function ProfileName({ name }) {
   )
 }
 
-// Changing your name, in a box over the page.
-function EditProfilePrompt({ name, onSave, onCancel }) {
-  return (
-    <PromptBox title="Edit profile" text="Your name, as it shows on your profile." onDismiss={onCancel}>
-      <NameForm submitLabel="Save" initialName={name} autoFocus onSubmit={onSave} onCancel={onCancel} />
-    </PromptBox>
-  )
-}
-
 // Profile, after its mockup: the heading with the city beside it and the cog
 // for Settings, then who you are, your stats, your interests and preferences,
 // and your plan. Without a profile, a way to make one takes the place of all
 // that. `journeys` is every journey, for the stats.
-export function ProfilePage({ profile, journeys, onCreateProfile, onRename, onOpenInterests, onOpenPreferences, onOpenSettings }) {
-  const [editing, setEditing] = useState(false)
-
+export function ProfilePage({
+  profile,
+  journeys,
+  onCreateProfile,
+  onEditProfile,
+  onOpenInterests,
+  onOpenPreferences,
+  onOpenSettings,
+}) {
   return (
     <div className="profilePage">
       <div className="profileHero">
@@ -624,7 +622,7 @@ export function ProfilePage({ profile, journeys, onCreateProfile, onRename, onOp
                   Joined {new Date(profile.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                 </p>
               </div>
-              <button className="profileEdit" onClick={() => setEditing(true)}>
+              <button className="profileEdit" onClick={onEditProfile}>
                 <PencilIcon />
                 Edit Profile
               </button>
@@ -656,15 +654,113 @@ export function ProfilePage({ profile, journeys, onCreateProfile, onRename, onOp
           />
         )}
       </div>
+    </div>
+  )
+}
 
-      {editing && (
-        <EditProfilePrompt
-          name={profile.name}
-          onSave={(name) => {
-            onRename(name)
-            setEditing(false)
+// "Save your changes?", from DONE on Edit Profile and Settings when something's
+// been changed: SAVE CHANGES, or DON'T SAVE to leave it as it was. Tapping
+// outside the box goes back to the page, with the changes still there.
+function SaveChangesPrompt({ onSave, onDiscard, onKeepEditing }) {
+  return (
+    <PromptBox title="Save your changes?" onDismiss={onKeepEditing}>
+      <button className="introBtn" onClick={onSave} autoFocus>
+        Save Changes
+      </button>
+      <button className="backBtn" onClick={onDiscard}>
+        DON’T SAVE
+      </button>
+    </PromptBox>
+  )
+}
+
+// The bottom of Edit Profile and Settings: DONE, as far down the screen as
+// it goes, however little is above it. The same as Done on My Interests and
+// My Preferences: deep blue, with the arrow in orange.
+function DoneButton({ onDone, disabled }) {
+  return (
+    <div className="settingsDone">
+      <button className="stepFind" onClick={onDone} disabled={disabled}>
+        Done
+        <ArrowRightIcon />
+      </button>
+    </div>
+  )
+}
+
+// Edit Profile, from the pencil on Profile: a screen like Settings, with your
+// name to change, then deleting your profile, which asks first. Nothing's
+// saved until DONE, which asks whether to save, if the name's been changed.
+// (Enter in the name does the same.) DONE waits while the name is empty.
+export function EditProfilePage({ profile, onSave, onDelete, onClose }) {
+  const [name, setName] = useState(profile.name)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [askToSave, setAskToSave] = useState(false)
+  const trimmed = name.trim()
+
+  function done() {
+    if (!trimmed) {
+      return
+    }
+    if (trimmed === profile.name) {
+      onClose()
+    } else {
+      setAskToSave(true)
+    }
+  }
+
+  return (
+    <div className="stepPage settingsPage">
+      <div className="stepBar">
+        <Header />
+      </div>
+
+      <h1 className="stepTitle">Edit Profile</h1>
+      <p className="stepText">Your name, as it shows on your profile.</p>
+
+      <form
+        className="editProfileName"
+        onSubmit={(event) => {
+          event.preventDefault()
+          done()
+        }}
+      >
+        <input
+          className="surveyInput"
+          type="text"
+          aria-label="Your name"
+          autoComplete="given-name"
+          maxLength={40}
+          placeholder="Your name"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+      </form>
+      {!trimmed && <p className="editProfileHint">Your name can’t be empty.</p>}
+
+      <div className="settingsRows editProfileDelete">
+        <button className="settingsRow settingsDelete" onClick={() => setConfirmDelete(true)}>
+          Delete profile
+        </button>
+      </div>
+
+      <DoneButton onDone={done} disabled={!trimmed} />
+
+      {confirmDelete && (
+        <DeleteProfilePrompt
+          onKeep={() => setConfirmDelete(false)}
+          onDelete={() => {
+            setConfirmDelete(false)
+            onDelete()
           }}
-          onCancel={() => setEditing(false)}
+        />
+      )}
+
+      {askToSave && (
+        <SaveChangesPrompt
+          onSave={() => onSave(trimmed)}
+          onDiscard={onClose}
+          onKeepEditing={() => setAskToSave(false)}
         />
       )}
     </div>
@@ -688,42 +784,67 @@ export function TravelPreferencesPage(page) {
   )
 }
 
-// Settings, from the cog on Profile: which version of the app this is, so
-// you can tell whether a phone has picked up the latest (dark mode's switch
-// will come back here), and deleting your profile, if you have one.
-export function SettingsPage({ profile, onDelete, onBack }) {
-  const [confirmDelete, setConfirmDelete] = useState(false)
+// Settings, from the cog on Profile: metric or imperial, for every distance
+// and temperature in the app (units.js), and which version of the app this
+// is, so you can tell whether a phone has picked up the latest (dark mode's
+// switch will come back here). Deleting your profile is on Edit Profile.
+// Like Edit Profile, nothing's saved until DONE, which asks whether to save,
+// if anything's been changed.
+export function SettingsPage({ units, onSave, onClose }) {
+  const [chosenUnits, setChosenUnits] = useState(units)
+  const [askToSave, setAskToSave] = useState(false)
+  const chosen = UNIT_CHOICES.find((choice) => choice.value === chosenUnits) ?? UNIT_CHOICES[0]
+
+  function done() {
+    if (chosenUnits === units) {
+      onClose()
+    } else {
+      setAskToSave(true)
+    }
+  }
 
   return (
     <div className="stepPage settingsPage">
       <div className="stepBar">
-        <button className="stepBack" onClick={onBack} aria-label="Back">
-          <ArrowLeftIcon />
-        </button>
         <Header />
       </div>
 
       <h1 className="stepTitle">Settings</h1>
 
       <div className="settingsRows">
+        {/* The two choices side by side, the one picked filled in, with what
+            it means under "Units". */}
+        <div className="settingsRow">
+          <div>
+            <p id="settingsUnitsLabel">Units</p>
+            <p className="settingsSub">{chosen.means}</p>
+          </div>
+          <div className="unitsChoice" role="group" aria-labelledby="settingsUnitsLabel">
+            {UNIT_CHOICES.map(({ value, label }) => (
+              <button
+                key={value}
+                className={value === chosen.value ? 'unitsOption isChosen' : 'unitsOption'}
+                aria-pressed={value === chosen.value}
+                onClick={() => setChosenUnits(value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="settingsRow">
           <span>Version</span>
           <span className="settingsValue">{APP_VERSION}</span>
         </div>
-        {profile && (
-          <button className="settingsRow settingsDelete" onClick={() => setConfirmDelete(true)}>
-            Delete profile
-          </button>
-        )}
       </div>
 
-      {confirmDelete && (
-        <DeleteProfilePrompt
-          onKeep={() => setConfirmDelete(false)}
-          onDelete={() => {
-            setConfirmDelete(false)
-            onDelete()
-          }}
+      <DoneButton onDone={done} />
+
+      {askToSave && (
+        <SaveChangesPrompt
+          onSave={() => onSave(chosenUnits)}
+          onDiscard={onClose}
+          onKeepEditing={() => setAskToSave(false)}
         />
       )}
     </div>

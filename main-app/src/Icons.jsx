@@ -367,10 +367,21 @@ export function GroupIcon({ className }) {
   )
 }
 
+// Liking journeys is set aside for now, in favour of saving them (the
+// bookmark below), but it's coming back.
 export function HeartIcon({ className }) {
   return (
     <Icon className={className}>
       <path d="M12 20.5S3 15.2 3 9a4.9 4.9 0 0 1 9-2.7A4.9 4.9 0 0 1 21 9c0 6.2-9 11.5-9 11.5z" />
+    </Icon>
+  )
+}
+
+// Saving a journey: an outline, filled in once it's saved (App.css).
+export function BookmarkIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M7 3.5h10a1 1 0 0 1 1 1v16l-6-4.3-6 4.3v-16a1 1 0 0 1 1-1z" />
     </Icon>
   )
 }

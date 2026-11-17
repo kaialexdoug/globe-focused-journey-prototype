@@ -13,7 +13,7 @@ import { searchJourneys } from './journeySearch.js'
 //
 // `query` is kept by App, along with how far down you were (`positionRef`), so
 // both are as you left them when you come back from a journey.
-function SearchPage({ journeys, query, onQueryChange, likes, positionRef, onSelect, onToggleLike, onBack }) {
+function SearchPage({ journeys, query, onQueryChange, saved, positionRef, onSelect, onToggleSaved, onBack }) {
   const pageRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -107,9 +107,9 @@ function SearchPage({ journeys, query, onQueryChange, likes, positionRef, onSele
               journey={journey}
               found={stops.map((stop) => stop.name)}
               index={index}
-              liked={likes.includes(journey.id)}
+              isSaved={saved.includes(journey.id)}
               onSelect={onSelect}
-              onToggleLike={onToggleLike}
+              onToggleSaved={onToggleSaved}
             />
           ))}
         </div>

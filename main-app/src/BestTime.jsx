@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { ChevronRightIcon, LeafIcon, SunIcon, WeatherIcon } from './Icons.jsx'
-import { conditionWords, lookUpConditions, savedConditions } from './weather.js'
+import { useUnits } from './units.js'
+import { conditionWords, lookUpConditions, savedConditions, temperatureText } from './weather.js'
 
 // Weather & Best Time to Go, on See Your Journey, just above the route
 // details and folded away the same way: a bar with today's weather where the
@@ -21,16 +22,19 @@ function lowerFirst(text) {
 }
 
 function BestTime({ journey }) {
+  const units = useUnits()
   const { bestTime } = journey
   const point = journey.departure.mapPoint
   const [conditions, setConditions] = useState(() => (point ? savedConditions(point) : null))
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    if (!point || savedConditions(point)) {
+    if (!point) {
       return undefined
     }
     let current = true
+    // Asked even when it's already showing: if it was kept from the last few
+    // minutes, this just gives the same back (see GetReadyPage.jsx).
     lookUpConditions(point)
       .then((found) => {
         if (current) setConditions(found)
@@ -46,11 +50,9 @@ function BestTime({ journey }) {
   const bestTimeOfDay = `Best ${lowerFirst(bestTime.timeOfDay)}`
   let summary = `Best in ${lowerFirst(bestTime.season)}, ${lowerFirst(bestTime.timeOfDay)}`
   if (conditions) {
+    // In your units (Settings): "Drizzle, 13°C now", or "Drizzle, 55°F now".
     const { celsius, code } = conditions.now
-    const rounded = Math.round(celsius)
-    // From the rounded Celsius, so the two always agree (15°C is 59°F).
-    const fahrenheit = Math.round((rounded * 9) / 5 + 32)
-    summary = `${conditionWords(code)}, ${rounded}°C (${fahrenheit}°F) now · ${bestTimeOfDay}`
+    summary = `${conditionWords(code)}, ${temperatureText(celsius, units)} now · ${bestTimeOfDay}`
   }
 
   return (

@@ -14,6 +14,8 @@
 // more about the walk to each stop: `distanceMeters`, how far it is, and for
 // a detour, `extraMeters`, how much further it makes the walk.
 
+import { isImperial, toMiles, toYards, YARDS_UP_TO } from './units.js'
+
 // A walking pace, in metres a minute, for turning extra distance into time.
 const METERS_A_MINUTE = 70
 
@@ -60,8 +62,16 @@ export function stayRangeText(stop) {
   return rangeText(...stop.stayMinutes)
 }
 
-// A distance: "650 m", or "1.5 km".
-export function metersText(meters) {
+// A distance: "650 m", or "1.5 km". In imperial, "710 yd", or "0.9 mi"
+// from a quarter of a mile.
+export function metersText(meters, units) {
+  if (isImperial(units)) {
+    const yards = toYards(meters)
+    if (yards < YARDS_UP_TO) {
+      return `${Math.round(yards / 10) * 10} yd`
+    }
+    return `${Math.round(toMiles(meters) * 10) / 10} mi`
+  }
   if (meters < 1000) {
     return `${Math.round(meters / 10) * 10} m`
   }

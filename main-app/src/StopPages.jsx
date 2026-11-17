@@ -7,6 +7,7 @@ import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
 import { MAPS_API_KEY } from './config.js'
 import { detourAddsText, stayText } from './journeyTimes.js'
+import { isImperial, toMiles, toYards, useUnits, YARDS_UP_TO } from './units.js'
 
 // The two screens every stop on the journey uses, and the Detours page for a
 // stop with detours. Each one is filled in from the cards in journeyStops.js.
@@ -196,7 +197,16 @@ function StayCard({ stop }) {
 }
 
 // About how far a nearby spot is: "about 350 m away", or "about 1.5 km away".
-function distanceText(meters) {
+// In imperial, "about 400 yd away", or "about 0.9 mi away" from a quarter of
+// a mile.
+function distanceText(meters, units) {
+  if (isImperial(units)) {
+    const yards = toYards(meters)
+    if (yards < YARDS_UP_TO) {
+      return `about ${Math.max(50, Math.round(yards / 50) * 50)} yd away`
+    }
+    return `about ${Math.round(toMiles(meters) * 10) / 10} mi away`
+  }
   if (meters < 1000) {
     return `about ${Math.max(50, Math.round(meters / 50) * 50)} m away`
   }
@@ -211,6 +221,7 @@ function distanceText(meters) {
 // directions to it (NearbyCard), and only one card's map is open at a time.
 // Otherwise it's a simple list.
 function NearbySpots({ spots }) {
+  const units = useUnits()
   const [openSpot, setOpenSpot] = useState(null)
   const asCards = spots.every((spot) => spot.photo && spot.mapPoint)
 
@@ -233,7 +244,7 @@ function NearbySpots({ spots }) {
           {spots.map((spot) => (
             <li key={spot.name}>
               <p className="nearbyName">
-                {spot.name} <span className="nearbyDistance">{distanceText(spot.meters)}</span>
+                {spot.name} <span className="nearbyDistance">{distanceText(spot.meters, units)}</span>
               </p>
               <p className="nearbyNote">{spot.note}</p>
             </li>
@@ -251,6 +262,7 @@ function NearbySpots({ spots }) {
 // closes it again. Open in Google Maps is there too, for turn-by-turn
 // directions. Like a stop's map, each opening counts as a Google map load.
 function NearbyCard({ spot, open, onToggle }) {
+  const units = useUnits()
   const mapRef = useRef(null)
   const [liveFailed, setLiveFailed] = useState(false)
   // The spot as the maps take a stop: somewhere to walk to. Kept the same
@@ -265,7 +277,7 @@ function NearbyCard({ spot, open, onToggle }) {
     }
   }, [open])
 
-  const distance = distanceText(spot.meters)
+  const distance = distanceText(spot.meters, units)
 
   return (
     <div className="nearbyCard">
