@@ -34,6 +34,7 @@ import {
   temperatureText,
   weatherKind,
 } from './weather.js'
+import { useUnits } from './units.js'
 
 // Get Ready, between BEGIN JOURNEY and the first stop: today's conditions
 // where the journey starts (weather.js), so you can tell whether now's a good
@@ -84,15 +85,22 @@ function placeName(journey) {
 }
 
 function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }) {
+  const units = useUnits()
   const point = journey.departure.mapPoint
   const [conditions, setConditions] = useState(() => (point ? savedConditions(point) : null))
   const [failed, setFailed] = useState(!point)
+  // Goes up by one each time TRY AGAIN is pressed, to look it up again.
+  const [tries, setTries] = useState(0)
 
   useEffect(() => {
-    if (!point || savedConditions(point)) {
+    if (!point) {
       return undefined
     }
     let current = true
+    // Asked even when the weather's already on the page: if it was kept from
+    // the last few minutes, this just gives the same back. (Stopping here
+    // instead could leave the page checking forever, if the weather came in
+    // after the page first looked for it, but before this.)
     lookUpConditions(point)
       .then((found) => {
         if (current) setConditions(found)
@@ -103,13 +111,19 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
     return () => {
       current = false
     }
-  }, [point])
+  }, [point, tries])
+
+  // Back to "Checking today's weather…", and look again.
+  function tryAgain() {
+    setFailed(false)
+    setTries((count) => count + 1)
+  }
 
   const place = placeName(journey)
   const hours = journeyHours(journey)
   const walking = walkingTotals(journey)
   const ride = rideTotals(journey)
-  const verdict = conditions ? conditionsVerdict(conditions, hours) : null
+  const verdict = conditions ? conditionsVerdict(conditions, hours, units) : null
 
   return (
     <div className="stepPage getReadyPage">
@@ -132,7 +146,7 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
             <div className="readyBox readyTemp">
               <WeatherPicture weather={conditions.now} className="readyTempIcon" />
               <div>
-                <p className="readyTempValue">{temperatureText(conditions.now.celsius)}</p>
+                <p className="readyTempValue">{temperatureText(conditions.now.celsius, units)}</p>
                 <p className="readyTempWords">{conditionWords(conditions.now.code)}</p>
               </div>
             </div>
@@ -160,7 +174,7 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
                   <span className="readyHourTime">{index === 0 ? 'Now' : clockText(hour.time)}</span>
                   <WeatherPicture weather={weather} className="readyHourIcon" />
                   <span className="visuallyHidden">{conditionWords(weather.code)}, </span>
-                  <span className="readyHourTemp">{degreesText(weather.celsius)}</span>
+                  <span className="readyHourTemp">{degreesText(weather.celsius, units)}</span>
                 </li>
               )
             })}
@@ -177,12 +191,18 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
           <p className="readyCredit">Weather from Open-Meteo.com</p>
         </>
       ) : failed ? (
+        // With TRY AGAIN in the middle, under the words.
         <div className="readyVerdict isUnknown" role="status">
           <InfoIcon className="readyVerdictIcon" />
           <div>
             <p className="readyVerdictTitle">Couldn’t get today’s weather</p>
             <p className="readyVerdictText">Have a look at the sky, and the forecast, before you set off.</p>
           </div>
+          {point && (
+            <button className="readyRetry" onClick={tryAgain}>
+              Try Again
+            </button>
+          )}
         </div>
       ) : (
         <p className="readyLoading" role="status">
@@ -197,8 +217,8 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
           <div>
             <p className="readyWalkValue">About {durationText(hours * 60)}</p>
             <p className="readyWalkSub">
-              {metersText(walking.meters)} on foot
-              {ride && ` · ${metersText(ride.meters)} by ${ride.modes.includes('driving') ? 'car' : 'train'}`}
+              {metersText(walking.meters, units)} on foot
+              {ride && ` · ${metersText(ride.meters, units)} by ${ride.modes.includes('driving') ? 'car' : 'train'}`}
             </p>
           </div>
         </div>

@@ -12,6 +12,7 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
   BeachIcon,
+  BookmarkIcon,
   BurgerIcon,
   CalendarIcon,
   CheckIcon,
@@ -24,7 +25,6 @@ import {
   EasyPaceIcon,
   FamilyIcon,
   GroupIcon,
-  HeartIcon,
   HikingIcon,
   LeafIcon,
   ModeratePaceIcon,
@@ -689,11 +689,11 @@ export function PreferencesPage(page) {
 }
 
 // One journey on Journeys for You, and on Search. Tapping it opens the
-// journey, and the heart likes it. If there's nothing to base a match on
+// journey, and the bookmark saves it. If there's nothing to base a match on
 // (`percent` is null, because every step was skipped, or on Search), the
 // match is left off. On Search, `found` is the names of the stops it was found
 // by, if any, and the first goes where the match would be.
-export function MatchCard({ journey, percent = null, found = [], index, liked, onSelect, onToggleLike }) {
+export function MatchCard({ journey, percent = null, found = [], index, isSaved, onSelect, onToggleSaved }) {
   const experience = mainExperience(journey)
   const ExperienceIcon = EXPERIENCE_ICONS[experience]
   // Its facts on one line, a little smaller on a journey whose are longer
@@ -747,12 +747,12 @@ export function MatchCard({ journey, percent = null, found = [], index, liked, o
       </button>
       {/* Beside the rest rather than in it, as a button can't hold a button. */}
       <button
-        className={liked ? 'matchHeart isLiked' : 'matchHeart'}
-        onClick={() => onToggleLike(journey.id)}
-        aria-pressed={liked}
-        aria-label={`Like ${journey.name}`}
+        className={isSaved ? 'matchSave isSaved' : 'matchSave'}
+        onClick={() => onToggleSaved(journey.id)}
+        aria-pressed={isSaved}
+        aria-label={`Save ${journey.name}`}
       >
-        <HeartIcon />
+        <BookmarkIcon />
       </button>
     </div>
   )
@@ -762,7 +762,7 @@ export function MatchCard({ journey, percent = null, found = [], index, liked, o
 // the worst. `positionRef` remembers how far down you were, so you come back to
 // the same place after opening one. If where you're going has no journeys,
 // it says so, as it isn't part of the match.
-export function MatchesPage({ journeys, answers, likes, positionRef, onSelect, onToggleLike, onBack }) {
+export function MatchesPage({ journeys, answers, saved, positionRef, onSelect, onToggleSaved, onBack }) {
   const pageRef = useRef(null)
   const typedPlace = answers.place.trim()
   const unknownPlace = typedPlace !== '' && !placeOfAnswers(journeys, answers)
@@ -807,9 +807,9 @@ export function MatchesPage({ journeys, answers, likes, positionRef, onSelect, o
             journey={journey}
             percent={percent}
             index={index}
-            liked={likes.includes(journey.id)}
+            isSaved={saved.includes(journey.id)}
             onSelect={onSelect}
-            onToggleLike={onToggleLike}
+            onToggleSaved={onToggleSaved}
           />
         ))}
       </div>

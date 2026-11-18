@@ -11,6 +11,7 @@ import {
   walkingTotals,
 } from './journeyTimes.js'
 import RouteMap from './RouteMap.jsx'
+import { useUnits } from './units.js'
 
 // The whole journey before you start, on See Your Journey, so you know how
 // much walking is ahead: each stop in order, in a card of its own with a
@@ -48,6 +49,7 @@ function rideTimeWords(modes) {
 }
 
 function RoutePreview({ journey }) {
+  const units = useUnits()
   const walking = walkingTotals(journey)
   const ride = rideTotals(journey)
   const hours = hoursText(journeyHours(journey))
@@ -73,8 +75,8 @@ function RoutePreview({ journey }) {
           <span className="routeFoldText">
             <span className="routeFoldTitle">{open ? 'Hide route details' : 'Show route details'}</span>
             <span className="routeFoldSummary">
-              {journey.route.length} stops · {metersText(walking.meters)} on foot
-              {ride && ` · ${metersText(ride.meters)} ${rideWords(ride.modes)}`} · {hours}
+              {journey.route.length} stops · {metersText(walking.meters, units)} on foot
+              {ride && ` · ${metersText(ride.meters, units)} ${rideWords(ride.modes)}`} · {hours}
             </span>
           </span>
           <ChevronRightIcon className="routeFoldChevron" />
@@ -124,7 +126,7 @@ function RoutePreview({ journey }) {
             <div className="startCardRow">
               <WalkIcon />
               <div>
-                <p className="routeTotal">{metersText(walking.meters)} of walking</p>
+                <p className="routeTotal">{metersText(walking.meters, units)} of walking</p>
                 <p className="routeTotalNote">About {durationText(walking.minutes)} on foot</p>
               </div>
             </div>
@@ -134,7 +136,7 @@ function RoutePreview({ journey }) {
                 <RouteIcon />
                 <div>
                   <p className="routeTotal">
-                    {metersText(ride.meters)} {rideWords(ride.modes)}
+                    {metersText(ride.meters, units)} {rideWords(ride.modes)}
                   </p>
                   <p className="routeTotalNote">
                     About {durationText(ride.minutes)} {rideTimeWords(ride.modes)}
@@ -162,12 +164,13 @@ function RoutePreview({ journey }) {
 
 // The walk (or ride) on to the next stop, `to`: how far, how long, and how hard.
 function RouteLeg({ to }) {
+  const units = useUnits()
   const level = to.effort.level
   return (
     <div className="routeLeg">
       <p className="routeLegWay">
         {to.travelMode === 'walking' ? <WalkIcon /> : <RouteIcon />}
-        {metersText(to.distanceMeters)} · {durationText(to.travelMinutes)} {TRAVEL_WORDS[to.travelMode]}
+        {metersText(to.distanceMeters, units)} · {durationText(to.travelMinutes)} {TRAVEL_WORDS[to.travelMode]}
       </p>
       <p className="routeLegEffort">
         <span className={`routeEffort is-${level}`}>{EFFORT_LABELS[level]}</span>
@@ -180,10 +183,11 @@ function RouteLeg({ to }) {
 // A detour off a stop: what it is, how much further it makes the walk, and
 // the time to spend there.
 function RouteDetour({ detour }) {
+  const units = useUnits()
   const extra =
     typeof detour.extraMeters === 'number'
-      ? `+${metersText(detour.extraMeters)} of walking`
-      : `${metersText(detour.distanceMeters)} away`
+      ? `+${metersText(detour.extraMeters, units)} of walking`
+      : `${metersText(detour.distanceMeters, units)} away`
   return (
     <div className="routeDetour">
       <div className="routeStopHead">

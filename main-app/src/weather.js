@@ -3,7 +3,9 @@
 // it's like now, every hour for the next day, and sunrise and sunset. It's
 // looked up from Open-Meteo (free, no key needed, but it asks to be
 // credited), for the journey's first stop (`departure.mapPoint`), and kept
-// for a few minutes so opening a page again doesn't look it up again.
+// for a few minutes so opening a page again doesn't look it up again. If it
+// hasn't come back within 15 seconds, it's given up on, rather than being
+// waited for forever on a weak signal (Get Ready then offers to try again).
 //
 // Times are the journey's local time, as Open-Meteo gives them ("13:00"),
 // whatever time zone the phone is in.
@@ -12,8 +14,11 @@
 // it'll stay dry and comfortable for as long as the journey takes, and for
 // the rest of the day.
 
+import { isImperial, toFahrenheit } from './units.js'
+
 const WEATHER_URL = 'https://api.open-meteo.com/v1/forecast'
 const KEEP_FOR = 10 * 60 * 1000
+const GIVE_UP_AFTER = 15 * 1000
 
 // What counts as uncomfortable, by how warm it feels ("apparent
 // temperature", which takes in the wind and the humidity), and how windy is
@@ -77,7 +82,11 @@ async function fetchConditions(point) {
     timezone: 'auto',
     forecast_days: '2',
   })
-  const response = await fetch(`${WEATHER_URL}?${params}`)
+  // The signal stops it after 15 seconds, reading the answer included, and
+  // it fails like any other lookup that couldn't be had.
+  const response = await fetch(`${WEATHER_URL}?${params}`, {
+    signal: AbortSignal.timeout(GIVE_UP_AFTER),
+  })
   if (!response.ok) {
     throw new Error(`Weather lookup failed (${response.status})`)
   }
@@ -153,14 +162,22 @@ export function weatherKind({ code, isDay, gusts = 0 }) {
   return isDay ? 'clear' : 'clearNight'
 }
 
-// "15°C". Celsius for now (a setting for Fahrenheit can come later).
-export function temperatureText(celsius) {
-  return `${Math.round(celsius)}°C`
+// A temperature to the nearest degree, in Celsius, or in imperial Fahrenheit.
+// (The forecast is always in Celsius.)
+function degrees(celsius, units) {
+  return Math.round(isImperial(units) ? toFahrenheit(celsius) : celsius)
+}
+
+const degreeMark = (units) => (isImperial(units) ? '°F' : '°C')
+
+// "15°C", or "59°F".
+export function temperatureText(celsius, units) {
+  return `${degrees(celsius, units)}${degreeMark(units)}`
 }
 
 // "15°", for under each hour.
-export function degreesText(celsius) {
-  return `${Math.round(celsius)}°`
+export function degreesText(celsius, units) {
+  return `${degrees(celsius, units)}°`
 }
 
 // "13:00" or "2026-11-15T13:00" as "1 PM" (or "6:15 AM", with its minutes).
@@ -224,42 +241,43 @@ function skyWords(hours) {
 }
 
 // "between 14 and 17°C", or "around 15°C".
-function rangeText(hours) {
-  const temperatures = hours.map((hour) => Math.round(hour.celsius))
+function rangeText(hours, units) {
+  const temperatures = hours.map((hour) => degrees(hour.celsius, units))
   const low = Math.min(...temperatures)
   const high = Math.max(...temperatures)
-  return low === high ? `around ${low}°C` : `between ${low} and ${high}°C`
+  const mark = degreeMark(units)
+  return low === high ? `around ${low}${mark}` : `between ${low} and ${high}${mark}`
 }
 
 // The problem during the walk, in words: "rain is likely around 2 PM".
-function problemText(problem, hour, index) {
+function problemText(problem, hour, index, units) {
   const when = whenText(hour, index)
-  const feels = Math.round(hour.feelsLike)
+  const feels = temperatureText(hour.feelsLike, units)
   return {
     storm: `thunderstorms are likely ${when}`,
     snow: `snow is likely ${when}`,
     rain: `rain is likely ${when}`,
-    hot: `it’ll feel like ${feels}°C ${when}`,
-    cold: `it’ll feel like ${feels}°C ${when}`,
+    hot: `it’ll feel like ${feels} ${when}`,
+    cold: `it’ll feel like ${feels} ${when}`,
     wind: `strong gusts are likely ${when}`,
   }[problem]
 }
 
 // After the walk, from when: "rain is likely from 6 PM".
-function laterText(problem, hour) {
+function laterText(problem, hour, units) {
   const time = clockText(hour.time)
-  const feels = Math.round(hour.feelsLike)
+  const feels = temperatureText(hour.feelsLike, units)
   return {
     storm: `thunderstorms are likely from ${time}`,
     snow: `snow is likely from ${time}`,
     rain: `rain is likely from ${time}`,
-    hot: `it’ll get hot later, feeling like ${feels}°C by ${time}`,
-    cold: `it’ll turn cold later, feeling like ${feels}°C by ${time}`,
+    hot: `it’ll get hot later, feeling like ${feels} by ${time}`,
+    cold: `it’ll turn cold later, feeling like ${feels} by ${time}`,
     wind: `strong gusts are likely from ${time}`,
   }[problem]
 }
 
-// What to do about it, during the walk.
+// What to do about it, during the walk (the verdict's `advice`).
 const ADVICE = {
   storm: 'Keep an eye on the sky, and find shelter if it turns.',
   snow: 'Dress warmly, and watch your step.',
@@ -270,27 +288,32 @@ const ADVICE = {
 }
 
 // For most of the walk.
-function mostlyText(problem, hours) {
-  const feels = hours.map((hour) => Math.round(hour.feelsLike))
+function mostlyText(problem, hours, units) {
+  const feels = hours.map((hour) => degrees(hour.feelsLike, units))
+  const mark = degreeMark(units)
   return {
     storm: 'Thunderstorms are likely during your walk.',
     snow: 'Snow is likely for most of your walk.',
     rain: 'Rain is likely for most of your walk.',
-    hot: `It’ll feel like ${Math.max(...feels)}°C for most of your walk.`,
-    cold: `It’ll feel like ${Math.min(...feels)}°C for most of your walk.`,
+    hot: `It’ll feel like ${Math.max(...feels)}${mark} for most of your walk.`,
+    cold: `It’ll feel like ${Math.min(...feels)}${mark} for most of your walk.`,
     wind: 'Strong winds are likely for most of your walk.',
   }[problem]
 }
 
-// The verdict for setting off now, on a journey taking `journeyHours`:
-// { level, title, text }, where level is 'good', 'mostlyGood', 'risky' or
-// 'poor':
+// The verdict for setting off now, on a journey taking `journeyHours`, with
+// its temperatures in `units`:
+// { level, title, text, advice }, where level is 'good', 'mostlyGood', 'risky'
+// or 'poor':
 //   good        dry and comfortable for the walk, and the rest of the day
 //   mostlyGood  fine for the walk, but rain (or cold, or heat, or wind)
 //               later, within the next day
 //   risky       some of the walk in it, but most of it fine
 //   poor        most of the walk in it
-export function conditionsVerdict(conditions, journeyHours) {
+// `text` just says why, briefly. `advice` is what to do about it, for risky
+// and poor: kept apart from `text`, and not shown on Get Ready for now, so
+// the notice stays short (it may come back in another form).
+export function conditionsVerdict(conditions, journeyHours, units) {
   const { hours } = conditions
   // The hours the walk takes up, counting this one: 2½ hours is this hour
   // and the next two.
@@ -304,7 +327,8 @@ export function conditionsVerdict(conditions, journeyHours) {
     return {
       level: 'poor',
       title: 'Poor conditions for this journey',
-      text: `${mostlyText(problem, walkHours)} Another day, or a later start, may be better.`,
+      text: mostlyText(problem, walkHours, units),
+      advice: 'Another day, or a later start, may be better.',
     }
   }
 
@@ -314,7 +338,8 @@ export function conditionsVerdict(conditions, journeyHours) {
     return {
       level: 'risky',
       title: 'Risky conditions',
-      text: `${capitalize(problemText(problem, walkHours[index], index))}, ${partOfWalk(index, walkHours.length)}. ${ADVICE[problem]}`,
+      text: `${capitalize(problemText(problem, walkHours[index], index, units))}, ${partOfWalk(index, walkHours.length)}.`,
+      advice: ADVICE[problem],
     }
   }
 
@@ -324,13 +349,13 @@ export function conditionsVerdict(conditions, journeyHours) {
     return {
       level: 'mostlyGood',
       title: 'Mostly good conditions',
-      text: `Fine for your walk, but ${laterText(hourProblem(hour), hour)}.`,
+      text: `Fine for your walk, but ${laterText(hourProblem(hour), hour, units)}.`,
     }
   }
 
   return {
     level: 'good',
     title: 'Good conditions for this journey',
-    text: `${skyWords(walkHours)}, and ${rangeText(walkHours)} for your whole walk.`,
+    text: `${skyWords(walkHours)}, and ${rangeText(walkHours, units)} for your whole walk.`,
   }
 }

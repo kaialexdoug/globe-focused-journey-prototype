@@ -569,7 +569,7 @@ button:focus-visible {
 }
 
 /* Pushed down to the bottom of the journey, leaving the gap above it, and
-   across to the heart beside it: deep blue, with the words in capitals and
+   across to the bookmark beside it: deep blue, with the words in capitals and
    the arrow in orange. */
 .feedDiscover {
   display: flex;
@@ -607,7 +607,7 @@ button:focus-visible {
 
 /* Level with the button, on dark frosted glass so it holds up over any
    photo. */
-.feedCard .matchHeart {
+.feedCard .matchSave {
   right: 16px;
   bottom: 18px;
   width: 44px;
@@ -617,7 +617,7 @@ button:focus-visible {
   border-radius: 50%;
 }
 
-.feedCard .matchHeart svg {
+.feedCard .matchSave svg {
   width: 24px;
   height: 24px;
 }
@@ -1726,7 +1726,8 @@ button.detailBar:active {
   stroke-width: 2.2;
 }
 
-/* Find My Journeys, and Done on Anything else?: deep blue, with the words in
+/* Find My Journeys, and Done on Anything else? (and so on My Interests and My
+   Preferences, Edit Profile and Settings): deep blue, with the words in
    capitals and the arrow in orange. */
 .stepFind {
   flex-shrink: 0;
@@ -1758,6 +1759,19 @@ button.detailBar:active {
 
 .stepFind:active {
   transform: scale(0.98);
+}
+
+/* Greyed out until it can be used, like Done on Edit Profile while the name
+   is empty. */
+.stepFind:disabled {
+  background-color: rgb(228, 230, 235);
+  color: rgb(128, 134, 150);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.stepFind:disabled svg {
+  color: inherit;
 }
 
 /* On the narrowest phones, a little smaller, so When are you going? and a
@@ -1793,7 +1807,7 @@ button.detailBar:active {
 }
 
 /* --- Anything else? (PreferencesPage), from step 3 ---
-   Laid out like Liked Journeys: back, the logo, a title, then the
+   Laid out like Saved Journeys: back, the logo, a title, then the
    preferences as cards in two columns, any number picked, and Done. */
 
 .preferencesPage .stepTitle {
@@ -1925,7 +1939,7 @@ button.detailBar:active {
   color: var(--tag-yellow);
 }
 
-/* Clear of the heart, on its right. */
+/* Clear of the bookmark, on its right. */
 .matchTitle {
   padding-right: 42px;
   font-size: 19px;
@@ -1960,7 +1974,7 @@ button.detailBar:active {
   height: 1.28em;
 }
 
-.matchHeart {
+.matchSave {
   position: absolute;
   right: 8px;
   bottom: 34px;
@@ -1977,20 +1991,21 @@ button.detailBar:active {
   transition: transform 0.15s ease;
 }
 
-.matchHeart svg {
+.matchSave svg {
   width: 28px;
   height: 28px;
 }
 
-.matchHeart:active {
+.matchSave:active {
   transform: scale(0.88);
 }
 
-.matchHeart.isLiked {
-  color: var(--tag-red);
+/* Gold once it's saved. */
+.matchSave.isSaved {
+  color: var(--tag-yellow);
 }
 
-.matchHeart.isLiked svg {
+.matchSave.isSaved svg {
   fill: currentColor;
 }
 
@@ -2564,6 +2579,41 @@ button.detailBar:active {
 
 .readyVerdict.isUnknown .readyVerdictIcon {
   color: var(--ink-muted);
+}
+
+/* TRY AGAIN, when the weather couldn't be had: across both of the box's
+   columns, in the middle, outlined in the deep blue like the app's second
+   choices, but smaller, to sit inside the box. */
+.readyRetry {
+  grid-column: 1 / -1;
+  justify-self: center;
+  min-height: 40px;
+  margin-top: 12px;
+  padding: 8px 24px;
+  background-color: white;
+  border: 1.5px solid var(--unfold-blue);
+  border-radius: 999px;
+  font-family: var(--heading);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--unfold-blue);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+@media (hover: hover) {
+  .readyRetry:hover {
+    background-color: color-mix(in srgb, var(--unfold-blue) 7%, white);
+  }
+}
+
+.readyRetry:active {
+  transform: scale(0.97);
 }
 
 .readyLoading {
@@ -4557,7 +4607,7 @@ button.detailBar:active {
 
 /* My Journeys (MyJourneysPage in ProfilePages.jsx), after its mockup: a white
    page, with Mount Fuji to the right of the heading. Then the journey you're
-   partway through in an outlined card, and the ones you've finished and liked
+   partway through in an outlined card, and the ones you've finished and saved
    under headings in capitals, straight on the page. */
 .myJourneysPage {
   box-sizing: border-box;
@@ -4791,7 +4841,7 @@ button.detailBar:active {
   height: 15px;
 }
 
-/* Completed Journeys and Liked Journeys: a heading in capitals on the page, with
+/* Completed Journeys and Saved Journeys: a heading in capitals on the page, with
    See All in orange beside it. */
 .mySection {
   margin-top: 18px;
@@ -5031,7 +5081,7 @@ button.detailBar:active {
 }
 
 /* An outline, with a soft shadow so it shows on a pale sky. */
-.journeyCard .matchHeart {
+.journeyCard .matchSave {
   top: 3px;
   right: 7px;
   bottom: auto;
@@ -5040,7 +5090,7 @@ button.detailBar:active {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 
-.journeyCard .matchHeart svg {
+.journeyCard .matchSave svg {
   width: 23px;
   height: 23px;
 }
@@ -5081,8 +5131,8 @@ button.detailBar:active {
   }
 }
 
-/* The journey you liked last. */
-.myLiked {
+/* The journey you saved last. */
+.mySaved {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -5096,7 +5146,7 @@ button.detailBar:active {
   cursor: pointer;
 }
 
-.myLiked img {
+.mySaved img {
   flex-shrink: 0;
   width: 92px;
   height: 58px;
@@ -5104,12 +5154,12 @@ button.detailBar:active {
   object-fit: cover;
 }
 
-.myLikedWords {
+.mySavedWords {
   flex: 1;
   min-width: 0;
 }
 
-.myLikedTitle {
+.mySavedTitle {
   display: block;
   font-family: var(--heading);
   font-size: 15px;
@@ -5119,7 +5169,7 @@ button.detailBar:active {
   text-transform: uppercase;
 }
 
-.myLikedPlace {
+.mySavedPlace {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -5130,7 +5180,7 @@ button.detailBar:active {
   text-transform: uppercase;
 }
 
-.myLikedPlace svg {
+.mySavedPlace svg {
   flex-shrink: 0;
   width: 15px;
   height: 15px;
@@ -5552,6 +5602,76 @@ button.profileRow {
 .settingsDelete {
   color: rgb(180, 40, 45);
   cursor: pointer;
+}
+
+/* What the chosen units mean, under "Units". */
+.settingsSub {
+  margin-top: 2px;
+  font-size: 13px;
+  color: rgb(80, 88, 109);
+}
+
+/* Metric and Imperial side by side in an outlined pill, the one picked filled
+   in with the deep blue. */
+.unitsChoice {
+  display: flex;
+  flex-shrink: 0;
+  padding: 3px;
+  border: 1px solid rgb(208, 208, 216);
+  border-radius: 999px;
+}
+
+.unitsOption {
+  min-height: 34px;
+  padding: 0 14px;
+  background: none;
+  border: none;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: 0;
+  color: var(--unfold-blue);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.unitsOption.isChosen {
+  background-color: var(--unfold-blue);
+  color: white;
+}
+
+/* Edit Profile (EditProfilePage in ProfilePages.jsx): Settings' look, with
+   your name to change, then Delete profile on its own further down. */
+.editProfileName {
+  margin-top: 18px;
+}
+
+.editProfileDelete {
+  margin-top: 36px;
+}
+
+/* Under the name while it's empty, saying why DONE is greyed out. */
+.editProfileHint {
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgb(180, 40, 45);
+}
+
+/* DONE on Settings and Edit Profile: at the bottom of the screen, however
+   little is above it, and never closer than this to what is. */
+/* A column, so DONE stretches across it (and a little past each side) as on
+   My Interests. */
+.settingsDone {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.settingsDone .stepFind {
+  margin-top: 0;
 }
 
 .backBtn.deleteLink {
