@@ -6,27 +6,23 @@
 // is their average, with some counting for more than others (WEIGHTS). Anything
 // you skipped is left out, so it neither helps nor hurts.
 //
-//   Where to     how near it is to where you're going (placeFit, in
-//                journeyPlaces.js)
 //   Mood         how well it suits that mood (`match.moods` on its card)
 //   Who          how well it suits that group (`match.with`)
 //   Time         how its length compares with the time you have (timeFit)
 //   Pace         how its difficulty compares with your pace (PACE_FIT)
 //   Preferences  the average of those you picked (`match.preferences`)
 //
-// Where you're going counts for as much as everything else together, so the
-// journeys there rise to the top, with ones nearby above ones further off (a
-// journey there never matches less than 50%, nor one in another country
-// more). When you're going isn't
-// part of it yet. Somewhere you typed that has no journeys is left out, like
-// a question you skipped.
+// Where you're going isn't part of the match: it decides which journeys there
+// are to match. Only those in that place are matched at all (rankJourneys), so
+// if it's somewhere without any journeys yet, there are none. When you're
+// going isn't part of it yet.
 //
 // The ratings on the cards are estimates from what's on each journey, not checked
 // facts, so a high match doesn't promise, say, that dogs are allowed everywhere.
 
-import { catalogPlaces, findPlace, placeFit } from './journeyPlaces.js'
+import { catalogPlaces, findPlace, isInPlace } from './journeyPlaces.js'
 
-const WEIGHTS = { place: 120, mood: 40, companion: 20, time: 20, pace: 20, preferences: 20 }
+const WEIGHTS = { mood: 40, companion: 20, time: 20, pace: 20, preferences: 20 }
 
 // The hours each answer on the time question covers.
 const TIME_WINDOWS = {
@@ -62,14 +58,10 @@ function average(numbers) {
 
 // The match for one journey: a whole number out of 100, or null if you skipped
 // everything, so there's nothing to go on. `answers` is what Find My Journey
-// collected: { place, date, mood, companion, time, pace, preferences }, and
-// `place` is where you're going, out of the journeys' places, or null.
-export function matchPercent(journey, answers, place = null) {
+// collected: { place, date, mood, companion, time, pace, preferences }.
+export function matchPercent(journey, answers) {
   const { hours, moods, with: companions, preferences } = journey.match
   const scores = {}
-  if (place) {
-    scores.place = placeFit(journey, place)
-  }
   if (answers.mood) {
     scores.mood = moods[answers.mood]
   }
@@ -100,11 +92,18 @@ export function placeOfAnswers(journeys, answers) {
   return findPlace(catalogPlaces(journeys), answers.place ?? '')
 }
 
-// Every journey with its match, from most matched to least. A tie keeps the order
-// they came in, which puts the checked journeys first.
+// The journeys in the place you said you're going (every journey, if you
+// didn't say), each with its match, from most matched to least. If you said
+// somewhere without journeys, or that could be more than one place, there are
+// none. A tie keeps the order they came in, which puts the checked journeys
+// first.
 export function rankJourneys(journeys, answers) {
-  const place = placeOfAnswers(journeys, answers)
-  return journeys
-    .map((journey) => ({ journey, percent: matchPercent(journey, answers, place) }))
+  let there = journeys
+  if ((answers.place ?? '').trim()) {
+    const place = placeOfAnswers(journeys, answers)
+    there = place ? journeys.filter((journey) => isInPlace(journey, place)) : []
+  }
+  return there
+    .map((journey) => ({ journey, percent: matchPercent(journey, answers) }))
     .sort((a, b) => (b.percent ?? 0) - (a.percent ?? 0))
 }

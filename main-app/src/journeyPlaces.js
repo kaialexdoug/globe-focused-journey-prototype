@@ -1,10 +1,11 @@
 // The places the journeys are in, for "Where to?" on Find My Journey: what to
-// suggest as you type, and how near a journey is to where you said.
+// suggest as you type, and whether a journey's in the place you said.
 //
 // They come from each journey's `location`, "KAMAKURA · KANAGAWA, JAPAN", so
 // there are three to a journey (Kamakura, Kanagawa and Japan), or two when
-// there's no region ("NASSAU · THE BAHAMAS"). A new journey's places are
-// suggested as soon as it's added.
+// there's no region ("NASSAU · THE BAHAMAS"), and from its `city` when that has
+// another name (Waseda's is Shinjuku). A new journey's places are suggested as
+// soon as it's added.
 
 // Other names people might type for a country, as they're written in the
 // journeys' locations (once normalized, below).
@@ -38,17 +39,24 @@ function titleCase(name) {
     .replace('Usa', 'USA')
 }
 
-// A journey's places, from the most local to the country.
+// A journey's places, from the most local to the country: the area it's in,
+// the city that's in (if it's not the same), its region and its country.
 function placesOf(journey) {
   const [area, rest] = journey.location.split(' · ')
   const parts = rest.split(', ')
   const country = parts.at(-1)
   const region = parts.length > 1 ? parts[0] : null
-  return [
+  const places = [
     { name: titleCase(area), kind: 'area', region, country },
+    journey.city && { name: titleCase(journey.city), kind: 'area', region, country },
     region && { name: titleCase(region), kind: 'region', region, country },
     { name: titleCase(country), kind: 'country', region: null, country },
   ].filter(Boolean)
+  // Each name once: the city's often the area ("Kamakura"), and a city can
+  // share its region's name (Kyoto).
+  return places.filter(
+    (place, index) => places.findIndex((other) => normalize(other.name) === normalize(place.name)) === index,
+  )
 }
 
 // Every place with a journey, each once, with how many journeys it has. A
@@ -90,16 +98,23 @@ export function suggestPlaces(places, typed, limit = 5) {
       .sort(mostFirst)
       .slice(0, limit)
   }
-  const starts = places.filter((place) => place.key.startsWith(wanted)).sort(mostFirst)
+  return placesStarting(places, wanted, mostFirst).slice(0, limit)
+}
+
+// The places with a name that starts with `wanted`, then those with a later
+// word that does ("falls" finds Taylors Falls), each in `order`.
+function placesStarting(places, wanted, order) {
+  const starts = places.filter((place) => place.key.startsWith(wanted)).sort(order)
   const later = places
     .filter((place) => !place.key.startsWith(wanted) && place.key.split(' ').some((word) => word.startsWith(wanted)))
-    .sort(mostFirst)
-  return [...starts, ...later].slice(0, limit)
+    .sort(order)
+  return [...starts, ...later]
 }
 
 // The place in the box: its own name, or with where it is after a comma
-// ("Kamakura, Japan"), or the start of a name (at least three letters), as long as only one place
-// starts that way. Null if it's empty, or not anywhere with a journey yet.
+// ("Kamakura, Japan"), or part of a name (at least three letters, at the start
+// of a word) that's in only one place's. Null if it's empty, not anywhere
+// with a journey yet, or could be more than one place.
 export function findPlace(places, typed) {
   const whole = normalize(typed)
   const first = normalize(typed.split(',')[0])
@@ -110,24 +125,12 @@ export function findPlace(places, typed) {
   if (exact) {
     return exact
   }
-  const starting = first.length >= 3 ? places.filter((place) => place.key.startsWith(first)) : []
+  const starting = first.length >= 3 ? placesStarting(places, first, () => 0) : []
   return starting.length === 1 ? starting[0] : null
 }
 
-// How near a journey is to `place`, out of 100: in it is a perfect fit. Near
-// a town, somewhere else in its region counts for something, and anywhere in
-// the same country for a little.
-export function placeFit(journey, place) {
-  const theirs = placesOf(journey)
-  if (theirs.some((each) => normalize(each.name) === place.key)) {
-    return 100
-  }
-  const { region, country } = theirs[0]
-  if (place.kind === 'area' && place.region && region === place.region) {
-    return 50
-  }
-  if (place.kind !== 'country' && country === place.country) {
-    return 25
-  }
-  return 0
+// Whether a journey's in `place`, one of catalogPlaces: in the area, the city,
+// the region or the country.
+export function isInPlace(journey, place) {
+  return placesOf(journey).some((each) => normalize(each.name) === place.key)
 }

@@ -220,6 +220,47 @@ export function InfoIcon({ className }) {
   )
 }
 
+// Before You Go on See Your Journey (BeforeYouGo.jsx): a checklist for its
+// bar, then a backpack (what to bring), a ticket (tickets and costs) and a
+// light bulb (local insider tips).
+
+export function ChecklistIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3.5 6.2 5 7.7l2.6-2.9M3.5 12.2 5 13.7l2.6-2.9M3.5 18.2 5 19.7l2.6-2.9" />
+      <path d="M11 6.5h9.5M11 12.5h9.5M11 18.5h9.5" />
+    </Icon>
+  )
+}
+
+export function BackpackIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M9.5 5V4a2.5 2.5 0 0 1 5 0v1" />
+      <path d="M5.5 10a5 5 0 0 1 5-5h3a5 5 0 0 1 5 5v9.5a1.5 1.5 0 0 1-1.5 1.5H7a1.5 1.5 0 0 1-1.5-1.5z" />
+      <path d="M8.5 21v-5.5a1.5 1.5 0 0 1 1.5-1.5h4a1.5 1.5 0 0 1 1.5 1.5V21M10 10.5h4" />
+    </Icon>
+  )
+}
+
+export function TicketIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3 8.5V6.5A1.5 1.5 0 0 1 4.5 5h15A1.5 1.5 0 0 1 21 6.5v2a3.5 3.5 0 0 0 0 7v2a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5v-2a3.5 3.5 0 0 0 0-7z" />
+      <path d="M15 5.5v2M15 10.8v2.4M15 16.5v2" />
+    </Icon>
+  )
+}
+
+export function LightbulbIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M9 17.5h6M10 21h4" />
+      <path d="M9 17.5c0-2.2-3.2-3.9-3.2-7.7a6.2 6.2 0 0 1 12.4 0c0 3.8-3.2 5.5-3.2 7.7" />
+    </Icon>
+  )
+}
+
 // How hard a journey is: three bars going up, as many filled in as it's
 // hard (1 for easy, 2 for moderate, 3 for active), the rest faint.
 export function EffortIcon({ className, level = 1 }) {

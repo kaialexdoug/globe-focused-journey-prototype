@@ -391,7 +391,9 @@ function PlaceField({ journeys, value, onChange }) {
               </span>
             </li>
           ))}
-          {nowhere && <li className="placeNowhere">No journeys there yet, so this won’t change your matches.</li>}
+          {nowhere && (
+            <li className="placeNowhere">No journeys there yet. Try a city nearby, or its region or country.</li>
+          )}
         </ul>
       )}
     </div>
@@ -758,14 +760,21 @@ export function MatchCard({ journey, percent = null, found = [], index, isSaved,
   )
 }
 
-// Journeys for You: every journey, from the best match for your `answers` to
-// the worst. `positionRef` remembers how far down you were, so you come back to
-// the same place after opening one. If where you're going has no journeys,
-// it says so, as it isn't part of the match.
+// Journeys for You: the journeys where you're going (or every journey, if you
+// didn't say), from the best match for your `answers` to the worst.
+// `positionRef` remembers how far down you were, so you come back to the same
+// place after opening one. If where you're going has no journeys, or it's not
+// clear which place it is, it says so, with a way back to change it.
 export function MatchesPage({ journeys, answers, saved, positionRef, onSelect, onToggleSaved, onBack }) {
   const pageRef = useRef(null)
   const typedPlace = answers.place.trim()
-  const unknownPlace = typedPlace !== '' && !placeOfAnswers(journeys, answers)
+  const place = placeOfAnswers(journeys, answers)
+  const matches = rankJourneys(journeys, answers)
+  // Typed, but not a place with journeys: unclear if Where to? would still
+  // suggest something for it ("Min" could be Minneapolis or Minnesota), and
+  // nowhere with journeys yet if not.
+  const placeUnclear = typedPlace !== '' && !place && suggestPlaces(catalogPlaces(journeys), typedPlace).length > 0
+  const placeEmpty = typedPlace !== '' && !place && !placeUnclear
 
   // Before it's drawn, so the top of the list doesn't flash up on the way.
   useLayoutEffect(() => {
@@ -789,19 +798,35 @@ export function MatchesPage({ journeys, answers, saved, positionRef, onSelect, o
       </div>
 
       <h1 className="stepTitle">Journeys for you</h1>
-      <p className="stepText">
-        Here are some journeys that match
-        <br />
-        your mood, group, and preferences.
-      </p>
-      {unknownPlace && (
-        <p className="matchesNote">
-          There aren’t any journeys in {typedPlace} yet, so these are matched on everything else.
+      {placeUnclear || placeEmpty ? (
+        <>
+          <p className="stepText">
+            {placeUnclear ? `Not sure which place “${typedPlace}” is.` : `There aren’t any journeys in ${typedPlace} yet.`}
+          </p>
+          <p className="matchesNote">
+            {placeUnclear
+              ? 'Go back and pick it from the list under Where to?'
+              : 'Try a city nearby, or its region or country, or clear Where to? to see journeys everywhere.'}
+          </p>
+          <button className="introBtn isGhost hasIcon matchesChange" onClick={onBack}>
+            <ArrowLeftIcon />
+            Change Where To
+          </button>
+        </>
+      ) : place ? (
+        <p className="stepText">
+          Here are the journeys in {place.name} that match your mood, group, and preferences.
+        </p>
+      ) : (
+        <p className="stepText">
+          Here are some journeys that match
+          <br />
+          your mood, group, and preferences.
         </p>
       )}
 
       <div className="matchCards">
-        {rankJourneys(journeys, answers).map(({ journey, percent }, index) => (
+        {matches.map(({ journey, percent }, index) => (
           <MatchCard
             key={journey.id}
             journey={journey}

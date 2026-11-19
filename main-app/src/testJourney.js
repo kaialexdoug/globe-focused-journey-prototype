@@ -296,6 +296,57 @@ export default {
     seasonNote: 'For the yellow ginkgo trees around Waseda, and good weather.',
     timeOfDay: 'During daylight hours',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the places' own pages:
+  // Shinjuku City's for Kansen-en, Bunkyo City's and the garden's own for the
+  // Higo Hosokawa Garden, Bashō-an and the Eisei Bunko Museum, Waseda's for
+  // the Murakami Library and Okuma Garden, and Toei's for the streetcar fare.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes. It’s mostly pavement, but there are stone steps up to Anahachiman, and uneven paths in the gardens.',
+      'A Suica or PASMO card (or one on your phone) for the train back, and some cash.',
+      'Water, though there are vending machines all along the way.',
+      'A bag for your rubbish: Tokyo has very few public bins.',
+      'A hat and sunscreen in summer, an umbrella in the rainy season (June to mid-July), and a warm layer in winter.',
+    ],
+    costs: [
+      'The walk itself is free: there’s no charge for Kansen-en, Anahachiman, the Murakami Library, Okuma Garden or the Higo Hosokawa Garden.',
+      { lead: 'Café Tsubaki', text: 'Matcha and Japanese sweets, inside Shōseikaku in the Higo Hosokawa Garden, from 10 AM (last orders at 4 PM).' },
+      { lead: 'Eisei Bunko Museum', text: '¥1,000, ¥800 for over-70s and ¥500 for high school and university students. Free up to junior high school age. Some exhibitions are priced differently.' },
+      { lead: 'Toden streetcar', text: '¥170 a ride, or ¥168 with an IC card, if you take it from Waseda.' },
+      'Bring some cash for offerings and charms at Anahachiman: shrines usually only take cash.',
+    ],
+    getting: [
+      'Start at Takadanobaba Station, on the JR Yamanote Line, the Tokyo Metro Tozai Line and the Seibu Shinjuku Line.',
+      'The walk ends at the Higo Hosokawa Garden, about 2 km from where it starts. To get back, walk about 15 minutes to Waseda Station and take the Tozai Line one stop to Takadanobaba.',
+      'Also near the end: the Toden streetcar’s Waseda stop (about 7 minutes on foot) and Edogawabashi Station on the Yurakucho Line (about 15 minutes).',
+      'There’s no parking at the gardens or the library, so come by train if you can. If you drive, use a paid coin parking lot.',
+      'Kansen-en has one parking space for wheelchair users. Call the East Parks Office (03-5361-2451) to book it before you come.',
+    ],
+    access: [
+      'It’s mostly city pavements and campus paths, with a climb of about 20 metres to Anahachiman Shrine. The way up from the crossroads is a flight of stone steps, with handrails.',
+      { lead: 'Higo Hosokawa Garden', text: 'The wooded slope behind the pond is steep, with lots of steps, and hard going in a wheelchair. There’s an elevator, an accessible restroom and baby-changing facilities.' },
+      'Strollers are fine on the streets and the campus, but the steps at Anahachiman and the wooded slope in the Higo Hosokawa Garden are hard going.',
+      'Restrooms are at Takadanobaba Station, Kansen-en (with an accessible one) and the Higo Hosokawa Garden.',
+    ],
+    restrictions: [
+      { lead: 'Kansen-en', text: '7 AM–7 PM, or to 5 PM from November to February.' },
+      { lead: 'Haruki Murakami Library', text: '10 AM–5 PM. Closed on Wednesdays and some other days, and it can close at short notice in bad weather, so check its calendar. Photos are fine, but not videos or close-ups of the books.' },
+      { lead: 'Okuma Garden', text: 'Only open on days the university has classes, and not in bad weather: 9 AM–4:30 PM, or to 5 PM from April to September.' },
+      { lead: 'Higo Hosokawa Garden', text: '9 AM–5 PM, or to 4:30 PM from November to January, with last entry 30 minutes before closing. Closed December 28–January 4. No pets.' },
+      { lead: 'Eisei Bunko Museum', text: '10 AM–4:30 PM, last entry 4 PM. Closed on Mondays (or the next weekday, after a holiday Monday), between exhibitions and over New Year.' },
+      { lead: 'Sekiguchi Bashō-an', text: '10 AM–4 PM, closed noon–1 PM. Closed on Mondays and Tuesdays.' },
+    ],
+    tips: [
+      'For the best chance of finding everything open, go on a Thursday, Friday or Saturday while the university has classes, and set off by late morning, to reach the Higo Hosokawa Garden well before it closes.',
+      'From 10 AM to 4 PM (but not on Mondays), a gate in the Higo Hosokawa Garden leads straight up to the Eisei Bunko Museum.',
+      'Late in November, the Higo Hosokawa Garden opens in the evenings for Higo Akari, when the autumn leaves are lit up. It’s a separate, paid entry (¥500 in 2026), and the dates change every year.',
+      'The Murakami Library’s basement café, Orange Cat, is open to everyone. If you’re only there for coffee, go in by the basement entrance.',
+      'From the winter solstice to early February, expect queues at Anahachiman for the Ichiyō Raifuku charm, especially on the solstice itself.',
+      'In early November, the Waseda Festival fills the campus with crowds for a weekend.',
+    ],
+  },
   match: {
     moods: { Peaceful: 70, Adventurous: 30, Romantic: 50, Curious: 70, Playful: 40, Cultural: 80 },
     with: { Solo: 90, Couple: 75, Family: 60, 'Friends / Group': 70 },
