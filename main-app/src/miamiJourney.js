@@ -272,6 +272,43 @@ export default {
     timeOfDay: 'In the late afternoon and evening',
     timeNote: 'Time it to see the Art Deco buildings lit up in neon after dark.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Wolfsonian–FIU's own
+  // visitor pages.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Sunscreen, a hat, sunglasses and plenty of water: it’s hot and bright most of the year.',
+      'Comfortable shoes: it’s flat, but you’re on your feet for a couple of hours.',
+      'A light rain jacket or umbrella in summer, for the afternoon storms.',
+    ],
+    costs: [
+      'Lincoln Road, Española Way, Ocean Drive, Lummus Park and South Pointe Park are free.',
+      { lead: 'The Wolfsonian–FIU', text: '$12, or $8 for seniors, students and ages 6–18. Free on Friday evenings (6–9 PM), and always free for Florida residents and children under 6.' },
+      'The Art Deco Welcome Center runs guided walking tours of the district for a fee.',
+      'Parking in South Beach is expensive: meters and garages charge by the hour.',
+    ],
+    getting: [
+      'Start on Lincoln Road, the pedestrian mall in the middle of South Beach.',
+      'The free Miami Beach Trolley runs loops around South Beach, if you’d rather not drive.',
+      'The walk ends at South Pointe Park, at the southern tip of the island, about 3 km from Lincoln Road: take the trolley or a taxi back.',
+    ],
+    access: [
+      'Flat and paved the whole way, so it suits a stroller or wheelchair.',
+      'The sidewalks on Ocean Drive and Lincoln Road get crowded in the evenings and at weekends.',
+      'South Pointe Park has paved paths and restrooms.',
+    ],
+    restrictions: [
+      { lead: 'The Wolfsonian–FIU', text: 'Wednesday to Sunday, 10 AM–6 PM (to 9 PM on Fridays). Closed Monday and Tuesday.' },
+      'On the beach, swim only near a lifeguard stand, and check the flags: red means stay out of the water.',
+      'June to November is hurricane season: check the forecast before you go.',
+    ],
+    tips: [
+      'The neon on Ocean Drive comes on after dark: walk back up it in the evening to see it lit.',
+      'Joe’s Stone Crab is busiest in stone crab season, from mid-October to early May. Expect a wait.',
+      'Stay at South Pointe Park for sunset, and to watch the cruise ships head out to sea.',
+    ],
+  },
   match: {
     moods: { Peaceful: 40, Adventurous: 30, Romantic: 70, Curious: 75, Playful: 65, Cultural: 80 },
     with: { Solo: 80, Couple: 90, Family: 65, 'Friends / Group': 85 },

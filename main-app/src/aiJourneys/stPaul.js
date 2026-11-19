@@ -231,6 +231,41 @@ export default {
     seasonNote: 'For the fall colors under the old trees on Summit Avenue, in early to mid-October.',
     timeOfDay: 'During daylight hours',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Minnesota Historical
+  // Society's pages for the James J. Hill House and the State Capitol, and
+  // Metro Transit's fares.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes: Summit Avenue is long, and there’s a hill down into downtown.',
+      'A warm layer, or a proper coat in winter.',
+      'A Metro Transit ticket or the Transit app, for the bus or train back.',
+    ],
+    costs: [
+      { lead: 'James J. Hill House', text: 'The guided house tour is $15, $12 for seniors, veterans, military and college students, and $8 for ages 5–17. The Christmas tours (late November to early January) cost more: $25 for adults.' },
+      { lead: 'Minnesota State Capitol', text: 'Free guided tours, with a suggested $5 donation.' },
+      'Summit Avenue, the Cathedral and Rice Park are free.',
+    ],
+    getting: [
+      'Start on Grand Avenue at Victoria Street. There’s street parking around Grand Avenue, or take the bus.',
+      'The walk ends at Rice Park, downtown, about 3 km from the start. Central Station, on the Green Line light rail, is a few minutes away ($2 a ride).',
+    ],
+    access: [
+      'Flat along Grand and Summit Avenues, then downhill off Cathedral Hill into downtown.',
+      'The Hill House is a mansion on four floors, and some of its spaces aren’t wheelchair accessible.',
+    ],
+    restrictions: [
+      { lead: 'James J. Hill House', text: 'Guided tours Thursday to Sunday (Wednesday to Sunday in summer), every half hour from 10 AM to 4 PM. Regular tours end in mid-November, when the Christmas tours take over.' },
+      { lead: 'State Capitol tours', text: 'On the hour: Monday to Friday 9 AM–4 PM, Saturday 10 AM–2 PM. Closed Sunday.' },
+      { lead: 'Cathedral of Saint Paul', text: 'A working church: visitors are welcome, but keep quiet during Mass.' },
+    ],
+    tips: [
+      'Summit Avenue is lined with grand Victorian houses for miles. Look for 599, where F. Scott Fitzgerald finished his first novel.',
+      'In late January and early February, the Winter Carnival fills Rice Park with ice sculptures.',
+      'The Hill House tours fill up at weekends: go early, or on a weekday.',
+    ],
+  },
   match: {
     moods: { Peaceful: 55, Adventurous: 25, Romantic: 65, Curious: 80, Playful: 25, Cultural: 90 },
     with: { Solo: 85, Couple: 80, Family: 45, 'Friends / Group': 55 },

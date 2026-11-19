@@ -220,6 +220,42 @@ export default {
     seasonNote: 'When the falls run fullest, after the snow melts. In a cold winter they freeze solid, which is worth a trip too.',
     timeOfDay: 'During daylight hours',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against Metro Transit's fares and
+  // the Minneapolis Park Board's information on the park.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Shoes with a good grip, for the steps down into the glen and the creek path.',
+      'A warm layer in spring and fall, and proper winter gear if you go to see the frozen falls.',
+      'A light rail ticket from the machine at the station, or the Transit app.',
+      'Insect repellent in summer, down by the creek.',
+    ],
+    costs: [
+      'The park, the falls, the Longfellow House grounds and the statue are free.',
+      { lead: 'Light rail', text: '$2 a ride ($1 for seniors and youth), all day.' },
+      'Parking in the park’s lots is paid, at meters.',
+    ],
+    getting: [
+      'Start at 50th Street/Minnehaha Park Station, on the Blue Line light rail, at the edge of the park.',
+      'The walk ends in Minnehaha Glen, about 1 km from the station, so it’s a short walk back.',
+      'If you drive, the lots fill on summer weekends: come early.',
+    ],
+    access: [
+      'Flat and paved through the park to the top of the falls, which you can see from above.',
+      'The way down into the glen is by steps, and you have to climb back out. The path along the creek is uneven and can be muddy.',
+      'There are restrooms in the park.',
+    ],
+    restrictions: [
+      { lead: 'Minnehaha Depot and the Stevens House', text: 'Only open on some summer days: check before you go if you want to see inside.' },
+      'Stay on the paths around the falls: the rocks are slippery, and the edges are steep.',
+    ],
+    tips: [
+      'Sea Salt Eatery, by the falls, is a local favorite in summer, with long lines at weekends. It closes for the winter.',
+      'The falls are at their fullest in spring. In a dry late summer they can slow to a trickle.',
+      'In a cold winter, the falls freeze into a wall of ice, worth the trip on its own.',
+    ],
+  },
   match: {
     moods: { Peaceful: 80, Adventurous: 45, Romantic: 65, Curious: 50, Playful: 70, Cultural: 45 },
     with: { Solo: 70, Couple: 80, Family: 95, 'Friends / Group': 75 },

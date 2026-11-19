@@ -281,6 +281,46 @@ export default {
     timeOfDay: 'In the afternoon and evening',
     timeNote: 'Time it to reach the pier as the harbor lights come on.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Hikawa Maru's, the Cup
+  // Noodles Museum's and Yokohama City's published fees and hours.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes, for the climb up the Bluff and the long walk along the waterfront.',
+      'Cash: the Hikawa Maru only takes cash, and so do many of Chinatown’s food stalls.',
+      'A Suica or PASMO card (or one on your phone) for the trains.',
+      'A light jacket for the evening: it gets breezy by the water.',
+      'A bag for your rubbish: Japan has very few public bins.',
+    ],
+    costs: [
+      'Chinatown, Harbor View Park, the British House, Yamashita Park, Osanbashi Pier and the Red Brick Warehouse are all free to walk around.',
+      { lead: 'Hikawa Maru', text: '¥300, ¥200 for over-65s and ¥100 for school students. Cash only.' },
+      { lead: 'Cup Noodles Museum', text: '¥500, free up to high school age. Making your own cup of noodles costs ¥400 more.' },
+      'Kanteibyo is free to look around: the incense to pray with costs extra.',
+    ],
+    getting: [
+      'Start at Motomachi-Chukagai Station, at the end of the Minatomirai Line (through trains run from Shibuya on the Tokyu Toyoko Line).',
+      'The walk ends at the Red Brick Warehouse, about 1.5 km from the start. Bashamichi and Nihon-odori Stations, on the same line, are each about 10 minutes away on foot.',
+      'Parking around Chinatown and the waterfront is paid and fills up at weekends: the train is easier.',
+    ],
+    access: [
+      'Flat along the waterfront and through Chinatown, with one climb up onto the Bluff to Harbor View Park.',
+      'Chinatown’s lanes are crowded at weekends, which is slow going with a stroller or wheelchair.',
+      'The Hikawa Maru is an old ocean liner, with steep stairs between its decks.',
+    ],
+    restrictions: [
+      { lead: 'Hikawa Maru', text: '10 AM–5 PM, last entry 4:30 PM. Closed on Mondays (or the next weekday, after a holiday Monday).' },
+      { lead: 'British House', text: '9:30 AM–5 PM (to 6 PM in July and August). Closed on the fourth Wednesday of the month (or the next day, if that’s a holiday) and December 29–January 3.' },
+      { lead: 'Cup Noodles Museum', text: '10 AM–6 PM, last entry 5 PM. Closed on Tuesdays (or the next day, if that’s a holiday) and over New Year.' },
+    ],
+    tips: [
+      'Time the end for dusk, when the lights come on around the harbor and the Minato Mirai skyline.',
+      'Harbor View Park’s rose garden is at its best in May and again in the autumn.',
+      'Osanbashi Pier’s rooftop, a rolling wooden deck, has one of the best views of the skyline, and it’s free.',
+      'Chinatown is busiest at weekend lunchtimes: eat a little early or late.',
+    ],
+  },
   match: {
     moods: { Peaceful: 35, Adventurous: 40, Romantic: 90, Curious: 70, Playful: 80, Cultural: 55 },
     with: { Solo: 65, Couple: 95, Family: 75, 'Friends / Group': 90 },

@@ -262,6 +262,50 @@ export default {
     timeOfDay: 'On a weekday, from late morning',
     timeNote: 'Kamakura gets very busy at weekends, and this way you reach the beach for sunset.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the temples' published
+  // fees and hours, and Kamakura City's beach information.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes, for the stone steps at Tsurugaoka Hachimangu and the walk down to the beach.',
+      'A Suica or PASMO card (or one on your phone) for the trains, and some cash for temple fees and snacks.',
+      'Water, a hat and sunscreen in summer: the end of the walk is an open beach.',
+      'A bag for your rubbish: Japan has very few public bins.',
+    ],
+    costs: [
+      'Tsurugaoka Hachimangu, Komachi-dori and the beach are free.',
+      { lead: 'The Great Buddha (Kōtoku-in)', text: '¥300, or ¥150 for elementary school children. Going inside the statue is another ¥50.' },
+      { lead: 'Hasedera', text: '¥400, or ¥200 for elementary school children.' },
+      { lead: 'Hokokuji', text: '¥400 for the bamboo garden, and ¥600 more for matcha in its tea house.' },
+      { lead: 'Kenchoji', text: '¥500.' },
+    ],
+    getting: [
+      'Start at Kamakura Station, on the JR Yokosuka and Shonan-Shinjuku Lines.',
+      'Halfway, take the little Enoden train from Kamakura to Hase for the Great Buddha: a short ride, with an IC card.',
+      'The walk ends at Yuigahama Beach, about 1.5 km from Kamakura Station. Walk back, or take the Enoden from Yuigahama Station, close by.',
+      'Kamakura’s roads are slow and its parking is scarce, especially at weekends, so come by train if you can.',
+    ],
+    access: [
+      'Mostly flat streets, with stone steps up to Tsurugaoka Hachimangu’s main shrine and a gentle climb to the Great Buddha.',
+      'Komachi-dori is narrow and very crowded at weekends: slow going with a stroller or wheelchair.',
+      'Hasedera is built up a hillside, with lots of steps.',
+      'The beach is sand all the way down to the water.',
+    ],
+    restrictions: [
+      { lead: 'The Great Buddha', text: '8 AM–5:30 PM from April to September, and to 5 PM from October to March. Last entry 15 minutes before closing. Inside the statue: 8 AM–4:30 PM.' },
+      { lead: 'Hasedera', text: '8 AM–4:30 PM (the gates close at 5 PM).' },
+      { lead: 'Hokokuji', text: '9 AM–4 PM. Matcha tickets are sold until 3:30 PM.' },
+      { lead: 'Kenchoji', text: '8:30 AM–4:30 PM.' },
+      { lead: 'Yuigahama Beach', text: 'Swimming is only supervised in July and August, when the beach’s showers and extra restrooms are open. No drinking, barbecues or fireworks on the beach then, and dogs aren’t allowed in the sea.' },
+    ],
+    tips: [
+      'Kamakura asks people not to eat while walking on its crowded streets, like Komachi-dori: eat at the shop, or find somewhere to stop.',
+      'Go on a weekday if you can. At weekends, Komachi-dori and the Enoden are packed.',
+      'Hasedera’s hydrangeas peak in June, and you may need a timed ticket to see them then.',
+      'Stay at Yuigahama for the sunset over the bay.',
+    ],
+  },
   match: {
     moods: { Peaceful: 70, Adventurous: 45, Romantic: 70, Curious: 65, Playful: 50, Cultural: 95 },
     with: { Solo: 85, Couple: 90, Family: 75, 'Friends / Group': 85 },

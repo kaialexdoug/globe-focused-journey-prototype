@@ -239,6 +239,45 @@ export default {
     timeOfDay: 'On a weekday morning',
     timeNote: 'Autumn weekends are very busy, and an early start leaves time for a soak at the end.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Takao cable car's and
+  // Gokurakuyu's own sites, and the TAKAO 599 Museum's listing.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Shoes with a good grip: the path is paved, but steep in places, with stone steps.',
+      'Water, and a warm layer: it’s cooler and windier at the top than in the town.',
+      'A Suica or PASMO card (or one on your phone): it works on the cable car too.',
+      'A small towel for the hot spring at the end, and some cash for snacks on the mountain.',
+    ],
+    costs: [
+      { lead: 'Takao cable car', text: '¥490 one way, or ¥980 return (¥250 and ¥500 for children). The chairlift beside it costs the same.' },
+      { lead: 'Gokurakuyu', text: '¥1,100 on weekdays, and ¥1,300 at weekends, on holidays and in busy seasons like the autumn leaves. Half price for children, and free under 4.' },
+      'Yakuoin, the summit and the TAKAO 599 Museum are free.',
+    ],
+    getting: [
+      'Start at Takaosanguchi Station, at the end of the Keio Line from Shinjuku.',
+      'The walk ends at Gokurakuyu, right next to the station where it started.',
+      'The few paid parking lots by the station fill early at weekends, especially in autumn: the train is easier.',
+    ],
+    access: [
+      'Most of the way up is paved, but steep in places, with stone steps at Yakuoin and a steeper last climb to the summit.',
+      'With a stroller or wheelchair, the steps at Yakuoin and the climb to the top are hard going.',
+      'There are restrooms at the summit.',
+      'The cable car fare is half price for disabled visitors (not on the chairlift).',
+    ],
+    restrictions: [
+      { lead: 'Cable car', text: 'From 8 AM. The last car down is between 5:15 and 6:30 PM, depending on the month and the day: in November, 5:45 PM on weekdays and 6 PM at weekends.' },
+      { lead: 'Chairlift', text: '9 AM–4:30 PM from May to November, and to 4 PM from December to April.' },
+      { lead: 'Gokurakuyu', text: '8 AM–10:30 PM, last entry 9:45 PM. No one with tattoos (even sticker ones) is allowed in.' },
+      { lead: 'TAKAO 599 Museum', text: '8 AM–5 PM (to 4 PM, December to March), last entry 30 minutes before closing.' },
+    ],
+    tips: [
+      'In November, the autumn leaves draw huge crowds at weekends, with long queues for the cable car: go early on a weekday.',
+      'On a clear winter day, you can see Mount Fuji from the summit.',
+      'The cable car climbs one of the steepest slopes of any in Japan.',
+    ],
+  },
   match: {
     moods: { Peaceful: 65, Adventurous: 85, Romantic: 40, Curious: 60, Playful: 70, Cultural: 50 },
     with: { Solo: 80, Couple: 70, Family: 85, 'Friends / Group': 90 },

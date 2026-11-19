@@ -249,6 +249,41 @@ export default {
     timeOfDay: 'In the afternoon and evening',
     timeNote: 'It ends at the lighthouse, best at sunset.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Minnesota DNR's state
+  // park permit page.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Warm layers and a windproof jacket: Lake Superior keeps Grand Marais cool, even in summer.',
+      'Shoes with a good grip, for the bare rock at Artist’s Point and the breakwall.',
+      'Insect repellent in June and July.',
+      'Some cash for the little shops and stands.',
+    ],
+    costs: [
+      'The harbor, Artist’s Point, the lighthouse and North House’s grounds are free.',
+      { lead: 'Cascade River State Park', text: 'A vehicle permit: $7 for a day, or $35 for a year.' },
+      'Budget for donuts, and lunch by the harbor.',
+    ],
+    getting: [
+      'You’ll need a car: Grand Marais is about 2½ hours up the shore from Duluth on Highway 61.',
+      'The walk starts at the harbor and ends at the lighthouse, about 500 metres away.',
+      'There’s parking around the harbor, but it fills on summer weekends.',
+    ],
+    access: [
+      'Flat along the harbor, with a little rise up to North House.',
+      'Artist’s Point is bare, uneven rock, and the breakwall to the lighthouse has no railings: neither suits a wheelchair or stroller.',
+    ],
+    restrictions: [
+      { lead: 'The breakwall', text: 'Don’t go out on it when waves are breaking over it: it gets wet and very slippery.' },
+      'Many shops, World’s Best Donuts included, only open in the warmer months, from spring to fall.',
+    ],
+    tips: [
+      'World’s Best Donuts sells out: go early in the morning.',
+      'Stay on Artist’s Point for sunset over the harbor.',
+      'On a clear, dark night away from the town lights, you might see the northern lights.',
+    ],
+  },
   match: {
     moods: { Peaceful: 85, Adventurous: 50, Romantic: 80, Curious: 70, Playful: 45, Cultural: 40 },
     with: { Solo: 75, Couple: 90, Family: 70, 'Friends / Group': 70 },

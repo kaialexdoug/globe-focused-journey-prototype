@@ -238,6 +238,42 @@ export default {
     timeOfDay: 'From late morning',
     timeNote: 'It ends on the shore of Lake Itasca as the evening comes in.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Minnesota DNR's state
+  // park permit page.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Insect repellent, and long sleeves in summer: the mosquitoes and ticks are fierce. Check for ticks afterwards.',
+      'Sandals or water shoes, if you want to wade across the Mississippi on the stepping stones.',
+      'Layers: mornings and evenings in the north woods are cool, even in summer.',
+      'Water and snacks: food in the park is limited, especially outside summer.',
+    ],
+    costs: [
+      { lead: 'State park vehicle permit', text: '$7 for a day, or $35 for a year. You need one to drive into the park.' },
+      'The trails, the headwaters and the fire tower are free once you’re in.',
+      'Boat tours on Lake Itasca and bike rentals are paid, and only in summer.',
+    ],
+    getting: [
+      'You’ll need a car: Itasca is about 3½ hours northwest of the Twin Cities, and about 30 minutes from Park Rapids.',
+      'The walk starts and ends at Douglas Lodge, driving between the stops inside the park.',
+    ],
+    access: [
+      'The trails are mostly gentle, a little up and down, and some are unpaved.',
+      'There’s a short, flat path to the headwaters, but the stepping stones across are uneven and slippery.',
+      'Aiton Heights Fire Tower is about 100 feet of stairs to the top.',
+    ],
+    restrictions: [
+      'Pets are welcome on a leash (6 feet or shorter), but not inside the park’s buildings.',
+      'Douglas Lodge, the Mary Gibbs Headwaters Center and the boat tours keep shorter hours, or close, outside summer: check before you go.',
+      'Don’t climb the fire tower in high wind or a storm.',
+    ],
+    tips: [
+      'Get to the headwaters early in the morning in summer, before the crowds, for a photo of the stepping stones on their own.',
+      'Some of the red pines at Preacher’s Grove are more than 200 years old, older than the state itself.',
+      'In late September, the maples turn and the park is at its most beautiful.',
+    ],
+  },
   match: {
     moods: { Peaceful: 90, Adventurous: 65, Romantic: 50, Curious: 70, Playful: 50, Cultural: 25 },
     with: { Solo: 80, Couple: 75, Family: 90, 'Friends / Group': 75 },

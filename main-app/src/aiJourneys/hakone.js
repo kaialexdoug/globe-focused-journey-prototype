@@ -249,6 +249,47 @@ export default {
     timeOfDay: 'Starting early in the morning',
     timeNote: 'It’s a long day of riding, and the ropeway and the boats stop running in the late afternoon.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Open-Air Museum's and
+  // the Hakone Checkpoint's published fees and hours, and Odakyu's Hakone
+  // Navi for the Free Pass and the ropeway.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'A warm layer: Owakudani is about 1,000 metres up, and much cooler than the valley.',
+      'Comfortable shoes, for the steps up to Hakone Shrine and the old cedar avenue.',
+      'Some cash, for snacks like Owakudani’s black eggs.',
+      'A rain jacket: Hakone’s weather turns quickly, and it rains a lot in June and July.',
+    ],
+    costs: [
+      { lead: 'Hakone Free Pass', text: 'Covers the mountain railway, the cable car, the ropeway, the boat across the lake and the buses. From Shinjuku, ¥7,100 for two days (it also covers the Odakyu train there and back).' },
+      { lead: 'Hakone Open-Air Museum', text: '¥2,000, or ¥1,800 if you buy online.' },
+      { lead: 'Hakone Checkpoint', text: '¥500, or ¥250 for children.' },
+      'Hakone Shrine and the cedar avenue are free.',
+    ],
+    getting: [
+      'Start at Hakone-Yumoto Station, on the Odakyu Line from Shinjuku (the Romancecar goes straight through).',
+      'Most of the way is by Hakone’s own transport: the mountain railway, the cable car, the ropeway over Owakudani and the boat across Lake Ashi.',
+      'The walk ends by the lake at Moto-Hakone, about 8 km from where it starts. Hakone Tozan buses run from there back down to Hakone-Yumoto.',
+      'Driving doesn’t suit this route, and Hakone’s roads jam at weekends: come by train.',
+    ],
+    access: [
+      'Most of it is sitting on trains, cable cars and boats, with short walks between them.',
+      'There are steps up to Hakone Shrine through the cedars, and the cedar avenue is an old, unpaved road.',
+      'The Open-Air Museum’s grounds are outdoors and hilly in places.',
+    ],
+    restrictions: [
+      { lead: 'Hakone Ropeway', text: 'Stops for volcanic gas, strong wind or bad weather, and for inspections, sometimes with no warning. Free Pass holders can take the replacement bus. Check its status on the morning you go.' },
+      { lead: 'Owakudani', text: 'People with asthma or heart conditions, pregnant women and small children are advised not to stop there because of the volcanic gas.' },
+      { lead: 'Hakone Open-Air Museum', text: '9 AM–5 PM every day, last entry 4:30 PM.' },
+      { lead: 'Hakone Checkpoint', text: '9 AM–5 PM (to 4:30 PM, December to February), last entry 30 minutes before closing. Open every day.' },
+    ],
+    tips: [
+      'Set off early: it’s a long day, and the ropeway and boats get busy by late morning.',
+      'From the boat, look out for Hakone Shrine’s red torii gate, standing in the water.',
+      'On a clear day, Mount Fuji appears from the ropeway and from the lake, usually best in the morning and in winter.',
+    ],
+  },
   match: {
     moods: { Peaceful: 70, Adventurous: 85, Romantic: 70, Curious: 65, Playful: 60, Cultural: 55 },
     with: { Solo: 70, Couple: 85, Family: 85, 'Friends / Group': 85 },

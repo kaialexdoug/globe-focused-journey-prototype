@@ -15,7 +15,8 @@ import {
 // Before You Go, on See Your Journey, just under the route details and folded
 // away the same way: what's worth knowing before you set off, in up to six
 // cards (the six in Dad's handoff, in the order below). A journey only shows
-// the cards it has something for, and the bar lists the first few.
+// the cards it has something for, and the bar lists the first few. Each card
+// starts closed, with just its title, and opens on its own when tapped.
 //
 // It needs the journey's `beforeYouGo`, where each card is a list of short
 // points:
@@ -61,7 +62,14 @@ function summaryOf(sections) {
 function BeforeYouGo({ journey }) {
   const { beforeYouGo } = journey
   const [open, setOpen] = useState(false)
+  // The cards that are open: each starts closed, showing just its title, and
+  // opens and closes on its own when it's tapped.
+  const [openCards, setOpenCards] = useState([])
   const sections = SECTIONS.filter((section) => beforeYouGo[section.key]?.length > 0)
+
+  function toggleCard(key) {
+    setOpenCards((keys) => (keys.includes(key) ? keys.filter((each) => each !== key) : [...keys, key]))
+  }
 
   return (
     <section className="beforeYouGo" aria-labelledby="beforeYouGoTitle">
@@ -85,27 +93,43 @@ function BeforeYouGo({ journey }) {
       <div className={open ? 'routeFold isOpen' : 'routeFold'} id="beforeYouGoFold" inert={!open}>
         <div className="routeFoldInner">
           <ul className="beforeGoList">
-            {sections.map(({ key, title, Icon }) => (
-              <li key={key} className="beforeGoCard">
-                <Icon className="beforeGoIcon" />
-                <div>
-                  <h3 className="beforeGoTitle">{title}</h3>
-                  <ul className="beforeGoPoints">
-                    {beforeYouGo[key].map((point, index) => (
-                      <li key={index}>
-                        {typeof point === 'string' ? (
-                          point
-                        ) : (
-                          <>
-                            <strong>{point.lead}:</strong> {point.text}
-                          </>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            ))}
+            {sections.map(({ key, title, Icon }) => {
+              const cardOpen = openCards.includes(key)
+              return (
+                <li key={key} className={cardOpen ? 'beforeGoCard isOpen' : 'beforeGoCard'}>
+                  <h3 className="beforeGoHeading">
+                    <button
+                      className="beforeGoToggle"
+                      onClick={() => toggleCard(key)}
+                      aria-expanded={cardOpen}
+                      aria-controls={`beforeGo-${key}`}
+                    >
+                      <Icon className="beforeGoIcon" />
+                      <span className="beforeGoTitle">{title}</span>
+                      <ChevronRightIcon className="beforeGoChevron" />
+                    </button>
+                  </h3>
+                  {/* Opens the same way as the whole of Before You Go. */}
+                  <div className={cardOpen ? 'routeFold isOpen' : 'routeFold'} id={`beforeGo-${key}`} inert={!cardOpen}>
+                    <div className="routeFoldInner">
+                      <ul className="beforeGoPoints">
+                        {beforeYouGo[key].map((point, index) => (
+                          <li key={index}>
+                            {typeof point === 'string' ? (
+                              point
+                            ) : (
+                              <>
+                                <strong>{point.lead}:</strong> {point.text}
+                              </>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+              )
+            })}
           </ul>
           <p className="beforeGoCheck">
             <InfoIcon className="beforeGoCheckIcon" />

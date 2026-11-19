@@ -244,6 +244,42 @@ export default {
     timeOfDay: 'In the afternoon and evening',
     timeNote: 'It ends on the riverfront, with the city lit up across the water.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Minnesota Historical
+  // Society's Mill City Museum pages, Metro Transit's fares and MnDOT's
+  // Stone Arch Bridge news.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes, and a warm layer: it’s windy by the river, and bitterly cold in winter.',
+      'A light rail ticket from the machine at the station, or the Transit app, for getting there.',
+      'Water and sunscreen in summer: the bridge has no shade.',
+    ],
+    costs: [
+      { lead: 'Light rail', text: '$2 a ride ($1 for seniors and youth), all day.' },
+      { lead: 'Mill City Museum', text: '$15, $12 for seniors (65+), veterans, military and college students, and $8 for ages 5–17. Tickets are only sold at the museum.' },
+      'Gold Medal Park, the Guthrie’s Endless Bridge, Mill Ruins Park, the Stone Arch Bridge and St. Anthony Main are free.',
+    ],
+    getting: [
+      'Start at U.S. Bank Stadium Station, on the Green and Blue light rail lines.',
+      'The walk ends at St. Anthony Main, about 1 km from the start across the river.',
+      'If you drive, use a downtown parking ramp. On Vikings game days, parking near the stadium is expensive and the streets are packed.',
+    ],
+    access: [
+      'Flat and paved most of the way, and the Stone Arch Bridge is wide and level.',
+      'There’s a gentle rise up the east bank, and Main Street at St. Anthony Main is cobbled.',
+      'Mill City Museum has elevators.',
+    ],
+    restrictions: [
+      { lead: 'Mill City Museum', text: 'Thursday and Friday 10 AM–4 PM, Saturday and Sunday 10 AM–5 PM. Closed Monday to Wednesday.' },
+      { lead: 'Guthrie’s Endless Bridge', text: 'Free to walk out on whenever the theater building is open.' },
+    ],
+    tips: [
+      'At Mill City Museum, don’t miss the Flour Tower ride and the observation deck, looking down on St. Anthony Falls.',
+      'Cross the Stone Arch Bridge at sunset, for the light on the falls and the city.',
+      'Check the Vikings’ schedule: game days change the whole neighborhood.',
+    ],
+  },
   match: {
     moods: { Peaceful: 40, Adventurous: 35, Romantic: 70, Curious: 90, Playful: 45, Cultural: 80 },
     with: { Solo: 85, Couple: 85, Family: 65, 'Friends / Group': 75 },

@@ -240,6 +240,42 @@ export default {
     timeOfDay: 'From late morning',
     timeNote: 'That leaves good light for the climb up Barn Bluff, and the evening by the river.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against trail guides for He Mni Can
+  // (Barn Bluff) and the City of Red Wing's information.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Proper walking shoes with a good grip: Barn Bluff is a steep climb, with a long flight of stairs.',
+      'Water, especially on a hot day: there’s no water on the bluff.',
+      'A hat and sunscreen in summer: the top of the bluff is open prairie.',
+      'A warm layer in spring and fall: it’s windy at the top.',
+    ],
+    costs: [
+      'Barn Bluff, Levee Park and Downtown Red Wing are free.',
+      { lead: 'Red Wing Shoe Store', text: 'Free to see the giant boot and the little museum upstairs.' },
+      'Budget for lunch downtown.',
+    ],
+    getting: [
+      'Start at the Red Wing Depot. Amtrak’s Empire Builder stops here, but most people drive: it’s about an hour from the Twin Cities.',
+      'The walk ends in Levee Park, right next to the depot where it started.',
+      'There’s parking downtown and at the bluff’s trailhead.',
+    ],
+    access: [
+      'Downtown is a little up and down, on sidewalks.',
+      'Barn Bluff is a hard climb, on trails and the long Kiwanis stairs: not possible with a wheelchair or stroller.',
+      'Downtown and the depot are fine with a stroller or wheelchair.',
+    ],
+    restrictions: [
+      { lead: 'Barn Bluff', text: 'Stay on the marked trails: parts of the bluff are sacred to the Dakota, and its edges are steep.' },
+      'Shops and museums downtown keep shorter hours in winter: check before you go.',
+    ],
+    tips: [
+      'From the top of Barn Bluff, you can see along the Mississippi for miles: it’s worth the climb.',
+      'The Red Wing Shoe Store’s boot is a size 638½.',
+      'In late September and October, the bluffs turn red and gold.',
+    ],
+  },
   match: {
     moods: { Peaceful: 55, Adventurous: 65, Romantic: 40, Curious: 90, Playful: 45, Cultural: 70 },
     with: { Solo: 85, Couple: 70, Family: 60, 'Friends / Group': 70 },

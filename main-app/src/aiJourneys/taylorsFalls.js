@@ -236,6 +236,41 @@ export default {
     timeOfDay: 'From late morning',
     timeNote: 'Franconia stays open into the evening, so there’s no rush at the end.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Minnesota DNR's state
+  // park permit page and the Minnesota Historical Society's Folsom House page.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Shoes with a good grip, for the bare rock and stairs around the Glacial Potholes.',
+      'Water, a hat and sunscreen: the rocks above the river get hot in summer.',
+      'Insect repellent in summer.',
+    ],
+    costs: [
+      { lead: 'State park vehicle permit', text: '$7 for a day, or $35 for a year, to park at Interstate State Park, by the Glacial Potholes.' },
+      { lead: 'Folsom House', text: 'Free (donations welcome).' },
+      { lead: 'Franconia Sculpture Park', text: 'Free (donations welcome).' },
+      'The boat trips on the St. Croix are paid, and only run in the warmer months.',
+    ],
+    getting: [
+      'You’ll need a car: Taylors Falls is about an hour northeast of the Twin Cities.',
+      'The walk ends at Franconia Sculpture Park, about 5 km from where it starts, a short drive out of town.',
+    ],
+    access: [
+      'Bench Street is a steep street down into town.',
+      'The paths around the Glacial Potholes are bare, uneven rock with stairs: not suitable for a wheelchair or stroller.',
+      'Franconia Sculpture Park is open fields with mown paths.',
+    ],
+    restrictions: [
+      { lead: 'The Dalles', text: 'There are steep drops along the gorge, without railings in places. Keep children and dogs close.' },
+      { lead: 'Folsom House', text: 'Only open in the warmer months: check before you go.' },
+    ],
+    tips: [
+      'Look down into the potholes: some are deeper than a person is tall, drilled by stones swirling in the meltwater.',
+      'The fall colors in the gorge are usually best in early to mid October.',
+      'Franconia is outdoors, so it’s best on a dry day, with time to wander.',
+    ],
+  },
   match: {
     moods: { Peaceful: 50, Adventurous: 85, Romantic: 45, Curious: 80, Playful: 85, Cultural: 40 },
     with: { Solo: 65, Couple: 70, Family: 90, 'Friends / Group': 90 },

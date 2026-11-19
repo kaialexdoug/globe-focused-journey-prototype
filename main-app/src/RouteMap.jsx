@@ -168,7 +168,7 @@ function RouteMap({ journey }) {
 
       // The lines, each drawn as soon as it's found. Once they all are, the
       // map's fitted to them too, as a walk can wander outside its stops.
-      const green = getComputedStyle(document.documentElement).getPropertyValue('--unfold-green').trim() || '#13393a'
+      const lineColor = getComputedStyle(document.documentElement).getPropertyValue('--unfold-blue').trim() || '#014254'
       const drawing = mapLines(journey).map((line) =>
         routeFor(Route, line).then((path) => {
           if (cancelled) {
@@ -183,7 +183,7 @@ function RouteMap({ journey }) {
               zIndex: 3,
               icons: [
                 {
-                  icon: { path: SymbolPath.CIRCLE, scale: 2, fillColor: green, fillOpacity: 1, strokeOpacity: 0 },
+                  icon: { path: SymbolPath.CIRCLE, scale: 2, fillColor: lineColor, fillOpacity: 1, strokeOpacity: 0 },
                   offset: '0',
                   repeat: '9px',
                 },
@@ -192,7 +192,7 @@ function RouteMap({ journey }) {
           } else {
             // A white edge under the line, so it stands out from the streets.
             new Polyline({ map, path, strokeColor: '#ffffff', strokeOpacity: 0.9, strokeWeight: 8, zIndex: 1 })
-            new Polyline({ map, path, strokeColor: green, strokeOpacity: 0.9, strokeWeight: 4, zIndex: 2 })
+            new Polyline({ map, path, strokeColor: lineColor, strokeOpacity: 0.9, strokeWeight: 4, zIndex: 2 })
           }
         })
       )

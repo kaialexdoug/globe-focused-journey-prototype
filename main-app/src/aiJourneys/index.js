@@ -16,8 +16,9 @@
 // `beforeYouGo` is what to know before setting off, for Before You Go on
 // See Your Journey (see BeforeYouGo.jsx for its shape): what to bring,
 // costs, getting there, access, hours and tips. Unlike the writing, it does
-// give opening times and prices, checked against each place's own pages. So
-// far only the Waseda journey (testJourney.js) has it.
+// give opening times and prices, checked against each place's own pages (or
+// visitor guides, where a place has none), and says when. Every journey has
+// it.
 //
 // Once a journey has been walked and checked, it can move to journeyStops.js
 // with `verified: true` in place of `aiMade`.

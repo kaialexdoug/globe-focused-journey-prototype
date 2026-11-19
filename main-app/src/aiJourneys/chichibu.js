@@ -226,6 +226,45 @@ export default {
     timeOfDay: 'Starting in the morning',
     timeNote: 'That leaves the afternoon for the train down the valley to Nagatoro.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against Chichibu's published
+  // information for Hitsujiyama Park and the Chichibu Matsuri Kaikan.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes, for the climb up to Hitsujiyama Park and the uneven rocks at Nagatoro.',
+      'A Suica or PASMO card (or one on your phone): it works on the Seibu and Chichibu Railway trains.',
+      'A warm layer: Chichibu is in the hills, and cooler than Tokyo.',
+      'Water and some cash for snacks along the way.',
+    ],
+    costs: [
+      'Chichibu Shrine, Nagatoro’s rocks and Hodosan Shrine are free.',
+      { lead: 'Hitsujiyama Park', text: 'Free, except the moss phlox hill while it’s in bloom (mid-April to early May): ¥500.' },
+      { lead: 'Chichibu Matsuri Kaikan', text: '¥500.' },
+      'The Chichibu Railway down the valley to Nagatoro is a short ride, paid by IC card.',
+    ],
+    getting: [
+      'Start at Seibu-Chichibu Station: the Laview express from Ikebukuro takes about 80 minutes.',
+      'Halfway, take the Chichibu Railway from Chichibu Station (or Ohanabatake, by Seibu-Chichibu) down the valley to Nagatoro.',
+      'The walk ends at Hodosan Shrine, about 12 km from where it starts, but only about 15 minutes’ walk from Nagatoro Station. Trains run back up to Chichibu, or on toward Yorii and Kumagaya.',
+      'Parking at Hitsujiyama costs ¥700 while the moss phlox is in bloom.',
+    ],
+    access: [
+      'The walk up to Hitsujiyama Park is uphill most of the way.',
+      'Nagatoro’s rocks are uneven and slippery near the water: not suitable for a wheelchair or stroller.',
+      'The road up to Hodosan Shrine is a gentle climb.',
+    ],
+    restrictions: [
+      { lead: 'Chichibu Matsuri Kaikan', text: '9 AM–5 PM from April to November, and 10 AM–5 PM from December to March. Last entry 4:30 PM. Closed on the fourth and fifth Tuesdays (March to November), every Tuesday (December to February) and December 29–January 1.' },
+      { lead: 'Moss phlox hill', text: '8 AM–5 PM while it’s in bloom.' },
+      'Stay back from the water’s edge at Nagatoro, especially when the river is high after rain.',
+    ],
+    tips: [
+      'On December 2 and 3, the Chichibu Night Festival fills the town with huge floats and fireworks, and with crowds.',
+      'From mid-April to early May, Hitsujiyama’s moss phlox turns the hill pink, and the trains and roads are packed.',
+      'In mid to late November, the autumn leaves along the river at Nagatoro are at their best.',
+    ],
+  },
   match: {
     moods: { Peaceful: 80, Adventurous: 65, Romantic: 50, Curious: 65, Playful: 45, Cultural: 70 },
     with: { Solo: 80, Couple: 75, Family: 75, 'Friends / Group': 75 },

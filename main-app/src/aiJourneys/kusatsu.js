@@ -233,6 +233,46 @@ export default {
     timeOfDay: 'In the late afternoon and evening',
     timeNote: 'The Yubatake glows after dark, and a hot bath is best at the end of the day.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against Kusatsu Town's and the
+  // Kusatsu Onsen tourism association's published fees and hours.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'A small towel for the baths, and a change of clothes.',
+      'Shoes with a good grip: the town is hilly, and icy in winter.',
+      'A warm layer: Kusatsu is about 1,200 metres up, and cold for much of the year.',
+      'Some cash for the baths and the snacks around the Yubatake.',
+    ],
+    costs: [
+      { lead: 'Netsunoyu (yumomi show)', text: '¥700, or ¥350 for elementary school children.' },
+      { lead: 'Sainokawara Rotenburo', text: '¥800, or ¥400 for children.' },
+      { lead: 'Otakinoyu', text: '¥1,200.' },
+      'The Yubatake, Sainokawara Park and Kosenji are free.',
+    ],
+    getting: [
+      'Start at the Kusatsu Onsen Bus Terminal: buses run from Naganohara-Kusatsuguchi Station on the JR Agatsuma Line, and there are direct highway buses from Tokyo.',
+      'The walk ends at Otakinoyu, about 5 minutes’ walk from the bus terminal.',
+      'If you drive, use the town’s paid parking lots: the streets around the Yubatake are narrow and busy.',
+    ],
+    access: [
+      'The town is built on a slope, so it’s a little up and down all the way, with steps in places.',
+      'Sainokawara Park’s paths are gentle, but uneven in places, and slippery when it’s icy.',
+      'In winter the streets can be snowy and icy: take care, especially with a stroller.',
+    ],
+    restrictions: [
+      { lead: 'Netsunoyu shows', text: 'Six a day: at 9:30, 10 and 10:30 AM, and 3:30, 4 and 4:30 PM. They can be cancelled at short notice.' },
+      { lead: 'Sainokawara Rotenburo', text: '7 AM–8 PM (from 9 AM, December to March), last entry 7:30 PM.' },
+      { lead: 'Otakinoyu', text: '9 AM–9 PM, last entry 8 PM.' },
+      'In the baths, wash before you get in, and no swimsuits. Many baths in Japan turn away people with tattoos, so check before you go.',
+    ],
+    tips: [
+      'Kusatsu’s water is strongly acidic: take off silver jewellery before you bathe, or it’ll tarnish.',
+      'Come back to the Yubatake after dark, when it’s lit up.',
+      'Get to Netsunoyu a little early for a good seat: the shows fill up at weekends.',
+      'The smell is sulphur. You’ll stop noticing it after a while.',
+    ],
+  },
   match: {
     moods: { Peaceful: 85, Adventurous: 30, Romantic: 75, Curious: 60, Playful: 60, Cultural: 65 },
     with: { Solo: 75, Couple: 90, Family: 75, 'Friends / Group': 80 },

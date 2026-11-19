@@ -247,6 +247,45 @@ export default {
     timeOfDay: 'In the afternoon and evening',
     timeNote: 'It ends on the beach at Park Point, lovely as the light goes.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against Glensheen's ticketing, the
+  // Maritime Visitor Center's listing and the Duluth Fire Department's beach
+  // warnings.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'A warm layer, even in summer: it’s often much cooler by the lake than inland.',
+      'Comfortable shoes, for the Lakewalk and Enger Tower’s stairs.',
+      'Water, sunscreen and a hat for the beach at the end.',
+    ],
+    costs: [
+      'Canal Park, the Lift Bridge, the Lakewalk, Enger Tower and Park Point Beach are free.',
+      { lead: 'Lake Superior Maritime Visitor Center', text: 'Free (donations welcome).' },
+      { lead: 'Glensheen', text: 'The self-guided Classic Tour is $20, $18 for seniors (62+) and veterans, and $8 for ages 5–17.' },
+      'Parking in Canal Park is mostly paid.',
+    ],
+    getting: [
+      'You’ll want a car: the walk starts in Canal Park, then drives up to Enger Tower and out to Park Point.',
+      'Park in one of Canal Park’s lots to start. They fill up on summer weekends, so come early.',
+      'The walk ends at Park Point Beach, about 6 km from Canal Park, across the Lift Bridge.',
+      'When the Lift Bridge rises for a ship, traffic to and from Park Point waits a few minutes.',
+    ],
+    access: [
+      'Canal Park and the Lakewalk are flat and paved.',
+      'Enger Tower is climbed by stairs.',
+      'Park Point is a sand beach, hard going with a wheelchair or stroller beyond the paths.',
+    ],
+    restrictions: [
+      { lead: 'Maritime Visitor Center', text: 'Hours change with the season: check before you go.' },
+      { lead: 'Glensheen', text: 'Hours change with the season. Check in at the Ticket House to start the tour.' },
+      { lead: 'Park Point Beach', text: 'There are no lifeguards, and rip currents can be dangerous. When the red flags are up, stay out of the water.' },
+    ],
+    tips: [
+      'Check the ship schedule (the Duluth Shipping News) to see a big ship pass under the Lift Bridge.',
+      'Lake Superior is cold all year: even in August, it’s more of a paddle than a swim.',
+      'The view from Enger Tower is best in the late afternoon and at sunset.',
+    ],
+  },
   match: {
     moods: { Peaceful: 75, Adventurous: 65, Romantic: 65, Curious: 70, Playful: 55, Cultural: 50 },
     with: { Solo: 75, Couple: 85, Family: 85, 'Friends / Group': 80 },
