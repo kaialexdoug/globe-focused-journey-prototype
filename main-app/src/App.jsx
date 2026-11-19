@@ -13,6 +13,7 @@ import SearchPage from './SearchPage.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
 import RoutePreview from './RoutePreview.jsx'
 import BestTime from './BestTime.jsx'
+import BeforeYouGo from './BeforeYouGo.jsx'
 import GetReadyPage from './GetReadyPage.jsx'
 import { hasRoutePreview } from './journeyTimes.js'
 import { askForCompass } from './compass.js'
@@ -1042,7 +1043,8 @@ function FindJourneyPage({ onStart }) {
 // everything about it, which scrolls: its quick facts, what it is (the hook),
 // on journeys that have them, today's weather and the best time to go
 // (BestTime.jsx), where it starts, and on journeys that have one, a preview
-// of the whole route (RoutePreview.jsx), then BEGIN JOURNEY. ✕ goes back to where you opened it
+// of the whole route (RoutePreview.jsx), and on journeys that have it, what
+// to know before you go (BeforeYouGo.jsx), then BEGIN JOURNEY. ✕ goes back to where you opened it
 // from. `underWay` is where you left this journey, if it's the one you're on
 // (with or without a profile): then it offers RESUME JOURNEY instead. `completed` says
 // you've finished it before, which adds a tick above BEGIN JOURNEY and VIEW
@@ -1123,6 +1125,10 @@ function SeeJourneyPage({
           </div>
         </div>
       )}
+
+      {/* What to bring, what it costs, getting there and back, and so on,
+          folded away the same way. */}
+      {journey.beforeYouGo && <BeforeYouGo journey={journey} />}
 
       <div className="divider sectionBreak"></div>
 

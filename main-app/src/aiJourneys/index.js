@@ -13,6 +13,12 @@
 // `bestTime` is when to go, for Weather & Best Time to Go on See Your
 // Journey (see BestTime.jsx). Every journey has it.
 //
+// `beforeYouGo` is what to know before setting off, for Before You Go on
+// See Your Journey (see BeforeYouGo.jsx for its shape): what to bring,
+// costs, getting there, access, hours and tips. Unlike the writing, it does
+// give opening times and prices, checked against each place's own pages. So
+// far only the Waseda journey (testJourney.js) has it.
+//
 // Once a journey has been walked and checked, it can move to journeyStops.js
 // with `verified: true` in place of `aiMade`.
 //

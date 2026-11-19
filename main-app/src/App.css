@@ -677,7 +677,7 @@ button:focus-visible {
   font-family: var(--heading);
   /* In step with the width of the screen, so "What kind of day" stays on one
      line on narrower phones. */
-  font-size: min(29px, 7.4vw);
+  font-size: min(25.5px, 6.51vw);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.07em;
@@ -687,7 +687,7 @@ button:focus-visible {
 
 .findText {
   margin-top: 12px;
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.45;
   letter-spacing: 0;
   color: var(--night);
@@ -727,7 +727,7 @@ button:focus-visible {
   border: none;
   border-radius: 999px;
   font-family: var(--heading);
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.14em;
   color: white;
   cursor: pointer;
@@ -757,7 +757,7 @@ button:focus-visible {
 
   .findText {
     margin-top: 8px;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .findHero {
@@ -767,7 +767,7 @@ button:focus-visible {
   .findStart {
     height: 52px;
     margin-top: 14px;
-    font-size: 17px;
+    font-size: 15px;
   }
 }
 
@@ -815,13 +815,13 @@ button:focus-visible {
 
 .stepSkip {
   right: 22px;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 0;
 }
 
 .stepCount {
   margin-top: 14px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.5px;
   color: var(--night);
@@ -855,7 +855,7 @@ button:focus-visible {
   font-family: var(--heading);
   /* In step with the width of the screen, so that "A few quick details" stays
      on one line on narrower phones. */
-  font-size: min(25px, 6.3vw);
+  font-size: min(22px, 5.54vw);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.06em;
@@ -865,7 +865,7 @@ button:focus-visible {
 
 .stepText {
   margin-top: 10px;
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.4;
   letter-spacing: 0;
   color: rgba(12, 23, 43, 0.6);
@@ -884,14 +884,14 @@ button:focus-visible {
    line, as in the mockup. */
 .moodPage .stepTitle,
 .whoPage .stepTitle {
-  font-size: min(25px, 6.3vw);
+  font-size: min(22px, 5.54vw);
   font-weight: 700;
   line-height: 1.2;
 }
 
 .moodPage .stepText {
   margin-top: 6px;
-  font-size: 17px;
+  font-size: 15px;
   color: rgba(12, 23, 43, 0.85);
 }
 
@@ -945,7 +945,7 @@ button:focus-visible {
 .moodChoiceName {
   margin-right: 32px;
   font-family: var(--heading);
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0.1em;
@@ -956,7 +956,7 @@ button:focus-visible {
 
 .moodChoiceAbout {
   margin-top: 3px;
-  font-size: 12.5px;
+  font-size: 11.5px;
   line-height: 1.3;
   letter-spacing: 0;
   white-space: nowrap;
@@ -1058,7 +1058,7 @@ button:focus-visible {
 
 .whoPage .stepText {
   margin-top: 26px;
-  font-size: 16.5px;
+  font-size: 14.5px;
   line-height: 1.37;
   color: rgb(80, 88, 109);
 }
@@ -1111,7 +1111,7 @@ button:focus-visible {
 .whoChoiceName {
   margin-top: 12px;
   font-family: var(--heading);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0.14em;
@@ -1122,7 +1122,7 @@ button:focus-visible {
 
 .whoChoiceAbout {
   margin-top: 3px;
-  font-size: 14px;
+  font-size: 12.5px;
   line-height: 1.3;
   letter-spacing: 0;
   color: rgb(80, 88, 109);
@@ -1151,11 +1151,11 @@ button:focus-visible {
 /* So "Friends / Group" still fits on one line on the narrowest phones. */
 @media (max-width: 350px) {
   .whoChoiceName {
-    font-size: 14px;
+    font-size: 12.5px;
   }
 
   .whoChoiceAbout {
-    font-size: 12.5px;
+    font-size: 11.5px;
   }
 }
 
@@ -1202,7 +1202,7 @@ button:focus-visible {
 /* As wide as the mockup's, which leaves room for the pagoda. */
 .detailsPage .stepTitle {
   margin-top: 20px;
-  font-size: min(25px, 6.3vw);
+  font-size: min(22px, 5.54vw);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.06em;
@@ -1210,7 +1210,7 @@ button:focus-visible {
 
 .detailsPage .stepText {
   margin-top: 14px;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 18px;
   color: rgb(38, 46, 66);
 }
@@ -1240,7 +1240,7 @@ button:focus-visible {
   border: 1px solid rgba(12, 23, 43, 0.08);
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(12, 23, 43, 0.06);
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: 0;
   text-align: left;
   color: var(--night);
@@ -1367,7 +1367,7 @@ button.detailBar:active {
 }
 
 .placeSuggestionName {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.25;
   color: var(--night);
@@ -1375,7 +1375,7 @@ button.detailBar:active {
 
 .placeSuggestionWithin,
 .placeSuggestionCount {
-  font-size: 12.5px;
+  font-size: 11.5px;
   line-height: 1.3;
   color: var(--find-violet);
 }
@@ -1387,7 +1387,7 @@ button.detailBar:active {
 
 .placeNowhere {
   padding: 8px 10px;
-  font-size: 13.5px;
+  font-size: 12.5px;
   line-height: 1.35;
   color: rgb(80, 88, 109);
 }
@@ -1439,7 +1439,7 @@ button.detailBar:active {
 .calendarTitle {
   margin: 0;
   font-family: var(--heading);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0;
   color: var(--night);
@@ -1472,7 +1472,7 @@ button.detailBar:active {
 }
 
 .calendarMonth p {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0;
   color: var(--night);
@@ -1516,7 +1516,7 @@ button.detailBar:active {
 
 .calendarWeekday {
   padding-bottom: 4px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-align: center;
   text-decoration: none;
@@ -1533,7 +1533,7 @@ button.detailBar:active {
   background: none;
   border: 1px solid transparent;
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1.1;
   letter-spacing: 0;
   color: var(--night);
@@ -1569,7 +1569,7 @@ button.detailBar:active {
   gap: 13px;
   margin: 12px 0 0;
   font-family: inherit;
-  font-size: 16.5px;
+  font-size: 14.5px;
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: 0;
@@ -1649,7 +1649,7 @@ button.detailBar:active {
 }
 
 .detailName {
-  font-size: 16.5px;
+  font-size: 14.5px;
   line-height: 1.2;
   letter-spacing: 0;
 }
@@ -1657,7 +1657,7 @@ button.detailBar:active {
 /* What's under each pace, on two lines, where the mockup breaks them. */
 .detailAbout {
   margin-top: 2px;
-  font-size: 12.5px;
+  font-size: 11.5px;
   line-height: 1.12;
   letter-spacing: 0;
   white-space: pre-line;
@@ -1693,7 +1693,7 @@ button.detailBar:active {
 
 .moreTitle {
   font-family: var(--heading);
-  font-size: 16.5px;
+  font-size: 14.5px;
   font-weight: 700;
   line-height: 1.2;
   color: var(--night);
@@ -1702,13 +1702,13 @@ button.detailBar:active {
 .moreOptional {
   margin-left: 3px;
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 12.5px;
   font-weight: 400;
   color: var(--find-violet);
 }
 
 .moreAbout {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.3;
   color: var(--find-violet);
 }
@@ -1741,7 +1741,7 @@ button.detailBar:active {
   border: none;
   border-radius: 999px;
   font-family: var(--heading);
-  font-size: 16.5px;
+  font-size: 14.5px;
   font-weight: 600;
   letter-spacing: 0.12em;
   color: white;
@@ -1779,13 +1779,13 @@ button.detailBar:active {
    words under the title stay clear of the pagoda. */
 @media (max-width: 350px) {
   .detailsPage .stepText {
-    font-size: 13.5px;
+    font-size: 12.5px;
     line-height: 17px;
   }
 
   .detailBar {
     gap: 7px;
-    font-size: 14px;
+    font-size: 12.5px;
   }
 
   .whenBar {
@@ -1837,19 +1837,24 @@ button.detailBar:active {
 }
 
 .preferenceCards .detailName {
-  font-size: 16px;
+  font-size: 14px;
 }
 
-/* On Journeys for You, when where you're going has no journeys yet. */
+/* On Journeys for You, when where you're going has no journeys yet, or it's
+   not clear which place it is: what to do, and a way back to change it. */
 .matchesNote {
   margin-top: 12px;
   padding: 10px 12px;
   background-color: var(--choice-peach);
   border-radius: 12px;
-  font-size: 14px;
+  font-size: 12.5px;
   line-height: 1.35;
   letter-spacing: 0;
   color: var(--night);
+}
+
+.matchesChange {
+  margin-top: 16px;
 }
 
 /* Journeys for You: a list of photo cards, as wide as the page. */
@@ -1928,7 +1933,7 @@ button.detailBar:active {
   background-color: rgba(15, 22, 38, 0.72);
   backdrop-filter: blur(6px);
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0;
 }
 
@@ -1942,7 +1947,7 @@ button.detailBar:active {
 /* Clear of the bookmark, on its right. */
 .matchTitle {
   padding-right: 42px;
-  font-size: 19px;
+  font-size: 16.5px;
   line-height: 1.2;
   letter-spacing: 0;
   text-wrap: balance;
@@ -1956,7 +1961,7 @@ button.detailBar:active {
   justify-content: space-between;
   gap: 0.4em;
   margin-top: 7px;
-  font-size: 12.5px;
+  font-size: 11.5px;
   letter-spacing: 0;
 }
 
@@ -2316,6 +2321,107 @@ button.detailBar:active {
   font-size: 11.5px;
   line-height: 1.4;
   color: var(--ink-faint);
+}
+
+/* --- Before You Go (BeforeYouGo.jsx) ---
+   On See Your Journey, just under the route, folded away the same way (the
+   routeFold classes). What unfolds: a cream card for each of what to bring,
+   tickets and costs, and so on, like the best time cards above, with its
+   points in a list. Then a note to check the hours. */
+
+.beforeYouGo {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.beforeGoList {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beforeGoCard {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  column-gap: 12px;
+  align-items: start;
+  padding: 14px 16px 14px 14px;
+  border: 1px solid var(--outline);
+  border-radius: 15px;
+  background-color: var(--cream);
+}
+
+.beforeGoIcon {
+  width: 22px;
+  height: 22px;
+  margin-top: -2px;
+  color: var(--accent-ink);
+}
+
+/* WHAT TO BRING, small, like RECOMMENDED SEASON. */
+.beforeGoTitle {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+/* Each point with a little dot before it. */
+.beforeGoPoints {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.beforeGoPoints li {
+  position: relative;
+  padding-left: 13px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.beforeGoPoints li::before {
+  content: '';
+  position: absolute;
+  top: 0.62em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--accent-ink);
+  opacity: 0.55;
+}
+
+.beforeGoPoints strong {
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.beforeGoCheck {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 10px 2px 4px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.beforeGoCheckIcon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  color: var(--accent-ink);
 }
 
 /* --- Get Ready (GetReadyPage.jsx) ---
@@ -4650,7 +4756,7 @@ button.detailBar:active {
 .myTitle {
   margin: 4px 0 0;
   font-family: var(--heading);
-  font-size: min(30px, 7.7vw);
+  font-size: min(26.5px, 6.78vw);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0.08em;
@@ -4660,7 +4766,7 @@ button.detailBar:active {
 
 .myText {
   margin-top: 10px;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1.1;
   letter-spacing: 0;
   color: rgb(38, 46, 66);
@@ -4702,7 +4808,7 @@ button.detailBar:active {
 .myCardLabel {
   margin: 0;
   font-family: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: 3px;
@@ -4711,7 +4817,7 @@ button.detailBar:active {
 
 .myCardText {
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.3;
   letter-spacing: 0;
   color: var(--night);
@@ -4726,7 +4832,7 @@ button.detailBar:active {
   padding: 4px 2px;
   background: none;
   border: none;
-  font-size: 13.5px;
+  font-size: 12.5px;
   font-weight: 600;
   letter-spacing: 3px;
   color: var(--nav-current);
@@ -4781,7 +4887,7 @@ button.detailBar:active {
 
 .myCurrentTitle {
   font-family: var(--heading);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.3;
   letter-spacing: 0.08em;
   font-weight: 600;
@@ -4793,7 +4899,7 @@ button.detailBar:active {
   align-items: center;
   gap: 8px;
   margin-top: 8px;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.08em;
   white-space: nowrap;
   color: rgba(12, 23, 43, 0.75);
@@ -4857,7 +4963,7 @@ button.detailBar:active {
 .mySectionTitle {
   margin: 0;
   font-family: var(--heading);
-  font-size: min(17px, 4.4vw);
+  font-size: min(15px, 3.87vw);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.1em;
@@ -4873,7 +4979,7 @@ button.detailBar:active {
   padding: 4px 0;
   background: none;
   border: none;
-  font-size: 14px;
+  font-size: 12.5px;
   letter-spacing: 0.1em;
   color: var(--nav-current);
   cursor: pointer;
@@ -4889,7 +4995,7 @@ button.detailBar:active {
 
 .myEmpty {
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 12.5px;
   line-height: 1.4;
   letter-spacing: 0;
   color: rgba(12, 23, 43, 0.6);
@@ -4904,7 +5010,7 @@ button.detailBar:active {
   padding: 22px 18px;
   border: 1px solid rgb(208, 208, 216);
   border-radius: 12px;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1.35;
   letter-spacing: 0;
   color: rgb(38, 46, 66);
@@ -5050,7 +5156,7 @@ button.detailBar:active {
 
 .journeyCardTitle {
   font-family: var(--heading);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: 0.07em;
@@ -5063,7 +5169,7 @@ button.detailBar:active {
   align-items: center;
   gap: 5px;
   margin-top: 7px;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.06em;
   white-space: nowrap;
   text-transform: uppercase;
@@ -5100,7 +5206,7 @@ button.detailBar:active {
    the title a little smaller to keep clear of the mountain. */
 @media (max-width: 350px) {
   .myText {
-    font-size: 14px;
+    font-size: 12.5px;
   }
 
   .myHeroArt {
@@ -5113,7 +5219,7 @@ button.detailBar:active {
   }
 
   .journeyCardTitle {
-    font-size: 13.5px;
+    font-size: 12.5px;
   }
 
   .journeyCardFacts {
@@ -5162,7 +5268,7 @@ button.detailBar:active {
 .mySavedTitle {
   display: block;
   font-family: var(--heading);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: 0.07em;
@@ -5174,7 +5280,7 @@ button.detailBar:active {
   align-items: center;
   gap: 4px;
   margin-top: 4px;
-  font-size: 12.5px;
+  font-size: 11.5px;
   letter-spacing: 0.06em;
   color: rgba(12, 23, 43, 0.65);
   text-transform: uppercase;
@@ -5321,7 +5427,7 @@ button.detailBar:active {
 .profileTitle {
   margin: 22px 0 0;
   font-family: var(--heading);
-  font-size: min(27px, 6.9vw);
+  font-size: min(24px, 6.07vw);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: 0.08em;
@@ -5331,7 +5437,7 @@ button.detailBar:active {
 
 .profileText {
   margin-top: 10px;
-  font-size: 14.5px;
+  font-size: 13px;
   line-height: 16px;
   letter-spacing: 0;
   color: rgb(38, 46, 66);
@@ -5372,7 +5478,7 @@ button.detailBar:active {
 .profileName {
   overflow: hidden;
   font-family: var(--heading);
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0.1em;
@@ -5384,7 +5490,7 @@ button.detailBar:active {
 
 .profileJoined {
   margin-top: 4px;
-  font-size: 13.5px;
+  font-size: 12.5px;
   letter-spacing: 0;
   color: rgb(38, 46, 66);
   white-space: nowrap;
@@ -5434,7 +5540,7 @@ button.detailBar:active {
   margin: 0;
   padding: 0 14px;
   font-family: var(--heading);
-  font-size: 14px;
+  font-size: 12.5px;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.18em;
@@ -5459,7 +5565,7 @@ button.detailBar:active {
 
 .profileStatValue {
   font-family: var(--heading);
-  font-size: 27px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0;
@@ -5513,7 +5619,7 @@ button.profileRow {
 
 .profileRowTitle {
   font-family: var(--heading);
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0.12em;
@@ -5522,7 +5628,7 @@ button.profileRow {
 
 .profileRowText {
   overflow: hidden;
-  font-size: 14.5px;
+  font-size: 13px;
   line-height: 1.25;
   letter-spacing: 0;
   text-overflow: ellipsis;
@@ -5547,7 +5653,7 @@ button.profileRow {
   }
 
   .profileName {
-    font-size: 22px;
+    font-size: 19.5px;
   }
 
   .profileEdit {
@@ -5556,7 +5662,7 @@ button.profileRow {
   }
 
   .profileStatValue {
-    font-size: 24px;
+    font-size: 21px;
   }
 
   .profileStatLabel {
@@ -5588,14 +5694,14 @@ button.profileRow {
   border: none;
   border-bottom: 1px solid rgb(208, 208, 216);
   font: inherit;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 0;
   text-align: left;
   color: var(--night);
 }
 
 .settingsValue {
-  font-size: 14px;
+  font-size: 12.5px;
   color: rgb(80, 88, 109);
 }
 
@@ -5607,7 +5713,7 @@ button.profileRow {
 /* What the chosen units mean, under "Units". */
 .settingsSub {
   margin-top: 2px;
-  font-size: 13px;
+  font-size: 12px;
   color: rgb(80, 88, 109);
 }
 
@@ -5628,7 +5734,7 @@ button.profileRow {
   border: none;
   border-radius: 999px;
   font: inherit;
-  font-size: 14px;
+  font-size: 12.5px;
   letter-spacing: 0;
   color: var(--unfold-blue);
   cursor: pointer;
@@ -5655,7 +5761,7 @@ button.profileRow {
 /* Under the name while it's empty, saying why DONE is greyed out. */
 .editProfileHint {
   margin-top: 6px;
-  font-size: 13px;
+  font-size: 12px;
   color: rgb(180, 40, 45);
 }
 
