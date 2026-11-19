@@ -254,6 +254,45 @@ export default {
     seasonNote: 'For the cherry blossom avenue in Yanaka Cemetery in early April, and the azaleas at Nezu Shrine from April into May.',
     timeOfDay: 'During daylight hours',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Asakura Museum's and
+  // SCAI The Bathhouse's published fees and hours.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes that slip off easily, and socks: you take your shoes off in the Asakura Museum, and socks are required.',
+      'Cash for Yanaka Ginza’s snacks and little shops.',
+      'A Suica or PASMO card (or one on your phone) for the trains.',
+      'A bag for your rubbish: Japan has very few public bins.',
+    ],
+    costs: [
+      'Yanaka Cemetery, Tennoji, Yanaka Ginza, Nezu Shrine and Shinobazu Pond are all free.',
+      { lead: 'Asakura Museum of Sculpture', text: '¥500, or ¥250 for school students.' },
+      { lead: 'SCAI The Bathhouse', text: 'Free.' },
+      { lead: 'Nezu Shrine’s azalea garden', text: 'Usually about ¥500, and only open in April.' },
+    ],
+    getting: [
+      'Start at Nippori Station, on the JR Yamanote Line and the Keisei Line (the Skyliner from Narita Airport stops here).',
+      'The walk ends at Shinobazu Pond in Ueno Park, about 1.7 km from Nippori. Ueno Station is about 10 minutes away on foot.',
+      'The old lanes are narrow and parking is scarce: come by train.',
+    ],
+    access: [
+      'Mostly gentle, with a short slope up to the cemetery and a short flight of steps, the Yūyake Dandan, down into Yanaka Ginza.',
+      'The lanes are narrow, and Yanaka Ginza is crowded at weekends.',
+      'The Asakura Museum is an old house, with stairs between its floors.',
+    ],
+    restrictions: [
+      { lead: 'Asakura Museum', text: '9:30 AM–4:30 PM, last entry 4 PM. Closed on Mondays and Thursdays, December 29–January 3 and between exhibitions.' },
+      { lead: 'SCAI The Bathhouse', text: 'Noon–6 PM, Tuesday to Saturday. Closed on Sundays, Mondays and holidays, and between exhibitions.' },
+      { lead: 'Nezu Shrine’s azalea garden', text: 'Only open in the azalea season, in April, from 9:30 AM.' },
+    ],
+    tips: [
+      'Yūyake Dandan means “sunset steps”: stand at the top in the late afternoon for the view down Yanaka Ginza.',
+      'Go on a weekday to avoid the crowds, and avoid Mondays, when the Asakura Museum and SCAI are both closed.',
+      'In spring, the cherry trees along the cemetery’s main path make a tunnel of blossom.',
+      'In July and August, Shinobazu Pond is covered in lotus flowers.',
+    ],
+  },
   match: {
     moods: { Peaceful: 85, Adventurous: 25, Romantic: 60, Curious: 85, Playful: 40, Cultural: 85 },
     with: { Solo: 95, Couple: 80, Family: 55, 'Friends / Group': 65 },

@@ -230,6 +230,43 @@ export default {
     timeOfDay: 'Early in the morning',
     timeNote: 'Fuji is most often clear of cloud in the morning.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against Yamanashi's and
+  // Fujiyoshida's tourist information and the Mt. Fuji Panoramic Ropeway's
+  // published fares.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes, for almost 400 steps up to the Chureito Pagoda.',
+      'Warm layers: Fujiyoshida is about 800 metres up, and much colder than Tokyo, especially in the morning.',
+      'Water, and some cash for snacks and train tickets.',
+      'A bag for your rubbish: Japan has very few public bins.',
+    ],
+    costs: [
+      'Honcho-dori, the shrines and the Chureito Pagoda are free.',
+      { lead: 'Mt. Fuji Panoramic Ropeway', text: '¥1,000 return (¥500 for children), or ¥600 one way. Half price for disabled visitors.' },
+      'The train from Shimoyoshida to Kawaguchiko is a short ride on the Fujikyu Railway.',
+    ],
+    getting: [
+      'Start at Shimoyoshida Station, on the Fujikyu Railway, which connects with the JR Chuo Line at Otsuki.',
+      'The walk ends at Lake Kawaguchi, a few minutes’ walk from Kawaguchiko Station at the end of the line.',
+      'Cars are discouraged around the Chureito Pagoda: walk up from Shimoyoshida Station.',
+    ],
+    access: [
+      'Flat along Honcho-dori, then almost 400 steps up to the Chureito Pagoda: not possible with a wheelchair or stroller.',
+      'Kitaguchi Hongu Fuji Sengen Shrine is a bus or taxi ride across town, with gravel paths under the cedars.',
+    ],
+    restrictions: [
+      { lead: 'Honcho-dori', text: 'A working street with traffic. Take your photos from the sidewalk, not the road.' },
+      { lead: 'Mt. Fuji Panoramic Ropeway', text: 'Usually 8:30 AM–5 PM (later in summer). It stops in strong wind.' },
+      'In the cherry blossom season, photography on the pagoda’s viewing deck may be restricted to keep the crowds moving.',
+    ],
+    tips: [
+      'Mount Fuji is clearest early in the morning and in winter. By midday it’s often behind cloud.',
+      'The cherry blossoms around the pagoda peak in early to mid April, and the autumn leaves from late October to mid November. Both bring big crowds.',
+      'Go early on a weekday to beat the crowds on the viewing deck.',
+    ],
+  },
   match: {
     moods: { Peaceful: 70, Adventurous: 70, Romantic: 80, Curious: 60, Playful: 35, Cultural: 70 },
     with: { Solo: 80, Couple: 90, Family: 65, 'Friends / Group': 80 },

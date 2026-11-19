@@ -57,7 +57,7 @@
   text-transform: uppercase;
 }
 
-/* The one main button. Every green call to action in the app is this size. */
+/* The one main button. Every deep blue call to action in the app is this size. */
 /* The main button, all through a journey and in the boxes over it: a deep
    blue pill, the words in white capitals, spaced out, and an orange arrow on
    the ones that move you on, like Find My Journeys and Discover This Journey. */
@@ -208,7 +208,7 @@ button:focus-visible {
 
 .progressFill {
   height: 100%;
-  background-color: var(--unfold-green);
+  background-color: var(--unfold-blue);
   transition: width 0.3s ease;
 }
 
@@ -332,7 +332,7 @@ button:focus-visible {
   text-align: left;
 }
 
-/* The small green heading: the phase of the journey, or "Your journey". */
+/* The small blue heading: the phase of the journey, or "Your journey". */
 .heroKicker {
   display: flex;
   align-items: center;
@@ -345,13 +345,13 @@ button:focus-visible {
   color: var(--photo-accent);
 }
 
-/* A small green dot before it. */
+/* A small blue dot before it. */
 .heroKicker::before {
   content: '';
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: var(--unfold-green);
+  background-color: var(--unfold-blue);
 }
 
 .heroLabel {
@@ -439,7 +439,7 @@ button:focus-visible {
 }
 
 /* The words at the top and the button at the bottom, with the space between
-   them left clear for the photo. The dark green shows behind a photo that's
+   them left clear for the photo. The deep blue shows behind a photo that's
    still loading. */
 .feedCard {
   position: relative;
@@ -450,7 +450,7 @@ button:focus-visible {
   padding: calc(60px + var(--frame-top)) 16px 18px;
   overflow: hidden;
   isolation: isolate;
-  background-color: var(--unfold-green);
+  background-color: var(--unfold-blue);
   text-align: left;
   cursor: pointer;
   scroll-snap-align: start;
@@ -2055,7 +2055,7 @@ button.detailBar:active {
   font-size: 14px;
 }
 
-/* A white pill, outlined in green while you type in it. */
+/* A white pill, outlined in blue while you type in it. */
 .searchField {
   display: flex;
   align-items: center;
@@ -2073,8 +2073,8 @@ button.detailBar:active {
 }
 
 .searchField:focus-within {
-  border-color: var(--unfold-green);
-  box-shadow: inset 0 0 0 1px var(--unfold-green);
+  border-color: var(--unfold-blue);
+  box-shadow: inset 0 0 0 1px var(--unfold-blue);
 }
 
 .searchField > svg {
@@ -2206,7 +2206,7 @@ button.detailBar:active {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  color: var(--unfold-green);
+  color: var(--unfold-blue);
 }
 
 /* On See Your Journey there are four (its main experience too), so each has
@@ -2254,7 +2254,7 @@ button.detailBar:active {
 /* --- Weather & Best Time to Go (BestTime.jsx) ---
    On See Your Journey, just above the route, and folded away the same way,
    with the same bar (the routeFold classes, below). What unfolds: the best
-   season and the best time of day, each in a cream card like a stop on the
+   season and the best time of day, each in a light gray card like a stop on the
    route, with a little line icon. */
 
 .bestTime {
@@ -2278,7 +2278,7 @@ button.detailBar:active {
   padding: 14px 16px 14px 14px;
   border: 1px solid var(--outline);
   border-radius: 15px;
-  background-color: var(--cream);
+  background-color: var(--box-gray);
 }
 
 .bestTimeIcon {
@@ -2325,9 +2325,10 @@ button.detailBar:active {
 
 /* --- Before You Go (BeforeYouGo.jsx) ---
    On See Your Journey, just under the route, folded away the same way (the
-   routeFold classes). What unfolds: a cream card for each of what to bring,
-   tickets and costs, and so on, like the best time cards above, with its
-   points in a list. Then a note to check the hours. */
+   routeFold classes). What unfolds: a light gray card for each of what to bring,
+   tickets and costs, and so on, like the best time cards above. Each shows
+   just its title until it's tapped, then opens (the routeFold classes again)
+   to its points in a list. Then a note to check the hours. */
 
 .beforeYouGo {
   margin-top: 12px;
@@ -2344,27 +2345,53 @@ button.detailBar:active {
 }
 
 .beforeGoCard {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  column-gap: 12px;
-  align-items: start;
-  padding: 14px 16px 14px 14px;
   border: 1px solid var(--outline);
   border-radius: 15px;
-  background-color: var(--cream);
+  background-color: var(--box-gray);
+}
+
+.beforeGoHeading {
+  margin: 0;
+}
+
+/* The card's title, all of it a button: its icon, WHAT TO BRING, and a
+   chevron that turns up once it's open, like the bars above. */
+.beforeGoToggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 14px;
+  font: inherit;
+  text-align: left;
+  background: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.beforeGoToggle:active {
+  background-color: rgb(236, 238, 241);
+}
+
+.beforeGoCard.isOpen .beforeGoToggle {
+  border-radius: 14px 14px 0 0;
 }
 
 .beforeGoIcon {
+  flex-shrink: 0;
   width: 22px;
   height: 22px;
-  margin-top: -2px;
   color: var(--accent-ink);
 }
 
 /* WHAT TO BRING, small, like RECOMMENDED SEASON. */
 .beforeGoTitle {
-  margin: 0;
-  font-size: 10px;
+  flex: 1;
+  font-size: 10.5px;
   font-weight: 600;
   letter-spacing: 2.5px;
   line-height: 1.4;
@@ -2372,12 +2399,31 @@ button.detailBar:active {
   color: var(--accent-ink);
 }
 
-/* Each point with a little dot before it. */
+.beforeGoChevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--ink-muted);
+  transform: rotate(90deg);
+  transition: transform 0.3s ease;
+}
+
+.beforeGoCard.isOpen .beforeGoChevron {
+  transform: rotate(-90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beforeGoChevron {
+    transition: none;
+  }
+}
+
+/* Each point with a little dot before it, lined up under the title. */
 .beforeGoPoints {
   display: grid;
   gap: 6px;
-  margin: 8px 0 0;
-  padding: 0;
+  margin: 0;
+  padding: 0 16px 14px 48px;
   list-style: none;
 }
 
@@ -2427,11 +2473,11 @@ button.detailBar:active {
 /* --- Get Ready (GetReadyPage.jsx) ---
    Between BEGIN JOURNEY and the first stop, laid out like Find My Journey's
    steps: back on the left, the logo, and ✕ on the right to end the journey.
-   Today's conditions in faint cream boxes (the temperature, and sunrise and
+   Today's conditions in faint gray boxes (the temperature, and sunrise and
    sunset beside it), the next 24 hours in a strip you can swipe along, and
    the verdict in green, yellow, orange or red. Then the walk and its effort,
    and the question with its two buttons. The weather's pictures are in
-   orange, and a cloud in front of the sun is filled with the box's cream
+   orange, and a cloud in front of the sun is filled with the box's gray
    (--icon-fill). */
 
 .stepClose {
@@ -2469,11 +2515,11 @@ button.detailBar:active {
 }
 
 .readyBox {
-  --icon-fill: var(--cream);
+  --icon-fill: var(--box-gray);
   box-sizing: border-box;
   border: 1px solid var(--outline);
   border-radius: 15px;
-  background-color: var(--cream);
+  background-color: var(--box-gray);
 }
 
 .readyTemp {
@@ -2549,7 +2595,7 @@ button.detailBar:active {
 /* The next 24 hours: five at a time, swiped along, each snapping into
    place, with no scroll bar. */
 .readyHours {
-  --icon-fill: var(--cream);
+  --icon-fill: var(--box-gray);
   display: flex;
   margin: 10px 0 0;
   padding: 12px 4px;
@@ -2557,7 +2603,7 @@ button.detailBar:active {
   list-style: none;
   border: 1px solid var(--outline);
   border-radius: 15px;
-  background-color: var(--cream);
+  background-color: var(--box-gray);
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   overscroll-behavior-x: contain;
@@ -2680,7 +2726,7 @@ button.detailBar:active {
 
 .readyVerdict.isUnknown {
   border-color: var(--outline);
-  background-color: var(--cream);
+  background-color: var(--box-gray);
 }
 
 .readyVerdict.isUnknown .readyVerdictIcon {
@@ -2727,7 +2773,7 @@ button.detailBar:active {
   padding: 28px 16px;
   border: 1px solid var(--outline);
   border-radius: 15px;
-  background-color: var(--cream);
+  background-color: var(--box-gray);
   font-size: 14px;
   text-align: center;
   color: var(--ink-muted);
@@ -2945,7 +2991,7 @@ button.detailBar:active {
   list-style: none;
 }
 
-/* Each stop in a cream card of its own, so it stands out from the white
+/* Each stop in a light gray card of its own, so it stands out from the white
    page and the walks between: the number on the left, and everything about
    the stop beside it. */
 .routeStopCard {
@@ -2955,7 +3001,7 @@ button.detailBar:active {
   padding: 14px 14px 14px 12px;
   border: 1px solid var(--outline);
   border-radius: 15px;
-  background-color: var(--cream);
+  background-color: var(--box-gray);
 }
 
 .routeNumber {
@@ -2965,7 +3011,7 @@ button.detailBar:active {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background-color: var(--unfold-green);
+  background-color: var(--unfold-blue);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0;
@@ -3056,7 +3102,7 @@ button.detailBar:active {
 
 /* The walk on to the next stop, between the two cards and not in one: a
    line runs down from one card's number to the next card's, in the route's
-   green (as on the map), with the walk beside it. */
+   blue (as on the map), with the walk beside it. */
 .routeLeg {
   position: relative;
   padding: 14px 0 14px 50px;
@@ -3070,7 +3116,7 @@ button.detailBar:active {
   /* Under the middle of the numbers: the card's edge and padding, then half
      a number, less half the line. */
   left: 26px;
-  border-left: 2px solid color-mix(in srgb, var(--unfold-green) 45%, transparent);
+  border-left: 2px solid color-mix(in srgb, var(--unfold-blue) 45%, transparent);
 }
 
 .routeLegWay {
@@ -3079,7 +3125,7 @@ button.detailBar:active {
 }
 
 .routeLegWay svg {
-  color: var(--unfold-green);
+  color: var(--unfold-blue);
 }
 
 .routeLegEffort {
@@ -3137,10 +3183,10 @@ button.detailBar:active {
   color: var(--ink-muted);
 }
 
-/* The walking altogether, and the whole journey's time, in cream like the
+/* The walking altogether, and the whole journey's time, in light gray like the
    stops. */
 .routeTotals {
-  background-color: var(--cream);
+  background-color: var(--box-gray);
 }
 
 .routeTotals .startCardRow + .startCardRow {
@@ -3220,7 +3266,7 @@ button.detailBar:active {
 
 /* A detour's ring is dashed, like its line. */
 .mapPin.isDetour .mapPinPhoto {
-  outline: 1.5px dashed var(--unfold-green);
+  outline: 1.5px dashed var(--unfold-blue);
   outline-offset: 1px;
 }
 
@@ -3239,7 +3285,7 @@ button.detailBar:active {
   font-weight: 700;
   line-height: 1;
   color: white;
-  background-color: var(--unfold-green);
+  background-color: var(--unfold-blue);
 }
 
 .mapPinName {
@@ -3335,7 +3381,7 @@ button.detailBar:active {
 .routeMapKeyLine {
   width: 22px;
   height: 0;
-  border-top: 4px solid var(--unfold-green);
+  border-top: 4px solid var(--unfold-blue);
   border-radius: 2px;
 }
 
@@ -3343,7 +3389,7 @@ button.detailBar:active {
   height: 4px;
   border: 0;
   border-radius: 0;
-  background-image: radial-gradient(circle, var(--unfold-green) 2px, transparent 2.5px);
+  background-image: radial-gradient(circle, var(--unfold-blue) 2px, transparent 2.5px);
   background-size: 8px 4px;
 }
 
@@ -3365,7 +3411,7 @@ button.detailBar:active {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
-  color: var(--unfold-green);
+  color: var(--unfold-blue);
 }
 
 .startCardName {
@@ -3410,7 +3456,7 @@ button.detailBar:active {
   color: var(--ink-muted);
 }
 
-/* A second way forward: a link in green rather than a whole button. */
+/* A second way forward: a link in blue rather than a whole button. */
 .textLink {
   margin-top: 2px;
   padding: 8px 10px;
@@ -3730,7 +3776,7 @@ button.detailBar:active {
 }
 
 /* Interesting spots near a stop (NearbySpots in StopPages.jsx), after the
-   suggested time: a list with a small green dot by each name. */
+   suggested time: a list with a small blue dot by each name. */
 .nearby {
   margin-top: 28px;
   text-align: left;
@@ -3757,7 +3803,7 @@ button.detailBar:active {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: var(--unfold-green);
+  background-color: var(--unfold-blue);
 }
 
 .nearbyName {
@@ -3882,7 +3928,7 @@ button.detailBar:active {
   align-items: center;
   gap: 6px;
   padding: 8px 12px 8px 14px;
-  border: 1px solid var(--unfold-green);
+  border: 1px solid var(--unfold-blue);
   border-radius: 999px;
   font-size: 11px;
   font-weight: 600;
@@ -3895,7 +3941,7 @@ button.detailBar:active {
 
 .nearbyDirections:active,
 .nearbyDirections.isOpen {
-  background-color: color-mix(in srgb, var(--unfold-green) 8%, var(--surface));
+  background-color: color-mix(in srgb, var(--unfold-blue) 8%, var(--surface));
 }
 
 .nearbyDirections svg {
@@ -3970,7 +4016,7 @@ button.detailBar:active {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
-  color: var(--unfold-green);
+  color: var(--unfold-blue);
 }
 
 .arrivedPage .detourCard .introBtn {
@@ -4020,7 +4066,7 @@ button.detailBar:active {
 
 /* The same ringed circle as the numbers on Find My Journey. */
 .narrationPlay {
-  border: 1px solid var(--unfold-green);
+  border: 1px solid var(--unfold-blue);
   color: var(--ink);
 }
 
@@ -4047,11 +4093,11 @@ button.detailBar:active {
 
 @media (hover: hover) {
   .narrationPlay:hover {
-    background-color: color-mix(in srgb, var(--unfold-green) 8%, transparent);
+    background-color: color-mix(in srgb, var(--unfold-blue) 8%, transparent);
   }
 
   .narrationRestart:hover {
-    border-color: var(--unfold-green);
+    border-color: var(--unfold-blue);
     color: var(--ink);
   }
 }
@@ -4112,8 +4158,8 @@ button.detailBar:active {
 .narrationFind {
   margin: 24px 0;
   padding: 14px 16px 16px;
-  background-color: color-mix(in srgb, var(--unfold-green) 6%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--unfold-green) 22%, var(--surface));
+  background-color: color-mix(in srgb, var(--unfold-blue) 6%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--unfold-blue) 22%, var(--surface));
   border-radius: 15px;
 }
 
@@ -4274,11 +4320,11 @@ button.detailBar:active {
   margin-bottom: 0;
 }
 
-/* The peak, made the most of: larger and bolder, with a green line beside it. */
+/* The peak, made the most of: larger and bolder, with a blue line beside it. */
 .memoryStory .memoryStoryPeak {
   margin: 22px 0;
   padding-left: 16px;
-  border-left: 2px solid var(--unfold-green);
+  border-left: 2px solid var(--unfold-blue);
   font-family: var(--heading);
   font-size: 18px;
   line-height: 1.4;
@@ -4286,7 +4332,7 @@ button.detailBar:active {
   font-weight: 600;
 }
 
-/* The timeline: a green line down the left, with a dot for each stop. */
+/* The timeline: a blue line down the left, with a dot for each stop. */
 .memoryTimeline,
 .timelineBranch ol {
   margin: 0;
@@ -4311,7 +4357,7 @@ button.detailBar:active {
   left: 6px;
   top: 0;
   bottom: 0;
-  border-left: 2px solid rgba(19, 57, 58, 0.5);
+  border-left: 2px solid rgba(1, 66, 84, 0.5);
 }
 
 .memoryTimeline > li:first-child::before {
@@ -4337,7 +4383,7 @@ button.detailBar:active {
   box-sizing: border-box;
   width: 14px;
   height: 14px;
-  border: 2px solid var(--unfold-green);
+  border: 2px solid var(--unfold-blue);
   border-radius: 50%;
   background-color: var(--bg);
 }
@@ -4388,7 +4434,7 @@ button.detailBar:active {
   box-sizing: border-box;
   width: 100%;
   height: 150px;
-  border: 2px solid var(--unfold-green);
+  border: 2px solid var(--unfold-blue);
   border-radius: 14px;
 }
 
@@ -4397,7 +4443,7 @@ button.detailBar:active {
   top: 0;
   width: 20px;
   height: 20px;
-  background-color: var(--unfold-green);
+  background-color: var(--unfold-blue);
 }
 
 .timelineStop.isPeak .timelineName {
@@ -4421,7 +4467,7 @@ button.detailBar:active {
   left: -22px;
   top: 9px;
   width: 22px;
-  border-top: 2px dashed rgba(19, 57, 58, 0.45);
+  border-top: 2px dashed rgba(1, 66, 84, 0.45);
 }
 
 .timelineBranch .timelineDot {
@@ -4532,8 +4578,8 @@ button.detailBar:active {
 
 .surveyInput:focus {
   outline: none;
-  border-color: var(--unfold-green);
-  box-shadow: inset 0 0 0 1px var(--unfold-green);
+  border-color: var(--unfold-blue);
+  box-shadow: inset 0 0 0 1px var(--unfold-blue);
 }
 
 .surveyTextarea {
@@ -4541,7 +4587,7 @@ button.detailBar:active {
   resize: vertical;
 }
 
-/* Yes / Maybe / No, side by side. The picked one is outlined in green. */
+/* Yes / Maybe / No, side by side. The picked one is outlined in blue. */
 .surveyChoices {
   display: flex;
   gap: 10px;
@@ -4564,15 +4610,15 @@ button.detailBar:active {
 }
 
 .surveyChoice.isChosen {
-  background-color: color-mix(in srgb, var(--unfold-green) 6%, var(--surface));
-  border-color: var(--unfold-green);
+  background-color: color-mix(in srgb, var(--unfold-blue) 6%, var(--surface));
+  border-color: var(--unfold-blue);
   color: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--unfold-green);
+  box-shadow: inset 0 0 0 1px var(--unfold-blue);
 }
 
 @media (hover: hover) {
   .surveyChoice:hover {
-    border-color: rgba(19, 57, 58, 0.6);
+    border-color: rgba(1, 66, 84, 0.6);
   }
 }
 

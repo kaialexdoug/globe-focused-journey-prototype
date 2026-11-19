@@ -239,7 +239,7 @@ function LiveMap({ stop, onFail }) {
             new Polyline({
               map,
               path,
-              strokeColor: styles.getPropertyValue('--unfold-green').trim() || '#13393a',
+              strokeColor: styles.getPropertyValue('--unfold-blue').trim() || '#014254',
               strokeOpacity: 0.9,
               strokeWeight: 5,
             })

@@ -2,12 +2,12 @@
   /* Unfold's colours, sampled from the approved mockups. Light only for
      now: dark mode is coming back later, as its own set of these. */
 
-  /* The brand. Deep forest green for the one main action on a screen, and a
-     soft peach for progress. */
-  --unfold-green: #13393a;
+  /* The brand: a soft peach for progress. */
   --unfold-peach: #f9c3a5;
   /* The new style, sampled from the Find My Journey mockup: its deep blue
-     button, and the bright orange of the arrow on it. */
+     button, and the bright orange of the arrow on it. The deep blue's also
+     the accent everywhere else (it took over from a deep forest green), and
+     the colour of the route on the maps. */
   --unfold-blue: rgb(1, 66, 84);
   --unfold-orange: rgb(245, 106, 7);
   /* Find My Journey's progress bar, from its mockups: the step you're on in
@@ -26,9 +26,10 @@
   --text-h: rgb(20, 24, 33);
   /* Every page is white, as in the newer mockups. */
   --bg: white;
-  /* The warm cream the pages used to be, kept for the boxes in a journey's
-     route details, which are easier to read set off from the white. */
-  --cream: rgb(248, 243, 238);
+  /* A very light gray for the boxes on the white (a journey's route details,
+     Before You Go, Get Ready and so on), which are easier to read set off
+     from it. They used to be a warm cream. */
+  --box-gray: rgb(245, 246, 248);
   --border: rgb(228, 223, 217);
 
   --sans: 'Montserrat', system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -48,10 +49,10 @@
   --ink-label: rgb(100, 98, 104);
   --ink-link: rgb(70, 72, 80);
   --ink-placeholder: rgb(150, 145, 140);
-  --accent-ink: var(--unfold-green);
+  --accent-ink: var(--unfold-blue);
   --green-ink: rgb(46, 112, 70);
   --surface: white;
-  --surface-low: rgb(252, 250, 247);
+  --surface-low: rgb(250, 250, 251);
   --line: rgb(228, 223, 217);
   --outline: rgb(218, 212, 205);
   --page-top: rgb(240, 233, 226);
@@ -119,7 +120,7 @@
   --photo-ink: rgb(20, 24, 33);
   --photo-ink-soft: rgb(56, 56, 62);
   --photo-pill: rgba(255, 255, 255, 0.85);
-  --photo-accent: var(--unfold-green);
+  --photo-accent: var(--unfold-blue);
   --photo-panel-soft: rgba(255, 255, 255, 0.6);
 
   /* The bluish black of Find My Journey's words and the fade along its bottom,

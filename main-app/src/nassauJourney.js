@@ -253,6 +253,43 @@ export default {
     timeOfDay: 'From late morning',
     timeNote: 'It ends at the Arawak Cay Fish Fry, in time for dinner.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against visitor guides for the
+  // Queen's Staircase and Fort Fincastle.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Sunscreen, a hat, sunglasses and lots of water: it’s hot, with little shade on the climbs.',
+      'Comfortable shoes, for the Queen’s Staircase and the hills.',
+      'Some cash for small fees and the fish fry. US dollars are accepted everywhere, one-for-one with the Bahamian dollar.',
+    ],
+    costs: [
+      'Parliament Square, the Queen’s Staircase, Government House (from outside) and the waterfront are free.',
+      { lead: 'Fort Fincastle and Fort Charlotte', text: 'Small entry fees, or donations, which change: bring a few dollars in cash.' },
+      'John Watling’s Distillery offers tours; tastings and drinks cost extra.',
+      'Budget for dinner at the Arawak Cay Fish Fry.',
+    ],
+    getting: [
+      'Start at Parliament Square on Bay Street, a few minutes’ walk from the cruise port.',
+      'The walk ends at the Arawak Cay Fish Fry, about 2 km west of where it started: walk back along West Bay Street, or take a taxi.',
+      'Traffic drives on the left in the Bahamas: look right first when you cross.',
+    ],
+    access: [
+      'Downtown is flat, but the Queen’s Staircase is 66 steep stone steps, and Government House is up a short, steep hill.',
+      'The steps aren’t possible with a wheelchair or stroller, but Fort Fincastle, at the top, can be reached by road.',
+      'Sidewalks are narrow or missing in places along the way.',
+    ],
+    restrictions: [
+      'The forts and the distillery keep daytime hours, which vary: check before you go.',
+      'Government House is the Governor-General’s residence: you can see it from the gates, but not go in.',
+      'June to November is hurricane season: check the forecast before you go.',
+    ],
+    tips: [
+      'Do the climbs in the morning, before the heat, and save the fish fry for the evening.',
+      'The fish fry is at its liveliest in the evenings and at weekends. Try the conch salad, made in front of you.',
+      'Bay Street is busiest when the cruise ships are in: the streets are calmer once they’ve left in the evening.',
+    ],
+  },
   match: {
     moods: { Peaceful: 40, Adventurous: 60, Romantic: 50, Curious: 85, Playful: 50, Cultural: 90 },
     with: { Solo: 80, Couple: 80, Family: 60, 'Friends / Group': 80 },

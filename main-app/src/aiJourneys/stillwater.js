@@ -233,6 +233,42 @@ export default {
     timeOfDay: 'In the afternoon and evening',
     timeNote: 'It ends by the river at dusk, as the lights come on.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Washington County
+  // Historical Society's page for the Warden's House Museum.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes, for the climb up to the courthouse and back down.',
+      'A light jacket for the evening by the river, and a warm one in winter.',
+      'Water and sunscreen in summer.',
+    ],
+    costs: [
+      'Main Street, the Lift Bridge and the riverfront are free.',
+      { lead: 'Warden’s House Museum', text: '$10, or $3 for ages 6–17. Tickets at the door.' },
+      'Budget for an ice cream at Nelson’s, and a meal on Main Street.',
+    ],
+    getting: [
+      'You’ll want a car: Stillwater is about 40 minutes east of the Twin Cities.',
+      'The walk starts and ends in Lowell Park, by the river. Downtown lots fill up on summer weekends, so come early.',
+      'The old Lift Bridge is for walking and cycling now: cars use the new St. Croix Crossing, south of town.',
+    ],
+    access: [
+      'Flat along the river and Main Street.',
+      'The climb up to the Historic Courthouse is about 40 metres, on steep streets.',
+      'The Lift Bridge has a wide, flat path across.',
+    ],
+    restrictions: [
+      { lead: 'Warden’s House Museum', text: 'Open May to October, Thursday to Sunday, with guided tours at 1, 2, 3 and 4 PM.' },
+      'If you want to see inside the Historic Courthouse, check its hours before you go.',
+      'The Lift Bridge still rises for boats in summer, so you may have to wait.',
+    ],
+    tips: [
+      'Nelson’s portions are famously huge: the smallest size is plenty for most people.',
+      'Stay in Lowell Park for dusk, when the lights come on along the bridge and the river.',
+      'In early to mid October, the bluffs along the St. Croix turn red and gold, and the town gets busy.',
+    ],
+  },
   match: {
     moods: { Peaceful: 70, Adventurous: 30, Romantic: 90, Curious: 70, Playful: 45, Cultural: 55 },
     with: { Solo: 60, Couple: 95, Family: 60, 'Friends / Group': 75 },

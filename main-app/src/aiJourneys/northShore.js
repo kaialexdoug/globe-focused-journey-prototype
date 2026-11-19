@@ -259,6 +259,47 @@ export default {
     timeOfDay: 'Starting in the morning',
     timeNote: 'It’s a long drive up the shore, with a lot to stop for.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Minnesota DNR's state
+  // park permit and Gooseberry Falls pages, Minnesota law on Palisade Head,
+  // and the Minnesota Historical Society's Split Rock pages.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Warm layers and a rain jacket: the weather by Lake Superior changes fast, and it’s cool even in summer.',
+      'Shoes with a good grip, for wet rocks by the falls and bare rock at Palisade Head.',
+      'Insect repellent in June and July, when the biting flies are out.',
+      'Water and snacks: there are long stretches between towns.',
+    ],
+    costs: [
+      { lead: 'State park vehicle permit', text: '$7 for a day, or $35 for a year. You need one for most of the parks along the way.' },
+      { lead: 'Gooseberry Falls', text: 'No permit needed to park at the visitor center by the falls, only to drive on to the lakeshore and picnic areas.' },
+      { lead: 'Split Rock Lighthouse', text: 'Run by the Minnesota Historical Society, with its own admission, which changes with the season. Parking there is free during its hours.' },
+      'Two Harbors’ lighthouse, the Edna G and the town’s museums are run by local groups, with small fees for tours.',
+    ],
+    getting: [
+      'You’ll need a car: the walk drives up Highway 61 along the shore.',
+      'It starts at the lighthouse in Two Harbors, about 45 minutes up the shore from Duluth.',
+      'The walk ends at Palisade Head, about 50 km up the shore from where it starts: about 40 minutes’ drive back.',
+      'The road up Palisade Head is narrow and steep. A permit isn’t needed there if you stay under an hour.',
+    ],
+    access: [
+      'Short paths at Gooseberry Falls lead from the visitor center to the falls, with steps down to the river.',
+      'At Split Rock, there are stairs up the lighthouse tower, and a long flight of steps down to the shore.',
+      'Palisade Head is bare, uneven rock, with sheer drops: not suitable for a wheelchair or stroller.',
+    ],
+    restrictions: [
+      { lead: 'Palisade Head', text: 'There are no railings at the cliff edges. Keep children and dogs close.' },
+      { lead: 'Split Rock Lighthouse', text: 'Hours and tours change with the season. A state park permit is needed when the historic site is closed.' },
+      'Many of the smaller museums and tours along the shore only open from late spring to fall.',
+    ],
+    tips: [
+      'Every November 10, Split Rock lights its beacon in memory of the Edmund Fitzgerald, lost with all 29 crew in 1975.',
+      'The fall colors along the shore are usually at their best from late September to early October.',
+      'Gooseberry Falls gets very busy on summer weekends: go early in the morning.',
+      'At Iona’s Beach, listen to the waves rattle the flat pink stones.',
+    ],
+  },
   match: {
     moods: { Peaceful: 75, Adventurous: 90, Romantic: 70, Curious: 65, Playful: 45, Cultural: 35 },
     with: { Solo: 75, Couple: 85, Family: 80, 'Friends / Group': 85 },

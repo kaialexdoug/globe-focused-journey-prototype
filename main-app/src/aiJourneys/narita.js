@@ -237,6 +237,44 @@ export default {
     timeOfDay: 'During the day, before your flight',
     timeNote: 'Leave plenty of time to get to the airport afterward.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against the Naritasan Calligraphy
+  // Museum's published fees and hours, and Kawatoyo's listings.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes, for the slope down Omotesando and the steps around the temple.',
+      'Cash: Kawatoyo doesn’t take credit cards (it does take PayPay).',
+      'A Suica or PASMO card (or one on your phone) for the train.',
+      'If you’re flying, as little as you can: leave big bags in a coin locker at the airport.',
+    ],
+    costs: [
+      'Naritasan Shinshoji, the Great Pagoda of Peace and Naritasan Park are free.',
+      { lead: 'Naritasan Calligraphy Museum', text: '¥800 (from October 20, 2026). Free for anyone under 18.' },
+      'Budget for lunch: eel is Narita’s specialty, and it isn’t cheap.',
+    ],
+    getting: [
+      'Start at JR Narita Station (Keisei Narita Station is right next to it). The airport is about 10 minutes away by train.',
+      'The walk ends at Kawatoyo, on Omotesando, about 10 minutes’ walk back up to the stations.',
+      'If you drive, there are paid lots along Omotesando, and the Calligraphy Museum has a few free spaces.',
+    ],
+    access: [
+      'Omotesando slopes gently down to the temple, so it’s uphill on the way back.',
+      'There are stone steps up through the temple grounds to the Great Pagoda, and more in the park behind it.',
+      'Omotesando is crowded at weekends, and packed over New Year.',
+    ],
+    restrictions: [
+      { lead: 'Calligraphy Museum', text: '9 AM–4 PM, last entry 3:30 PM. Closed on Mondays (or the next weekday, after a holiday Monday), between exhibitions and at the end of the year.' },
+      { lead: 'Kawatoyo', text: '10 AM–5 PM. It doesn’t take reservations: you queue.' },
+    ],
+    tips: [
+      'At Kawatoyo, the eels are prepared right at the front of the shop, where you can watch.',
+      'At weekends, the queue for Kawatoyo can be an hour or two: go early, or on a weekday.',
+      'Several times a day, you can sit in on the Goma fire ritual in the Great Main Hall. Ask at the temple for the times.',
+      'If you’re flying, leave plenty of time: aim to be at the airport two to three hours before your flight.',
+      'Over the first few days of January, millions of people visit Shinshoji, and the town is packed.',
+    ],
+  },
   match: {
     moods: { Peaceful: 75, Adventurous: 25, Romantic: 40, Curious: 70, Playful: 30, Cultural: 90 },
     with: { Solo: 90, Couple: 70, Family: 60, 'Friends / Group': 60 },

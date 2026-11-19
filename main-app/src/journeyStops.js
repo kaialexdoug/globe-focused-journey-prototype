@@ -395,6 +395,46 @@ export const kawagoeJourney = {
     timeOfDay: 'From mid-morning, on a weekday',
     timeNote: 'MARUYA is open at lunchtime, and the old streets are much calmer on weekdays.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against Kawagoe City's pages for the
+  // museum and the castle palace.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes. It’s flat all the way, but you’ll be on your feet for a few hours.',
+      'Cash for the snacks and sweet shops along the way: small shops often only take cash.',
+      'A Suica or PASMO card (or one on your phone) for the train.',
+      'A bag for your rubbish: Japan has very few public bins.',
+      'An umbrella in the rainy season (June to mid-July), and a hat and water in summer.',
+    ],
+    costs: [
+      'The streets, Toki no Kane and Hikawa Shrine are free.',
+      { lead: 'Kawagoe Castle Honmaru Goten', text: '¥100, or ¥50 for high school and university students.' },
+      { lead: 'Kawagoe City Museum', text: '¥200, or ¥100 for high school and university students. Free up to junior high school age.' },
+      'A shared ticket for the museum, the palace and the city art museum costs ¥370.',
+      'Budget for lunch at MARUYA and snacks along the old streets.',
+    ],
+    getting: [
+      'Start at Kawagoe Station, on the Tobu Tojo Line from Ikebukuro and the JR Kawagoe Line.',
+      'The walk ends at MARUYA, about 2 km from Kawagoe Station but only about 10 minutes on foot from Hon-Kawagoe Station, on the Seibu Shinjuku Line.',
+      'Parking in the old town is limited and fills up at weekends. If you drive, use a paid lot near the station.',
+    ],
+    access: [
+      'Flat the whole way, on streets and sidewalks.',
+      'The old merchant street’s sidewalks are narrow and crowded at weekends, which is slow going with a stroller or wheelchair.',
+      'The Honmaru Goten is an old wooden palace: you take your shoes off inside.',
+    ],
+    restrictions: [
+      { lead: 'City Museum and Honmaru Goten', text: '9 AM–5 PM, last entry 4:30 PM. Closed on Mondays (or the next day, after a holiday Monday), on the fourth Friday of the month (unless it’s a holiday) and December 29–January 3.' },
+      { lead: 'MARUYA', text: 'Open at lunchtime. Check its hours before you go, and expect a queue at weekends.' },
+    ],
+    tips: [
+      'Toki no Kane, the bell tower, rings four times a day: at 6 AM, noon, 3 PM and 6 PM.',
+      'Come on a weekday if you can: the old streets are much calmer.',
+      'At Hikawa Shrine, a handful of en-musubi-dama, good-luck charms for finding love made from the shrine’s pebbles, are given out free each morning from 8 AM. They go fast.',
+      'In summer, Hikawa Shrine hangs thousands of wind chimes for its En-musubi Furin festival.',
+    ],
+  },
   match: {
     moods: { Peaceful: 55, Adventurous: 35, Romantic: 65, Curious: 75, Playful: 50, Cultural: 95 },
     with: { Solo: 85, Couple: 85, Family: 75, 'Friends / Group': 80 },
@@ -724,6 +764,46 @@ export const odawaraJourney = {
     seasonNote: 'For the 300 or so cherry trees around Odawara Castle, at their best in late March and early April, and mild days by the sea.',
     timeOfDay: 'From late morning',
     timeNote: 'So you finish at Miyuki-no-Hama as the sun goes down.',
+  },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against Odawara Castle's own site
+  // and Odawara City's page for the Local Culture Museum.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Comfortable shoes, for the walk and the stairs inside the castle keep.',
+      'A Suica or PASMO card (or one on your phone) for the train, and some cash for the small shops on Kamaboko-dori.',
+      'Water, and a hat and sunscreen in summer: the walk ends on an open beach.',
+      'A bag for your rubbish: Japan has very few public bins.',
+    ],
+    costs: [
+      { lead: 'Odawara Castle keep', text: '¥1,000, or ¥300 for elementary and junior high school students (younger children free). The ticket gets you into the SAMURAI-kan too. These are new prices from March 2026.' },
+      { lead: 'NINJA-kan', text: '¥500, or ¥200 for elementary and junior high school students.' },
+      'The castle park, the Local Culture Museum, Hōtoku Ninomiya Shrine and the beach are free.',
+    ],
+    getting: [
+      'Start at Odawara Station, on the Odakyu Line from Shinjuku, the JR Tokaido Line and the Tokaido Shinkansen.',
+      'The walk ends at Miyuki-no-Hama, about 1.5 km from the station: about 20 minutes back on foot.',
+      'There’s no public parking at the castle park, so come by train if you can. If you drive, use one of the paid lots around the station.',
+      'There’s a small lot in the castle park for cars with disabled visitors (and tour buses and motorbikes), run by the Odawara tourist association.',
+    ],
+    access: [
+      'Mostly gentle streets, with some steps and a gentle climb into the castle grounds.',
+      'The castle keep has several floors of stairs inside.',
+      'Visitors with a disability certificate get into the keep and the NINJA-kan free, with one companion.',
+      'Miyuki-no-Hama is a pebbly beach, hard going in a wheelchair or with a stroller.',
+    ],
+    restrictions: [
+      { lead: 'Castle keep', text: '9 AM–5 PM, last entry 4:30 PM. Closed on the second Wednesday of December, and December 31–January 1.' },
+      { lead: 'NINJA-kan', text: '9 AM–5 PM, last entry 4:30 PM. Closed December 31–January 1.' },
+      { lead: 'Local Culture Museum', text: '9 AM–5 PM, last entry 4:30 PM. Closed December 28–January 3, and sometimes between exhibitions.' },
+    ],
+    tips: [
+      'Do the castle before 4:30 PM, then take your time on the way down to the sea for the sunset.',
+      'From the top of the keep you can see across Sagami Bay on a clear day.',
+      'In late March and early April, the castle park’s cherry trees are in bloom, and it gets busy.',
+      'Kamaboko-dori is named for the fish cakes Odawara is famous for, and its old shops still make them.',
+    ],
   },
   match: {
     moods: { Peaceful: 60, Adventurous: 50, Romantic: 65, Curious: 75, Playful: 55, Cultural: 90 },

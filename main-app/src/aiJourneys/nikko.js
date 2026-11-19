@@ -257,6 +257,46 @@ export default {
     timeOfDay: 'Starting in the morning',
     timeNote: 'The shrines and temples close in the late afternoon, earlier in winter.',
   },
+  // For Before You Go on See Your Journey (BeforeYouGo.jsx, which explains
+  // the shape). Checked in November 2026 against Toshogu's and Rinnoji's own
+  // sites, and Futarasan Shrine's published fee for the Shinkyo Bridge.
+  beforeYouGo: {
+    checked: 'November 2026',
+    bring: [
+      'Shoes that slip off easily: you take them off inside some of the halls.',
+      'A warm layer: Nikko is in the mountains, and much colder than Tokyo, especially in the shade of the cedars.',
+      'Cash for the entry fees, and a Suica or PASMO card (or one on your phone) for the buses.',
+      'An umbrella in the rainy season (June to mid-July).',
+    ],
+    costs: [
+      { lead: 'Toshogu', text: '¥1,600, or ¥550 for elementary and junior high school students. ¥2,400 with the Treasure Museum.' },
+      { lead: 'Rinnoji', text: 'Sanbutsudo ¥400, Taiyuin ¥550, or ¥900 for both (¥1,000 with the treasure hall and the Shoyoen garden).' },
+      { lead: 'Shinkyo Bridge', text: '¥300 to walk across it.' },
+      'Kanmangafuchi Abyss is free.',
+    ],
+    getting: [
+      'Start at Tobu-Nikko Station, on the Tobu Line from Asakusa (JR Nikko Station is just next door).',
+      'The walk ends at Kanmangafuchi Abyss, about 3 km from the station. Walk back down past the Shinkyo Bridge, where buses run to both stations, or take a taxi.',
+      'Buses on the World Heritage loop run between the stations and the shrines, if you’d rather not walk uphill.',
+      'If you drive, there are paid lots near the shrines, but they fill up in the autumn-leaf season.',
+    ],
+    access: [
+      'A steady uphill walk, with stone steps and gravel paths around the shrines.',
+      'Toshogu has long flights of stone steps, and the way up to Ieyasu’s tomb is about 200 more.',
+      'The path along Kanmangafuchi is uneven by the river.',
+    ],
+    restrictions: [
+      { lead: 'Toshogu', text: '9 AM–5 PM from April to October, and to 4 PM from November to March. Last entry 30 minutes before closing.' },
+      { lead: 'Rinnoji and Taiyuin', text: '8 AM–5 PM from April to October, and to 4 PM from November to March. Last entry 30 minutes before closing. Closed for ceremonies on a few days, like February 3 and April 2.' },
+      'Some halls don’t allow photos inside: look for the signs.',
+    ],
+    tips: [
+      'Start early: the shrines are much calmer before the tour groups arrive, mid-morning.',
+      'Look for the famous carvings at Toshogu: the three wise monkeys, and the sleeping cat over the way to Ieyasu’s tomb.',
+      'In mid-October to early November, the autumn leaves make the roads very busy: take the train.',
+      'Count the Jizo statues along Kanmangafuchi. Legend says you’ll never get the same number twice.',
+    ],
+  },
   match: {
     moods: { Peaceful: 70, Adventurous: 50, Romantic: 50, Curious: 80, Playful: 30, Cultural: 95 },
     with: { Solo: 85, Couple: 75, Family: 60, 'Friends / Group': 70 },
