@@ -220,11 +220,35 @@ function whenText(hour, index) {
   return index === 0 ? 'right now' : `around ${clockText(hour.time)}`
 }
 
+// How the verdict talks about the walk: all of it, from Get Ready, or what's
+// left of it, from a stop on the way (StopWeather.jsx).
+const WHOLE_WALK = {
+  walk: 'your walk',
+  mostOf: 'most of your walk',
+  all: 'your whole walk',
+  start: 'at the start of your walk',
+  partway: 'partway through your walk',
+  end: 'toward the end of your walk',
+  poorTitle: 'Poor conditions for this journey',
+  goodTitle: 'Good conditions for this journey',
+}
+
+const REST_OF_WALK = {
+  walk: 'the rest of your walk',
+  mostOf: 'most of the rest of your walk',
+  all: 'the rest of your walk',
+  start: 'as you head to this stop',
+  partway: 'later in your journey',
+  end: 'toward the end of your journey',
+  poorTitle: 'Poor conditions for the rest of the journey',
+  goodTitle: 'Good conditions for the rest of the journey',
+}
+
 // Where in the walk an hour is: at the start, toward the end, or partway.
-function partOfWalk(index, walkLength) {
-  if (index === 0) return 'at the start of your walk'
-  if (index === walkLength - 1) return 'toward the end of your walk'
-  return 'partway through your walk'
+function partOfWalk(index, walkLength, words) {
+  if (index === 0) return words.start
+  if (index === walkLength - 1) return words.end
+  return words.partway
 }
 
 function capitalize(text) {
@@ -288,22 +312,25 @@ const ADVICE = {
 }
 
 // For most of the walk.
-function mostlyText(problem, hours, units) {
+function mostlyText(problem, hours, units, words) {
   const feels = hours.map((hour) => degrees(hour.feelsLike, units))
   const mark = degreeMark(units)
   return {
-    storm: 'Thunderstorms are likely during your walk.',
-    snow: 'Snow is likely for most of your walk.',
-    rain: 'Rain is likely for most of your walk.',
-    hot: `It’ll feel like ${Math.max(...feels)}${mark} for most of your walk.`,
-    cold: `It’ll feel like ${Math.min(...feels)}${mark} for most of your walk.`,
-    wind: 'Strong winds are likely for most of your walk.',
+    storm: `Thunderstorms are likely during ${words.walk}.`,
+    snow: `Snow is likely for ${words.mostOf}.`,
+    rain: `Rain is likely for ${words.mostOf}.`,
+    hot: `It’ll feel like ${Math.max(...feels)}${mark} for ${words.mostOf}.`,
+    cold: `It’ll feel like ${Math.min(...feels)}${mark} for ${words.mostOf}.`,
+    wind: `Strong winds are likely for ${words.mostOf}.`,
   }[problem]
 }
 
 // The verdict for setting off now, on a journey taking `journeyHours`, with
-// its temperatures in `units`:
-// { level, title, text, advice }, where level is 'good', 'mostlyGood', 'risky'
+// its temperatures in `units`. With `rest`, it's for what's left of a journey
+// already under way, and `journeyHours` is how long that takes; it says so
+// ("the rest of your walk").
+//
+// It's { level, title, text, advice }, where level is 'good', 'mostlyGood', 'risky'
 // or 'poor':
 //   good        dry and comfortable for the walk, and the rest of the day
 //   mostlyGood  fine for the walk, but rain (or cold, or heat, or wind)
@@ -313,8 +340,9 @@ function mostlyText(problem, hours, units) {
 // `text` just says why, briefly. `advice` is what to do about it, for risky
 // and poor: kept apart from `text`, and not shown on Get Ready for now, so
 // the notice stays short (it may come back in another form).
-export function conditionsVerdict(conditions, journeyHours, units) {
+export function conditionsVerdict(conditions, journeyHours, units, { rest = false } = {}) {
   const { hours } = conditions
+  const words = rest ? REST_OF_WALK : WHOLE_WALK
   // The hours the walk takes up, counting this one: 2½ hours is this hour
   // and the next two.
   const walkHours = hours.slice(0, Math.max(1, Math.ceil(journeyHours)))
@@ -326,8 +354,8 @@ export function conditionsVerdict(conditions, journeyHours, units) {
     const problem = worstProblem(walkProblems)
     return {
       level: 'poor',
-      title: 'Poor conditions for this journey',
-      text: mostlyText(problem, walkHours, units),
+      title: words.poorTitle,
+      text: mostlyText(problem, walkHours, units, words),
       advice: 'Another day, or a later start, may be better.',
     }
   }
@@ -338,7 +366,7 @@ export function conditionsVerdict(conditions, journeyHours, units) {
     return {
       level: 'risky',
       title: 'Risky conditions',
-      text: `${capitalize(problemText(problem, walkHours[index], index, units))}, ${partOfWalk(index, walkHours.length)}.`,
+      text: `${capitalize(problemText(problem, walkHours[index], index, units))}, ${partOfWalk(index, walkHours.length, words)}.`,
       advice: ADVICE[problem],
     }
   }
@@ -349,13 +377,13 @@ export function conditionsVerdict(conditions, journeyHours, units) {
     return {
       level: 'mostlyGood',
       title: 'Mostly good conditions',
-      text: `Fine for your walk, but ${laterText(hourProblem(hour), hour, units)}.`,
+      text: `Fine for ${words.walk}, but ${laterText(hourProblem(hour), hour, units)}.`,
     }
   }
 
   return {
     level: 'good',
-    title: 'Good conditions for this journey',
-    text: `${skyWords(walkHours)}, and ${rangeText(walkHours, units)} for your whole walk.`,
+    title: words.goodTitle,
+    text: `${skyWords(walkHours)}, and ${rangeText(walkHours, units)} for ${words.all}.`,
   }
 }

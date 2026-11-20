@@ -39,6 +39,15 @@ function titleCase(name) {
     .replace('Usa', 'USA')
 }
 
+// Where a journey is, in words, for Get Ready and a stop's weather ("Times are
+// local to Waseda."): "WASEDA · TOKYO, JAPAN" becomes "Waseda".
+export function journeyPlaceName(journey) {
+  return journey.location
+    .split(' · ')[0]
+    .toLowerCase()
+    .replace(/(^|[\s.-])([a-z])/g, (_, before, letter) => before + letter.toUpperCase())
+}
+
 // A journey's places, from the most local to the country: the area it's in,
 // the city that's in (if it's not the same), its region and its country.
 function placesOf(journey) {

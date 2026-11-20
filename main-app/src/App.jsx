@@ -391,8 +391,9 @@ function App() {
   const journeyRecord = profile?.journeys[journey.id]
 
   // The build stop's detours you haven't taken yet, and of those, the ones
-  // other than the detour you're on.
-  const detoursLeft = journey.build.detours.filter((each) => !detoursTaken.includes(each.id))
+  // other than the detour you're on. A journey can have none, like the
+  // Cumberland ones.
+  const detoursLeft = (journey.build.detours ?? []).filter((each) => !detoursTaken.includes(each.id))
   const otherDetoursLeft = detoursLeft.filter((each) => each !== detour)
 
   let content
@@ -989,7 +990,7 @@ function HomePage({ journeys, saved, onSelect, onToggleSaved, onSearch, position
             <p className="feedTeaser">{journey.blurb}</p>
             <FeedTags journey={journey} />
             <button className="feedDiscover">
-              Discover This Journey
+              Unfold This Journey
               <ArrowRightIcon />
             </button>
             <button

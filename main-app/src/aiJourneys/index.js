@@ -67,9 +67,16 @@ import redWing from './redWing.js'
 import taylorsFalls from './taylorsFalls.js'
 import itasca from './itasca.js'
 import grandMarais from './grandMarais.js'
+// The Cumberland test (Dad's handoff): one journey for each kind of
+// experience the town could honestly support, each its own journey.
+import cumberlandHistory from './cumberlandHistory.js'
+import cumberlandCulture from './cumberlandCulture.js'
+import cumberlandScenic from './cumberlandScenic.js'
+import cumberlandNature from './cumberlandNature.js'
 
-// The Kanto ones first, then Minnesota.
+// The Kanto ones first, then Minnesota, then Cumberland, Wisconsin.
 export const AI_JOURNEYS = [
   kamakura, hakone, yokohama, yanaka, takao, nikko, narita, chichibu, kusatsu, fujiyoshida,
   duluth, northShore, minneapolis, stPaul, stillwater, minnehaha, redWing, taylorsFalls, itasca, grandMarais,
+  cumberlandHistory, cumberlandCulture, cumberlandScenic, cumberlandNature,
 ]

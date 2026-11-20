@@ -356,3 +356,30 @@ too.
 | [Downtown Nassau - 2025 - Graycliff (1)](https://commons.wikimedia.org/wiki/File:Downtown_Nassau_-_2025_-_Graycliff_(1).jpg) | `nassau/graycliff.jpg` | Bluerasberry | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
 | [Kawagoe Kashiya Yokocho 2013-09](https://commons.wikimedia.org/wiki/File:Kawagoe_Kashiya_Yokocho_2013-09.JPG) | `kawagoe/kashiya-yokocho.jpg` | At by At | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
 | [Miyoshino Shrine-2006-02-12 1](https://commons.wikimedia.org/wiki/File:Miyoshino_Shrine-2006-02-12_1.jpg) | `kawagoe/miyoshino-shrine.jpg` | Syohei Arai | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Barron county WI Cumberland IMG 1662](https://commons.wikimedia.org/wiki/File:Barron_county_WI_Cumberland_IMG_1662.JPG) | `cumberland/beaver-dam-lake.jpg` | Bjoertvedt | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Barron county WI Cumberland IMG 1666 uecke's opera house](https://commons.wikimedia.org/wiki/File:Barron_county_WI_Cumberland_IMG_1666_uecke%27s_opera_house.JPG) | `cumberland/uecke-opera-house.jpg` | Bjoertvedt | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Barron county WI Cumberland IMG 1667](https://commons.wikimedia.org/wiki/File:Barron_county_WI_Cumberland_IMG_1667.JPG) | `cumberland/second-avenue-tower.jpg` | Bjoertvedt | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Barron county WI Cumberland IMG 1668](https://commons.wikimedia.org/wiki/File:Barron_county_WI_Cumberland_IMG_1668.JPG) | `cumberland/second-avenue-shops.jpg` | Bjoertvedt | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Cumberland Public Library](https://commons.wikimedia.org/wiki/File:Cumberland_Public_Library.JPG) | `cumberland/library.jpg` | Appraiser | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Cumberland Wisconsin Downtown US63](https://commons.wikimedia.org/wiki/File:Cumberland_Wisconsin_Downtown_US63.jpg) | `cumberland/second-avenue-autumn.jpg` | Royalbroil | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [St. Mary's Rectory, Cumberland, WI 01](https://commons.wikimedia.org/wiki/File:St._Mary%27s_Rectory,_Cumberland,_WI_01.jpg) | `cumberland/rectory.jpg` | Nancy Bentz | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [St. Mary's Rectory, Cumberland, WI 02](https://commons.wikimedia.org/wiki/File:St._Mary%27s_Rectory,_Cumberland,_WI_02.jpg) | `cumberland/rectory-and-church.jpg` | Nancy Bentz | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Cumberland WI intersection US63 WIS48](https://commons.wikimedia.org/wiki/File:Cumberland_WI_intersection_US63_WIS48.jpg) | `cumberland/elm-street.jpg` | Royalbroil | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Cumberland Wisconsin Sign US63](https://commons.wikimedia.org/wiki/File:Cumberland_Wisconsin_Sign_US63.jpg) | `cumberland/town-sign.jpg` | Royalbroil | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Sanborn Fire Insurance Map from Cumberland, Barron County, Wisconsin. LOC sanborn09525 003-2](https://commons.wikimedia.org/wiki/File:Sanborn_Fire_Insurance_Map_from_Cumberland,_Barron_County,_Wisconsin._LOC_sanborn09525_003-2.jpg) | `cumberland/map-1909-north.jpg` | Sanborn Map Company (Library of Congress) | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+| [Sanborn Fire Insurance Map from Cumberland, Barron County, Wisconsin. LOC sanborn09525 003-3](https://commons.wikimedia.org/wiki/File:Sanborn_Fire_Insurance_Map_from_Cumberland,_Barron_County,_Wisconsin._LOC_sanborn09525_003-3.jpg) | `cumberland/map-1909-downtown.jpg` | Sanborn Map Company (Library of Congress) | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+| [Sanborn Fire Insurance Map from Cumberland, Barron County, Wisconsin. LOC sanborn09525 003-4](https://commons.wikimedia.org/wiki/File:Sanborn_Fire_Insurance_Map_from_Cumberland,_Barron_County,_Wisconsin._LOC_sanborn09525_003-4.jpg) | `cumberland/map-1909-lumber.jpg` | Sanborn Map Company (Library of Congress) | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+| [Sanborn Fire Insurance Map from Cumberland, Barron County, Wisconsin. LOC sanborn09525 003-1](https://commons.wikimedia.org/wiki/File:Sanborn_Fire_Insurance_Map_from_Cumberland,_Barron_County,_Wisconsin._LOC_sanborn09525_003-1.jpg) | `cumberland/map-1909-key.jpg` | Sanborn Map Company (Library of Congress) | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+
+These five Cumberland photos were found in a web search in November 2026,
+for the Cumberland test. Who took them, where the sunset and the pond were
+taken, and their licences aren’t confirmed yet, so check them, and get
+permission or replace them, before the app goes public.
+
+| Photo | Used for |
+| --- | --- |
+| St. Anthony the Abbot Church, from the front | `cumberland/st-anthony-church.webp` |
+| The St. Anthony Abbot Catholic Cemetery sign | `cumberland/st-anthony-cemetery.jpg` |
+| The Thomas St. Angelo Public Library, from the corner | `cumberland/library-front.webp` |
+| Autumn woods reflected in still water | `cumberland/autumn-pond.jpg` |
+| A lake sunset with a dock (cropped to remove a car hood) | `cumberland/lake-sunset-dock.jpg` |
