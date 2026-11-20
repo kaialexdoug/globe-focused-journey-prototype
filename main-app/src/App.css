@@ -6091,6 +6091,15 @@ html {
   touch-action: manipulation;
 }
 
+/* Text at exactly the sizes set here, whichever way the phone's turned.
+   Without it, an iPhone makes the text bigger when the phone's turned on its
+   side, and can leave it bigger after it's turned back; and an Android phone
+   can make some paragraphs bigger than the rest. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 .phone {
   position: fixed;
   inset: 0;
