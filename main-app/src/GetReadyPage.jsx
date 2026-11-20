@@ -5,84 +5,27 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
   CloseIcon,
-  CloudIcon,
   EffortIcon,
-  FogIcon,
   InfoIcon,
-  MoonCloudIcon,
-  MoonIcon,
   NavigateIcon,
-  RainIcon,
-  SnowIcon,
-  StormIcon,
-  SunIcon,
-  SunriseIcon,
-  SunsetIcon,
   WalkIcon,
-  WeatherIcon,
-  WindIcon,
 } from './Icons.jsx'
+import WeatherReport from './WeatherReport.jsx'
+import { journeyPlaceName } from './journeyPlaces.js'
 import { durationText, journeyHours, metersText, rideTotals, walkingTotals } from './journeyTimes.js'
-import {
-  clockText,
-  conditionWords,
-  conditionsVerdict,
-  degreesText,
-  lookUpConditions,
-  sameTimeAsPhone,
-  savedConditions,
-  temperatureText,
-  weatherKind,
-} from './weather.js'
+import { conditionsVerdict, lookUpConditions, savedConditions } from './weather.js'
 import { useUnits } from './units.js'
 
 // Get Ready, between BEGIN JOURNEY and the first stop: today's conditions
 // where the journey starts (weather.js), so you can tell whether now's a good
 // time to go. The temperature now, sunrise and sunset, the next 24 hours an
-// hour at a time (the first few in view, and the rest a swipe away), and a
-// verdict on how the weather suits the journey, from now until it'd end.
-// Then how long it takes and how hard it is, and whether you're at the
-// starting point: I'M HERE goes straight to the first stop, and GET
-// DIRECTIONS to the way there.
-
-// The picture for each kind of weather (weatherKind in weather.js).
-const KIND_ICONS = {
-  clear: SunIcon,
-  clearNight: MoonIcon,
-  partly: WeatherIcon,
-  partlyNight: MoonCloudIcon,
-  cloudy: CloudIcon,
-  fog: FogIcon,
-  rain: RainIcon,
-  snow: SnowIcon,
-  storm: StormIcon,
-  wind: WindIcon,
-}
-
-function WeatherPicture({ weather, className }) {
-  const Picture = KIND_ICONS[weatherKind(weather)]
-  return <Picture className={className} />
-}
+// hour at a time, and a verdict on how the weather suits the journey, from
+// now until it'd end (all in WeatherReport.jsx). Then how long it takes and
+// how hard it is, and whether you're at the starting point: I'M HERE goes
+// straight to the first stop, and GET DIRECTIONS to the way there.
 
 // How hard the journey is, as bars on its effort icon.
 const EFFORT_LEVELS = { Easy: 1, Moderate: 2, Active: 3 }
-
-// The verdict's colours, by its level (weather.js).
-const VERDICT_CLASSES = {
-  good: 'isGood',
-  mostlyGood: 'isMostlyGood',
-  risky: 'isRisky',
-  poor: 'isPoor',
-}
-
-// Where the journey starts, in words: "WASEDA · TOKYO, JAPAN" becomes
-// "Waseda".
-function placeName(journey) {
-  return journey.location
-    .split(' · ')[0]
-    .toLowerCase()
-    .replace(/(^|[\s.-])([a-z])/g, (_, before, letter) => before + letter.toUpperCase())
-}
 
 function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }) {
   const units = useUnits()
@@ -119,7 +62,7 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
     setTries((count) => count + 1)
   }
 
-  const place = placeName(journey)
+  const place = journeyPlaceName(journey)
   const hours = journeyHours(journey)
   const walking = walkingTotals(journey)
   const ride = rideTotals(journey)
@@ -141,55 +84,7 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
       <p className="stepText">Today’s conditions for {place}</p>
 
       {conditions ? (
-        <>
-          <div className="readyNow">
-            <div className="readyBox readyTemp">
-              <WeatherPicture weather={conditions.now} className="readyTempIcon" />
-              <div>
-                <p className="readyTempValue">{temperatureText(conditions.now.celsius, units)}</p>
-                <p className="readyTempWords">{conditionWords(conditions.now.code)}</p>
-              </div>
-            </div>
-            <div className="readyBox readySun">
-              <div className="readySunItem">
-                <SunriseIcon className="readySunIcon" />
-                <span className="readySunLabel">Sunrise</span>
-                <span className="readySunTime">{clockText(conditions.sunrise)}</span>
-              </div>
-              <div className="readySunItem">
-                <SunsetIcon className="readySunIcon" />
-                <span className="readySunLabel">Sunset</span>
-                <span className="readySunTime">{clockText(conditions.sunset)}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Now, then every hour for the next day: the first few in view,
-              and the rest a swipe away. */}
-          <ol className="readyHours" aria-label="The next 24 hours">
-            {conditions.hours.map((hour, index) => {
-              const weather = index === 0 ? conditions.now : hour
-              return (
-                <li key={hour.time} className="readyHour">
-                  <span className="readyHourTime">{index === 0 ? 'Now' : clockText(hour.time)}</span>
-                  <WeatherPicture weather={weather} className="readyHourIcon" />
-                  <span className="visuallyHidden">{conditionWords(weather.code)}, </span>
-                  <span className="readyHourTemp">{degreesText(weather.celsius, units)}</span>
-                </li>
-              )
-            })}
-          </ol>
-          {!sameTimeAsPhone(conditions) && <p className="readyNote">Times are local to {place}.</p>}
-
-          <div className={`readyVerdict ${VERDICT_CLASSES[verdict.level]}`} role="status">
-            <InfoIcon className="readyVerdictIcon" />
-            <div>
-              <p className="readyVerdictTitle">{verdict.title}</p>
-              <p className="readyVerdictText">{verdict.text}</p>
-            </div>
-          </div>
-          <p className="readyCredit">Weather from Open-Meteo.com</p>
-        </>
+        <WeatherReport conditions={conditions} verdict={verdict} place={place} units={units} />
       ) : failed ? (
         // With TRY AGAIN in the middle, under the words.
         <div className="readyVerdict isUnknown" role="status">

@@ -116,6 +116,18 @@ export function journeyHours(journey) {
   return Math.round(minutes / 30) / 2
 }
 
+// What's left of the journey from a stop on, in hours (not rounded), counted
+// the same way: getting to the stop, the time there, and the stops after it.
+// For a detour, it's the detour, then the stops after the one it branches
+// off (the walk back from it isn't counted).
+export function hoursFrom(journey, stop) {
+  const index = journey.route.indexOf(stop)
+  const branchesOff = journey.route.findIndex((each) => (each.detours ?? []).includes(stop))
+  const stops = index >= 0 ? journey.route.slice(index) : [stop, ...journey.route.slice(branchesOff + 1)]
+  const minutes = stops.reduce((total, each) => total + each.travelMinutes + middle(each.stayMinutes), 0)
+  return minutes / 60
+}
+
 // The journey's time, as its card shows it: "~4½ hours".
 export function hoursText(hours) {
   return `~${durationText(hours * 60)}`

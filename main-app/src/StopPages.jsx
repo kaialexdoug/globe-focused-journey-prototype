@@ -5,6 +5,7 @@ import { ArrowRightIcon, ChevronRightIcon, ClockIcon, NavigateIcon, PinIcon } fr
 import LiveMap from './LiveMap.jsx'
 import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
+import StopWeather from './StopWeather.jsx'
 import { MAPS_API_KEY } from './config.js'
 import { detourAddsText, stayText } from './journeyTimes.js'
 import { isImperial, toMiles, toYards, useUnits, YARDS_UP_TO } from './units.js'
@@ -114,11 +115,13 @@ function EmbedMap({ stop }) {
 
 // Getting there: the stop, then a map from wherever you are to it, and the
 // way to follow it in Google Maps itself. The map's the live one, following
-// you, if the stop's card has its exact spot (and it loads). A detour also
-// gets SKIP THIS DETOUR (with `onSkip`), for changing your mind.
+// you, if the stop's card has its exact spot (and it loads). Above the map,
+// the weather there (StopWeather.jsx), for a stop with its exact spot. A
+// detour also gets SKIP THIS DETOUR (with `onSkip`), for changing your mind.
 export function DirectionsPage({ journey, stop, onImHere, onSkip, onStopJourney }) {
   const [liveFailed, setLiveFailed] = useState(false)
   const live = Boolean(stop.mapPoint) && !liveFailed
+  const weather = Boolean(stop.mapPoint)
 
   return (
     <StopScreen
@@ -129,6 +132,8 @@ export function DirectionsPage({ journey, stop, onImHere, onSkip, onStopJourney 
       label={stop.directionsLabel}
       onStopJourney={onStopJourney}
     >
+      {/* A new one for each stop (the key), folded and with its own place. */}
+      {weather && <StopWeather key={stop.id} journey={journey} stop={stop} />}
       {live ? <LiveMap stop={stop} onFail={() => setLiveFailed(true)} /> : <EmbedMap stop={stop} />}
 
       <a

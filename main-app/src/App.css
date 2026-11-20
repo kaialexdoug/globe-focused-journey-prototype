@@ -60,7 +60,7 @@
 /* The one main button. Every deep blue call to action in the app is this size. */
 /* The main button, all through a journey and in the boxes over it: a deep
    blue pill, the words in white capitals, spaced out, and an orange arrow on
-   the ones that move you on, like Find My Journeys and Discover This Journey. */
+   the ones that move you on, like Find My Journeys and Unfold This Journey. */
 .introBtn {
   box-sizing: border-box;
   display: flex;
@@ -3719,6 +3719,161 @@ button.detailBar:active {
 /* Open in Google Maps: a link, made to look like the buttons around it. */
 .mapsLink {
   margin-top: 14px;
+}
+
+/* The weather where a stop is, above its map (StopWeather.jsx): a small,
+   quiet outlined button, SEE CURRENT WEATHER FORECAST, that unfolds (the
+   routeFold classes) a smaller Get Ready: the same ready classes, made more
+   compact here. */
+.stopWeather {
+  margin-top: 14px;
+}
+
+.stopWeatherToggle {
+  --icon-fill: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 6px 10px 6px 11px;
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background-color: var(--surface);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.stopWeatherToggle:active,
+.stopWeatherToggle.isOpen {
+  --icon-fill: var(--surface-low);
+  background-color: var(--surface-low);
+}
+
+.stopWeatherIcon {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  color: var(--unfold-orange);
+}
+
+.stopWeatherChevron {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: var(--ink-muted);
+  transform: rotate(90deg);
+  transition: transform 0.25s ease;
+}
+
+.stopWeatherToggle.isOpen .stopWeatherChevron {
+  transform: rotate(-90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stopWeatherChevron {
+    transition: none;
+  }
+}
+
+/* Left-aligned, as on Get Ready, though the screen around it is centered. */
+.stopWeatherBody {
+  padding-top: 10px;
+  text-align: left;
+}
+
+.stopWeather .readyNow {
+  gap: 8px;
+  margin-top: 0;
+}
+
+.stopWeather .readyTemp {
+  gap: 8px;
+  padding: 10px;
+}
+
+.stopWeather .readyTempIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.stopWeather .readyTempValue {
+  font-size: 22px;
+}
+
+.stopWeather .readyTempWords {
+  font-size: 12px;
+}
+
+.stopWeather .readySun {
+  padding: 9px 2px;
+}
+
+.stopWeather .readySunIcon {
+  width: 21px;
+  height: 21px;
+}
+
+.stopWeather .readySunLabel {
+  font-size: 11px;
+}
+
+.stopWeather .readySunTime {
+  font-size: 13.5px;
+}
+
+.stopWeather .readyHours {
+  margin-top: 8px;
+  padding: 10px 2px;
+}
+
+.stopWeather .readyHour {
+  gap: 5px;
+}
+
+.stopWeather .readyHourTime {
+  font-size: 11px;
+}
+
+.stopWeather .readyHourIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.stopWeather .readyHourTemp {
+  font-size: 13px;
+}
+
+.stopWeather .readyVerdict {
+  grid-template-columns: 22px 1fr;
+  column-gap: 10px;
+  margin-top: 10px;
+  padding: 11px 13px 11px 11px;
+}
+
+.stopWeather .readyVerdictIcon {
+  width: 22px;
+  height: 22px;
+}
+
+.stopWeather .readyVerdictTitle {
+  font-size: 14px;
+}
+
+.stopWeather .readyVerdictText {
+  font-size: 13px;
+}
+
+.stopWeather .readyLoading {
+  margin-top: 0;
+  padding: 18px 14px;
+  font-size: 13px;
 }
 
 .mapPlaceholder {
