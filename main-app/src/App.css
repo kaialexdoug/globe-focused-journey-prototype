@@ -3596,6 +3596,7 @@ button.detailBar:active {
 }
 
 .mapContainer {
+  position: relative;
   margin-top: 14px;
 }
 
@@ -3716,8 +3717,99 @@ button.detailBar:active {
   height: 20px;
 }
 
-/* Open in Google Maps: a link, made to look like the buttons around it. */
-.mapsLink {
+/* Open in Google Maps, on a stop's directions screen: a small white pill in
+   the map's top corner, like the map's own buttons. */
+.mapsOverlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 13px 0 10px;
+  background-color: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--accent-ink);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.mapsOverlay svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--unfold-orange);
+}
+
+.mapsOverlay:active {
+  transform: scale(0.97);
+}
+
+/* A stop's directions screen: a shorter photo than the other stop screens,
+   and the map taking whatever room is left under it, so the map and I'M
+   HERE fit on the screen without scrolling. On a short screen, or with the
+   weather open above it, the map stops shrinking at 200px and the rest
+   scrolls instead. */
+.directionsPage .photoScreenPhoto {
+  flex-basis: max(24%, 150px);
+}
+
+/* The fade measured from the bottom, rather than as a share of the photo,
+   so however short the photo is, the words pulled up onto it (60px of them,
+   from "Discovery · Step 2 of 5" down) still have the white behind them. */
+.directionsPage .photoScreenPhoto::after {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) calc(100% - 100px),
+    rgba(255, 255, 255, 0.9) calc(100% - 40px),
+    rgb(255, 255, 255) 100%
+  );
+}
+
+.directionsPage .photoScreenInfo {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 18px;
+}
+
+.directionsPage .liveMap,
+.directionsPage .mapContainer,
+.directionsPage .mapPlaceholder {
+  flex: 1 0 0;
+  height: auto;
+  min-height: 200px;
+}
+
+.directionsPage .liveMap {
+  display: flex;
+  flex-direction: column;
+}
+
+.directionsPage .liveMapCanvas {
+  flex: 1;
+  height: auto;
+}
+
+.directionsPage .mapContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.directionsPage .mapContainer iframe {
+  flex: 1;
+  height: auto;
+}
+
+.directionsPage .introBtn {
+  flex-shrink: 0;
   margin-top: 14px;
 }
 
@@ -3877,6 +3969,7 @@ button.detailBar:active {
 }
 
 .mapPlaceholder {
+  position: relative;
   box-sizing: border-box;
   height: 300px;
   margin-top: 14px;

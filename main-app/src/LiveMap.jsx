@@ -27,6 +27,9 @@ import { makePin, namePlacer } from './mapPins.js'
 // it when you start the journey (compass.js), so it's there by the time the
 // map is. If it somehow hasn't asked yet, the map has a Show Direction button.
 
+// `children` go on top of the map, like Open in Google Maps in the top corner
+// on a stop's directions screen (StopPages.jsx).
+
 // How far the screen's turned from upright (on its side, say), so the beam
 // still points the way the top of the phone does.
 function screenTurn() {
@@ -47,7 +50,7 @@ function compassHeading(event) {
   return null
 }
 
-function LiveMap({ stop, onFail }) {
+function LiveMap({ stop, onFail, children }) {
   const canvasRef = useRef(null)
   const failRef = useRef(onFail)
   // Puts you back in the middle, once the map's up.
@@ -292,6 +295,7 @@ function LiveMap({ stop, onFail }) {
             <LocateIcon />
           </button>
         )}
+        {children}
       </div>
     </>
   )
