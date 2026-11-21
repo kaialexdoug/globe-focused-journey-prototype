@@ -54,8 +54,10 @@ function googleMapsUrl(stop) {
 
 // The simpler map, Google's embedded one: the route from where you were
 // when it opened, without following you. For stops without an exact spot on
-// their card, and whenever the live map can't load.
-function EmbedMap({ stop }) {
+// their card, and whenever the live map can't load. `children` go on top of
+// the map, like Open in Google Maps on a stop's directions screen, and on
+// top of the placeholder while it loads, so they can be used straight away.
+function EmbedMap({ stop, children }) {
   const [origin, setOrigin] = useState(null)
   // No location (denied, unavailable, or too slow) still gets a map: just the
   // stop on its own, without directions to it.
@@ -88,8 +90,9 @@ function EmbedMap({ stop }) {
   if (!mapSrc) {
     // The same size as the map, so nothing jumps when it arrives.
     return (
-      <div className="mapPlaceholder" role="status">
-        Loading your location and map…
+      <div className="mapPlaceholder">
+        <span role="status">Loading your location and map…</span>
+        {children}
       </div>
     )
   }
@@ -108,20 +111,31 @@ function EmbedMap({ stop }) {
           referrerPolicy="strict-origin-when-cross-origin"
           src={mapSrc}>
         </iframe>
+        {children}
       </div>
     </>
   )
 }
 
-// Getting there: the stop, then a map from wherever you are to it, and the
-// way to follow it in Google Maps itself. The map's the live one, following
-// you, if the stop's card has its exact spot (and it loads). Above the map,
-// the weather there (StopWeather.jsx), for a stop with its exact spot. A
-// detour also gets SKIP THIS DETOUR (with `onSkip`), for changing your mind.
+// Getting there: the stop, then a map from wherever you are to it, with a
+// small Open in Google Maps in its top corner, for following it in Google
+// Maps itself, then I'M HERE. The map's the live one, following you, if the
+// stop's card has its exact spot (and it loads). Above the map, the weather
+// there (StopWeather.jsx), for a stop with its exact spot. A detour also gets
+// SKIP THIS DETOUR (with `onSkip`), for changing your mind. The photo is
+// shorter here than on other stop screens, and the map takes whatever room is
+// left, so it all fits on the screen without scrolling (see App.css).
 export function DirectionsPage({ journey, stop, onImHere, onSkip, onStopJourney }) {
   const [liveFailed, setLiveFailed] = useState(false)
   const live = Boolean(stop.mapPoint) && !liveFailed
   const weather = Boolean(stop.mapPoint)
+
+  const mapsLink = (
+    <a className="mapsOverlay" href={googleMapsUrl(stop)} target="_blank" rel="noopener noreferrer">
+      <NavigateIcon />
+      Open in Google Maps
+    </a>
+  )
 
   return (
     <StopScreen
@@ -134,17 +148,14 @@ export function DirectionsPage({ journey, stop, onImHere, onSkip, onStopJourney 
     >
       {/* A new one for each stop (the key), folded and with its own place. */}
       {weather && <StopWeather key={stop.id} journey={journey} stop={stop} />}
-      {live ? <LiveMap stop={stop} onFail={() => setLiveFailed(true)} /> : <EmbedMap stop={stop} />}
+      {live ? (
+        <LiveMap stop={stop} onFail={() => setLiveFailed(true)}>
+          {mapsLink}
+        </LiveMap>
+      ) : (
+        <EmbedMap stop={stop}>{mapsLink}</EmbedMap>
+      )}
 
-      <a
-        className="introBtn isGhost hasIcon mapsLink"
-        href={googleMapsUrl(stop)}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <NavigateIcon />
-        Open in Google Maps
-      </a>
       <button className="introBtn" onClick={onImHere}>
         I’m Here
         <ArrowRightIcon />

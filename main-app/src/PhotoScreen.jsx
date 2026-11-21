@@ -3,7 +3,8 @@ import { CloseIcon } from './Icons.jsx'
 
 // A screen in three parts, top to bottom:
 //
-// - A photo, about a third of the screen, with the header on it and ✕ in the
+// - A photo, about a third of the screen (a quarter on a stop's directions
+//   screen, to leave room for the map), with the header on it and ✕ in the
 //   top corner (`onClose`, read out as `closeLabel`).
 // - What this screen is about: a small heading (`kicker`), `label` if there is
 //   one, and `title`, starting on the photo's faded bottom edge.
