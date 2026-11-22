@@ -144,7 +144,7 @@ export function SaveProgressPrompt({ onSave, onSkip, onCancel }) {
     >
       <NameForm submitLabel="Save & Start" onSubmit={onSave} autoFocus />
       <button className="backBtn" onClick={onSkip}>
-        START WITHOUT A PROFILE
+        Start Without a Profile
       </button>
     </PromptBox>
   )
@@ -165,7 +165,7 @@ export function ExitCurrentPrompt({ currentName, nextName, onExit, onResume, onS
         Keep Going
       </button>
       <button className="backBtn" onClick={onExit}>
-        END JOURNEY
+        End Journey
       </button>
     </PromptBox>
   )
@@ -182,7 +182,7 @@ function DeleteProfilePrompt({ onDelete, onKeep }) {
         Keep My Profile
       </button>
       <button className="backBtn deleteLink" onClick={onDelete}>
-        DELETE PROFILE
+        Delete Profile
       </button>
     </PromptBox>
   )
@@ -308,7 +308,7 @@ function CurrentJourney({ journey, where, onResume }) {
   return (
     <button className="myCard myCurrent" onClick={onResume}>
       <span className="myCardHead">
-        <span className="myCardLabel">CURRENT JOURNEY</span>
+        <span className="myCardLabel">Current Journey</span>
         <ChevronRightIcon className="myCurrentChevron" />
       </span>
       <span className="myCurrentBody">
@@ -390,10 +390,10 @@ export function MyJourneysPage({
         {underWay && <CurrentJourney journey={underWay} where={where} onResume={onResume} />}
         {profile && !underWay && (
           <div className="myCard">
-            <h2 className="myCardLabel">CURRENT JOURNEY</h2>
+            <h2 className="myCardLabel">Current Journey</h2>
             <p className="myCardText">You’re not partway through a journey.</p>
             <button className="myBrowse" onClick={onBrowse}>
-              BROWSE JOURNEYS
+              Browse Journeys
               <ArrowRightIcon />
             </button>
           </div>
@@ -448,7 +448,7 @@ export function MyJourneysPage({
 
         {!profile && (
           <SignUpCard
-            label="NO PROFILE YET"
+            label="No profile yet"
             text="With a profile, the journeys you finish are kept here, with your stats. It’s just your name."
             onCreate={onCreateProfile}
           />
@@ -650,7 +650,7 @@ export function ProfilePage({
           </>
         ) : (
           <SignUpCard
-            label="MAKE A PROFILE"
+            label="Make a profile"
             text="Just a name, no password. Your journeys, stats and interests are then kept on this device."
             onCreate={onCreateProfile}
           />
@@ -670,7 +670,7 @@ function SaveChangesPrompt({ onSave, onDiscard, onKeepEditing }) {
         Save Changes
       </button>
       <button className="backBtn" onClick={onDiscard}>
-        DON’T SAVE
+        Don’t Save
       </button>
     </PromptBox>
   )

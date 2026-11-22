@@ -13,16 +13,16 @@ function Header() {
   )
 }
 
-// "AI GENERATED", on a journey put together with AI that hasn't been checked
+// "AI Generated", on a journey put together with AI that hasn't been checked
 // yet (`aiMade` on its card). On a photo card it sits in the top corner.
 export function AiBadge() {
-  return <span className="aiBadge">AI GENERATED</span>
+  return <span className="aiBadge">AI Generated</span>
 }
 
-// "UNFOLD VERIFIED", on a journey that's been walked and checked (`verified`
+// "Unfold Verified", on a journey that's been walked and checked (`verified`
 // on its card). It sits in the same corner as the AI badge.
 export function VerifiedBadge() {
-  return <span className="verifiedBadge">{APP_NAME.toUpperCase()} VERIFIED</span>
+  return <span className="verifiedBadge">{APP_NAME} Verified</span>
 }
 
 // A photo right across the top of the screen, with the header sitting on it

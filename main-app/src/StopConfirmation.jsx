@@ -16,7 +16,7 @@ function StopConfirmation({ onConfirm, onCancel }) {
         Keep Going
       </button>
       <button className="backBtn" onClick={onConfirm}>
-        END JOURNEY
+        End Journey
       </button>
     </PromptBox>
   )

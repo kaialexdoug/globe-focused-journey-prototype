@@ -42,7 +42,7 @@ import {
   WalkIcon,
 } from './Icons.jsx'
 import { EXPERIENCE_ICONS, mainExperience } from './experienceIcons.js'
-import { ALL_JOURNEYS, placeName } from './journeyStops'
+import { ALL_JOURNEYS, fullPlaceName, townAndCountry } from './journeyStops'
 import {
   loadProfile,
   storeProfile,
@@ -913,39 +913,38 @@ function App() {
   )
 }
 
-// One of the four tags on a journey on Home: a symbol and a value, in a
-// frosted white pill.
-function FeedTag({ Icon, value }) {
+// A journey's three facts on Home, after the feed's mockup: about how long it
+// takes, how hard it is, and what kind of journey it is, each a soft orange
+// symbol over its value, side by side with a faint line between.
+function FeedFacts({ journey }) {
+  const kind = mainExperience(journey)
+  const facts = [
+    { Icon: ClockIcon, value: journey.time.replace('hours', 'hrs') },
+    { Icon: SolidWalkIcon, value: journey.difficulty },
+    { Icon: EXPERIENCE_ICONS[kind], value: kind },
+  ]
   return (
-    <div className="feedTag">
-      <Icon className="feedTagIcon" />
-      <p className="feedTagValue">{value}</p>
-    </div>
-  )
-}
-
-// A journey's four tags, in a row across the screen. A journey with longer
-// ones ("Moderate", "Cultural") has them a little smaller, so they still fit
-// on one line on any phone.
-function FeedTags({ journey }) {
-  const tagsRef = useRef(null)
-  useShrinkToFit(tagsRef, 10.5, journey.id)
-  return (
-    <div className="feedTags" ref={tagsRef}>
-      <FeedTag Icon={ClockIcon} value={journey.time.replace('hours', 'hrs')} />
-      <FeedTag Icon={SolidWalkIcon} value={journey.difficulty} />
-      <FeedTag Icon={SolidPinIcon} value={`${journey.route.length} stops`} />
-      <FeedTag Icon={EXPERIENCE_ICONS[mainExperience(journey)]} value={mainExperience(journey)} />
+    <div className="feedFacts">
+      {facts.map(({ Icon, value }) => (
+        <div className="feedFact" key={value}>
+          <Icon className="feedFactIcon" />
+          <p className="feedFactValue">{value}</p>
+        </div>
+      ))}
     </div>
   )
 }
 
 // Home is a feed: every journey, one screen at a time, with its photo filling
-// the screen. `positionRef` remembers which one you were on, so you come back
-// to it after opening a journey or going to another tab. Tapping anywhere on
-// one opens it. Its button is there to make that obvious, and for the
-// keyboard; its click reaches the card too. The bookmark's click stops short
-// of the card, so saving a journey doesn't open it.
+// the screen, after the feed's mockup. The logo and search stay at the top,
+// over the photo; lower down, the photo fades to dark, and on the dark: where
+// it is (in a bubble), its name with the bookmark beside it, what it's about,
+// its three facts, and Unfold This Journey. `positionRef` remembers which one
+// you were on, so you come back to it after opening a journey or going to
+// another tab. Tapping anywhere on one opens it. Its button is there to make
+// that obvious, and for the keyboard; its click reaches the card too. The
+// bookmark's click stops short of the card, so saving a journey doesn't open
+// it.
 function HomePage({ journeys, saved, onSelect, onToggleSaved, onSearch, positionRef }) {
   const feedRef = useRef(null)
 
@@ -1005,32 +1004,36 @@ function HomePage({ journeys, saved, onSelect, onToggleSaved, onSearch, position
               // Fetched as you get near it, so opening the app doesn't download them all.
               loading={index === 0 ? 'eager' : 'lazy'}
             />
-            <div className="feedPlaceRow">
-              <p className="feedPlace">
-                <SolidPinIcon />
-                {placeName(journey.location)}
-              </p>
-              {journey.aiMade && <AiBadge />}
-              {journey.verified && <VerifiedBadge />}
+            <div className="feedInfo">
+              <div className="feedPlaceRow">
+                <p className="feedPlace">
+                  <SolidPinIcon />
+                  {townAndCountry(journey.location)}
+                </p>
+                {journey.aiMade && <AiBadge />}
+                {journey.verified && <VerifiedBadge />}
+              </div>
+              <div className="feedTitleRow">
+                <h2 className="feedTitle">{journey.name}</h2>
+                <button
+                  className={saved.includes(journey.id) ? 'feedSave isSaved' : 'feedSave'}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    onToggleSaved(journey.id)
+                  }}
+                  aria-pressed={saved.includes(journey.id)}
+                  aria-label={`Save ${journey.name}`}
+                >
+                  <BookmarkIcon />
+                </button>
+              </div>
+              <p className="feedTeaser">{journey.blurb}</p>
+              <FeedFacts journey={journey} />
+              <button className="feedDiscover">
+                Unfold This Journey
+                <ArrowRightIcon />
+              </button>
             </div>
-            <h2 className="feedTitle">{journey.name}</h2>
-            <p className="feedTeaser">{journey.blurb}</p>
-            <FeedTags journey={journey} />
-            <button className="feedDiscover">
-              Unfold This Journey
-              <ArrowRightIcon />
-            </button>
-            <button
-              className={saved.includes(journey.id) ? 'matchSave isSaved' : 'matchSave'}
-              onClick={(event) => {
-                event.stopPropagation()
-                onToggleSaved(journey.id)
-              }}
-              aria-pressed={saved.includes(journey.id)}
-              aria-label={`Save ${journey.name}`}
-            >
-              <BookmarkIcon />
-            </button>
           </div>
         ))}
       </div>
@@ -1100,7 +1103,7 @@ function SeeJourneyPage({
       photoAlt={journey.photoAlt}
       photoPosition={journey.photoPosition}
       kicker="Your journey"
-      label={journey.location}
+      label={fullPlaceName(journey.location)}
       title={journey.name}
       onClose={onClose}
       closeLabel="Close"
@@ -1142,7 +1145,7 @@ function SeeJourneyPage({
         <RoutePreview journey={journey} />
       ) : (
         <div className="startCard">
-          <p className="startCardLabel">START HERE</p>
+          <p className="startCardLabel">Start here</p>
           <div className="startCardRow">
             <PinIcon />
             <div>
@@ -1164,7 +1167,7 @@ function SeeJourneyPage({
       <div className="testTakeBtnContainer">
         {underWay ? (
           <>
-            <p className="inProgressTag">IN PROGRESS</p>
+            <p className="inProgressTag">In progress</p>
             <h2 className="mainHook">Pick up where you left off?</h2>
             <p className="seeJourneyWhere">{underWay.text}</p>
             <button className="introBtn" onClick={onResume}>
@@ -1174,7 +1177,7 @@ function SeeJourneyPage({
             <div className="alreadyThere">
               <p>Rather start again from the beginning?</p>
               <button className="textLink" onClick={onBeginJourney}>
-                START OVER ➜
+                Start Over ➜
               </button>
             </div>
           </>
@@ -1191,7 +1194,7 @@ function SeeJourneyPage({
             </button>
             {completed && (
               <button className="textLink viewMemoryLink" onClick={onViewMemory}>
-                VIEW MEMORY
+                View Memory
               </button>
             )}
           </>

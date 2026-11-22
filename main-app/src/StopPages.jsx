@@ -122,7 +122,7 @@ function EmbedMap({ stop, children }) {
 // Maps itself, then I'M HERE. The map's the live one, following you, if the
 // stop's card has its exact spot (and it loads). Above the map, the weather
 // there (StopWeather.jsx), for a stop with its exact spot. A detour also gets
-// SKIP THIS DETOUR (with `onSkip`), for changing your mind. The photo is
+// Skip This Detour (with `onSkip`), for changing your mind. The photo is
 // shorter here than on other stop screens, and the map takes whatever room is
 // left, so it all fits on the screen without scrolling (see App.css).
 export function DirectionsPage({ journey, stop, onImHere, onSkip, onStopJourney }) {
@@ -163,7 +163,7 @@ export function DirectionsPage({ journey, stop, onImHere, onSkip, onStopJourney 
 
       {onSkip && (
         <button className="textLink pageTextLink" onClick={onSkip}>
-          SKIP THIS DETOUR
+          Skip This Detour
         </button>
       )}
     </StopScreen>
@@ -180,13 +180,13 @@ function detourOffer(stop, detoursLeft, detoursFrom) {
   const left = detoursLeft.length
   if (stop.detoursNote) {
     return {
-      label: left === 1 ? 'OPTIONAL DETOUR' : 'OPTIONAL DETOURS',
+      label: left === 1 ? 'Optional detour' : 'Optional detours',
       text: stop.detoursNote,
       skip: `Or you can skip ${left === 1 ? 'it' : 'them'} and keep going.`,
     }
   }
   return {
-    label: left === 1 ? 'ONE MORE DETOUR' : 'MORE DETOURS',
+    label: left === 1 ? 'One more detour' : 'More detours',
     text:
       left === 1
         ? `There’s one more detour from ${detoursFrom.name}, if you’re up for it.`
@@ -200,7 +200,7 @@ function detourOffer(stop, detoursLeft, detoursFrom) {
 function StayCard({ stop }) {
   return (
     <div className="startCard stayCard">
-      <p className="startCardLabel">SUGGESTED TIME HERE</p>
+      <p className="startCardLabel">Suggested time here</p>
       <div className="startCardRow">
         <ClockIcon />
         <div>
@@ -243,7 +243,7 @@ function NearbySpots({ spots }) {
 
   return (
     <div className="nearby">
-      <p className="startCardLabel">{spots.length === 1 ? 'INTERESTING SPOT NEARBY' : 'INTERESTING SPOTS NEARBY'}</p>
+      <p className="startCardLabel">{spots.length === 1 ? 'Interesting spot nearby' : 'Interesting spots nearby'}</p>
       {asCards ? (
         <div className="nearbyCards">
           {spots.map((spot) => (
@@ -308,7 +308,7 @@ function NearbyCard({ spot, open, onToggle }) {
       <p className="nearbyCardNote">{spot.note}</p>
       <div className="nearbyCardActions">
         <button className={open ? 'nearbyDirections isOpen' : 'nearbyDirections'} onClick={onToggle} aria-expanded={open}>
-          {open ? 'HIDE DIRECTIONS' : 'SEE DIRECTIONS'}
+          {open ? 'Hide Directions' : 'See Directions'}
           <ChevronRightIcon />
         </button>
         <a className="nearbyMapsLink" href={googleMapsUrl(place)} target="_blank" rel="noopener noreferrer">
@@ -451,7 +451,7 @@ export function DetoursPage({ from, done, onTakeDetour, onContinue, onStopJourne
         </button>
 
         <button className="backBtn pageEndLink" onClick={onStopJourney}>
-          STOP JOURNEY
+          Stop Journey
         </button>
       </div>
     </div>

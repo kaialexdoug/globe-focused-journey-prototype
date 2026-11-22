@@ -35,6 +35,8 @@ Unfold is a phone-first web app of **guided walking journeys**. Each journey is 
 
 **Storage:** everything is kept on the phone in `localStorage` (`profileStore.js`). Nothing leaves the device except the survey.
 
+**Look (since 23 Nov 2026):** Inter for all text (`--sans`), Literata only for the feed titles (`--serif`), Montserrat only for UNFOLD beside the logo. Normal capitalisation everywhere (Title Case for buttons and headings, sentence case for small labels); the only capitals are the logo and the feed's location bubble. Main buttons are orange with a very subtle top-to-bottom gradient (`--button-fill` in `index.css`), white words and a white arrow.
+
 **Code style:** comments throughout are in plain, everyday English, explaining what each piece is for and why. Keep that style. UI text uses curly apostrophes (’).
 
 ---
@@ -110,9 +112,13 @@ There's a bottom **navbar with four tabs**: **Home (Feed)**, **Find My Journey**
 
 ### Home (Feed)
 - A full-screen, vertically swiping feed: one journey per screen, with its photo filling it.
-- Each screen shows the name, the blurb and **four tags**: time, difficulty, number of stops and main experience. The tags shrink to fit one line.
-- Each journey has a badge: AI GENERATED or UNFOLD VERIFIED.
-- A **save (bookmark) button** on each journey. "Liked" was renamed to "Saved"; old likes carry over.
+- Redesigned after a mockup (23 Nov 2026). The logo and search stay at the top over the photo. Lower down, the photo fades to a warm near-black behind:
+  - a location bubble (town and country, in capitals, e.g. "KAMAKURA, JAPAN") with the AI Generated or Unfold Verified tag beside it;
+  - the journey name in the serif (Literata), with a round **save (bookmark) button** beside it;
+  - the blurb;
+  - **three facts** with soft orange symbols, split by faint lines: time, difficulty, and the main experience with its own symbol;
+  - the orange **Unfold This Journey** button.
+- "Liked" was renamed to "Saved"; old likes carry over.
 - The feed remembers where you were.
 - A **magnifying glass opens Search**. It matches the journey name, the place, or the name of any stop or detour, as you type. It ignores accents and punctuation and matches word prefixes. A journey found by a stop says which stop matched.
 

@@ -147,7 +147,7 @@ function SurveyPage({ journey, detoursTaken, profileName, onBack, onHome }) {
               </div>
             </>
           ) : (
-            <p className="surveyLabel">BEFORE WE START</p>
+            <p className="surveyLabel">Before we start</p>
           )}
 
           <label className="surveyPrompt" id="surveyPrompt" htmlFor="surveyAnswer">

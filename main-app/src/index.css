@@ -32,10 +32,13 @@
   --box-gray: rgb(245, 246, 248);
   --border: rgb(228, 223, 217);
 
-  --sans: 'Montserrat', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: 'Montserrat', system-ui, 'Segoe UI', Roboto, sans-serif;
-  /* Only for the journey titles on Home's feed. */
-  --serif: 'Noto Serif Display', 'Times New Roman', Times, serif;
+  /* Inter, after the feed's mockup (close to the iPhone's own font), for all
+     the words, headings too; the serif only for the journey titles on Home's
+     feed; and Montserrat only for UNFOLD beside the logo. */
+  --sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --heading: var(--sans);
+  --serif: 'Literata', Georgia, 'Times New Roman', serif;
+  --logo-font: 'Montserrat', system-ui, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   /* Words: near-black with a hint of navy for headings, warm greys for
@@ -86,15 +89,23 @@
     rgba(255, 255, 255, 0.9) 85%,
     rgb(255, 255, 255) 100%
   );
-  /* A journey on the Home feed: shaded dark behind the white words at the top,
-     then not at all from the middle down, so the photo is clear. */
+  /* A journey on the Home feed, after its mockup: a little shade at the top,
+     behind the logo and search, then the photo clear, until it fades to a
+     warm near-black behind the words at the bottom (--feed-dark, on
+     .feedInfo in App.css, so the fade starts wherever the words do). */
   --feed-fade: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.42) 30%,
-    rgba(0, 0, 0, 0.16) 46%,
-    rgba(0, 0, 0, 0) 58%
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.14) 12%,
+    rgba(0, 0, 0, 0) 22%
   );
+  --feed-dark: 14, 12, 9;
+  /* The words on it, from the mockup: a warm white, and a soft orange for
+     the symbols. */
+  --feed-ink: rgb(255, 252, 246);
+  --feed-ink-soft: rgb(236, 231, 222);
+  --feed-place: rgb(238, 224, 200);
+  --feed-symbol: rgb(232, 168, 104);
   /* The symbols on a journey's tags on the Home feed. */
   --tag-yellow: rgb(245, 190, 65);
   --tag-green: rgb(90, 215, 110);
@@ -162,6 +173,14 @@
   --poor-bg: rgb(253, 232, 232);
   --poor-edge: rgb(240, 196, 196);
   --poor-ink: rgb(200, 40, 40);
+  /* The main buttons, after the feed's mockup: orange, with the words in
+     white. Ever so slightly paler at the top and darker at the bottom (the
+     mockup's own colours, top to bottom), with the faintest light along the
+     top edge, so it's just a little raised. The same in dark mode. */
+  --button-fill: linear-gradient(to bottom, rgb(224, 112, 49) 0%, rgb(216, 100, 41) 50%, rgb(207, 87, 34) 100%);
+  --button-fill-pressed: linear-gradient(to bottom, rgb(212, 100, 42) 0%, rgb(204, 89, 35) 50%, rgb(196, 78, 29) 100%);
+  --button-edge: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  --button-ink: rgb(255, 250, 245);
   /* How hard the walk to a stop is, on the route preview. */
   --effort-easy-bg: rgba(46, 112, 70, 0.12);
   --effort-moderate-bg: rgba(214, 140, 20, 0.16);
@@ -173,7 +192,7 @@
   --art-filter: none;
 
   font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  letter-spacing: normal;
   color-scheme: light;
   color: var(--text);
   background: var(--bg);

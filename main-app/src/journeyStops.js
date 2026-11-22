@@ -95,9 +95,9 @@ export const kawagoeStation = {
   // On each screen's photo: the red heading, then the small label above the
   // name.
   directionsHeading: 'Departure',
-  directionsLabel: 'YOUR JOURNEY BEGINS AT',
+  directionsLabel: 'Your journey begins at',
   arrivedHeading: 'Arrival',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   // One entry per paragraph. className "narrationLead" makes it the big
   // opening line, and "narrationClose" the italic last line. An entry can
@@ -134,9 +134,9 @@ export const imofukudo = {
   stayMinutes: [20, 30],
 
   directionsHeading: 'Discovery',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Discovery',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { kind: 'heading', text: 'Better than chestnuts' },
@@ -176,9 +176,9 @@ export const kawagoeMuseum = {
   stayMinutes: [30, 45],
 
   directionsHeading: 'Detour',
-  directionsLabel: 'YOUR DETOUR',
+  directionsLabel: 'Your detour',
   arrivedHeading: 'Detour',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { kind: 'heading', text: 'The town’s own story' },
@@ -221,9 +221,9 @@ export const kawagoeCastle = {
   ],
 
   directionsHeading: 'Detour',
-  directionsLabel: 'YOUR DETOUR',
+  directionsLabel: 'Your detour',
   arrivedHeading: 'Detour',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { kind: 'heading', text: 'The palace that survived' },
@@ -262,9 +262,9 @@ export const tokiNoKane = {
   ],
 
   directionsHeading: 'Build',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Build',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   // This stop has optional detours, as many as are listed here. On its
   // narration screen, detoursNote sits above SEE DETOURS, with CONTINUE
@@ -298,9 +298,9 @@ export const hikawaShrine = {
   stayMinutes: [30, 45],
 
   directionsHeading: 'Peak',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Peak',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { className: 'narrationLead', text: 'You made it. This is what the day was building toward.' },
@@ -330,9 +330,9 @@ export const maruya = {
   stayMinutes: [45, 60],
 
   directionsHeading: 'Afterglow',
-  directionsLabel: 'YOUR LAST STOP',
+  directionsLabel: 'Your last stop',
   arrivedHeading: 'Afterglow',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { kind: 'heading', text: 'Let it settle' },
@@ -516,9 +516,9 @@ export const odawaraStation = {
   ],
 
   directionsHeading: 'Departure',
-  directionsLabel: 'YOUR JOURNEY BEGINS AT',
+  directionsLabel: 'Your journey begins at',
   arrivedHeading: 'Arrival',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { className: 'narrationLead', text: 'You’re in Odawara.' },
@@ -563,9 +563,9 @@ export const kamabokoDori = {
   ],
 
   directionsHeading: 'Discovery',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Discovery',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { kind: 'heading', text: 'Food for the road' },
@@ -598,9 +598,9 @@ export const ninjaMuseum = {
   stayMinutes: [30, 45],
 
   directionsHeading: 'Detour',
-  directionsLabel: 'YOUR DETOUR',
+  directionsLabel: 'Your detour',
   arrivedHeading: 'Detour',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { kind: 'heading', text: 'The Hōjō’s ninja' },
@@ -640,9 +640,9 @@ export const cultureMuseum = {
   ],
 
   directionsHeading: 'Build',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Build',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   detours: [ninjaMuseum],
   detoursNote: 'This part of the journey comes with a detour: a short side trip worth taking if you’re curious. It’s entirely up to you.',
@@ -677,9 +677,9 @@ export const odawaraCastle = {
   stayMinutes: [45, 60],
 
   directionsHeading: 'Peak',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Peak',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { className: 'narrationLead', text: 'You made it. This is what the day was building toward.' },
@@ -719,9 +719,9 @@ export const miyukinohama = {
   ],
 
   directionsHeading: 'Afterglow',
-  directionsLabel: 'YOUR LAST STOP',
+  directionsLabel: 'Your last stop',
   arrivedHeading: 'Afterglow',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 
   narration: [
     { kind: 'heading', text: 'An emperor on the beach' },
@@ -831,14 +831,30 @@ export const odawaraJourney = {
   },
 }
 
-// A journey's `location` to show: "KAMAKURA · KANAGAWA, JAPAN" becomes "Kanagawa,
-// Japan", without the town.
-export function placeName(location) {
-  return location
-    .split(' · ')[1]
+// A journey's `location`, kept in capitals ("KAMAKURA · KANAGAWA, JAPAN"),
+// in normal capitalisation to show: "Kamakura · Kanagawa, Japan".
+function titleCase(text) {
+  return text
     .toLowerCase()
     .replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
     .replace('Usa', 'USA')
+}
+
+// All of it: "Kamakura · Kanagawa, Japan".
+export function fullPlaceName(location) {
+  return titleCase(location)
+}
+
+// Without the town: "Kanagawa, Japan".
+export function placeName(location) {
+  return titleCase(location.split(' · ')[1])
+}
+
+// The town and the country, without the region: "Kamakura, Japan", or
+// "Nassau, The Bahamas".
+export function townAndCountry(location) {
+  const [town, rest] = location.split(' · ')
+  return titleCase(`${town}, ${rest.split(', ').at(-1)}`)
 }
 
 // Every journey, the featured one first: it's the first on Home. The AI-made

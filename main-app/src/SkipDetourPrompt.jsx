@@ -27,7 +27,7 @@ function SkipDetourPrompt({ hasOtherDetours, onSeeOtherDetours, onContinueJourne
         Continue the Journey
       </button>
       <button className="backBtn" onClick={onStay}>
-        STAY HERE
+        Stay Here
       </button>
     </PromptBox>
   )
