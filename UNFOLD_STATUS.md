@@ -209,8 +209,8 @@ Every stop uses the same two screens, filled in from its card.
 ### My Journeys
 - A large photo header (Fuji), as on the mockup.
 - **Current journey card**, with "Heading to X" or "You’re at X" and how many stops are done. Tap it to resume.
-- **Completed** journeys in a swipeable row, with SEE ALL opening a grid.
-- **Saved** journeys: the latest one, with SEE ALL opening a grid. Unsaving removes a journey from the grid.
+- **Saved** journeys in a swipeable row of large cards, with SEE ALL opening a grid. Unsaving a journey removes it from the row and the grid.
+- **Completed** journeys at the bottom: the latest one as a small card, with SEE ALL opening a grid.
 - Without a profile, a "save this to a profile" card replaces the completed section.
 
 ### Profile
