@@ -7,7 +7,7 @@ import { SearchIcon } from './Icons.jsx'
 // Most of the narration is plain paragraphs, but an entry can also be a
 // little subheading ({ kind: 'heading', text }) to break it into short
 // sections, or something to look for while you're there ({ kind: 'find',
-// text }), in a box headed CAN YOU FIND IT?. Both are read aloud too, in
+// text }), in a box headed Can you find it?. Both are read aloud too, in
 // their place; the box's heading isn't, so the text should make sense on
 // its own ("Find the…", "Look for…").
 //
@@ -299,7 +299,7 @@ function Narration({ paragraphs }) {
               <div key={p} className="narrationFind">
                 <p className="narrationFindLabel">
                   <SearchIcon />
-                  CAN YOU FIND IT?
+                  Can you find it?
                 </p>
                 <p className={className}>{said}</p>
               </div>

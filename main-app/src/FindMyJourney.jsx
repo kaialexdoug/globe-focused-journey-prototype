@@ -83,7 +83,7 @@ function StepTop({ step, onBack, onSkip }) {
         )}
       </div>
       <p className="stepCount">
-        STEP {step} OF {STEP_COUNT}
+        Step {step} of {STEP_COUNT}
       </p>
       {/* The steps before this one in teal, and this one in orange. */}
       <div className="stepProgress">

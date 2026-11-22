@@ -4,44 +4,44 @@
 
 export const DEPARTURE = {
   directionsHeading: 'Departure',
-  directionsLabel: 'YOUR JOURNEY BEGINS AT',
+  directionsLabel: 'Your journey begins at',
   arrivedHeading: 'Arrival',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 }
 
 export const DISCOVERY = {
   directionsHeading: 'Discovery',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Discovery',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 }
 
 export const BUILD = {
   directionsHeading: 'Build',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Build',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 }
 
 export const DETOUR = {
   directionsHeading: 'Detour',
-  directionsLabel: 'YOUR DETOUR',
+  directionsLabel: 'Your detour',
   arrivedHeading: 'Detour',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 }
 
 export const PEAK = {
   directionsHeading: 'Peak',
-  directionsLabel: 'YOUR NEXT STOP',
+  directionsLabel: 'Your next stop',
   arrivedHeading: 'Peak',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 }
 
 export const AFTERGLOW = {
   directionsHeading: 'Afterglow',
-  directionsLabel: 'YOUR LAST STOP',
+  directionsLabel: 'Your last stop',
   arrivedHeading: 'Afterglow',
-  arrivedLabel: "YOU'VE ARRIVED",
+  arrivedLabel: "You’ve arrived",
 }
 
 // Above SEE DETOUR, on a build stop with one detour.

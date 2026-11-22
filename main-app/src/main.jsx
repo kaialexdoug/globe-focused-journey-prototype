@@ -1,13 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-// Montserrat for everything, and the serif only for the journey titles on
-// Home's feed.
+// Inter for everything (every weight in one file), Literata only for the
+// journey titles on Home's feed, both after the feed's mockup, and Montserrat
+// only for the UNFOLD beside the logo, which stays as it was.
+import '@fontsource-variable/inter'
+import '@fontsource-variable/inter/wght-italic.css'
+import '@fontsource/literata/600.css'
 import '@fontsource/montserrat/400.css'
-import '@fontsource/montserrat/400-italic.css'
-import '@fontsource/montserrat/500.css'
-import '@fontsource/montserrat/600.css'
-import '@fontsource/montserrat/700.css'
-import '@fontsource/noto-serif-display/600.css'
 import './index.css'
 import App from './App.jsx'
 import { loadTheme } from './profileStore.js'

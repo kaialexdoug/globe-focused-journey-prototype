@@ -71,7 +71,7 @@ function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSur
         photo={journey.photo}
         photoAlt={journey.photoAlt}
         kicker="Memory"
-        label="JOURNEY COMPLETE"
+        label="Journey complete"
         title={journey.name}
         size="isTall"
       />
@@ -152,7 +152,7 @@ function MemoryPage({ journey, detoursTaken, profileName, onCreateProfile, onSur
 
         {onCreateProfile && (
           <SignUpCard
-            label="SAVE THIS JOURNEY"
+            label="Save this journey"
             text="Add your name to make a profile, and this journey will be kept in My Journeys, with your stats. No password needed."
             onCreate={onCreateProfile}
           />

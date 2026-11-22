@@ -122,7 +122,7 @@ function RoutePreview({ journey }) {
           </ol>
 
           <div className="startCard routeTotals">
-            <p className="startCardLabel">ALTOGETHER</p>
+            <p className="startCardLabel">Altogether</p>
             <div className="startCardRow">
               <WalkIcon />
               <div>
