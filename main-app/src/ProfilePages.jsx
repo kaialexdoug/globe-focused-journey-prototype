@@ -819,10 +819,31 @@ function SettingsChoice({ id, name, choices, value, onChoose }) {
 // Like Edit Profile, nothing's saved until DONE, which asks whether to save,
 // if anything's been changed. A theme tapped shows straight away
 // (`onTryTheme`), so you can see it before saving it.
-export function SettingsPage({ units, theme, onTryTheme, onSave, onClose }) {
+//
+// Leaving by the navbar with something changed asks the same, first:
+// `guardLeaving` hands App a check to make before it goes anywhere, which
+// gets the way to go on (`leave`) and keeps hold of it while it asks. Saving
+// or not then goes on to wherever the navbar was taking you; tapping outside
+// the box stays here, with the changes still there.
+export function SettingsPage({ units, theme, onTryTheme, onSave, onClose, guardLeaving }) {
   const [chosenUnits, setChosenUnits] = useState(units)
   const [chosenTheme, setChosenTheme] = useState(theme)
   const [askToSave, setAskToSave] = useState(false)
+  // Where the navbar was taking you, while it asks: a function to go there.
+  const [leaving, setLeaving] = useState(null)
+  const changed = chosenUnits !== units || chosenTheme !== theme
+
+  useEffect(() => {
+    guardLeaving(
+      changed
+        ? (leave) => {
+            setLeaving(() => leave)
+            return true
+          }
+        : null,
+    )
+    return () => guardLeaving(null)
+  }, [changed, guardLeaving])
 
   function chooseTheme(value) {
     setChosenTheme(value)
@@ -830,11 +851,29 @@ export function SettingsPage({ units, theme, onTryTheme, onSave, onClose }) {
   }
 
   function done() {
-    if (chosenUnits === units && chosenTheme === theme) {
-      onClose()
-    } else {
+    if (changed) {
       setAskToSave(true)
+    } else {
+      onClose()
     }
+  }
+
+  function save() {
+    onSave(chosenUnits, chosenTheme)
+    leaving?.()
+  }
+
+  function dontSave() {
+    if (leaving) {
+      leaving()
+    } else {
+      onClose()
+    }
+  }
+
+  function keepEditing() {
+    setAskToSave(false)
+    setLeaving(null)
   }
 
   return (
@@ -868,12 +907,8 @@ export function SettingsPage({ units, theme, onTryTheme, onSave, onClose }) {
 
       <DoneButton onDone={done} />
 
-      {askToSave && (
-        <SaveChangesPrompt
-          onSave={() => onSave(chosenUnits, chosenTheme)}
-          onDiscard={onClose}
-          onKeepEditing={() => setAskToSave(false)}
-        />
+      {(askToSave || leaving) && (
+        <SaveChangesPrompt onSave={save} onDiscard={dontSave} onKeepEditing={keepEditing} />
       )}
     </div>
   )
