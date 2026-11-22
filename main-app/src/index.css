@@ -89,23 +89,17 @@
     rgba(255, 255, 255, 0.9) 85%,
     rgb(255, 255, 255) 100%
   );
-  /* A journey on the Home feed, after its mockup: a little shade at the top,
-     behind the logo and search, then the photo clear, until it fades to a
-     warm near-black behind the words at the bottom (--feed-dark, on
-     .feedInfo in App.css, so the fade starts wherever the words do). */
+  /* A journey on the Home feed, after its mockup: a little shade at the top
+     of its photo, behind the logo and search (the photo's fade into the page
+     at the bottom is on .feedPhoto in App.css). */
   --feed-fade: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.42) 0%,
     rgba(0, 0, 0, 0.14) 12%,
     rgba(0, 0, 0, 0) 22%
   );
-  --feed-dark: 14, 12, 9;
-  /* The words on it, from the mockup: a warm white, and a soft orange for
-     the symbols. */
-  --feed-ink: rgb(255, 252, 246);
-  --feed-ink-soft: rgb(236, 231, 222);
-  --feed-place: rgb(238, 224, 200);
-  --feed-symbol: rgb(232, 168, 104);
+  /* The soft orange of its three facts' symbols: a little deeper on white. */
+  --feed-symbol: rgb(226, 140, 68);
   /* The symbols on a journey's tags on the Home feed. */
   --tag-yellow: rgb(245, 190, 65);
   --tag-green: rgb(90, 215, 110);
@@ -288,6 +282,7 @@
   --photo-accent: var(--accent-ink);
   --photo-panel-soft: rgba(20, 24, 32, 0.55);
   --photo-top-shade: rgba(16, 19, 26, 0.6);
+  --feed-symbol: rgb(232, 168, 104);
 
   --night: rgb(236, 239, 245);
   --spoken-bg: rgba(249, 160, 110, 0.32);

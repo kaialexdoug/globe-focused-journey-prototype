@@ -1,8 +1,8 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import findPicture from './assets/find-my-journey.jpg'
 
-import Header, { AiBadge, VerifiedBadge } from './Header.jsx'
+import Header from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
 import { DirectionsPage, ArrivedPage, DetoursPage } from './StopPages.jsx'
@@ -303,8 +303,22 @@ function App() {
   const stopJourney = () => setShowStopConfirmation(true)
 
   // A tab on the navbar. On a journey, it leaves the journey where it is, as
-  // the one you're on, to pick up again later.
+  // the one you're on, to pick up again later. A page with changes still to
+  // save (Settings) can ask first: its check (`leaveGuard`, set with
+  // guardLeaving) gets the way to go on, and says whether it's asking.
+  const leaveGuard = useRef(null)
+  const guardLeaving = useCallback((guard) => {
+    leaveGuard.current = guard
+  }, [])
+
   function goToTab(tab) {
+    if (leaveGuard.current?.(() => leaveForTab(tab))) {
+      return
+    }
+    leaveForTab(tab)
+  }
+
+  function leaveForTab(tab) {
     if (onJourney) {
       setProgress({ journeyId: journey.id, page, detourId: detour?.id ?? null, detoursTaken })
     }
@@ -479,6 +493,7 @@ function App() {
         units={units}
         theme={theme}
         onTryTheme={setThemePreview}
+        guardLeaving={guardLeaving}
         onSave={(chosenUnits, chosenTheme) => {
           changeUnits(chosenUnits)
           setTheme(chosenTheme)
@@ -935,11 +950,11 @@ function FeedFacts({ journey }) {
   )
 }
 
-// Home is a feed: every journey, one screen at a time, with its photo filling
-// the screen, after the feed's mockup. The logo and search stay at the top,
-// over the photo; lower down, the photo fades to dark, and on the dark: where
-// it is (in a bubble), its name with the bookmark beside it, what it's about,
-// its three facts, and Unfold This Journey. `positionRef` remembers which one
+// Home is a feed: every journey, one screen at a time, after the feed's
+// mockup. The logo and search stay at the top, over the photo; lower down,
+// the photo fades into the page (white, or dark in dark mode) and ends there,
+// and on the page: where it is (in a bubble), its name with the bookmark
+// beside it, what it's about, its three facts, and Unfold This Journey. `positionRef` remembers which one
 // you were on, so you come back to it after opening a journey or going to
 // another tab. Tapping anywhere on one opens it. Its button is there to make
 // that obvious, and for the keyboard; its click reaches the card too. The
@@ -997,21 +1012,26 @@ function HomePage({ journeys, saved, onSelect, onToggleSaved, onSearch, position
       <div className="feed" ref={feedRef} onScroll={rememberPosition}>
         {journeys.map((journey, index) => (
           <div key={journey.id} className="feedCard" onClick={() => onSelect(journey)}>
-            <img
-              src={journey.photo}
-              alt={journey.photoAlt}
-              style={{ objectPosition: journey.photoPosition }}
-              // Fetched as you get near it, so opening the app doesn't download them all.
-              loading={index === 0 ? 'eager' : 'lazy'}
-            />
+            <div className="feedPhoto">
+              <img
+                src={journey.photo}
+                alt={journey.photoAlt}
+                style={{ objectPosition: journey.photoPosition }}
+                // Fetched as you get near it, so opening the app doesn't download them all.
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+            </div>
             <div className="feedInfo">
               <div className="feedPlaceRow">
                 <p className="feedPlace">
                   <SolidPinIcon />
                   {townAndCountry(journey.location)}
                 </p>
-                {journey.aiMade && <AiBadge />}
-                {journey.verified && <VerifiedBadge />}
+                {/* The AI Generated and Unfold Verified tags (AiBadge and
+                    VerifiedBadge in Header.jsx) are left off for now. Each
+                    journey still says which it is (`aiMade` or `verified`),
+                    so they can go back here: {journey.aiMade && <AiBadge />}
+                    and {journey.verified && <VerifiedBadge />}. */}
               </div>
               <div className="feedTitleRow">
                 <h2 className="feedTitle">{journey.name}</h2>

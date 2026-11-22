@@ -35,7 +35,7 @@ Unfold is a phone-first web app of **guided walking journeys**. Each journey is 
 
 **Storage:** everything is kept on the phone in `localStorage` (`profileStore.js`). Nothing leaves the device except the survey.
 
-**Look (since 23 Nov 2026):** Inter for all text (`--sans`), Literata only for the feed titles (`--serif`), Montserrat only for UNFOLD beside the logo. Normal capitalisation everywhere (Title Case for buttons and headings, sentence case for small labels); the only capitals are the logo and the feed's location bubble. Main buttons are orange with a very subtle top-to-bottom gradient (`--button-fill` in `index.css`), white words and a white arrow.
+**Look (since 23 Nov 2026):** Inter for all text (`--sans`), Literata only for the feed titles (`--serif`), Montserrat only for UNFOLD beside the logo. Normal capitalisation everywhere (Title Case for buttons and headings, sentence case for small labels); the only capitals are the logo and the feed's location bubble. Every main button looks exactly like the feed's Unfold This Journey (one shared rule at the top of `App.css`): orange with a very subtle top-to-bottom gradient (`--button-fill` in `index.css`), no border, a faint light along the top edge, white words and a white arrow.
 
 **Code style:** comments throughout are in plain, everyday English, explaining what each piece is for and why. Keep that style. UI text uses curly apostrophes (’).
 
@@ -112,8 +112,8 @@ There's a bottom **navbar with four tabs**: **Home (Feed)**, **Find My Journey**
 
 ### Home (Feed)
 - A full-screen, vertically swiping feed: one journey per screen, with its photo filling it.
-- Redesigned after a mockup (23 Nov 2026). The logo and search stay at the top over the photo. Lower down, the photo fades to a warm near-black behind:
-  - a location bubble (town and country, in capitals, e.g. "KAMAKURA, JAPAN") with the AI Generated or Unfold Verified tag beside it;
+- Redesigned after a mockup (23 Nov 2026). The logo and search stay at the top over the photo. Lower down, the photo fades into the page colour (white, or the dark in dark mode) and ends there, behind the title. On the page:
+  - a location bubble (town and country, in capitals, e.g. "KAMAKURA, JAPAN") with an orange pin. The AI Generated and Unfold Verified tags are hidden for now (23 Nov 2026); each journey still has `aiMade` or `verified`;
   - the journey name in the serif (Literata), with a round **save (bookmark) button** beside it;
   - the blurb;
   - **three facts** with soft orange symbols, split by faint lines: time, difficulty, and the main experience with its own symbol;

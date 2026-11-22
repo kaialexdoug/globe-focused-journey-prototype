@@ -59,27 +59,30 @@
   margin: 0 0 5px;
 }
 
-/* The main button, all through a journey and in the boxes over it, after
-   the feed's mockup: an orange pill (--button-fill), the words in white, and
-   a white arrow on the ones that move you on, like Begin Journey. Every main
-   button in the app is this size. */
-.introBtn {
+/* The main button, after the feed's mockup, the same everywhere: Unfold This
+   Journey on Home (.feedDiscover), Find My Journey (.findStart), Find My
+   Journeys (.stepFind), and all through a journey and in the boxes over it
+   (.introBtn: Begin Journey, I'm Here, Resume Journey, Continue, Done…). An
+   orange pill (--button-fill) with no border, so the faint light along its
+   top (--button-edge) sits right on its top edge; the words in white, and a
+   white arrow on the ones that move you on. Each sets only where it goes. */
+.introBtn,
+.findStart,
+.stepFind,
+.feedDiscover {
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 100%;
-  min-height: 50px;
-  margin-top: 10px;
-  padding: 8px 20px;
+  min-height: 54px;
+  padding: 8px 18px;
   background: var(--button-fill);
-  background-origin: border-box;
-  border: 1.5px solid transparent;
+  border: none;
   border-radius: 999px;
   box-shadow: var(--button-edge);
   font-family: var(--heading);
-  font-size: 17px;
+  font-size: 17.5px;
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.2;
@@ -89,7 +92,10 @@
   transition: transform 0.1s ease;
 }
 
-.introBtn svg {
+.introBtn svg,
+.findStart svg,
+.stepFind svg,
+.feedDiscover svg {
   flex-shrink: 0;
   width: 21px;
   height: 21px;
@@ -98,24 +104,33 @@
 }
 
 @media (hover: hover) {
-  .introBtn:hover {
+  .introBtn:hover,
+  .findStart:hover,
+  .stepFind:hover,
+  .feedDiscover:hover {
     background: var(--button-fill-pressed);
-    background-origin: border-box;
   }
 }
 
-.introBtn:active {
+.introBtn:active,
+.findStart:active,
+.stepFind:active,
+.feedDiscover:active {
   background: var(--button-fill-pressed);
-  background-origin: border-box;
   transform: scale(0.98);
 }
 
+.introBtn {
+  width: 100%;
+  margin-top: 10px;
+}
+
 /* The second choice next to a main button: the same shape, outlined in the
-   deep blue, with the arrow or symbol in orange. */
+   deep blue (the outline inside it, so it's the same size), with the arrow or
+   symbol in orange. */
 .introBtn.isGhost {
   background: transparent;
-  border-color: var(--accent-ink);
-  box-shadow: none;
+  box-shadow: inset 0 0 0 1.5px var(--accent-ink);
   color: var(--accent-ink);
 }
 
@@ -136,7 +151,6 @@
 /* Greyed out until it can be used, like Next before there's an answer. */
 .introBtn:disabled {
   background: var(--disabled-bg);
-  border-color: var(--disabled-bg);
   box-shadow: none;
   color: var(--disabled-ink);
   cursor: not-allowed;
@@ -452,60 +466,72 @@ button:focus-visible {
   display: none;
 }
 
-/* The words at the bottom (.feedInfo), with the photo clear above them. The
-   near-black shows behind a photo that's still loading. */
+/* A journey: its photo at the top (.feedPhoto), taking whatever room the
+   words leave, and the words at the bottom (.feedInfo), on the page's own
+   colour: white, or the dark in dark mode. The words start a little way up
+   into the photo, where it's fading into the page, so the photo ends (fully
+   faded) behind the journey's name. */
 .feedCard {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   box-sizing: border-box;
   height: 100%;
   overflow: hidden;
-  isolation: isolate;
-  background-color: rgb(var(--feed-dark));
+  background-color: var(--bg);
   text-align: left;
   cursor: pointer;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
 
-.feedCard img {
+/* How far the words reach up into the photo: the place, and about the first
+   line of the name. */
+.feedPhoto {
+  --feed-overlap: 130px;
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-bottom: calc(-1 * var(--feed-overlap));
+  background-color: var(--placeholder-dim);
+}
+
+.feedPhoto img {
   position: absolute;
   inset: 0;
-  z-index: -1;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* The shade at the top, behind the logo and search. */
-.feedCard::after {
+/* A little shade at the top, behind the logo and search, and at the bottom
+   the fade into the page, solid by the photo's bottom edge. */
+.feedPhoto::after {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background: var(--feed-fade);
+  background:
+    var(--feed-fade),
+    linear-gradient(
+      to bottom,
+      transparent calc(100% - 260px),
+      color-mix(in srgb, var(--bg) 45%, transparent) calc(100% - 190px),
+      color-mix(in srgb, var(--bg) 82%, transparent) calc(100% - 120px),
+      color-mix(in srgb, var(--bg) 96%, transparent) calc(100% - 50px),
+      var(--bg) 100%
+    );
   pointer-events: none;
 }
 
-/* Everything about the journey, at the bottom, on the photo's fade to dark.
-   The fade is its own background, starting a little above the place, so it
-   begins wherever the words do, however many lines they take. */
+/* Everything about the journey, over the end of the fade and then on the
+   page. */
 .feedInfo {
-  padding: 110px 16px 16px;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--feed-dark), 0) 0%,
-    rgba(var(--feed-dark), 0.5) 60px,
-    rgba(var(--feed-dark), 0.82) 150px,
-    rgba(var(--feed-dark), 0.94) 230px,
-    rgb(var(--feed-dark)) 100%
-  );
+  position: relative;
+  padding: 0 16px 16px;
 }
 
-/* Where it is, in its own bubble, with the journey's AI Generated or Unfold
-   Verified tag beside it. */
+/* Where it is, in its own bubble (with room for the AI Generated or Unfold
+   Verified tag beside it, which is left off for now: see HomePage). */
 .feedPlaceRow {
   display: flex;
   flex-wrap: wrap;
@@ -519,15 +545,15 @@ button:focus-visible {
   gap: 6px;
   height: 30px;
   padding: 0 12px 0 9px;
-  background-color: rgba(var(--feed-dark), 0.55);
+  background-color: color-mix(in srgb, var(--bg) 70%, transparent);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid color-mix(in srgb, var(--night) 14%, transparent);
   border-radius: 999px;
   font-size: 12.5px;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1;
-  color: var(--feed-place);
+  color: var(--ink-soft);
   text-transform: uppercase;
 }
 
@@ -538,8 +564,7 @@ button:focus-visible {
   color: var(--unfold-orange);
 }
 
-/* On the feed, the tag's dark glass like the place's bubble, rather than
-   the white it is on the light pages. */
+/* The tag, in the same glass as the place's bubble. */
 .feedPlaceRow .aiBadge,
 .feedPlaceRow .verifiedBadge {
   flex-shrink: 0;
@@ -548,11 +573,11 @@ button:focus-visible {
   box-sizing: border-box;
   height: 30px;
   padding: 0 11px;
-  background-color: rgba(var(--feed-dark), 0.55);
+  background-color: color-mix(in srgb, var(--bg) 70%, transparent);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid color-mix(in srgb, var(--night) 14%, transparent);
   font-size: 12px;
-  color: var(--feed-ink-soft);
+  color: var(--ink-soft);
 }
 
 /* The name, in the serif, with the bookmark across from it. */
@@ -573,11 +598,11 @@ button:focus-visible {
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.08;
-  color: var(--feed-ink);
+  color: var(--text-h);
   text-wrap: balance;
 }
 
-/* Save: a round button of dark glass, ringed in a faint light line. */
+/* Save: a round glass button, ringed in a faint line. */
 .feedSave {
   flex-shrink: 0;
   display: grid;
@@ -585,11 +610,11 @@ button:focus-visible {
   width: 48px;
   height: 48px;
   padding: 0;
-  background-color: rgba(var(--feed-dark), 0.45);
+  background-color: color-mix(in srgb, var(--bg) 60%, transparent);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid color-mix(in srgb, var(--night) 22%, transparent);
   border-radius: 50%;
-  color: white;
+  color: var(--night);
   cursor: pointer;
   transition: transform 0.15s ease;
 }
@@ -610,9 +635,9 @@ button:focus-visible {
 
 .feedTeaser {
   margin-top: 12px;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.45;
-  color: var(--feed-ink-soft);
+  color: var(--ink-body);
 }
 
 /* How long, how hard and what kind: three across, each a soft orange symbol
@@ -633,7 +658,7 @@ button:focus-visible {
 }
 
 .feedFact + .feedFact {
-  border-left: 1px solid rgba(255, 255, 255, 0.13);
+  border-left: 1px solid var(--line);
 }
 
 .feedFactIcon {
@@ -644,47 +669,18 @@ button:focus-visible {
 }
 
 .feedFactValue {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.2;
   white-space: nowrap;
-  color: var(--feed-ink-soft);
+  color: var(--ink-body);
 }
 
-/* Unfold This Journey: the orange button, right across. */
+/* Unfold This Journey: the main button (its look is at the top of this
+   file), right across. */
 .feedDiscover {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   width: 100%;
-  height: 54px;
   margin-top: 20px;
-  padding: 0 18px;
-  background: var(--button-fill);
-  border: none;
-  border-radius: 999px;
-  box-shadow: var(--button-edge);
-  font-family: var(--heading);
-  font-size: 17.5px;
-  font-weight: 600;
-  letter-spacing: 0;
   white-space: nowrap;
-  color: var(--button-ink);
-  cursor: pointer;
-  transition: transform 0.1s ease;
-}
-
-.feedDiscover svg {
-  flex-shrink: 0;
-  width: 21px;
-  height: 21px;
-  stroke-width: 2.2;
-  color: currentColor;
-}
-
-.feedDiscover:active {
-  background: var(--button-fill-pressed);
-  transform: scale(0.98);
 }
 
 /* A little smaller on a narrower phone. */
@@ -694,7 +690,7 @@ button:focus-visible {
   }
 
   .feedFactValue {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -704,7 +700,7 @@ button:focus-visible {
   }
 
   .feedTeaser {
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 
@@ -768,39 +764,12 @@ button:focus-visible {
 
 .findStart {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  box-sizing: border-box;
   width: 100%;
-  height: 56px;
   margin-top: 20px;
-  background: var(--button-fill);
-  border: none;
-  border-radius: 999px;
-  box-shadow: var(--button-edge);
-  font-family: var(--heading);
-  font-size: 16px;
-  letter-spacing: 0;
-  color: var(--button-ink);
-  cursor: pointer;
-  transition: transform 0.15s ease;
-  font-weight: 600;
 }
 
 /* The arrow in orange, and a little bolder than the other line icons, as in
    the mockup. */
-.findStart svg {
-  width: 24px;
-  height: 24px;
-  stroke-width: 2.2;
-  color: currentColor;
-}
-
-.findStart:active {
-  transform: scale(0.98);
-}
 
 /* A little tighter on a short screen, to leave the picture more room. */
 @media (max-height: 700px) {
@@ -818,9 +787,7 @@ button:focus-visible {
   }
 
   .findStart {
-    height: 52px;
     margin-top: 14px;
-    font-size: 15px;
   }
 }
 
@@ -1782,35 +1749,9 @@ button.detailBar:active {
    capitals and the arrow in orange. */
 .stepFind {
   flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  height: 50px;
   margin: 26px -8px 0;
-  background: var(--button-fill);
-  border: none;
-  border-radius: 999px;
-  box-shadow: var(--button-edge);
-  font-family: var(--heading);
-  font-size: 14.5px;
-  font-weight: 600;
-  letter-spacing: 0;
-  color: var(--button-ink);
-  cursor: pointer;
-  transition: transform 0.15s ease;
 }
 
-.stepFind svg {
-  width: 22px;
-  height: 22px;
-  color: currentColor;
-  stroke-width: 2.2;
-}
-
-.stepFind:active {
-  transform: scale(0.98);
-}
 
 /* Greyed out until it can be used, like Done on Edit Profile while the name
    is empty. */
@@ -2894,15 +2835,7 @@ button.detailBar:active {
 /* A little smaller than the usual button, so it fits on one line. */
 .readyStart {
   margin-top: 16px;
-  font-size: 15px;
-  letter-spacing: 0;
   white-space: nowrap;
-}
-
-@media (max-width: 370px) {
-  .readyStart {
-    font-size: 14px;
-  }
 }
 
 .readyDirections {
@@ -4584,8 +4517,7 @@ button.detailBar:active {
 /* Detour Taken: shaped like a button, but nothing to press. */
 .introBtn.isDone {
   background: transparent;
-  border-color: var(--outline);
-  box-shadow: none;
+  box-shadow: inset 0 0 0 1.5px var(--outline);
   color: var(--ink-faint);
   cursor: default;
   transform: none;
