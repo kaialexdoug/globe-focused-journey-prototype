@@ -5241,7 +5241,7 @@ button.detailBar:active {
   height: 15px;
 }
 
-/* Completed Journeys and Saved Journeys: a heading in capitals on the page, with
+/* Saved Journeys and Completed Journeys: a heading in capitals on the page, with
    See All in orange beside it. */
 .mySection {
   margin-top: 18px;
@@ -5295,7 +5295,7 @@ button.detailBar:active {
   color: rgba(12, 23, 43, 0.6);
 }
 
-/* Before you've finished one: a card in their place, saying they'll be here. */
+/* Before you've saved one: a card in their place, saying they'll be here. */
 .myEmptyCard {
   display: flex;
   align-items: center;
@@ -5317,7 +5317,7 @@ button.detailBar:active {
   color: var(--unfold-orange);
 }
 
-/* The finished journeys, swiped through sideways: right across the screen,
+/* The saved journeys, swiped through sideways: right across the screen,
    so they slide under its edges, two cards to the width of the page and
    each stopping where the page's words start. Whichever side has more to see
    fades to white. */
@@ -5531,8 +5531,8 @@ button.detailBar:active {
   }
 }
 
-/* The journey you saved last. */
-.mySaved {
+/* The journey you finished last, under Completed Journeys. */
+.myLatest {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -5546,7 +5546,7 @@ button.detailBar:active {
   cursor: pointer;
 }
 
-.mySaved img {
+.myLatest img {
   flex-shrink: 0;
   width: 92px;
   height: 58px;
@@ -5554,12 +5554,12 @@ button.detailBar:active {
   object-fit: cover;
 }
 
-.mySavedWords {
+.myLatestWords {
   flex: 1;
   min-width: 0;
 }
 
-.mySavedTitle {
+.myLatestTitle {
   display: block;
   font-family: var(--heading);
   font-size: 13px;
@@ -5569,7 +5569,7 @@ button.detailBar:active {
   text-transform: uppercase;
 }
 
-.mySavedPlace {
+.myLatestPlace {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -5580,7 +5580,7 @@ button.detailBar:active {
   text-transform: uppercase;
 }
 
-.mySavedPlace svg {
+.myLatestPlace svg {
   flex-shrink: 0;
   width: 15px;
   height: 15px;

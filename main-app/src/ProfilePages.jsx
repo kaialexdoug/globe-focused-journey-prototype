@@ -211,10 +211,10 @@ function savedJourneys(journeys, saved) {
 }
 
 // A journey as a photo card, after the My Journeys mockup: the photo fading
-// into white, the name under it, and its time and difficulty. The same for
-// finished and saved ones, in the sideways row on My Journeys or a grid on
-// their own pages. Tapping it opens the journey, and the bookmark saves it
-// (or unsaves it).
+// into white, the name under it, and its time and difficulty. For saved ones
+// in the sideways row on My Journeys, and for saved and finished ones in a
+// grid on their own pages. Tapping it opens the journey, and the bookmark
+// saves it (or unsaves it).
 function JourneyCard({ journey, isSaved, onOpen, onToggleSaved }) {
   return (
     <div className="journeyCard">
@@ -347,9 +347,9 @@ function CurrentJourney({ journey, where, onResume }) {
 
 // My Journeys, after its mockup: the heading with Mount Fuji beside it, then
 // the journey you're partway through (there's only ever one), the ones you've
-// finished in a row you swipe through, and the one you saved last. Without a
-// profile, the journeys you finish aren't kept, so a way to make one takes
-// the place of those.
+// saved in a row you swipe through, and at the bottom, the one you finished
+// last. Without a profile, the journeys you finish aren't kept, so a way to
+// make one takes the place of that.
 export function MyJourneysPage({
   profile,
   journeys,
@@ -365,8 +365,8 @@ export function MyJourneysPage({
   onCreateProfile,
 }) {
   const underWay = journeys.find((journey) => journey.id === progress?.journeyId)
-  const completed = completedJourneys(journeys, profile)
-  const [latestSaved] = savedJourneys(journeys, saved)
+  const [latestCompleted] = completedJourneys(journeys, profile)
+  const savedList = savedJourneys(journeys, saved)
 
   return (
     <div className="myJourneysPage">
@@ -398,6 +398,53 @@ export function MyJourneysPage({
           </div>
         )}
 
+        {/* Every journey you've saved, the latest first: two on the screen,
+            and the rest a swipe away. Unsaving one takes it straight off. */}
+        <MySection title="Saved Journeys" onSeeAll={savedList.length > 0 ? onSeeSaved : null}>
+          {savedList.length > 0 ? (
+            <JourneyRow>
+              {savedList.map((journey) => (
+                <JourneyCard
+                  key={journey.id}
+                  journey={journey}
+                  isSaved
+                  onOpen={onOpenJourney}
+                  onToggleSaved={onToggleSaved}
+                />
+              ))}
+            </JourneyRow>
+          ) : (
+            <div className="myEmptyCard">
+              <BookmarkIcon className="myEmptyIcon" />
+              <p>Journeys you save will show up here.</p>
+            </div>
+          )}
+        </MySection>
+
+        {/* The journey you finished last, with See All for the rest. */}
+        {profile && (
+          <MySection title="Completed Journeys" onSeeAll={latestCompleted ? onSeeCompleted : null}>
+            {latestCompleted ? (
+              <button className="myLatest" onClick={() => onOpenJourney(latestCompleted)}>
+                <img
+                  src={latestCompleted.photo}
+                  alt={latestCompleted.photoAlt}
+                  style={{ objectPosition: latestCompleted.photoPosition }}
+                />
+                <span className="myLatestWords">
+                  <span className="myLatestTitle">{latestCompleted.name}</span>
+                  <span className="myLatestPlace">
+                    <PinIcon />
+                    {placeName(latestCompleted.location)}
+                  </span>
+                </span>
+              </button>
+            ) : (
+              <p className="myEmpty">Your completed journeys will appear here.</p>
+            )}
+          </MySection>
+        )}
+
         {!profile && (
           <SignUpCard
             label="NO PROFILE YET"
@@ -405,52 +452,6 @@ export function MyJourneysPage({
             onCreate={onCreateProfile}
           />
         )}
-
-        {/* Every journey you've finished, the latest first: two on the
-            screen, and the rest a swipe away. */}
-        {profile && (
-          <MySection title="Completed Journeys" onSeeAll={completed.length > 0 ? onSeeCompleted : null}>
-            {completed.length > 0 ? (
-              <JourneyRow>
-                {completed.map((journey) => (
-                  <JourneyCard
-                    key={journey.id}
-                    journey={journey}
-                    isSaved={saved.includes(journey.id)}
-                    onOpen={onOpenJourney}
-                    onToggleSaved={onToggleSaved}
-                  />
-                ))}
-              </JourneyRow>
-            ) : (
-              <div className="myEmptyCard">
-                <RouteIcon className="myEmptyIcon" />
-                <p>Your completed journeys will appear here.</p>
-              </div>
-            )}
-          </MySection>
-        )}
-
-        <MySection title="Saved Journeys" onSeeAll={latestSaved ? onSeeSaved : null}>
-          {latestSaved ? (
-            <button className="mySaved" onClick={() => onOpenJourney(latestSaved)}>
-              <img
-                src={latestSaved.photo}
-                alt={latestSaved.photoAlt}
-                style={{ objectPosition: latestSaved.photoPosition }}
-              />
-              <span className="mySavedWords">
-                <span className="mySavedTitle">{latestSaved.name}</span>
-                <span className="mySavedPlace">
-                  <PinIcon />
-                  {placeName(latestSaved.location)}
-                </span>
-              </span>
-            </button>
-          ) : (
-            <p className="myEmpty">Journeys you save will show up here.</p>
-          )}
-        </MySection>
       </div>
     </div>
   )
