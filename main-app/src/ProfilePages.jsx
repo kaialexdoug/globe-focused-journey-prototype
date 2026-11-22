@@ -34,6 +34,7 @@ import {
   WalkIcon,
 } from './Icons.jsx'
 import { placeName } from './journeyStops'
+import { THEME_CHOICES } from './theme.js'
 import { UNIT_CHOICES } from './units.js'
 import { useShrinkToFit } from './shrinkToFit.js'
 
@@ -785,19 +786,51 @@ export function TravelPreferencesPage(page) {
   )
 }
 
+// Two choices side by side, the one picked filled in, with its name and what
+// it means beside them: Units and Appearance on Settings.
+function SettingsChoice({ id, name, choices, value, onChoose }) {
+  const chosen = choices.find((choice) => choice.value === value) ?? choices[0]
+  return (
+    <div className="settingsRow">
+      <div>
+        <p id={id}>{name}</p>
+        <p className="settingsSub">{chosen.means}</p>
+      </div>
+      <div className="settingsChoice" role="group" aria-labelledby={id}>
+        {choices.map((choice) => (
+          <button
+            key={choice.value}
+            className={choice.value === chosen.value ? 'settingsOption isChosen' : 'settingsOption'}
+            aria-pressed={choice.value === chosen.value}
+            onClick={() => onChoose(choice.value)}
+          >
+            {choice.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // Settings, from the cog on Profile: metric or imperial, for every distance
-// and temperature in the app (units.js), and which version of the app this
-// is, so you can tell whether a phone has picked up the latest (dark mode's
-// switch will come back here). Deleting your profile is on Edit Profile.
+// and temperature in the app (units.js), light or dark (theme.js), and which
+// version of the app this is, so you can tell whether a phone has picked up
+// the latest. Deleting your profile is on Edit Profile.
 // Like Edit Profile, nothing's saved until DONE, which asks whether to save,
-// if anything's been changed.
-export function SettingsPage({ units, onSave, onClose }) {
+// if anything's been changed. A theme tapped shows straight away
+// (`onTryTheme`), so you can see it before saving it.
+export function SettingsPage({ units, theme, onTryTheme, onSave, onClose }) {
   const [chosenUnits, setChosenUnits] = useState(units)
+  const [chosenTheme, setChosenTheme] = useState(theme)
   const [askToSave, setAskToSave] = useState(false)
-  const chosen = UNIT_CHOICES.find((choice) => choice.value === chosenUnits) ?? UNIT_CHOICES[0]
+
+  function chooseTheme(value) {
+    setChosenTheme(value)
+    onTryTheme(value)
+  }
 
   function done() {
-    if (chosenUnits === units) {
+    if (chosenUnits === units && chosenTheme === theme) {
       onClose()
     } else {
       setAskToSave(true)
@@ -813,26 +846,20 @@ export function SettingsPage({ units, onSave, onClose }) {
       <h1 className="stepTitle">Settings</h1>
 
       <div className="settingsRows">
-        {/* The two choices side by side, the one picked filled in, with what
-            it means under "Units". */}
-        <div className="settingsRow">
-          <div>
-            <p id="settingsUnitsLabel">Units</p>
-            <p className="settingsSub">{chosen.means}</p>
-          </div>
-          <div className="unitsChoice" role="group" aria-labelledby="settingsUnitsLabel">
-            {UNIT_CHOICES.map(({ value, label }) => (
-              <button
-                key={value}
-                className={value === chosen.value ? 'unitsOption isChosen' : 'unitsOption'}
-                aria-pressed={value === chosen.value}
-                onClick={() => setChosenUnits(value)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
+        <SettingsChoice
+          id="settingsUnitsLabel"
+          name="Units"
+          choices={UNIT_CHOICES}
+          value={chosenUnits}
+          onChoose={setChosenUnits}
+        />
+        <SettingsChoice
+          id="settingsThemeLabel"
+          name="Appearance"
+          choices={THEME_CHOICES}
+          value={chosenTheme}
+          onChoose={chooseTheme}
+        />
         <div className="settingsRow">
           <span>Version</span>
           <span className="settingsValue">{APP_VERSION}</span>
@@ -843,7 +870,7 @@ export function SettingsPage({ units, onSave, onClose }) {
 
       {askToSave && (
         <SaveChangesPrompt
-          onSave={() => onSave(chosenUnits)}
+          onSave={() => onSave(chosenUnits, chosenTheme)}
           onDiscard={onClose}
           onKeepEditing={() => setAskToSave(false)}
         />

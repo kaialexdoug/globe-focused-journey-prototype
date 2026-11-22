@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { askForCompass, compassState, onCompassAnswer } from './compass.js'
 import { CompassIcon, LocateIcon } from './Icons.jsx'
 import { MAP_ID } from './config.js'
+import { isDark } from './theme.js'
 import { findRoute, loadGoogleMaps } from './googleMaps.js'
 import { makePin, namePlacer } from './mapPins.js'
 
@@ -157,8 +158,8 @@ function LiveMap({ stop, onFail, children }) {
         center: stop.mapPoint,
         zoom: 16,
         mapId: MAP_ID,
-        // Light, to match the app. (When dark mode comes back, this follows it.)
-        colorScheme: 'LIGHT',
+        // Light or dark, to match the app (theme.js).
+        colorScheme: isDark() ? 'DARK' : 'LIGHT',
         disableDefaultUI: true,
         // One finger moves the map, as in Google Maps.
         gestureHandling: 'greedy',
@@ -242,7 +243,7 @@ function LiveMap({ stop, onFail, children }) {
             new Polyline({
               map,
               path,
-              strokeColor: styles.getPropertyValue('--unfold-blue').trim() || '#014254',
+              strokeColor: styles.getPropertyValue('--accent-ink').trim() || '#014254',
               strokeOpacity: 0.9,
               strokeWeight: 5,
             })

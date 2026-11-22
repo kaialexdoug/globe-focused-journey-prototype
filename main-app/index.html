@@ -13,6 +13,18 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
+    <!-- Dark mode (Profile → Settings), on before the page is first drawn, so
+         a dark app doesn't flash white while it loads. main.jsx does the
+         rest (src/theme.js). -->
+    <script>
+      try {
+        if (JSON.parse(localStorage.getItem('unfold.theme')) === 'dark') {
+          document.documentElement.dataset.theme = 'dark'
+        }
+      } catch {
+        // No storage: light.
+      }
+    </script>
     <title>Unfold · Japan</title>
     <meta name="description" content="Curated. Authentic. Unforgettable. Guided journeys in Japan." />
 

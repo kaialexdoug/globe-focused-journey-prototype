@@ -52,11 +52,14 @@ import {
   storeSaved,
   loadUnits,
   storeUnits,
+  loadTheme,
+  storeTheme,
   newProfile,
   withJourneyStarted,
   withJourneyCompleted,
 } from './profileStore'
 import { UnitsContext } from './units.js'
+import { showTheme } from './theme.js'
 import { preloadImages } from './preloadImages.js'
 import { useShrinkToFit } from './shrinkToFit.js'
 import './App.css'
@@ -249,6 +252,26 @@ function App() {
     }
   }
 
+  // Light or dark (Settings), kept on this device (theme.js). While Settings
+  // is open, the one being tried there (`themePreview`) shows instead, until
+  // it's saved, or not: leaving Settings any way at all goes back to `theme`.
+  const [theme, setTheme] = useState(loadTheme)
+  const [themePreview, setThemePreview] = useState(null)
+  const shownTheme = page === 'settings' && themePreview ? themePreview : theme
+
+  useEffect(() => {
+    storeTheme(theme)
+  }, [theme])
+
+  useEffect(() => {
+    showTheme(shownTheme)
+  }, [shownTheme])
+
+  function openSettings() {
+    setThemePreview(null)
+    setPage('settings')
+  }
+
   // On a journey, where you are, at every step, so it can be picked up again
   // after going elsewhere in the app, or even after closing it. With or
   // without a profile.
@@ -407,7 +430,7 @@ function App() {
         onEditProfile={() => setPage('editProfile')}
         onOpenInterests={() => setPage('profileInterests')}
         onOpenPreferences={() => setPage('profilePreferences')}
-        onOpenSettings={() => setPage('settings')}
+        onOpenSettings={openSettings}
       />
     )
   } else if (page === 'profileInterests' || page === 'profilePreferences') {
@@ -449,12 +472,16 @@ function App() {
       />
     )
   } else if (page === 'settings') {
-    // The same: DONE goes back to Profile, saving the units if you say so.
+    // The same: DONE goes back to Profile, saving the units and the theme if
+    // you say so. A theme tapped shows straight away, to see what it's like.
     content = (
       <SettingsPage
         units={units}
-        onSave={(chosen) => {
-          changeUnits(chosen)
+        theme={theme}
+        onTryTheme={setThemePreview}
+        onSave={(chosenUnits, chosenTheme) => {
+          changeUnits(chosenUnits)
+          setTheme(chosenTheme)
           setPage('profile')
         }}
         onClose={() => setPage('profile')}

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { MAP_ID } from './config.js'
+import { isDark } from './theme.js'
 import { findRoute, loadGoogleMaps } from './googleMaps.js'
 import { makePin, namePlacer } from './mapPins.js'
 
@@ -116,7 +117,7 @@ function RouteMap({ journey }) {
         center: stops[0].stop.mapPoint,
         zoom: 14,
         mapId: MAP_ID,
-        colorScheme: 'LIGHT',
+        colorScheme: isDark() ? 'DARK' : 'LIGHT',
         disableDefaultUI: true,
         // The page scrolls past it with one finger; two move the map.
         gestureHandling: 'cooperative',
@@ -168,7 +169,10 @@ function RouteMap({ journey }) {
 
       // The lines, each drawn as soon as it's found. Once they all are, the
       // map's fitted to them too, as a walk can wander outside its stops.
-      const lineColor = getComputedStyle(document.documentElement).getPropertyValue('--unfold-blue').trim() || '#014254'
+      const styles = getComputedStyle(document.documentElement)
+      const lineColor = styles.getPropertyValue('--accent-ink').trim() || '#014254'
+      // The page's colour: white, or in dark mode, the dark.
+      const edgeColor = styles.getPropertyValue('--bg').trim() || '#ffffff'
       const drawing = mapLines(journey).map((line) =>
         routeFor(Route, line).then((path) => {
           if (cancelled) {
@@ -190,8 +194,9 @@ function RouteMap({ journey }) {
               ],
             })
           } else {
-            // A white edge under the line, so it stands out from the streets.
-            new Polyline({ map, path, strokeColor: '#ffffff', strokeOpacity: 0.9, strokeWeight: 8, zIndex: 1 })
+            // An edge under the line in the page's colour, so it stands out
+            // from the streets.
+            new Polyline({ map, path, strokeColor: edgeColor, strokeOpacity: 0.9, strokeWeight: 8, zIndex: 1 })
             new Polyline({ map, path, strokeColor: lineColor, strokeOpacity: 0.9, strokeWeight: 4, zIndex: 2 })
           }
         })
