@@ -110,20 +110,20 @@
    deep blue. */
 .introBtn.isGhost {
   background-color: transparent;
-  color: var(--unfold-blue);
+  color: var(--accent-ink);
 }
 
 @media (hover: hover) {
   .introBtn.isGhost:hover {
-    background-color: color-mix(in srgb, var(--unfold-blue) 7%, transparent);
+    background-color: color-mix(in srgb, var(--accent-ink) 7%, transparent);
   }
 }
 
 /* Greyed out until it can be used, like Next before there's an answer. */
 .introBtn:disabled {
-  background-color: rgb(228, 230, 235);
-  border-color: rgb(228, 230, 235);
-  color: rgb(128, 134, 150);
+  background-color: var(--disabled-bg);
+  border-color: var(--disabled-bg);
+  color: var(--disabled-ink);
   cursor: not-allowed;
   transform: none;
 }
@@ -208,7 +208,7 @@ button:focus-visible {
 
 .progressFill {
   height: 100%;
-  background-color: var(--unfold-blue);
+  background-color: var(--accent-ink);
   transition: width 0.3s ease;
 }
 
@@ -351,7 +351,7 @@ button:focus-visible {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: var(--unfold-blue);
+  background-color: var(--accent-ink);
 }
 
 .heroLabel {
@@ -547,7 +547,7 @@ button:focus-visible {
   gap: 0.36em;
   height: 2.15em;
   padding: 0 0.72em 0 0.5em;
-  background-color: rgba(255, 255, 255, 0.72);
+  background-color: color-mix(in srgb, var(--surface) 72%, transparent);
   backdrop-filter: blur(8px);
   border-radius: 999px;
 }
@@ -667,7 +667,7 @@ button:focus-visible {
   flex-direction: column;
   height: 100%;
   padding: 0 22px 16px;
-  background-color: white;
+  background-color: var(--bg);
   text-align: left;
   animation: fadeUp 0.5s ease both;
 }
@@ -838,7 +838,7 @@ button:focus-visible {
 .stepProgress span {
   flex: 1;
   height: 5px;
-  background-color: rgb(229, 221, 220);
+  background-color: var(--track);
   border-radius: 3px;
 }
 
@@ -868,7 +868,7 @@ button:focus-visible {
   font-size: 15px;
   line-height: 1.4;
   letter-spacing: 0;
-  color: rgba(12, 23, 43, 0.6);
+  color: color-mix(in srgb, var(--night) 60%, transparent);
 }
 
 /* --- Step 1, the moods (MoodPage in FindMyJourney.jsx), after its mockup ---
@@ -877,7 +877,7 @@ button:focus-visible {
 
 /* On white, as in the mockup (and Find My Journey's first screen). */
 .moodPage {
-  background-color: white;
+  background-color: var(--bg);
 }
 
 /* In step with the width of the screen, so "How do you want to" stays on one
@@ -892,7 +892,7 @@ button:focus-visible {
 .moodPage .stepText {
   margin-top: 6px;
   font-size: 15px;
-  color: rgba(12, 23, 43, 0.85);
+  color: color-mix(in srgb, var(--night) 85%, transparent);
 }
 
 .moodChoices {
@@ -913,8 +913,8 @@ button:focus-visible {
   aspect-ratio: 1.19;
   padding: 0 12px 11px;
   overflow: hidden;
-  background-color: white;
-  border: 1px solid rgba(12, 23, 43, 0.08);
+  background-color: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--night) 8%, transparent);
   border-radius: 12px;
   box-shadow: 0 1px 4px rgba(12, 23, 43, 0.06);
   text-align: left;
@@ -960,7 +960,7 @@ button:focus-visible {
   line-height: 1.3;
   letter-spacing: 0;
   white-space: nowrap;
-  color: rgba(12, 23, 43, 0.82);
+  color: color-mix(in srgb, var(--night) 82%, transparent);
 }
 
 /* The arrow, in a circle the colour of the mood's origami figure, level with
@@ -1020,7 +1020,7 @@ button:focus-visible {
 /* A little less room under the cards, so they reach nearly to the navbar. */
 .whoPage {
   padding-bottom: 16px;
-  background-color: white;
+  background-color: var(--bg);
 }
 
 /* The heading, with the picture behind it: as wide as most of the screen,
@@ -1060,7 +1060,7 @@ button:focus-visible {
   margin-top: 26px;
   font-size: 14.5px;
   line-height: 1.37;
-  color: rgb(80, 88, 109);
+  color: var(--ink-slate);
 }
 
 /* Below the picture's people, so the cards start where it fades out. They
@@ -1083,8 +1083,8 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   padding: 0 10px;
-  background-color: white;
-  border: 1px solid rgba(12, 23, 43, 0.07);
+  background-color: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--night) 7%, transparent);
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(12, 23, 43, 0.07);
   text-align: center;
@@ -1125,7 +1125,7 @@ button:focus-visible {
   font-size: 12.5px;
   line-height: 1.3;
   letter-spacing: 0;
-  color: rgb(80, 88, 109);
+  color: var(--ink-slate);
 }
 
 /* The arrow, in the corner, in the deep teal of the app's buttons. */
@@ -1166,7 +1166,7 @@ button:focus-visible {
    Anything else? (PreferencesPage), and the button to find your journeys. */
 
 .detailsPage {
-  background-color: white;
+  background-color: var(--bg);
 }
 
 /* The step and its bar always over the picture, should they ever meet. */
@@ -1212,7 +1212,7 @@ button:focus-visible {
   margin-top: 14px;
   font-size: 13px;
   line-height: 18px;
-  color: rgb(38, 46, 66);
+  color: var(--ink-navy);
 }
 
 /* Where to? and When are you going?, a little wider than the words. Over what
@@ -1236,8 +1236,8 @@ button:focus-visible {
   min-height: 40px;
   margin: 0;
   padding: 0 11px 0 14px;
-  background-color: white;
-  border: 1px solid rgba(12, 23, 43, 0.08);
+  background-color: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--night) 8%, transparent);
   border-radius: 20px;
   box-shadow: 0 2px 8px rgba(12, 23, 43, 0.06);
   font-size: 13px;
@@ -1271,7 +1271,7 @@ button.detailBar:active {
 }
 
 .placeBar:focus-within {
-  border-color: rgba(12, 23, 43, 0.28);
+  border-color: color-mix(in srgb, var(--night) 28%, transparent);
 }
 
 .placeInput {
@@ -1307,7 +1307,7 @@ button.detailBar:active {
   height: 28px;
   margin-right: -3px;
   padding: 0;
-  background-color: rgba(12, 23, 43, 0.06);
+  background-color: color-mix(in srgb, var(--night) 6%, transparent);
   border: none;
   border-radius: 50%;
   color: var(--night);
@@ -1331,8 +1331,8 @@ button.detailBar:active {
   margin: 0;
   padding: 6px;
   list-style: none;
-  background-color: white;
-  border: 1px solid rgba(12, 23, 43, 0.08);
+  background-color: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--night) 8%, transparent);
   border-radius: 16px;
   box-shadow: 0 12px 32px rgba(12, 23, 43, 0.16);
   animation: fadeIn 0.15s ease both;
@@ -1389,7 +1389,7 @@ button.detailBar:active {
   padding: 8px 10px;
   font-size: 12.5px;
   line-height: 1.35;
-  color: rgb(80, 88, 109);
+  color: var(--ink-slate);
 }
 
 /* --- When are you going? --- */
@@ -1422,7 +1422,7 @@ button.detailBar:active {
   width: 100%;
   max-width: 340px;
   padding: 16px 16px 14px;
-  background-color: white;
+  background-color: var(--surface);
   border-radius: 20px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   text-align: left;
@@ -1485,8 +1485,8 @@ button.detailBar:active {
   width: 36px;
   height: 36px;
   padding: 0;
-  background-color: white;
-  border: 1px solid rgba(12, 23, 43, 0.12);
+  background-color: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--night) 12%, transparent);
   border-radius: 50%;
   color: var(--night);
   cursor: pointer;
@@ -1541,7 +1541,7 @@ button.detailBar:active {
 }
 
 .calendarDay:disabled {
-  color: rgba(12, 23, 43, 0.22);
+  color: color-mix(in srgb, var(--night) 22%, transparent);
   cursor: default;
 }
 
@@ -1599,8 +1599,8 @@ button.detailBar:active {
   min-width: 0;
   min-height: 70px;
   padding: 5px 4px;
-  background-color: white;
-  border: 1px solid rgba(12, 23, 43, 0.08);
+  background-color: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--night) 8%, transparent);
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(12, 23, 43, 0.05);
   color: var(--night);
@@ -1661,7 +1661,7 @@ button.detailBar:active {
   line-height: 1.12;
   letter-spacing: 0;
   white-space: pre-line;
-  color: rgb(52, 60, 82);
+  color: var(--ink-slate-deep);
 }
 
 /* --- Anything else? --- */
@@ -1764,8 +1764,8 @@ button.detailBar:active {
 /* Greyed out until it can be used, like Done on Edit Profile while the name
    is empty. */
 .stepFind:disabled {
-  background-color: rgb(228, 230, 235);
-  color: rgb(128, 134, 150);
+  background-color: var(--disabled-bg);
+  color: var(--disabled-ink);
   cursor: not-allowed;
   transform: none;
 }
@@ -2073,8 +2073,8 @@ button.detailBar:active {
 }
 
 .searchField:focus-within {
-  border-color: var(--unfold-blue);
-  box-shadow: inset 0 0 0 1px var(--unfold-blue);
+  border-color: var(--accent-ink);
+  box-shadow: inset 0 0 0 1px var(--accent-ink);
 }
 
 .searchField > svg {
@@ -2206,7 +2206,7 @@ button.detailBar:active {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  color: var(--unfold-blue);
+  color: var(--accent-ink);
 }
 
 /* On See Your Journey there are four (its main experience too), so each has
@@ -2374,7 +2374,7 @@ button.detailBar:active {
 }
 
 .beforeGoToggle:active {
-  background-color: rgb(236, 238, 241);
+  background-color: var(--pressed);
 }
 
 .beforeGoCard.isOpen .beforeGoToggle {
@@ -2690,39 +2690,39 @@ button.detailBar:active {
 }
 
 .readyVerdict.isGood {
-  border-color: rgb(196, 226, 205);
-  background-color: rgb(234, 246, 237);
+  border-color: var(--good-edge);
+  background-color: var(--good-bg);
 }
 
 .readyVerdict.isGood .readyVerdictIcon {
-  color: rgb(30, 135, 75);
+  color: var(--good-ink);
 }
 
 .readyVerdict.isMostlyGood {
-  border-color: rgb(238, 222, 160);
-  background-color: rgb(253, 247, 220);
+  border-color: var(--fair-edge);
+  background-color: var(--fair-bg);
 }
 
 .readyVerdict.isMostlyGood .readyVerdictIcon {
-  color: rgb(190, 145, 0);
+  color: var(--fair-ink);
 }
 
 .readyVerdict.isRisky {
-  border-color: rgb(248, 206, 172);
-  background-color: rgb(255, 238, 225);
+  border-color: var(--risky-edge);
+  background-color: var(--risky-bg);
 }
 
 .readyVerdict.isRisky .readyVerdictIcon {
-  color: rgb(230, 105, 15);
+  color: var(--risky-ink);
 }
 
 .readyVerdict.isPoor {
-  border-color: rgb(240, 196, 196);
-  background-color: rgb(253, 232, 232);
+  border-color: var(--poor-edge);
+  background-color: var(--poor-bg);
 }
 
 .readyVerdict.isPoor .readyVerdictIcon {
-  color: rgb(200, 40, 40);
+  color: var(--poor-ink);
 }
 
 .readyVerdict.isUnknown {
@@ -2743,8 +2743,8 @@ button.detailBar:active {
   min-height: 40px;
   margin-top: 12px;
   padding: 8px 24px;
-  background-color: white;
-  border: 1.5px solid var(--unfold-blue);
+  background-color: var(--surface);
+  border: 1.5px solid var(--accent-ink);
   border-radius: 999px;
   font-family: var(--heading);
   font-size: 13.5px;
@@ -2752,7 +2752,7 @@ button.detailBar:active {
   letter-spacing: 0.12em;
   line-height: 1.2;
   text-transform: uppercase;
-  color: var(--unfold-blue);
+  color: var(--accent-ink);
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -2761,7 +2761,7 @@ button.detailBar:active {
 
 @media (hover: hover) {
   .readyRetry:hover {
-    background-color: color-mix(in srgb, var(--unfold-blue) 7%, white);
+    background-color: color-mix(in srgb, var(--accent-ink) 7%, var(--surface));
   }
 }
 
@@ -3117,7 +3117,7 @@ button.detailBar:active {
   /* Under the middle of the numbers: the card's edge and padding, then half
      a number, less half the line. */
   left: 26px;
-  border-left: 2px solid color-mix(in srgb, var(--unfold-blue) 45%, transparent);
+  border-left: 2px solid color-mix(in srgb, var(--accent-ink) 45%, transparent);
 }
 
 .routeLegWay {
@@ -3126,7 +3126,7 @@ button.detailBar:active {
 }
 
 .routeLegWay svg {
-  color: var(--unfold-blue);
+  color: var(--accent-ink);
 }
 
 .routeLegEffort {
@@ -3149,18 +3149,18 @@ button.detailBar:active {
 }
 
 .routeEffort.is-easy {
-  background-color: rgba(46, 112, 70, 0.12);
+  background-color: var(--effort-easy-bg);
   color: var(--green-ink);
 }
 
 .routeEffort.is-moderate {
-  background-color: rgba(214, 140, 20, 0.16);
-  color: rgb(150, 92, 0);
+  background-color: var(--effort-moderate-bg);
+  color: var(--effort-moderate-ink);
 }
 
 .routeEffort.is-hard {
-  background-color: rgba(200, 50, 55, 0.12);
-  color: rgb(170, 40, 45);
+  background-color: var(--effort-hard-bg);
+  color: var(--effort-hard-ink);
 }
 
 /* A detour off a stop, in a dashed box: it's optional. */
@@ -3267,7 +3267,7 @@ button.detailBar:active {
 
 /* A detour's ring is dashed, like its line. */
 .mapPin.isDetour .mapPinPhoto {
-  outline: 1.5px dashed var(--unfold-blue);
+  outline: 1.5px dashed var(--accent-ink);
   outline-offset: 1px;
 }
 
@@ -3299,7 +3299,7 @@ button.detailBar:active {
   letter-spacing: 0;
   white-space: nowrap;
   color: var(--ink);
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: color-mix(in srgb, var(--surface) 92%, transparent);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
@@ -3382,7 +3382,7 @@ button.detailBar:active {
 .routeMapKeyLine {
   width: 22px;
   height: 0;
-  border-top: 4px solid var(--unfold-blue);
+  border-top: 4px solid var(--accent-ink);
   border-radius: 2px;
 }
 
@@ -3390,7 +3390,7 @@ button.detailBar:active {
   height: 4px;
   border: 0;
   border-radius: 0;
-  background-image: radial-gradient(circle, var(--unfold-blue) 2px, transparent 2.5px);
+  background-image: radial-gradient(circle, var(--accent-ink) 2px, transparent 2.5px);
   background-size: 8px 4px;
 }
 
@@ -3412,7 +3412,7 @@ button.detailBar:active {
   flex-shrink: 0;
   width: 26px;
   height: 26px;
-  color: var(--unfold-blue);
+  color: var(--accent-ink);
 }
 
 .startCardName {
@@ -3764,14 +3764,16 @@ button.detailBar:active {
 
 /* The fade measured from the bottom, rather than as a share of the photo,
    so however short the photo is, the words pulled up onto it (60px of them,
-   from "Discovery · Step 2 of 5" down) still have the white behind them. */
+   from "Discovery · Step 2 of 5" down) still have the page's colour behind
+   them. In dark mode, the top is shaded too, for the header. */
 .directionsPage .photoScreenPhoto::after {
   background: linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) calc(100% - 100px),
-    rgba(255, 255, 255, 0.9) calc(100% - 40px),
-    rgb(255, 255, 255) 100%
+    var(--photo-top-shade) 0%,
+    transparent 60px,
+    transparent calc(100% - 100px),
+    color-mix(in srgb, var(--bg) 90%, transparent) calc(100% - 40px),
+    var(--bg) 100%
   );
 }
 
@@ -4052,7 +4054,7 @@ button.detailBar:active {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: var(--unfold-blue);
+  background-color: var(--accent-ink);
 }
 
 .nearbyName {
@@ -4177,7 +4179,7 @@ button.detailBar:active {
   align-items: center;
   gap: 6px;
   padding: 8px 12px 8px 14px;
-  border: 1px solid var(--unfold-blue);
+  border: 1px solid var(--accent-ink);
   border-radius: 999px;
   font-size: 11px;
   font-weight: 600;
@@ -4190,7 +4192,7 @@ button.detailBar:active {
 
 .nearbyDirections:active,
 .nearbyDirections.isOpen {
-  background-color: color-mix(in srgb, var(--unfold-blue) 8%, var(--surface));
+  background-color: color-mix(in srgb, var(--accent-ink) 8%, var(--surface));
 }
 
 .nearbyDirections svg {
@@ -4265,7 +4267,7 @@ button.detailBar:active {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
-  color: var(--unfold-blue);
+  color: var(--accent-ink);
 }
 
 .arrivedPage .detourCard .introBtn {
@@ -4315,7 +4317,7 @@ button.detailBar:active {
 
 /* The same ringed circle as the numbers on Find My Journey. */
 .narrationPlay {
-  border: 1px solid var(--unfold-blue);
+  border: 1px solid var(--accent-ink);
   color: var(--ink);
 }
 
@@ -4342,11 +4344,11 @@ button.detailBar:active {
 
 @media (hover: hover) {
   .narrationPlay:hover {
-    background-color: color-mix(in srgb, var(--unfold-blue) 8%, transparent);
+    background-color: color-mix(in srgb, var(--accent-ink) 8%, transparent);
   }
 
   .narrationRestart:hover {
-    border-color: var(--unfold-blue);
+    border-color: var(--accent-ink);
     color: var(--ink);
   }
 }
@@ -4407,8 +4409,8 @@ button.detailBar:active {
 .narrationFind {
   margin: 24px 0;
   padding: 14px 16px 16px;
-  background-color: color-mix(in srgb, var(--unfold-blue) 6%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--unfold-blue) 22%, var(--surface));
+  background-color: color-mix(in srgb, var(--accent-ink) 6%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent-ink) 22%, var(--surface));
   border-radius: 15px;
 }
 
@@ -4573,7 +4575,7 @@ button.detailBar:active {
 .memoryStory .memoryStoryPeak {
   margin: 22px 0;
   padding-left: 16px;
-  border-left: 2px solid var(--unfold-blue);
+  border-left: 2px solid var(--accent-ink);
   font-family: var(--heading);
   font-size: 18px;
   line-height: 1.4;
@@ -4606,7 +4608,7 @@ button.detailBar:active {
   left: 6px;
   top: 0;
   bottom: 0;
-  border-left: 2px solid rgba(1, 66, 84, 0.5);
+  border-left: 2px solid color-mix(in srgb, var(--accent-ink) 50%, transparent);
 }
 
 .memoryTimeline > li:first-child::before {
@@ -4632,7 +4634,7 @@ button.detailBar:active {
   box-sizing: border-box;
   width: 14px;
   height: 14px;
-  border: 2px solid var(--unfold-blue);
+  border: 2px solid var(--accent-ink);
   border-radius: 50%;
   background-color: var(--bg);
 }
@@ -4683,7 +4685,7 @@ button.detailBar:active {
   box-sizing: border-box;
   width: 100%;
   height: 150px;
-  border: 2px solid var(--unfold-blue);
+  border: 2px solid var(--accent-ink);
   border-radius: 14px;
 }
 
@@ -4692,7 +4694,7 @@ button.detailBar:active {
   top: 0;
   width: 20px;
   height: 20px;
-  background-color: var(--unfold-blue);
+  background-color: var(--accent-ink);
 }
 
 .timelineStop.isPeak .timelineName {
@@ -4716,7 +4718,7 @@ button.detailBar:active {
   left: -22px;
   top: 9px;
   width: 22px;
-  border-top: 2px dashed rgba(1, 66, 84, 0.45);
+  border-top: 2px dashed color-mix(in srgb, var(--accent-ink) 45%, transparent);
 }
 
 .timelineBranch .timelineDot {
@@ -4827,8 +4829,8 @@ button.detailBar:active {
 
 .surveyInput:focus {
   outline: none;
-  border-color: var(--unfold-blue);
-  box-shadow: inset 0 0 0 1px var(--unfold-blue);
+  border-color: var(--accent-ink);
+  box-shadow: inset 0 0 0 1px var(--accent-ink);
 }
 
 .surveyTextarea {
@@ -4859,15 +4861,15 @@ button.detailBar:active {
 }
 
 .surveyChoice.isChosen {
-  background-color: color-mix(in srgb, var(--unfold-blue) 6%, var(--surface));
-  border-color: var(--unfold-blue);
+  background-color: color-mix(in srgb, var(--accent-ink) 6%, var(--surface));
+  border-color: var(--accent-ink);
   color: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--unfold-blue);
+  box-shadow: inset 0 0 0 1px var(--accent-ink);
 }
 
 @media (hover: hover) {
   .surveyChoice:hover {
-    border-color: rgba(1, 66, 84, 0.6);
+    border-color: color-mix(in srgb, var(--accent-ink) 60%, transparent);
   }
 }
 
@@ -4971,7 +4973,7 @@ button.detailBar:active {
   width: 8px;
   height: 8px;
   background-color: var(--unfold-orange);
-  border: 2px solid white;
+  border: 2px solid var(--bg);
   border-radius: 50%;
 }
 
@@ -5014,7 +5016,7 @@ button.detailBar:active {
   box-sizing: border-box;
   min-height: 100%;
   padding-bottom: 24px;
-  background-color: white;
+  background-color: var(--bg);
   text-align: left;
 }
 
@@ -5064,7 +5066,7 @@ button.detailBar:active {
   font-size: 13px;
   line-height: 1.1;
   letter-spacing: 0;
-  color: rgb(38, 46, 66);
+  color: var(--ink-navy);
 }
 
 .myBody {
@@ -5082,8 +5084,8 @@ button.detailBar:active {
   width: 100%;
   margin: 0;
   padding: 13px 18px 12px;
-  background-color: white;
-  border: 1px solid rgb(208, 208, 216);
+  background-color: var(--surface);
+  border: 1px solid var(--rule);
   border-radius: 12px;
   text-align: left;
 }
@@ -5197,7 +5199,7 @@ button.detailBar:active {
   font-size: 11px;
   letter-spacing: 0.08em;
   white-space: nowrap;
-  color: rgba(12, 23, 43, 0.75);
+  color: color-mix(in srgb, var(--night) 75%, transparent);
   text-transform: uppercase;
 }
 
@@ -5205,7 +5207,7 @@ button.detailBar:active {
   flex: 1;
   height: 7px;
   overflow: hidden;
-  background-color: rgb(238, 239, 243);
+  background-color: var(--track-cool);
   border-radius: 4px;
 }
 
@@ -5293,7 +5295,7 @@ button.detailBar:active {
   font-size: 12.5px;
   line-height: 1.4;
   letter-spacing: 0;
-  color: rgba(12, 23, 43, 0.6);
+  color: color-mix(in srgb, var(--night) 60%, transparent);
 }
 
 /* Before you've saved one: a card in their place, saying they'll be here. */
@@ -5303,12 +5305,12 @@ button.detailBar:active {
   gap: 14px;
   margin-top: 12px;
   padding: 22px 18px;
-  border: 1px solid rgb(208, 208, 216);
+  border: 1px solid var(--rule);
   border-radius: 12px;
   font-size: 13px;
   line-height: 1.35;
   letter-spacing: 0;
-  color: rgb(38, 46, 66);
+  color: var(--ink-navy);
 }
 
 .myEmptyIcon {
@@ -5342,12 +5344,12 @@ button.detailBar:active {
 
 .journeyRowFrame::before {
   left: 0;
-  background: linear-gradient(to right, white 20%, rgba(255, 255, 255, 0));
+  background: linear-gradient(to right, var(--bg) 20%, transparent);
 }
 
 .journeyRowFrame::after {
   right: 0;
-  background: linear-gradient(to left, white 20%, rgba(255, 255, 255, 0));
+  background: linear-gradient(to left, var(--bg) 20%, transparent);
 }
 
 .journeyRowFrame.hasBefore::before,
@@ -5393,7 +5395,7 @@ button.detailBar:active {
 }
 
 .myGridPage {
-  background-color: white;
+  background-color: var(--bg);
 }
 
 /* A journey as a card: its photo fades into white, with its name and facts on
@@ -5404,8 +5406,8 @@ button.detailBar:active {
   aspect-ratio: 0.78;
   overflow: hidden;
   isolation: isolate;
-  background-color: white;
-  border: 1px solid rgb(226, 226, 232);
+  background-color: var(--surface);
+  border: 1px solid var(--card-edge);
   border-radius: 13px;
   box-shadow: 0 2px 8px rgba(12, 23, 43, 0.06);
   transition: transform 0.15s ease;
@@ -5434,7 +5436,7 @@ button.detailBar:active {
   display: flex;
   flex-direction: column;
   padding: 22px 13px 13px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.86) 20px, white 34px);
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--surface) 86%, transparent) 20px, var(--surface) 34px);
 }
 
 .journeyCardOpen img {
@@ -5577,7 +5579,7 @@ button.detailBar:active {
   margin-top: 4px;
   font-size: 11.5px;
   letter-spacing: 0.06em;
-  color: rgba(12, 23, 43, 0.65);
+  color: color-mix(in srgb, var(--night) 65%, transparent);
   text-transform: uppercase;
 }
 
@@ -5664,7 +5666,7 @@ button.detailBar:active {
   box-sizing: border-box;
   min-height: 100%;
   padding-bottom: 24px;
-  background-color: white;
+  background-color: var(--bg);
   text-align: left;
 }
 
@@ -5735,7 +5737,7 @@ button.detailBar:active {
   font-size: 13px;
   line-height: 16px;
   letter-spacing: 0;
-  color: rgb(38, 46, 66);
+  color: var(--ink-navy);
 }
 
 .profileBody {
@@ -5746,7 +5748,7 @@ button.detailBar:active {
 /* Without a profile, the way to make one, outlined like My Journeys' cards. */
 .profileBody .signUpCard {
   margin-top: 0;
-  border: 1px solid rgb(208, 208, 216);
+  border: 1px solid var(--rule);
   border-radius: 12px;
 }
 
@@ -5787,7 +5789,7 @@ button.detailBar:active {
   margin-top: 4px;
   font-size: 12.5px;
   letter-spacing: 0;
-  color: rgb(38, 46, 66);
+  color: var(--ink-navy);
   white-space: nowrap;
 }
 
@@ -5799,8 +5801,8 @@ button.detailBar:active {
   gap: 6px;
   height: 30px;
   padding: 0 11px 0 9px;
-  background-color: white;
-  border: 1px solid rgb(208, 208, 216);
+  background-color: var(--surface);
+  border: 1px solid var(--rule);
   border-radius: 999px;
   font-size: 11.5px;
   letter-spacing: 0.08em;
@@ -5827,7 +5829,7 @@ button.detailBar:active {
 .profileStats {
   margin-top: 28px;
   padding: 11px 0 13px;
-  border: 1px solid rgb(208, 208, 216);
+  border: 1px solid var(--rule);
   border-radius: 12px;
 }
 
@@ -5855,7 +5857,7 @@ button.detailBar:active {
 }
 
 .profileStat + .profileStat {
-  border-left: 1px solid rgb(208, 208, 216);
+  border-left: 1px solid var(--rule);
 }
 
 .profileStatValue {
@@ -5874,7 +5876,7 @@ button.detailBar:active {
   line-height: 1.25;
   letter-spacing: 0.06em;
   white-space: pre-line;
-  color: rgb(38, 46, 66);
+  color: var(--ink-navy);
   text-transform: uppercase;
 }
 
@@ -5890,7 +5892,7 @@ button.detailBar:active {
   padding: 9px 0;
   background: none;
   border: none;
-  border-bottom: 1px solid rgb(208, 208, 216);
+  border-bottom: 1px solid var(--rule);
   font: inherit;
   text-align: left;
   color: var(--night);
@@ -5928,7 +5930,7 @@ button.profileRow {
   letter-spacing: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: rgb(38, 46, 66);
+  color: var(--ink-navy);
 }
 
 .profileRowChevron {
@@ -5969,12 +5971,12 @@ button.profileRow {
    A row for each thing, with a line under it. */
 
 .settingsPage {
-  background-color: white;
+  background-color: var(--bg);
 }
 
 .settingsRows {
   margin-top: 18px;
-  border-top: 1px solid rgb(208, 208, 216);
+  border-top: 1px solid var(--rule);
 }
 
 .settingsRow {
@@ -5987,7 +5989,7 @@ button.profileRow {
   padding: 15px 2px;
   background: none;
   border: none;
-  border-bottom: 1px solid rgb(208, 208, 216);
+  border-bottom: 1px solid var(--rule);
   font: inherit;
   font-size: 14px;
   letter-spacing: 0;
@@ -5997,11 +5999,11 @@ button.profileRow {
 
 .settingsValue {
   font-size: 12.5px;
-  color: rgb(80, 88, 109);
+  color: var(--ink-slate);
 }
 
 .settingsDelete {
-  color: rgb(180, 40, 45);
+  color: var(--danger-ink);
   cursor: pointer;
 }
 
@@ -6009,20 +6011,20 @@ button.profileRow {
 .settingsSub {
   margin-top: 2px;
   font-size: 12px;
-  color: rgb(80, 88, 109);
+  color: var(--ink-slate);
 }
 
-/* Metric and Imperial side by side in an outlined pill, the one picked filled
-   in with the deep blue. */
-.unitsChoice {
+/* Two choices (Metric and Imperial, Light and Dark) side by side in an
+   outlined pill, the one picked filled in with the deep blue. */
+.settingsChoice {
   display: flex;
   flex-shrink: 0;
   padding: 3px;
-  border: 1px solid rgb(208, 208, 216);
+  border: 1px solid var(--rule);
   border-radius: 999px;
 }
 
-.unitsOption {
+.settingsOption {
   min-height: 34px;
   padding: 0 14px;
   background: none;
@@ -6031,14 +6033,14 @@ button.profileRow {
   font: inherit;
   font-size: 12.5px;
   letter-spacing: 0;
-  color: var(--unfold-blue);
+  color: var(--accent-ink);
   cursor: pointer;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
 }
 
-.unitsOption.isChosen {
+.settingsOption.isChosen {
   background-color: var(--unfold-blue);
   color: white;
 }
@@ -6057,7 +6059,7 @@ button.profileRow {
 .editProfileHint {
   margin-top: 6px;
   font-size: 12px;
-  color: rgb(180, 40, 45);
+  color: var(--danger-ink);
 }
 
 /* DONE on Settings and Edit Profile: at the bottom of the screen, however
@@ -6158,6 +6160,18 @@ button.profileRow {
   .promptBox {
     animation: none;
   }
+}
+
+/* --- Dark mode ---
+   Almost all of it is the colours in index.css. The illustrations painted on
+   white (Find My Journey's, My Journeys' Fuji, Profile's city) would be white
+   boxes on the dark page, so they're turned to night (--art-filter). */
+.findHero img,
+.whoHeroArt,
+.detailsHeroArt,
+.myHeroArt,
+.profileHeroArt {
+  filter: var(--art-filter);
 }
 
 /* --- The phone ---

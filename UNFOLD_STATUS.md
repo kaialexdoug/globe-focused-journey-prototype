@@ -221,10 +221,10 @@ Every stop uses the same two screens, filled in from its card.
 - **Account & Plan:** a placeholder that can't be opened yet.
 - **Settings** (the cog):
   - **Units**, metric or imperial, used for every distance and temperature (`units.js`, `UnitsContext`).
+  - **Appearance**, light or dark. It shows as soon as it's tapped, and is kept on the device, with or without a profile (`theme.js`, key `unfold.theme`). Every colour is a token in `index.css` with a dark value under `:root[data-theme='dark']`. The illustrations on white get a night filter, and the Google maps go dark too.
   - **Version**, the build time, to check whether a phone has the latest version.
   - Changes ask "Save your changes?" before leaving.
 - A **profile is only a name** stored on the device. There's no account or password.
-- Dark mode existed before the redesign. Its switch has been taken out for now and is meant to come back in Settings.
 
 ---
 

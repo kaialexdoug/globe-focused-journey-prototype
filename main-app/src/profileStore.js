@@ -11,6 +11,7 @@ const SAVED_KEY = 'unfold.saved'
 // Saved journeys were "liked" journeys, kept under this, before.
 const OLD_LIKES_KEY = 'unfold.likes'
 const UNITS_KEY = 'unfold.units'
+const THEME_KEY = 'unfold.theme'
 
 // Browser storage can be switched off or full. Then nothing is kept, and the
 // app carries on without it.
@@ -56,6 +57,12 @@ export function storeSaved(saved) {
 // With a profile, it's kept on the profile instead (`units`).
 export const loadUnits = () => read(UNITS_KEY) ?? 'metric'
 export const storeUnits = (units) => write(UNITS_KEY, units)
+
+// Light or dark (theme.js), for this device, with or without a profile, and
+// kept if the profile's deleted. (A key of its own: an old version kept a
+// theme under "unfold.settings", dark by default, which isn't read.)
+export const loadTheme = () => (read(THEME_KEY) === 'dark' ? 'dark' : 'light')
+export const storeTheme = (theme) => write(THEME_KEY, theme)
 
 // `units` is what you'd chosen before having a profile, carried onto it.
 export function newProfile(name, units = 'metric') {

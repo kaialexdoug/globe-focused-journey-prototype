@@ -10,6 +10,12 @@ import '@fontsource/montserrat/700.css'
 import '@fontsource/noto-serif-display/600.css'
 import './index.css'
 import App from './App.jsx'
+import { loadTheme } from './profileStore.js'
+import { showTheme } from './theme.js'
+
+// Light or dark, on before anything's drawn, so a dark app doesn't flash
+// light first.
+showTheme(loadTheme())
 
 // No zooming the app on a phone (see the viewport in index.html). iPhones
 // let you pinch to zoom whatever the page asks, so the pinch is stopped

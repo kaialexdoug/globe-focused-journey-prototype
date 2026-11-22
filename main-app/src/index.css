@@ -1,6 +1,6 @@
 :root {
-  /* Unfold's colours, sampled from the approved mockups. Light only for
-     now: dark mode is coming back later, as its own set of these. */
+  /* Unfold's colours, sampled from the approved mockups. Dark mode has its
+     own value for each, further down (:root[data-theme='dark']). */
 
   /* The brand: a soft peach for progress. */
   --unfold-peach: #f9c3a5;
@@ -122,12 +122,55 @@
   --photo-pill: rgba(255, 255, 255, 0.85);
   --photo-accent: var(--unfold-blue);
   --photo-panel-soft: rgba(255, 255, 255, 0.6);
+  /* Shade at the top of a stop's photo, behind the header: none in light
+     mode, where the header's words are dark. */
+  --photo-top-shade: transparent;
 
   /* The bluish black of Find My Journey's words and the fade along its bottom,
      sampled from the mockup. */
   --night: rgb(12, 23, 43);
   /* The word being read aloud: picked out with a soft peach highlight. */
   --spoken-bg: rgba(249, 195, 165, 0.55);
+
+  /* The rest of the words and lines on the white pages: the navy and slate
+     greys of Find My Journey, My Journeys and Profile, their lines, and red
+     for the things that can't be undone. */
+  --ink-navy: rgb(38, 46, 66);
+  --ink-slate: rgb(80, 88, 109);
+  --ink-slate-deep: rgb(52, 60, 82);
+  --rule: rgb(208, 208, 216);
+  --card-edge: rgb(226, 226, 232);
+  --danger-ink: rgb(180, 40, 45);
+  /* A button that can't be used yet, a bar's empty track, and a bar being
+     pressed. */
+  --disabled-bg: rgb(228, 230, 235);
+  --disabled-ink: rgb(128, 134, 150);
+  --track: rgb(229, 221, 220);
+  --track-cool: rgb(238, 239, 243);
+  --pressed: rgb(236, 238, 241);
+  /* The weather's verdict (Get Ready, and a stop's weather): good, mostly
+     good ("fair"), risky and poor, each a pale wash, its edge and its icon. */
+  --good-bg: rgb(234, 246, 237);
+  --good-edge: rgb(196, 226, 205);
+  --good-ink: rgb(30, 135, 75);
+  --fair-bg: rgb(253, 247, 220);
+  --fair-edge: rgb(238, 222, 160);
+  --fair-ink: rgb(190, 145, 0);
+  --risky-bg: rgb(255, 238, 225);
+  --risky-edge: rgb(248, 206, 172);
+  --risky-ink: rgb(230, 105, 15);
+  --poor-bg: rgb(253, 232, 232);
+  --poor-edge: rgb(240, 196, 196);
+  --poor-ink: rgb(200, 40, 40);
+  /* How hard the walk to a stop is, on the route preview. */
+  --effort-easy-bg: rgba(46, 112, 70, 0.12);
+  --effort-moderate-bg: rgba(214, 140, 20, 0.16);
+  --effort-moderate-ink: rgb(150, 92, 0);
+  --effort-hard-bg: rgba(200, 50, 55, 0.12);
+  --effort-hard-ink: rgb(170, 40, 45);
+  /* The illustrations on white (My Journeys' Fuji, Profile's city, and Find
+     My Journey's), as they are. Dark mode turns them to night. */
+  --art-filter: none;
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
@@ -142,6 +185,127 @@
   @media (max-width: 1024px) {
     font-size: 16px;
   }
+}
+
+/* Dark mode (Profile → Settings, theme.js): the same colours for the dark,
+   the page a deep blue-black, the words light. The deep blue stays for the
+   main buttons (a touch brighter, to stand off the page), but words, lines
+   and marks in it (--accent-ink) are a lighter teal, as the deep blue's too
+   dark to read on the page. Photos keep their dark shading behind white
+   words; the white fades into the page fade into the dark instead. */
+:root[data-theme='dark'] {
+  --unfold-blue: rgb(14, 92, 112);
+  --find-orange: rgb(240, 125, 45);
+  --find-teal: rgb(70, 165, 190);
+  --choice-peach: rgb(62, 42, 28);
+  --choice-edge: rgb(222, 135, 60);
+  --find-now: rgb(90, 200, 188);
+  --find-violet: rgb(176, 172, 218);
+
+  --text: rgb(186, 190, 199);
+  --text-h: rgb(238, 240, 245);
+  --bg: rgb(16, 19, 26);
+  --box-gray: rgb(28, 32, 41);
+  --border: rgb(50, 55, 66);
+
+  --ink: rgb(238, 240, 245);
+  --ink-soft: rgb(218, 221, 228);
+  --ink-body: rgb(200, 204, 212);
+  --ink-muted: rgb(168, 173, 184);
+  --ink-faint: rgb(140, 146, 158);
+  --ink-label: rgb(160, 165, 178);
+  --ink-link: rgb(205, 209, 218);
+  --ink-placeholder: rgb(118, 124, 136);
+  --accent-ink: rgb(118, 196, 216);
+  --green-ink: rgb(110, 200, 140);
+  --surface: rgb(26, 30, 39);
+  --surface-low: rgb(32, 37, 47);
+  --line: rgb(50, 55, 66);
+  --outline: rgb(62, 68, 80);
+  --page-top: rgb(30, 33, 42);
+  --nav-bg: rgba(18, 21, 28, 0.96);
+  --nav-line: rgb(44, 48, 58);
+  --nav-ink: rgb(170, 176, 200);
+  --nav-current: rgb(245, 125, 75);
+  --placeholder-dim: rgb(30, 34, 43);
+  --placeholder-lit: rgb(40, 45, 56);
+  --photo-outline: rgba(255, 255, 255, 0.1);
+
+  --hero-fade: linear-gradient(
+    to bottom,
+    rgba(16, 19, 26, 0.82) 0%,
+    rgba(16, 19, 26, 0) 32%,
+    rgba(16, 19, 26, 0) 40%,
+    rgba(16, 19, 26, 0.88) 74%,
+    rgb(16, 19, 26) 100%
+  );
+  /* With some shade at the top too, for the light words of the header. */
+  --stop-fade: linear-gradient(
+    to bottom,
+    var(--photo-top-shade) 0%,
+    rgba(16, 19, 26, 0) 24%,
+    rgba(16, 19, 26, 0) 60%,
+    rgba(16, 19, 26, 0.9) 85%,
+    rgb(16, 19, 26) 100%
+  );
+  --card-fade: linear-gradient(
+    to bottom,
+    rgba(26, 30, 39, 0.7) 0%,
+    rgba(26, 30, 39, 0) 20%,
+    rgba(26, 30, 39, 0) 34%,
+    rgba(26, 30, 39, 0.88) 58%,
+    rgba(26, 30, 39, 0.97) 100%
+  );
+  --thumb-fade: linear-gradient(
+    to bottom,
+    rgba(26, 30, 39, 0.65) 0%,
+    rgba(26, 30, 39, 0) 30%,
+    rgba(26, 30, 39, 0) 42%,
+    rgba(26, 30, 39, 0.92) 100%
+  );
+  --photo-ink: rgb(238, 240, 245);
+  --photo-ink-soft: rgb(205, 208, 216);
+  --photo-pill: rgba(20, 24, 32, 0.78);
+  --photo-accent: var(--accent-ink);
+  --photo-panel-soft: rgba(20, 24, 32, 0.55);
+  --photo-top-shade: rgba(16, 19, 26, 0.6);
+
+  --night: rgb(236, 239, 245);
+  --spoken-bg: rgba(249, 160, 110, 0.32);
+
+  --ink-navy: rgb(205, 210, 222);
+  --ink-slate: rgb(160, 167, 186);
+  --ink-slate-deep: rgb(190, 196, 212);
+  --rule: rgb(58, 63, 75);
+  --card-edge: rgb(52, 57, 68);
+  --danger-ink: rgb(240, 115, 115);
+  --disabled-bg: rgb(44, 48, 58);
+  --disabled-ink: rgb(120, 126, 140);
+  --track: rgb(52, 56, 66);
+  --track-cool: rgb(46, 50, 60);
+  --pressed: rgb(38, 42, 52);
+  --good-bg: rgb(22, 46, 32);
+  --good-edge: rgb(40, 84, 58);
+  --good-ink: rgb(100, 200, 135);
+  --fair-bg: rgb(50, 43, 16);
+  --fair-edge: rgb(96, 82, 30);
+  --fair-ink: rgb(230, 190, 60);
+  --risky-bg: rgb(56, 33, 18);
+  --risky-edge: rgb(110, 62, 28);
+  --risky-ink: rgb(245, 140, 60);
+  --poor-bg: rgb(56, 24, 26);
+  --poor-edge: rgb(110, 44, 48);
+  --poor-ink: rgb(240, 110, 110);
+  --effort-easy-bg: rgba(110, 200, 140, 0.16);
+  --effort-moderate-bg: rgba(230, 170, 60, 0.18);
+  --effort-moderate-ink: rgb(232, 180, 80);
+  --effort-hard-bg: rgba(240, 110, 110, 0.16);
+  --effort-hard-ink: rgb(240, 120, 120);
+  /* Their white turned dark and their colours kept, near enough: a night
+     version of the same scene. */
+  --art-filter: invert(0.92) hue-rotate(180deg);
+
+  color-scheme: dark;
 }
 
 body {
