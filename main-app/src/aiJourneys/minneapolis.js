@@ -292,6 +292,13 @@ export default {
     'Minneapolis grew up around the only waterfall on the Mississippi. Its power turned the wheels of flour mills so big that two of them, on opposite banks, took turns being the largest in the world, and the city still goes by the name they gave it: Mill City.',
     'This journey walks you through that story: up a hill named for a flour, into the ruins of a mill that blew up and was built again, across a railroad baron’s bridge of stone arches beside the falls, and over to the old Main Street on the other bank, where the rival’s sign still shines across the water.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'See how a single waterfall shaped a city.',
+    significance: 'Uncover the people, innovation, and change that still influence Minneapolis today.',
+    feeling: 'A mix of curiosity, perspective, and a powerful sense of place.',
+  },
   route: [stadium, goldMedalPark, millCity, stoneArchBridge, stAnthonyMain],
   wrapUp: {
     heading: 'You made it.',

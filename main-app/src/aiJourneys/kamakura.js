@@ -318,6 +318,13 @@ export default {
     'For a century and a half, this small town by the sea was where Japan was really ruled from, by the first samurai government. Its founder built a great shrine and an avenue running straight down to the sea, and in its heyday it cast a giant bronze Buddha that still sits in the open air.',
     'This journey takes you from a street of snacks to the shogun’s shrine, out to a temple in the bamboo if you like, on the little Enoden train to the Great Buddha, and down to the beach where the old capital fell.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'The seaside town that was once Japan’s samurai capital, from the shogun’s shrine to the Great Buddha.',
+    significance: 'A century and a half of samurai rule, from a shogun’s murder on the shrine steps to the last stand on the beach.',
+    feeling: 'A mix of street snacks, grand shrines and quiet bronze, finished with sand between your toes.',
+  },
   route: [station, komachiDori, hachimangu, greatBuddha, yuigahama],
   wrapUp: {
     heading: 'You made it.',

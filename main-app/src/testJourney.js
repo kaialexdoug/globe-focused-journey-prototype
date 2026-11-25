@@ -359,6 +359,14 @@ export default {
     'Long before the students came, this corner of Tokyo was the edge of Edo. There was a riding ground here, and in 1694 a young swordsman ran across the city to stand beside his uncle in a duel on it, and walked away a legend. Down by the river, Bashō, the great haiku poet, is said to have spent a few years working on the city’s water supply.',
     'This walk strings those stories together: a garden fed by a spring, a shrine on a hill with a cave in its name, the clock tower of a university founded by a man who lost a leg to an assassin’s bomb and kept going, and a lord’s garden by the river to end the day. Once you know them, you’ll never walk these streets the same way again.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx), after the
+  // description: in a sentence each, what you'll discover, why it matters,
+  // and what it feels like. It's what gives the journey the new page.
+  whyCool: {
+    discovery: 'The far edge of old Edo, still hiding in plain sight among today’s student streets.',
+    significance: 'Meet the swordsman, the poet and the statesman who left their mark on this corner of Tokyo.',
+    feeling: 'A slow, peaceful wander through quiet gardens and old streets, with a story around every corner.',
+  },
   route: [takadanobaba, kansenen, anahachiman, okumaAuditorium, higoHosokawa],
   wrapUp: {
     heading: 'You made it.',

@@ -321,6 +321,13 @@ export default {
     'A little over a century ago, South Beach was a strip of sand and mangrove swamp that nobody wanted. Then a farmer built a bridge to it, a millionaire who’d made his fortune in car headlights turned it into a playground, and a hurricane blew the whole dream apart.',
     'This walk follows what happened next: the cheerful little hotels that rose from the wreckage, the years they were left to crumble, and the woman who fought to save them. By the time you’re standing under the neon on Ocean Drive, you’ll know exactly who to thank for it.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'How a strip of sand and mangrove swamp that nobody wanted became the Art Deco capital of the world.',
+    significance: 'A farmer’s bridge, a millionaire’s playground, a hurricane, and the woman who saved the pastel hotels from the wrecking ball.',
+    feeling: 'Bright and lively: pastel hotels, palm trees and neon, ending at the ocean on the island’s tip.',
+  },
   route: [lincolnRoad, espanolaWay, welcomeCenter, colonyHotel, southPointe],
   wrapUp: {
     heading: 'You made it.',

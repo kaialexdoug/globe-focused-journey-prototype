@@ -278,6 +278,13 @@ export default {
     'St. Paul started out as a river landing nicknamed Pig’s Eye, after a bootlegger’s tavern, and took its name from a little log chapel instead. Up on the bluff above, the city’s richest built a street of mansions, and a young F. Scott Fitzgerald wrote his first novel in a row house along it.',
     'This journey walks the whole of Summit Avenue, from Fitzgerald’s door to the house of the railroad baron who built a line to the Pacific, and up to the great cathedral that carries the chapel’s name. Then it’s down the hill to a square where gangsters once stood trial.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'How a river landing called Pig’s Eye became a capital, with a street of mansions on the bluff above.',
+    significance: 'A young F. Scott Fitzgerald, the railroad baron James J. Hill, and the little log chapel that gave the city its name.',
+    feeling: 'Stately and storied: a long stroll past grand old houses to a cathedral on the hill.',
+  },
   route: [grandAvenue, summitAvenue, hillHouse, cathedral, ricePark],
   wrapUp: {
     heading: 'You made it.',

@@ -26,8 +26,7 @@ export function VerifiedBadge() {
 }
 
 // A photo right across the top of the screen, with the header sitting on it
-// and a title on its shaded bottom edge. See Your Journey and Memory open
-// with it.
+// and a title on its shaded bottom edge. The Memory page opens with it.
 // `kicker` is the small red heading, `label` the line above the title, and
 // `size` is "isTall" or left out.
 export function PhotoHero({ photo, photoAlt, photoPosition, kicker, label, title, size }) {

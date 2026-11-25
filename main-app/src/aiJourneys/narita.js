@@ -287,6 +287,13 @@ export default {
     'Most people only know Narita from the airport, but the town was welcoming travelers for a thousand years before there were planes. Its great temple was founded in 940 to pray down a rebellion, and pilgrims have walked the old street to it ever since, stopping for grilled eel on the way.',
     'This journey walks you down that street to the temple, up through its halls to the Great Pagoda of Peace, and back for eel at one of the oldest restaurants in town. It’s easy to fit in before a flight.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'The temple town behind the airport, welcoming travelers for a thousand years before there were planes.',
+    significance: 'A great temple founded in 940 to pray down a rebellion, still drawing millions of pilgrims down the same old street.',
+    feeling: 'Calm and tasty: incense, temple halls and gardens, then grilled eel before your flight.',
+  },
   route: [station, omotesando, shinshoji, pagoda, kawatoyo],
   wrapUp: {
     heading: 'You made it.',

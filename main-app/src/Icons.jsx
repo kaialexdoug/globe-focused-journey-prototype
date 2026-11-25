@@ -69,6 +69,16 @@ export function NavigateIcon({ className }) {
   )
 }
 
+// The same arrow, as an outline: before how far away a journey is
+// (DistanceAway.jsx).
+export function DistanceIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M20 4 4 11l7 2 2 7z" />
+    </Icon>
+  )
+}
+
 // The navbar's Home tab.
 export function HomeIcon({ className }) {
   return (
@@ -110,7 +120,8 @@ const CLOUD_FILL = { fill: 'var(--icon-fill, var(--surface, white))' }
 const CLOUD = 'M7.5 19h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 12.3 3.4 3.4 0 0 0 7.5 19z'
 const HIGH_CLOUD = 'M7.5 15h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 8.3 3.4 3.4 0 0 0 7.5 15z'
 
-// Weather & Best Time to Go, on See Your Journey, and a partly cloudy day:
+// Weather & Best Time to Go, on See Your Journey's Details tab, and a partly
+// cloudy day:
 // the sun peeking out from behind a cloud.
 export function WeatherIcon({ className }) {
   return (
@@ -221,7 +232,7 @@ export function InfoIcon({ className }) {
 }
 
 // Before You Go on See Your Journey (BeforeYouGo.jsx): a checklist for its
-// bar, then a backpack (what to bring), a ticket (tickets and costs) and a
+// heading, then a backpack (what to bring), a ticket (tickets and costs) and a
 // light bulb (local insider tips).
 
 export function ChecklistIcon({ className }) {
@@ -307,6 +318,47 @@ export function ChevronRightIcon({ className }) {
   return (
     <Icon className={className}>
       <path d="m9 6 6 6-6 6" />
+    </Icon>
+  )
+}
+
+// Back, at the top left of a journey's page (JourneyPage.jsx): a plain
+// chevron, after its mockup.
+export function ChevronLeftIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="m15 4.5-7.5 7.5 7.5 7.5" />
+    </Icon>
+  )
+}
+
+// What's good about a journey, on its page, after its mockup: Why It's Cool
+// has a solid four-pointed sparkle, then The Discovery a pair of binoculars,
+// The Significance three layers stacked up, and The Feeling the heart (below).
+export function SparkleIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M12 1.5Q13 11 22.5 12 13 13 12 22.5 11 13 1.5 12 11 11 12 1.5z" fill="currentColor" stroke="none" />
+    </Icon>
+  )
+}
+
+export function BinocularsIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="6.5" cy="16.5" r="3.5" />
+      <circle cx="17.5" cy="16.5" r="3.5" />
+      <path d="M3 16.5 5 7.5A2 2 0 0 1 7 6h1a2 2 0 0 1 2 2v8.5M21 16.5 19 7.5A2 2 0 0 0 17 6h-1a2 2 0 0 0-2 2v8.5M10 11h4" />
+    </Icon>
+  )
+}
+
+export function LayersIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M12 3 2.5 8l9.5 5 9.5-5z" />
+      <path d="m2.5 12 9.5 5 9.5-5" />
+      <path d="m2.5 16 9.5 5 9.5-5" />
     </Icon>
   )
 }
@@ -409,7 +461,8 @@ export function GroupIcon({ className }) {
 }
 
 // Liking journeys is set aside for now, in favour of saving them (the
-// bookmark below), but it's coming back.
+// bookmark below), but it's coming back. It's The Feeling on a journey's
+// page too.
 export function HeartIcon({ className }) {
   return (
     <Icon className={className}>

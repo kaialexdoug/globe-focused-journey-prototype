@@ -488,7 +488,7 @@ button:focus-visible {
 /* How far the words reach up into the photo: the place, and about the first
    line of the name. */
 .feedPhoto {
-  --feed-overlap: 130px;
+  --feed-overlap: 110px;
   position: relative;
   flex: 1 1 auto;
   min-height: 0;
@@ -514,10 +514,10 @@ button:focus-visible {
     var(--feed-fade),
     linear-gradient(
       to bottom,
-      transparent calc(100% - 260px),
-      color-mix(in srgb, var(--bg) 45%, transparent) calc(100% - 190px),
-      color-mix(in srgb, var(--bg) 82%, transparent) calc(100% - 120px),
-      color-mix(in srgb, var(--bg) 96%, transparent) calc(100% - 50px),
+      transparent calc(100% - 205px),
+      color-mix(in srgb, var(--bg) 55%, transparent) calc(100% - 155px),
+      color-mix(in srgb, var(--bg) 88%, transparent) calc(100% - 105px),
+      color-mix(in srgb, var(--bg) 97%, transparent) calc(100% - 45px),
       var(--bg) 100%
     );
   pointer-events: none;
@@ -530,38 +530,62 @@ button:focus-visible {
   padding: 0 16px 16px;
 }
 
-/* Where it is, in its own bubble (with room for the AI Generated or Unfold
-   Verified tag beside it, which is left off for now: see HomePage). */
+/* Where it is, then, after a dot, how far away it is (DistanceAway.jsx):
+   "KAWAGOE, JAPAN · 5,832 mi away". (There's room for the AI Generated or
+   Unfold Verified tag too, which is left off for now: see HomePage.) */
 .feedPlaceRow {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  column-gap: 10px;
+  row-gap: 4px;
 }
 
 .feedPlace {
   display: flex;
   align-items: center;
-  gap: 6px;
-  height: 30px;
-  padding: 0 12px 0 9px;
-  background-color: color-mix(in srgb, var(--bg) 70%, transparent);
-  backdrop-filter: blur(8px);
-  border: 1px solid color-mix(in srgb, var(--night) 14%, transparent);
-  border-radius: 999px;
-  font-size: 12.5px;
-  font-weight: 600;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 700;
   letter-spacing: 0.08em;
-  line-height: 1;
-  color: var(--ink-soft);
+  line-height: 1.2;
+  color: var(--text-h);
   text-transform: uppercase;
 }
 
 .feedPlace svg {
   flex-shrink: 0;
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   color: var(--unfold-orange);
+}
+
+.feedAway {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--ink-muted);
+}
+
+.feedAway::before {
+  content: '•';
+  margin-right: 4px;
+  color: var(--ink-faint);
+}
+
+.feedAway svg {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.9;
+}
+
+.feedAway b {
+  font-weight: 700;
+  color: var(--text-h);
 }
 
 /* The tag, in the same glass as the place's bubble. */
@@ -588,14 +612,15 @@ button:focus-visible {
   margin-top: 12px;
 }
 
-/* The one place the serif is kept: the journey titles on Home's feed. */
+/* The serif, Times New Roman, kept for the journey titles: here, and at the
+   top of a journey's page (.journeyName). */
 .feedTitle {
   flex: 1;
   min-width: 0;
   margin: 0;
   font-family: var(--serif);
   font-size: 36px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.08;
   color: var(--text-h);
@@ -640,11 +665,13 @@ button:focus-visible {
   color: var(--ink-body);
 }
 
-/* How long, how hard and what kind: three across, each a soft orange symbol
-   over its value, with a faint line between them. */
+/* How long, how hard and what kind: three across (four on a journey's page,
+   with its stops), each a soft orange symbol over its value, with a faint
+   line between them. */
 .feedFacts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
   margin-top: 18px;
 }
 
@@ -1937,6 +1964,41 @@ button.detailBar:active {
   color: var(--tag-yellow);
 }
 
+/* How far away it is (DistanceAway.jsx), in the top corner of a journey
+   card, across from its match on Journeys for You and its bookmark on My
+   Journeys: small, on the same dark glass as the match, so it covers little
+   of the photo. The same in light and dark mode, as it's on a photo. */
+.cardAway {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 6px;
+  background-color: rgba(15, 22, 38, 0.62);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cardAway svg {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.2;
+}
+
+.cardAway b {
+  font-weight: 700;
+  color: white;
+}
+
 /* Clear of the bookmark, on its right. */
 .matchTitle {
   padding-right: 42px;
@@ -2140,23 +2202,6 @@ button.detailBar:active {
   color: var(--ink-body);
 }
 
-/* --- Your journey ---
-   Like a journey stop (see A journey stop, below): the journey's photo
-   across the top, its name under it, and all of this under that. */
-
-/* The buttons at the end, in its own margins. */
-.photoScreenInfo .testTakeBtnContainer {
-  padding: 0;
-}
-
-/* Just under the journey's name: a little apart from it, and softer, so
-   the two don't run together. */
-.photoScreenInfo .heroTagline {
-  margin-top: 14px;
-  font-size: 20px;
-  color: var(--ink-soft);
-}
-
 .heroTagline {
   margin: 4px 0 18px;
   font-family: var(--heading);
@@ -2168,16 +2213,11 @@ button.detailBar:active {
   font-weight: 600;
 }
 
-/* Time, walking and stops, each with its icon, split by thin lines. */
+/* Time, walking and stops, each with its icon, split by thin lines (on the
+   Memory page). */
 .factsRow {
   display: flex;
   margin-bottom: 22px;
-}
-
-/* First thing under the journey's name on See Your Journey, as far below the
-   line under it as the description is below the facts. */
-.journeyPage .factsRow {
-  margin-top: 18px;
 }
 
 .fact {
@@ -2202,35 +2242,6 @@ button.detailBar:active {
   color: var(--accent-ink);
 }
 
-/* On See Your Journey there are four (its main experience too), so each has
-   its symbol over its words, as wide as it needs and sharing out the room
-   left over. Sized in em, from 13px, so a journey whose facts still don't
-   fit on one line can make them all smaller (SeeJourneyPage in App.jsx). */
-.journeyPage .factsRow {
-  font-size: 13px;
-}
-
-.journeyPage .fact {
-  flex: 1 0 auto;
-  flex-direction: column;
-  gap: 0.4em;
-  padding: 0 0.5em;
-  font-size: 1em;
-}
-
-.journeyPage .fact:first-child {
-  padding-left: 0;
-}
-
-.journeyPage .fact:last-child {
-  padding-right: 0;
-}
-
-.journeyPage .fact svg {
-  width: 1.6em;
-  height: 1.6em;
-}
-
 .startCard {
   margin-bottom: 28px;
   padding: 16px 18px 18px;
@@ -2239,21 +2250,336 @@ button.detailBar:active {
   text-align: left;
 }
 
-/* What the journey is, just after the quick facts and before START HERE. */
-.journeyDescription {
-  margin-bottom: 26px;
+/* --- A journey's page, in tabs (JourneyPage.jsx) ---
+   After its mockup, in the app's own colours: the photo across the top, with
+   back, the logo and save on it, and the name and place on its shaded bottom
+   edge; then Overview, Route and Details, with an orange bar under the one
+   you're on; then that tab, which is the only part that scrolls. */
+
+.journeyTabsPage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg);
+  animation: fadeIn 0.5s ease both;
+}
+
+.journeyHero {
+  position: relative;
+  flex-shrink: 0;
+  height: calc(250px + var(--frame-top));
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--placeholder-dim);
+}
+
+.journeyHeroImg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Shaded at the top, behind the logo and buttons, and darker at the bottom,
+   behind the name: the same in light mode, as the words on it are white. */
+.journeyHero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0.12) 22%,
+    rgba(0, 0, 0, 0) 36%,
+    rgba(0, 0, 0, 0) 44%,
+    rgba(0, 0, 0, 0.36) 70%,
+    rgba(0, 0, 0, 0.66) 100%
+  );
+  pointer-events: none;
+}
+
+/* The logo in the middle, as on Home. Taps go through it. */
+.journeyHero .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.journeyHero .title {
+  color: white;
+}
+
+/* Back and save: plain white marks level with the logo, with a soft shadow
+   so they hold up over a pale sky, like Home's search. */
+.journeyHeroButton {
+  position: absolute;
+  top: calc(3px + var(--frame-top));
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: white;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.journeyHeroButton:active {
+  transform: scale(0.9);
+}
+
+.journeyHeroButton svg {
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.9;
+}
+
+.journeyBack {
+  left: 6px;
+}
+
+.journeySave {
+  right: 8px;
+}
+
+.journeySave svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Filled in once it's saved. */
+.journeySave.isSaved svg {
+  fill: currentColor;
+}
+
+.journeyHeroText {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 16px;
+  text-align: left;
+}
+
+/* The name in the serif, as on Home's feed. */
+.journeyName {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  line-height: 1.06;
+  color: white;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+  text-wrap: balance;
+}
+
+.journeyPlace {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Overview, Route and Details, side by side over a faint line, with the
+   orange bar under the one you're on. */
+.journeyTabs {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.journeyTab {
+  min-height: 52px;
+  padding: 12px 4px 10px;
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink-faint);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.journeyTab.isCurrent {
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+/* A third as wide as the tabs, moved along to the one you're on. */
+.journeyTabBar {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: calc(100% / 3);
+  transform: translateX(calc(var(--tab) * 100%));
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+.journeyTabBar::before {
+  content: '';
+  display: block;
+  height: 3px;
+  margin: 0 6px;
+  border-radius: 3px;
+  background-color: var(--orange-mark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journeyTabBar {
+    transition: none;
+  }
+}
+
+/* The tab you're on, and BEGIN JOURNEY at its end. */
+.journeyBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 18px 28px;
+  text-align: left;
+}
+
+/* Overview's facts, four across: time, difficulty, stops and kind. */
+.journeyBody .feedFacts {
+  margin: 0 0 20px;
+}
+
+.journeyBody .feedFactValue {
+  font-size: 13.5px;
+}
+
+/* Why It's Cool: a panel with its sparkle and heading, what the journey's
+   about, then The Discovery, The Significance and The Feeling in a box of
+   their own inside it, split by faint lines. */
+.whyCool {
+  padding: 20px 18px 18px;
+  border: 1px solid var(--outline);
+  border-radius: 18px;
+  background-color: var(--panel);
+}
+
+.whyCoolTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--heading);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text-h);
+}
+
+.whyCoolSparkle {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  color: var(--orange-mark);
+}
+
+.whyCoolText p {
+  margin: 12px 0 0;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink-body);
+}
+
+.whyCoolList {
+  margin: 18px 0 0;
+  padding: 2px 16px;
+  list-style: none;
+  background-color: var(--panel-inner);
+  border: 1px solid var(--outline);
+  border-radius: 14px;
+}
+
+.whyCoolItem {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  column-gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+}
+
+.whyCoolItem + .whyCoolItem {
+  border-top: 1px solid var(--line);
+}
+
+.whyCoolIcon {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.6;
+  color: var(--feed-symbol);
+}
+
+.whyCoolItemTitle {
+  margin: 0;
+  font-family: var(--heading);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-h);
+}
+
+.whyCoolItemText {
+  margin: 3px 0 0;
+  font-size: 14px;
+  line-height: 1.42;
+  color: var(--ink-muted);
+}
+
+/* Details: Weather & Best Time to Go, then Before You Go, each under a
+   modest heading with its soft orange symbol. */
+.journeySection + .journeySection {
+  margin-top: 30px;
+}
+
+.journeySectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-family: var(--heading);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-h);
+}
+
+.journeySectionTitle svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: var(--feed-symbol);
+}
+
+.journeyBody .testTakeBtnContainer {
+  margin-top: 26px;
+  padding: 0;
 }
 
 /* --- Weather & Best Time to Go (BestTime.jsx) ---
-   On See Your Journey, just above the route, and folded away the same way,
-   with the same bar (the routeFold classes, below). What unfolds: the best
-   season and the best time of day, each in a light gray card like a stop on the
-   route, with a little line icon. */
-
-.bestTime {
-  margin-bottom: 12px;
-  text-align: left;
-}
+   In the Details tab on a journey's page: the weather there now, the best
+   season and the best time of day, each in a light gray card like a stop on
+   the route, with a little line icon. */
 
 .bestTimeList {
   display: grid;
@@ -2316,17 +2642,11 @@ button.detailBar:active {
 }
 
 /* --- Before You Go (BeforeYouGo.jsx) ---
-   On See Your Journey, just under the route, folded away the same way (the
-   routeFold classes). What unfolds: a light gray card for each of what to bring,
-   tickets and costs, and so on, like the best time cards above. Each shows
-   just its title until it's tapped, then opens (the routeFold classes again)
-   to its points in a list. Then a note to check the hours. */
-
-.beforeYouGo {
-  margin-top: 12px;
-  margin-bottom: 4px;
-  text-align: left;
-}
+   In the Details tab on a journey's page, under the weather: a light gray
+   card for each of what to bring, tickets and costs, and so on, like the
+   best time cards above. Each shows just its title until it's tapped, then
+   opens (the routeFold classes) to its points in a list. Then a note to
+   check the hours. */
 
 .beforeGoList {
   display: grid;
@@ -2853,89 +3173,12 @@ button.detailBar:active {
 }
 
 /* --- The route (RoutePreview.jsx) ---
-   On See Your Journey, after the description: each stop in order down a
-   line, with numbers, and between them the walk on to the next one. Then the
-   totals, and the map. All folded away behind a bar until it's tapped. */
+   The Route tab on a journey's page: each stop in order down a line, with
+   numbers, and between them the walk on to the next one. Then the totals,
+   and the map. */
 
-.routePreview {
-  margin-bottom: 4px;
-  text-align: left;
-}
-
-.routeFoldHeading {
-  margin: 0;
-}
-
-/* The bar: the route icon, SHOW ROUTE DETAILS with the stops, walking
-   and time under it, and a chevron that turns up once it's open. White, so
-   it looks like something to tap among the outlined cards. */
-.routeFoldBar {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 14px 14px 14px 18px;
-  border: 1px solid var(--outline);
-  border-radius: 15px;
-  font: inherit;
-  text-align: left;
-  color: var(--text-h);
-  background-color: var(--surface);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-
-.routeFoldBar:active {
-  background-color: var(--surface-low);
-}
-
-.routeFoldIcon {
-  flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  color: var(--accent-ink);
-}
-
-.routeFoldText {
-  display: grid;
-  flex: 1;
-  gap: 3px;
-  min-width: 0;
-}
-
-.routeFoldTitle {
-  font-size: 12.5px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.3;
-  color: var(--ink);
-}
-
-.routeFoldSummary {
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.4;
-  color: var(--ink-muted);
-}
-
-.routeFoldChevron {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  color: var(--ink-muted);
-  transform: rotate(90deg);
-  transition: transform 0.3s ease;
-}
-
-.routeFoldBar.isOpen .routeFoldChevron {
-  transform: rotate(-90deg);
-}
-
-/* What unfolds: its height opens up from nothing (the grid row grows from
-   0fr to 1fr) as it fades in. */
+/* Opening out (a card of Before You Go): its height opens up from nothing
+   (the grid row grows from 0fr to 1fr) as it fades in. */
 .routeFold {
   display: grid;
   grid-template-rows: 0fr;
@@ -2960,14 +3203,13 @@ button.detailBar:active {
 
 @media (prefers-reduced-motion: reduce) {
   .routeFold,
-  .routeFoldInner,
-  .routeFoldChevron {
+  .routeFoldInner {
     transition: none;
   }
 }
 
 .routeStops {
-  margin: 24px 0 22px;
+  margin: 4px 0 22px;
   padding: 0;
   list-style: none;
 }
@@ -3457,7 +3699,7 @@ button.detailBar:active {
 }
 
 /* --- A journey stop ---
-   Every stop on the journey, and See Your Journey (PhotoScreen.jsx), in three
+   Every stop on the journey (PhotoScreen.jsx), in three
    parts: the photo across the top; what it is, starting on the photo's faded
    bottom edge, so the two together are about 40% of the screen; and
    everything else, the rest, which is the only part that scrolls. */
@@ -5593,7 +5835,8 @@ button.detailBar:active {
   color: var(--green-ink);
 }
 
-/* See Your Journey, for a journey that's under way or finished. */
+/* At the end of each tab on See Your Journey (JourneyButtons in
+   JourneyPage.jsx), for a journey that's under way or finished. */
 .testTakeBtnContainer .inProgressTag {
   margin-bottom: 10px;
 }

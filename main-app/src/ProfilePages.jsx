@@ -5,6 +5,7 @@ import cityPicture from './assets/profile/profile-city.jpg'
 import cranePicture from './assets/profile/crane-avatar.jpg'
 
 import { PickManyPage } from './FindMyJourney.jsx'
+import DistanceAway from './DistanceAway.jsx'
 import Header from './Header.jsx'
 import PromptBox from './PromptBox.jsx'
 import { APP_VERSION } from './config.js'
@@ -226,6 +227,7 @@ function JourneyCard({ journey, isSaved, onOpen, onToggleSaved }) {
           style={{ objectPosition: journey.photoPosition }}
           loading="lazy"
         />
+        <DistanceAway journey={journey} className="cardAway" />
         <span className="journeyCardWords">
           <span className="journeyCardTitle">{journey.name}</span>
           <span className="journeyCardFacts">

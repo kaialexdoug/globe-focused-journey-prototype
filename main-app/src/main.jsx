@@ -1,11 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-// Inter for everything (every weight in one file), Literata only for the
-// journey titles on Home's feed, both after the feed's mockup, and Montserrat
-// only for the UNFOLD beside the logo, which stays as it was.
+// Inter for everything (every weight in one file), after the feed's mockup,
+// and Montserrat only for the UNFOLD beside the logo, which stays as it was.
+// The journey titles are in Times New Roman, which phones and computers
+// mostly have already; Tinos is drawn to match it, for the ones that don't
+// (Android), and is only fetched there (--serif in index.css).
 import '@fontsource-variable/inter'
 import '@fontsource-variable/inter/wght-italic.css'
-import '@fontsource/literata/600.css'
+import '@fontsource/tinos/700.css'
 import '@fontsource/montserrat/400.css'
 import './index.css'
 import App from './App.jsx'

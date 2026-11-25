@@ -286,6 +286,13 @@ export default {
     'Deep in the pine forests of northern Minnesota, a small stream slips out of a lake over a line of rocks, and that’s the Mississippi. The park around it was saved from the loggers by a single vote, and by a young woman who stood up to a lumber boss at his dam.',
     'This journey takes you from the old log lodge through the pines the fight was about, to the river’s source, where you can cross the Mississippi in a few steps, and back to the lake for the evening.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'The very start of the Mississippi: a small stream you can cross in a few steps.',
+    significance: 'A park saved from the loggers by a single vote, and by a young woman who stood up to a lumber boss at his dam.',
+    feeling: 'Quiet and wild: tall pines, cool water underfoot, and an evening by the lake.',
+  },
   route: [douglasLodge, preachersGrove, headwatersCenter, headwaters, lakeItasca],
   wrapUp: {
     heading: 'You made it.',

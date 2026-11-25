@@ -283,6 +283,13 @@ export default {
     'Taylors Falls is small, but the river beside it has carved out something huge: a gorge of billion-year-old cliffs, and rock drilled full of holes by the floods at the end of the ice age. It was a lumber town once, built to look like New England, and the logs of the whole valley came through here.',
     'This journey starts in the quiet old village on the hill, walks down to the river and along the top of the cliffs, and ends somewhere completely different, in a meadow full of art.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A gorge of billion-year-old cliffs, and rock drilled full of holes by ice-age floods.',
+    significance: 'The deepest glacial potholes in the world, and the cliffs two states joined to protect as the country’s first interstate park.',
+    feeling: 'Adventurous and surprising: clifftop views, rocks to explore, then a meadow full of strange and funny art.',
+  },
   route: [angelHill, benchStreet, potholes, dalles, franconia],
   wrapUp: {
     heading: 'You made it.',

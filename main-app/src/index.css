@@ -33,11 +33,14 @@
   --border: rgb(228, 223, 217);
 
   /* Inter, after the feed's mockup (close to the iPhone's own font), for all
-     the words, headings too; the serif only for the journey titles on Home's
-     feed; and Montserrat only for UNFOLD beside the logo. */
+     the words, headings too; the serif, Times New Roman, only for the journey
+     titles (on Home's feed, and at the top of a journey's page); and
+     Montserrat only for UNFOLD beside the logo. Tinos is drawn to match Times
+     New Roman, for phones without it (Android): a browser only fetches it if
+     it gets that far down the list. */
   --sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --heading: var(--sans);
-  --serif: 'Literata', Georgia, 'Times New Roman', serif;
+  --serif: 'Times New Roman', Tinos, Times, serif;
   --logo-font: 'Montserrat', system-ui, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
@@ -100,6 +103,13 @@
   );
   /* The soft orange of its three facts' symbols: a little deeper on white. */
   --feed-symbol: rgb(226, 140, 68);
+  /* A journey's page (JourneyPage.jsx), after its mockup: the stronger
+     orange of the bar under the tab you're on and Why It's Cool's sparkle
+     (the main buttons' own orange), and Why It's Cool's panel, a light gray,
+     with its three rows on white inside it. */
+  --orange-mark: rgb(218, 102, 42);
+  --panel: var(--box-gray);
+  --panel-inner: white;
   /* The symbols on a journey's tags on the Home feed. */
   --tag-yellow: rgb(245, 190, 65);
   --tag-green: rgb(90, 215, 110);
@@ -283,6 +293,11 @@
   --photo-panel-soft: rgba(20, 24, 32, 0.55);
   --photo-top-shade: rgba(16, 19, 26, 0.6);
   --feed-symbol: rgb(232, 168, 104);
+  /* Brighter on the dark, and the panel's rows a step lighter than it, as
+     in the mockup (in the app's own blue-blacks, not its browns). */
+  --orange-mark: rgb(238, 128, 62);
+  --panel: rgb(25, 29, 38);
+  --panel-inner: rgb(34, 39, 50);
 
   --night: rgb(236, 239, 245);
   --spoken-bg: rgba(249, 160, 110, 0.32);

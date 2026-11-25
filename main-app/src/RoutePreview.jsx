@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-import { ChevronRightIcon, ClockIcon, RouteIcon, WalkIcon } from './Icons.jsx'
+import { ClockIcon, RouteIcon, WalkIcon } from './Icons.jsx'
 import {
   durationText,
   hoursText,
@@ -13,22 +11,22 @@ import {
 import RouteMap from './RouteMap.jsx'
 import { useUnits } from './units.js'
 
-// The whole journey before you start, on See Your Journey, so you know how
-// much walking is ahead: each stop in order, in a card of its own with a
-// little photo beside its name and the time to spend there, and between the
-// cards, on the line joining them, how far it is to the next, how you get
-// there, how long it takes, and how hard it is. The first stop is where you
-// start, so it takes the place of START HERE, with the area and the note
-// about getting there. Any detours are in the card of the stop they branch
-// off. At the bottom, the walking altogether, and the whole journey's time,
-// then the route on a map (RouteMap.jsx), if every stop has its exact spot.
+// The whole journey before you start, in the Route tab on a journey's page
+// (JourneyPage.jsx), so you know how much walking is ahead: each stop in
+// order, in a card of its own with a little photo beside its name and the
+// time to spend there, and between the cards, on the line joining them, how
+// far it is to the next, how you get there, how long it takes, and how hard
+// it is. The first stop is where you start, with the area and the note about
+// getting there. Any detours are in the card of the stop they branch off. At
+// the bottom, the walking altogether, and the whole journey's time, then the
+// route on a map (RouteMap.jsx), if every stop has its exact spot.
 //
-// It's all folded away behind a bar, SHOW ROUTE DETAILS, with the number of
-// stops, the walking and the time on it, and unfolds when the bar's tapped.
+// The map counts as a map load, so it's only there once the Route tab's been
+// opened, and only loads once it's scrolled close to (RouteMap.jsx).
 //
 // It needs the walk to every stop (`distanceMeters` and `effort` on each
-// stop's card), which only some journeys have so far (hasRoutePreview in
-// journeyTimes.js).
+// stop's card), which every journey has (hasRoutePreview in journeyTimes.js).
+// One without it gets just where to start instead (JourneyPage.jsx).
 
 // How hard the walk to a stop is.
 const EFFORT_LABELS = { easy: 'Easy', moderate: 'Moderate', hard: 'Hard' }
@@ -48,117 +46,84 @@ function rideTimeWords(modes) {
   return modes.length === 1 ? RIDE_TIME_WORDS[modes[0]] : 'on the way'
 }
 
-function RoutePreview({ journey }) {
+function RouteDetails({ journey }) {
   const units = useUnits()
   const walking = walkingTotals(journey)
   const ride = rideTotals(journey)
   const hours = hoursText(journeyHours(journey))
-  const [open, setOpen] = useState(false)
-  // The map only loads once it's first opened, then stays.
-  const [opened, setOpened] = useState(false)
-
-  function toggle() {
-    setOpen(!open)
-    setOpened(true)
-  }
-
   return (
-    <section className="routePreview" aria-labelledby="routePreviewTitle">
-      <h2 className="routeFoldHeading" id="routePreviewTitle">
-        <button
-          className={open ? 'routeFoldBar isOpen' : 'routeFoldBar'}
-          onClick={toggle}
-          aria-expanded={open}
-          aria-controls="routeFold"
-        >
-          <RouteIcon className="routeFoldIcon" />
-          <span className="routeFoldText">
-            <span className="routeFoldTitle">{open ? 'Hide route details' : 'Show route details'}</span>
-            <span className="routeFoldSummary">
-              {journey.route.length} stops · {metersText(walking.meters, units)} on foot
-              {ride && ` · ${metersText(ride.meters, units)} ${rideWords(ride.modes)}`} · {hours}
-            </span>
-          </span>
-          <ChevronRightIcon className="routeFoldChevron" />
-        </button>
-      </h2>
-
-      {/* Folded away until it's opened: out of reach (inert) while it is. */}
-      <div className={open ? 'routeFold isOpen' : 'routeFold'} id="routeFold" inert={!open}>
-        <div className="routeFoldInner">
-          <ol className="routeStops">
-            {journey.route.map((stop, index) => {
-              const next = journey.route[index + 1]
-              const start = index === 0
-              return (
-                <li key={stop.id} className="routeStop">
-                  <div className="routeStopCard">
-                    <span className="routeNumber" aria-hidden="true">
-                      {index + 1}
-                    </span>
-                    <div className="routeStopBody">
-                      <div className="routeStopHead">
-                        <div>
-                          <p className="routePart">{start ? 'Start here · Departure' : stop.directionsHeading}</p>
-                          <h3 className="routeName">{stop.name}</h3>
-                          {start && <p className="routeStartArea">{journey.startArea}</p>}
-                          <p className="routeStay">
-                            <ClockIcon />
-                            Stay about {stayRangeText(stop)}
-                          </p>
-                        </div>
-                        <Thumbnail stop={stop} />
-                      </div>
-                      {start && <p className="routeStartNote">{journey.startNote}</p>}
-                      {stop.detours?.map((detour) => (
-                        <RouteDetour key={detour.id} detour={detour} />
-                      ))}
+    <>
+      <ol className="routeStops">
+        {journey.route.map((stop, index) => {
+          const next = journey.route[index + 1]
+          const start = index === 0
+          return (
+            <li key={stop.id} className="routeStop">
+              <div className="routeStopCard">
+                <span className="routeNumber" aria-hidden="true">
+                  {index + 1}
+                </span>
+                <div className="routeStopBody">
+                  <div className="routeStopHead">
+                    <div>
+                      <p className="routePart">{start ? 'Start here · Departure' : stop.directionsHeading}</p>
+                      <h3 className="routeName">{stop.name}</h3>
+                      {start && <p className="routeStartArea">{journey.startArea}</p>}
+                      <p className="routeStay">
+                        <ClockIcon />
+                        Stay about {stayRangeText(stop)}
+                      </p>
                     </div>
+                    <Thumbnail stop={stop} />
                   </div>
-                  {next && <RouteLeg to={next} />}
-                </li>
-              )
-            })}
-          </ol>
-
-          <div className="startCard routeTotals">
-            <p className="startCardLabel">Altogether</p>
-            <div className="startCardRow">
-              <WalkIcon />
-              <div>
-                <p className="routeTotal">{metersText(walking.meters, units)} of walking</p>
-                <p className="routeTotalNote">About {durationText(walking.minutes)} on foot</p>
-              </div>
-            </div>
-            {/* On a journey that isn't all on foot, the rest of the way. */}
-            {ride && (
-              <div className="startCardRow">
-                <RouteIcon />
-                <div>
-                  <p className="routeTotal">
-                    {metersText(ride.meters, units)} {rideWords(ride.modes)}
-                  </p>
-                  <p className="routeTotalNote">
-                    About {durationText(ride.minutes)} {rideTimeWords(ride.modes)}
-                  </p>
+                  {start && <p className="routeStartNote">{journey.startNote}</p>}
+                  {stop.detours?.map((detour) => (
+                    <RouteDetour key={detour.id} detour={detour} />
+                  ))}
                 </div>
               </div>
-            )}
-            <div className="startCardRow">
-              <ClockIcon />
-              <div>
-                <p className="routeTotal">{hours} in all</p>
-                <p className="routeTotalNote">
-                  {ride ? 'Getting around' : 'The walking'} and the time at each stop. Detours are extra.
-                </p>
-              </div>
+              {next && <RouteLeg to={next} />}
+            </li>
+          )
+        })}
+      </ol>
+
+      <div className="startCard routeTotals">
+        <p className="startCardLabel">Altogether</p>
+        <div className="startCardRow">
+          <WalkIcon />
+          <div>
+            <p className="routeTotal">{metersText(walking.meters, units)} of walking</p>
+            <p className="routeTotalNote">About {durationText(walking.minutes)} on foot</p>
+          </div>
+        </div>
+        {/* On a journey that isn't all on foot, the rest of the way. */}
+        {ride && (
+          <div className="startCardRow">
+            <RouteIcon />
+            <div>
+              <p className="routeTotal">
+                {metersText(ride.meters, units)} {rideWords(ride.modes)}
+              </p>
+              <p className="routeTotalNote">
+                About {durationText(ride.minutes)} {rideTimeWords(ride.modes)}
+              </p>
             </div>
           </div>
-
-          {opened && <RouteMap journey={journey} />}
+        )}
+        <div className="startCardRow">
+          <ClockIcon />
+          <div>
+            <p className="routeTotal">{hours} in all</p>
+            <p className="routeTotalNote">
+              {ride ? 'Getting around' : 'The walking'} and the time at each stop. Detours are extra.
+            </p>
+          </div>
         </div>
       </div>
-    </section>
+
+      <RouteMap journey={journey} />
+    </>
   )
 }
 
@@ -218,4 +183,4 @@ function Thumbnail({ stop, small = false }) {
   )
 }
 
-export default RoutePreview
+export default RouteDetails

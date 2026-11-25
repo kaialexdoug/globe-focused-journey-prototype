@@ -380,7 +380,7 @@ export const kawagoeJourney = {
   peak: hikawaShrine,
   afterglow: maruya,
 
-  // Under START HERE on See Your Journey.
+  // Under the first stop, in the Route tab on See Your Journey (JourneyPage.jsx).
   startArea: 'Kawagoe, Saitama, Japan',
   startNote: 'Travel to the start is separate from journey time.',
 
@@ -444,13 +444,20 @@ export const kawagoeJourney = {
     },
   },
 
-  // What the journey is, on See Your Journey after the quick facts: the hook,
-  // to get you excited about it. One entry per paragraph.
+  // What the journey is, in Why It's Cool on See Your Journey (JourneyPage.jsx):
+  // the hook, to get you excited about it. One entry per paragraph.
   description: [
     'Everyone who comes to Kawagoe sees the same bell tower, the same warehouse street, the same photo. This journey starts there too — but it doesn’t end there.',
     'Past the crowds, down streets most visitors never think to turn down, there’s a reason the locals still call this town “Koedo” (little Edo). A gate that’s marked time here for over a century. A quiet shrine tucked away from the noise, holding something most people walk straight past.',
     'We won’t tell you what it is. You’ll have to go see for yourself.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'The “Little Edo” past the crowds: a bell tower, sweet potatoes, and a quiet shrine most visitors walk straight past.',
+    significance: 'A castle town that lived alongside Edo, rebuilt after the great fire of 1893, around a shrine said to date from 541.',
+    feeling: 'Lively, then peaceful: sweet potato snacks on old merchant streets, a quiet shrine, and charcoal-grilled chicken to finish.',
+  },
 
   // --- The Memory page ---
 
@@ -817,6 +824,13 @@ export const odawaraJourney = {
   description: [
     'For centuries, travelers on the road between Edo and Kyoto stopped here to rest, eat, and look at the water. The town hasn’t changed that much: fish from the bay, shops that have been open longer than anyone can remember, and a quiet stretch of coast waiting at the end of the day. We’ll walk you through it, and somewhere along the way there’s one moment that makes the whole trip worth it.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A castle town on the old Tokaido road, where travelers have stopped to eat and look out at the sea for centuries.',
+    significance: 'The Hōjō, who ruled most of the Kantō from Odawara Castle for five generations, and the old road that brought travelers through.',
+    feeling: 'Easygoing and coastal: fish cakes on the way, a view from the castle, and a quiet beach at the end of the day.',
+  },
 
   // --- The Memory page ---
 
