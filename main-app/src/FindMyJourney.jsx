@@ -2,6 +2,7 @@ import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useSta
 import { createPortal } from 'react-dom'
 
 import { EXPERIENCE_ICONS, mainExperience } from './experienceIcons.js'
+import DistanceAway from './DistanceAway.jsx'
 import Header from './Header.jsx'
 import { placeOfAnswers, rankJourneys } from './journeyMatch.js'
 import { catalogPlaces, suggestPlaces } from './journeyPlaces.js'
@@ -714,6 +715,7 @@ export function MatchCard({ journey, percent = null, found = [], index, isSaved,
           // Fetched as you get near it, so opening the page doesn't download them all.
           loading={index < 3 ? 'eager' : 'lazy'}
         />
+        <DistanceAway journey={journey} className="cardAway" />
         {percent !== null && (
           <span className="matchPercent">
             <ThreeStarsIcon />

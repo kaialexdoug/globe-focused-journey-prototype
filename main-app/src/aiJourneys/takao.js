@@ -290,6 +290,13 @@ export default {
     'Mount Takao sits right on the edge of Tokyo, less than an hour from the middle of the city, and people have been climbing it for nearly 1,300 years: pilgrims to its temple, ascetics training among the tengu, and today more than two and a half million walkers a year.',
     'This journey rides Japan’s steepest railway up the mountain, climbs through the cedars to the temple of the tengu and on to the summit for a view toward Fuji, then comes back down for a long soak in a hot spring.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A holy mountain right on the edge of Tokyo, less than an hour from the middle of the city.',
+    significance: 'Nearly 1,300 years of pilgrims, from a temple founded in 744 and its tengu to a summit with a view toward Fuji.',
+    feeling: 'Fresh and rewarding: a steep ride up, a climb through the cedars, a big view, and a long hot soak to finish.',
+  },
   route: [station, cableCar, yakuoin, summit, gokurakuyu],
   wrapUp: {
     heading: 'You made it.',

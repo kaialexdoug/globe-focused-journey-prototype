@@ -11,7 +11,7 @@ import { CloseIcon } from './Icons.jsx'
 // - Everything else (`children`), which scrolls on its own. The photo and
 //   the title stay where they are.
 //
-// Journey steps and See Your Journey use it.
+// The journey's stops use it (StopPages.jsx).
 function PhotoScreen({
   className,
   photo,

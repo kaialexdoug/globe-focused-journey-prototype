@@ -36,7 +36,7 @@ const KIND_ICONS = {
   wind: WindIcon,
 }
 
-function WeatherPicture({ weather, className }) {
+export function WeatherPicture({ weather, className }) {
   const Picture = KIND_ICONS[weatherKind(weather)]
   return <Picture className={className} />
 }

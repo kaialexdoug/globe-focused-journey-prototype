@@ -288,6 +288,13 @@ export default {
     'Red Wing got rich on wheat in the steamboat days, then went on to make things the world knows by the town’s name: boots and stoneware. Over all of it stands Barn Bluff, a sacred place to the Dakota, a landmark for explorers, and the quarry that helped build the town.',
     'This journey walks from the old depot up through the town, past the giant boot and the streets the wheat money built, then climbs the bluff to see it all at once, and comes back down to the river.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A river town that got rich on wheat, then made boots and stoneware the world knows by its name.',
+    significance: 'Barn Bluff, a sacred place to the Dakota and a landmark for explorers, standing over the streets the wheat money built.',
+    feeling: 'Hearty and rewarding: a stroll through a handsome old town, a climb to a big view, and a rest by the river.',
+  },
   route: [depot, shoeStore, mainStreet, barnBluff, riverfront],
   wrapUp: {
     heading: 'You made it.',

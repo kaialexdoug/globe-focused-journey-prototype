@@ -309,6 +309,13 @@ export default {
     'Nikko has been a holy place since the 760s, when a monk came into these mountains to train. Nine centuries later, the first Tokugawa shogun was laid to rest here, and his grandson built him a shrine so covered in carving and gold that people say you could look at it until sunset.',
     'This journey walks from the town over the sacred red bridge, through the great temple and the cedar forest to Toshogu, and ends by a quiet gorge, counting the stone statues along the river.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A holy mountain town where a shogun lies in a shrine of carving and gold, deep in the cedar forest.',
+    significance: 'From the monk who came here to train in the 760s to the shrine of the shogun whose family ruled Japan for more than 250 years.',
+    feeling: 'Awe-inspiring, then peaceful: gold and carving in the shade of the cedars, and a quiet gorge lined with stone statues.',
+  },
   route: [station, shinkyo, rinnoji, toshogu, kanmangafuchi],
   wrapUp: {
     heading: 'You made it.',

@@ -302,6 +302,13 @@ export default {
     'Three hundred years ago, Nassau was a pirates’ republic. Blackbeard sailed from its harbour, and the town answered to no one, until a British governor sailed in to clean it up and gave the colony a motto: pirates expelled, commerce restored.',
     'This walk climbs through what came after: a staircase cut from solid rock by enslaved hands, forts built by a governor who had fled one revolution, the house where a king who gave up his throne was sent, and the day the old motto was finally replaced. It ends where Nassau eats, with conch salad by the sea.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'How a pirates’ republic became a nation, told on the hill above the harbour.',
+    significance: 'Blackbeard’s harbour, a staircase cut by enslaved hands, forts that never fired a shot, and a new motto for a new nation.',
+    feeling: 'Sunny and spirited: a climb up through history, then conch salad by the sea.',
+  },
   route: [parliamentSquare, queensStaircase, governmentHouse, fortCharlotte, fishFry],
   wrapUp: {
     heading: 'You made it.',

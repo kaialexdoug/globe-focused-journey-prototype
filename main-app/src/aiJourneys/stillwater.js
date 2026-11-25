@@ -281,6 +281,13 @@ export default {
     'Stillwater grew up on lumber, when logs from the northern forests came floating down the St. Croix to its mills, and it calls itself the birthplace of Minnesota: the state got its start at a meeting on the corner of Main Street.',
     'This journey walks from the riverfront through the old lumber town, up to its courthouse on the hill, past the prison where Jesse James’s partners were locked away, and out over the river on the old lift bridge, then back to the water as the lights come on.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A river town built on lumber, where logs from the northern forests once floated down to its mills.',
+    significance: 'Where Minnesota got its start, at a meeting on Main Street, and where Jesse James’s partners were locked away.',
+    feeling: 'Small-town and relaxed: old brick streets, a walk out over the river, and the lights coming on at dusk.',
+  },
   route: [lowellPark, mainStreet, courthouse, liftBridge, riverfront],
   wrapUp: {
     heading: 'You made it.',

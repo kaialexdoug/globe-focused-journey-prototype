@@ -236,6 +236,13 @@ export default {
     'Cumberland’s old town stands on an island, with Beaver Dam Lake, the deepest lake in Barron County, wrapped almost all the way around it. You’re never more than a few minutes from the water.',
     'This walk goes around the island: out to the east shore, where a lumber company stacked its boards in 1909, up past glimpses of the lake to the causeway where the highway crosses it, and out onto Eagle Point to look back at the town on its island.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A town on an island, with Beaver Dam Lake wrapped almost all the way around it.',
+    significance: 'The deepest lake in Barron County, and the lumber days when boards were stacked along its shore.',
+    feeling: 'Peaceful and open: glimpses of water between the houses, a causeway, and a view back to the island from Eagle Point.',
+  },
   route: [downtown, eastShore, arcade, causeway, eaglePoint],
   wrapUp: {
     heading: 'You made it.',

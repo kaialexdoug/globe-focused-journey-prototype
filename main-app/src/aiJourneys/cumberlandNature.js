@@ -237,6 +237,13 @@ export default {
     'The Ojibwe called it the lake made by the beavers. Beaver Dam Lake wraps around Cumberland, the deepest lake in Barron County, and at the south end of town it quietly turns into a river.',
     'This walk follows the water there: past the lake’s long south arm, between it and little Collingwood Lake, to the spot where the Hay River begins its 50-mile run toward the Mississippi, then back to a still lake in the middle of town.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'The spot where a lake quietly turns into a river, at the south end of town.',
+    significance: 'The lake the Ojibwe named for the beavers, and the start of the Hay River’s 50-mile run to the Mississippi.',
+    feeling: 'Still and calm: quiet shores, resting water birds, and the slow pull of the water as it leaves.',
+  },
   route: [elmStreet, southBay, betweenLakes, haySource, libraryLake],
   wrapUp: {
     heading: 'You made it.',

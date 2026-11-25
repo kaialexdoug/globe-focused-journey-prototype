@@ -279,6 +279,13 @@ export default {
     'Fujiyoshida sits right at the foot of Mount Fuji, a mountain people have worshipped and climbed as pilgrims for centuries. On a clear day it fills the sky above the town, at the end of the main street and behind a red pagoda in a photo known all over the world.',
     'This journey walks from the old main street to the shrine at the foot of the hill, up almost 400 steps to the pagoda and its view, and on to Lake Kawaguchi to watch the mountain in the water as the day ends.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'The town at the foot of Mount Fuji, with the mountain at the end of its main street and behind a famous red pagoda.',
+    significance: 'Centuries of pilgrims who set out from here to climb Fuji, and a pagoda that remembers the town’s war dead.',
+    feeling: 'Breathtaking and rewarding: almost 400 steps up for the view, then a calm lakeside as the day ends.',
+  },
   route: [station, honchoDori, arakuraShrine, chureito, lakeKawaguchi],
   wrapUp: {
     heading: 'You made it.',

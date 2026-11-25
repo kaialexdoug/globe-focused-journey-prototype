@@ -268,6 +268,13 @@ export default {
     'Minnehaha Falls has a Dakota name and a poet’s fame: Longfellow made it known around the world in The Song of Hiawatha, without ever coming to see it. Ever since, people have come out to the falls by train, by streetcar and on foot, and the park around them has gathered stories of its own.',
     'This journey walks you from a little station called the Princess, past a pioneer house carried here by schoolchildren and a showman’s copy of the poet’s home, to the falls themselves, then down the glen they’ve carved all the way to the Mississippi.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A waterfall in the middle of the city, made famous by a poet who never came to see it.',
+    significance: 'A Dakota name, Longfellow’s Song of Hiawatha, and a glen carved by falls that have been moving upstream since the ice age.',
+    feeling: 'Fresh and playful: the roar of the falls, quirky local stories, and a shady walk down to the big river.',
+  },
   route: [park, depot, longfellowHouse, falls, glen],
   wrapUp: {
     heading: 'You made it.',

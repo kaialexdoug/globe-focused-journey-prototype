@@ -235,6 +235,13 @@ export default {
     'Cumberland is a small town on an island, almost surrounded by Beaver Dam Lake, and its main street has kept a remarkable run of buildings from its first boom: a library paid for by Andrew Carnegie, a bank of brick and stone, an opera house with a stage upstairs, and a grand brick rectory.',
     'This short walk up Second Avenue reads the town’s story in them, from the railroad years to the town’s newspaper, and ends with a coffee under the little tower that everyone in town knows.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A small town on an island, whose main street still has the buildings from its first boom.',
+    significance: 'A Carnegie library, an opera house whose owner became mayor, and a whole street of buildings over a hundred years old.',
+    feeling: 'Quiet and small-town: a short, easy stroll, ending with a coffee under the little tower.',
+  },
   route: [library, stateBank, operaHouse, rectory, towerHouse],
   wrapUp: {
     heading: 'You made it.',

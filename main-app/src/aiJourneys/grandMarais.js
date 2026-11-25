@@ -296,6 +296,13 @@ export default {
     'Grand Marais is a little harbor town far up the North Shore of Lake Superior, with the great northern woods behind it. Voyageurs traded furs here, fishermen and blacksmiths made their living here, and today it’s a town of makers and artists, all gathered around one sheltered harbor.',
     'This journey walks you around that harbor, from a donut shop by the water and a folk school full of old crafts, out onto the rocks of Artist’s Point, and along the breakwall to the lighthouse at sunset.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A little harbor town of makers and artists, where the North Shore meets the great northern woods.',
+    significance: 'The voyageurs, fishermen and craftspeople who made their lives around one sheltered harbor, and the island of lava that made it.',
+    feeling: 'Cozy and creative: a warm donut by the water, old crafts, wave-washed rocks, and a lighthouse at sunset.',
+  },
   route: [harbor, donuts, northHouse, artistsPoint, lighthouse],
   wrapUp: {
     heading: 'You made it.',

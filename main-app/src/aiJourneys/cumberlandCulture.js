@@ -240,6 +240,13 @@ export default {
     'Cumberland’s people came from all over: Norwegians and Swedes, and Italians, who by the 1880s outnumbered every other group in the Catholic parish. In 1885 they walked out of the church in town and built one of their own, a mile south.',
     'This walk follows them there: from the Italian name on a corner of Second Avenue, past a Lutheran church and the story of a Lutheran mayor whose daughter became a famous poet, and the school that sent two brothers to Olympic gold, out to St. Anthony the Abbot and the families who rest beside it.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'How Norwegians, Swedes and Italians made one small town, and why the Italians built a church a mile south.',
+    significance: 'A parish that split in 1885 and came back together in 1973, a mayor’s daughter who became a famous poet, and two brothers with Olympic gold.',
+    feeling: 'Thoughtful and personal: a quiet walk out of town, following families whose names are still on the stones.',
+  },
   route: [chiodoBlock, firstLutheran, highSchool, stAnthony, cemetery],
   wrapUp: {
     heading: 'You made it.',

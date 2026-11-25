@@ -333,6 +333,13 @@ export default {
     'In 1859, a small fishing village became one of the first ports where Japan opened its doors to the world. Traders came from the West and from China, the villagers moved out to make room, and the city that grew up has been looking out to sea ever since.',
     'This journey walks from the old shopping street and Chinatown up onto the Bluff for the view, down to the waterfront the city built from its own rubble, and out onto the pier as the harbor lights come on.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'How a small fishing village became one of the first ports where Japan opened its doors to the world.',
+    significance: 'The traders from the West and from China who arrived in 1859, and the port city that grew up looking out to sea.',
+    feeling: 'Lively and lit up: steamed buns in Chinatown, a view from the Bluff, and the harbor glowing as night falls.',
+  },
   route: [motomachi, chinatown, harborViewPark, osanbashi, redBrick],
   wrapUp: {
     heading: 'You made it.',

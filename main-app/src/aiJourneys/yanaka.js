@@ -305,6 +305,13 @@ export default {
     'Yanaka came through the great earthquake of 1923 and the bombing of the war with little damage, so the old Tokyo that was lost elsewhere is still here: a temple town of wooden houses and narrow lanes, with traces of the shoguns all through it.',
     'This journey walks from a cemetery that feels like a park, down the sunset steps to an old shopping street, to a shrine with a tunnel of red gates, and finishes by the lotus pond at the edge of Ueno Park.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A corner of old Tokyo that came through the 1923 earthquake and the war, its wooden houses and narrow lanes still standing.',
+    significance: 'Traces of the Tokugawa shoguns all along the way, from the grave of the very last one to a pond their temple built.',
+    feeling: 'Slow and nostalgic: quiet lanes, family-run shops, the sunset steps, and lotus leaves by the pond.',
+  },
   route: [nippori, cemetery, yanakaGinza, nezuShrine, shinobazu],
   wrapUp: {
     heading: 'You made it.',

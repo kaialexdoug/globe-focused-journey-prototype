@@ -298,6 +298,13 @@ export default {
     'Duluth sits at the very tip of Lake Superior, and in 1871 its people dug themselves a door to it: a canal cut straight through the sandbar, by hand, the story goes, before the courts could stop them. Everything here grew up around that cut: the bridge that rises over it for the ships, the path along the shore, and the hill where it all lays itself out below you.',
     'This journey follows that story from the canal to the top of the hill, with a Viking ship and Norway’s crown prince along the way, and ends on the sandbar itself, on a beach that runs for miles.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'How a town at the tip of Lake Superior dug its own door to the lake, and grew up around it.',
+    significance: 'The canal cut through the sandbar in 1871, the bridge that lifts for the ships, and the Norwegian immigrant remembered by the tower on the hill.',
+    feeling: 'Big-sky and breezy: waves on the shore, ships under the bridge, and miles of sand to finish.',
+  },
   route: [canalPark, liftBridge, lakewalk, engerTower, parkPoint],
   wrapUp: {
     heading: 'You made it.',

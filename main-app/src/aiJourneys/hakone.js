@@ -302,6 +302,13 @@ export default {
     'Hakone sits inside an old volcano, in the mountains between Tokyo and Fuji. A little railway zigzags up into it, a cable car and a ropeway carry you over a valley that still steams, and a boat takes you across the lake in its crater to a samurai shrine on the shore.',
     'This journey rides all of them, with an open-air museum on the way up, and ends on foot on the old Tokaido road, under cedars planted four hundred years ago to shade the travelers walking it.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'The inside of an old volcano, crossed by mountain railway, cable car, ropeway and boat.',
+    significance: 'A valley that still steams, a samurai shrine said to date from 757, and cedars planted four hundred years ago to shade the Tokaido.',
+    feeling: 'Adventurous and fresh: mountain air, a smoking valley and a lake crossing, then a calm walk under the cedars.',
+  },
   route: [yumoto, openAirMuseum, owakudani, hakoneShrine, cedarAvenue],
   wrapUp: {
     heading: 'You made it.',

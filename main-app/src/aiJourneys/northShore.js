@@ -312,6 +312,13 @@ export default {
     'The North Shore is made of ancient lava, and almost everything along it comes back to what’s in the rock: the iron that built Two Harbors, the mineral 3M came looking for and never found, the agates in the rivers, and the cliffs the ore boats had to get past in the storms.',
     'This journey follows the shore northeast from the oldest working lighthouse in Minnesota, past an old steam tug and a river that falls to the lake, to the lighthouse built after the worst storm of all, and ends high on a cliff of billion-year-old rock.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A coast made of ancient lava, where almost everything comes back to what’s in the rock.',
+    significance: 'The iron that built Two Harbors, the company that came looking for the wrong mineral and became 3M, and the storm that gave Split Rock its lighthouse.',
+    feeling: 'Wild and dramatic: waterfalls and lighthouses, ending high on a cliff with nothing but rock and water below.',
+  },
   route: [lighthouse, ednaG, gooseberryFalls, splitRock, palisadeHead],
   wrapUp: {
     heading: 'You made it.',

@@ -35,7 +35,7 @@ Unfold is a phone-first web app of **guided walking journeys**. Each journey is 
 
 **Storage:** everything is kept on the phone in `localStorage` (`profileStore.js`). Nothing leaves the device except the survey.
 
-**Look (since 23 Nov 2026):** Inter for all text (`--sans`), Literata only for the feed titles (`--serif`), Montserrat only for UNFOLD beside the logo. Normal capitalisation everywhere (Title Case for buttons and headings, sentence case for small labels); the only capitals are the logo and the feed's location bubble. Every main button looks exactly like the feed's Unfold This Journey (one shared rule at the top of `App.css`): orange with a very subtle top-to-bottom gradient (`--button-fill` in `index.css`), no border, a faint light along the top edge, white words and a white arrow.
+**Look (since 23 Nov 2026):** Inter for all text (`--sans`), Times New Roman only for journey titles (`--serif`: the feed, and the top of the new journey page; since 25 Nov 2026, replacing Literata, with Tinos bundled as a look-alike for phones without Times New Roman, such as Android), Montserrat only for UNFOLD beside the logo. Normal capitalisation everywhere (Title Case for buttons and headings, sentence case for small labels); the only capitals are the logo and the feed's location bubble. Every main button looks exactly like the feed's Unfold This Journey (one shared rule at the top of `App.css`): orange with a very subtle top-to-bottom gradient (`--button-fill` in `index.css`), no border, a faint light along the top edge, white words and a white arrow.
 
 **Code style:** comments throughout are in plain, everyday English, explaining what each piece is for and why. Keep that style. UI text uses curly apostrophes (’).
 
@@ -113,12 +113,13 @@ There's a bottom **navbar with four tabs**: **Home (Feed)**, **Find My Journey**
 ### Home (Feed)
 - A full-screen, vertically swiping feed: one journey per screen, with its photo filling it.
 - Redesigned after a mockup (23 Nov 2026). The logo and search stay at the top over the photo. Lower down, the photo fades into the page colour (white, or the dark in dark mode) and ends there, behind the title. On the page:
-  - a location bubble (town and country, in capitals, e.g. "KAMAKURA, JAPAN") with an orange pin. The AI Generated and Unfold Verified tags are hidden for now (23 Nov 2026); each journey still has `aiMade` or `verified`;
-  - the journey name in the serif (Literata), with a round **save (bookmark) button** beside it;
+  - the town and country in capitals ("KAWAGOE, JAPAN") with an orange pin, then after a dot how far away the journey is ("5,832 mi away", number in bold). The AI Generated and Unfold Verified tags are hidden for now (23 Nov 2026); each journey still has `aiMade` or `verified`;
+  - the journey name in the serif (Times New Roman), with a round **save (bookmark) button** beside it;
   - the blurb;
   - **three facts** with soft orange symbols, split by faint lines: time, difficulty, and the main experience with its own symbol;
   - the orange **Unfold This Journey** button.
 - "Liked" was renamed to "Saved"; old likes carry over.
+- **Distance from you** (25 Nov 2026, `distance.js`, `DistanceAway.jsx`): straight-line distance from the phone to the journey's first stop, in the chosen units. Your location is looked up again each time a page with journeys opens (one lookup per page), worked out on the phone, and never sent anywhere. Shown on the feed and as a small label in the top-left corner of the photo cards (Journeys for You, Search, My Journeys' saved and completed cards). Hidden if location is off or not allowed.
 - The feed remembers where you were.
 - A **magnifying glass opens Search**. It matches the journey name, the place, or the name of any stop or detour, as you type. It ignores accents and punctuation and matches word prefixes. A journey found by a stop says which stop matched.
 
@@ -137,23 +138,17 @@ There's a bottom **navbar with four tabs**: **Home (Feed)**, **Find My Journey**
   - Skipped answers are left out.
   - Location filters which journeys are shown but isn't scored. It needs to be eventually.
 
-### See Your Journey (a journey's detail page)
-- A photo header, the name, quick facts and the hook.
-- **Weather & Best Time to Go** (`BestTime.jsx`), a folding bar.
-  - Closed, it shows today's weather at the start and the best time of day.
-  - Open, it shows the best season and time of day, with reasons.
-- **Route preview** (`RoutePreview.jsx`), folded behind SHOW ROUTE DETAILS.
-  - Every stop as a card with a small photo and its suggested stay time.
-  - Between cards: the distance, how you get there, the minutes and the effort.
-  - Detours appear inside the card of the stop they branch from.
-  - Totals for walking (and riding) and for the whole journey.
-  - Then a **route map** (`RouteMap.jsx`): a Google map with photo pins and numbers, solid lines between stops and dotted lines to detours. It loads lazily and caches the route lines for the session.
-- **Before You Go** (`BeforeYouGo.jsx`), from the dad's handoff, folded.
-  - Up to six expandable cards: What to bring, Tickets and costs, Parking and transportation, Accessibility, Important restrictions, Local insider tips.
-  - It ends with a "last checked" note.
-- **BEGIN JOURNEY**, or **RESUME JOURNEY** if it's under way. If it's been finished before, there's a tick and VIEW MEMORY.
+### See Your Journey (a journey's page, `JourneyPage.jsx`)
+- Redesigned after a mockup (25 Nov 2026), piloted on Waseda, then rolled out to every journey the same day. The old single-scroll page with folding bars is gone.
+- The photo across the top: **back** (top left, a plain chevron; it replaced the ✕ here, though the ✕ stays during a journey to end it), the logo, and **save** (top right, filled once saved). The name in Times New Roman on the photo's shaded bottom edge, with the place under it.
+- Three tabs, **Overview, Route, Details**, with a sliding orange bar under the current one. The photo and tabs stay put; the tab's content scrolls.
+  - **Overview:** four facts (time, difficulty, stops, main experience; `JourneyFacts.jsx`, shared with the feed), then a **Why It's Cool** panel: an orange sparkle, the description, then **The Discovery** (binoculars), **The Significance** (stacked layers) and **The Feeling** (heart). These come from each journey's `whyCool` (`{ discovery, significance, feeling }`, a sentence each), written from each journey's own story. Minneapolis uses the mockup's own wording.
+  - **Route** (`RoutePreview.jsx`): every stop as a card with a small photo and its suggested stay time; between cards, the distance, how you get there, the minutes and the effort; detours inside the card of the stop they branch from; totals for walking (and riding) and the whole journey; then the **route map** (`RouteMap.jsx`): a Google map with photo pins and numbers, solid lines between stops and dotted lines to detours. The map only loads once the tab is opened and scrolled near, stays loaded after that, and caches the route lines for the session.
+  - **Details:** **Weather & Best Time to Go** (`BestTime.jsx`): today's weather at the start, the best season and the best time of day, each in a card. Then **Before You Go** (`BeforeYouGo.jsx`, from the dad's handoff): up to six expandable cards (What to bring, Tickets and costs, Parking and transportation, Accessibility, Important restrictions, Local insider tips) and a "last checked" note.
+- At the end of every tab: **BEGIN JOURNEY**, or **RESUME JOURNEY** if it's under way. If it's been finished before, there's a tick and VIEW MEMORY.
 - Without a profile, BEGIN first asks: save progress to a new profile (just a name), or start without saving.
 - On iPhone, BEGIN also asks for **compass permission** (`compass.js`).
+- A journey missing any of this still works: without `whyCool` it shows just the description, without the walk to every stop the Route tab shows where to start, and Details leaves out what it doesn't have.
 
 ### Get Ready (`GetReadyPage.jsx`), between BEGIN and the first stop
 - Weather at the start point, shown with `WeatherReport.jsx`:
@@ -257,6 +252,7 @@ Every stop uses the same two screens, filled in from its card.
    - A written report is in a Claude Doc: *Cumberland AI Journey Test*, https://claude.ai/artifact/E2pHDxUhTm7STNUGnuEXUZ
    - Five hero and stop photos were swapped for ones the developer found by web search (church, cemetery, library, autumn pond, lake sunset). Their licences aren't confirmed yet; they're listed in the README.
 9. **The stop weather forecast button** on every directions screen (tried on Waseda first, then rolled out to all journeys).
+10. **The new tabbed journey page** (25 Nov 2026), after a mockup, piloted on Waseda and then rolled out to all 29 journeys: back and save on the photo, Overview / Route / Details tabs, and Why It's Cool. Journey titles switched to Times New Roman.
 
 ---
 
@@ -270,6 +266,7 @@ Every stop uses the same two screens, filled in from its card.
   - timestamps at BEGIN, at each I'M HERE and at FINISH, counting only gaps under about 3 hours;
   - distance from the leg data plus the detours taken;
   - no step count.
+- **Why It's Cool lines** (`whyCool`) were written by Claude from each journey's description and narration; worth a read-through. Unfold Studio can't edit them yet, so a journey made there shows just its description in the panel.
 - **Location isn't scored** in Find My Journey matching yet. It has to be eventually.
 - **"When are you going?"** doesn't affect matching yet. It could drive the weather.
 - **Later:** a premium AI guide (costs tokens), a better narration voice (may cost money), bookable experiences, and pricing (free or $5). The survey asks about the $5.

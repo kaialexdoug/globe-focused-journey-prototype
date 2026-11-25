@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 
 import findPicture from './assets/find-my-journey.jpg'
 
+import DistanceAway from './DistanceAway.jsx'
 import Header from './Header.jsx'
 import StopConfirmation from './StopConfirmation.jsx'
 import SkipDetourPrompt from './SkipDetourPrompt.jsx'
@@ -10,12 +11,9 @@ import { CompanionPage, DetailsPage, MatchesPage, MoodPage, PreferencesPage } fr
 import MemoryPage from './MemoryPage.jsx'
 import SurveyPage from './SurveyPage.jsx'
 import SearchPage from './SearchPage.jsx'
-import PhotoScreen from './PhotoScreen.jsx'
-import RoutePreview from './RoutePreview.jsx'
-import BestTime from './BestTime.jsx'
-import BeforeYouGo from './BeforeYouGo.jsx'
 import GetReadyPage from './GetReadyPage.jsx'
-import { hasRoutePreview } from './journeyTimes.js'
+import JourneyFacts from './JourneyFacts.jsx'
+import JourneyPage from './JourneyPage.jsx'
 import { askForCompass } from './compass.js'
 import {
   NavBar,
@@ -30,19 +28,8 @@ import {
   SaveProgressPrompt,
   ExitCurrentPrompt,
 } from './ProfilePages.jsx'
-import {
-  ArrowRightIcon,
-  BookmarkIcon,
-  ClockIcon,
-  PinIcon,
-  RouteIcon,
-  SearchIcon,
-  SolidPinIcon,
-  SolidWalkIcon,
-  WalkIcon,
-} from './Icons.jsx'
-import { EXPERIENCE_ICONS, mainExperience } from './experienceIcons.js'
-import { ALL_JOURNEYS, fullPlaceName, townAndCountry } from './journeyStops'
+import { ArrowRightIcon, BookmarkIcon, SearchIcon, SolidPinIcon } from './Icons.jsx'
+import { ALL_JOURNEYS, townAndCountry } from './journeyStops'
 import {
   loadProfile,
   storeProfile,
@@ -61,7 +48,6 @@ import {
 import { UnitsContext } from './units.js'
 import { showTheme } from './theme.js'
 import { preloadImages } from './preloadImages.js'
-import { useShrinkToFit } from './shrinkToFit.js'
 import './App.css'
 
 // Find My Journey's picture, fetched as soon as the app's open, so it's there
@@ -708,9 +694,13 @@ function App() {
       />
     )
   } else if (page === 'seeJourney') {
+    // The journey's page, in three tabs (JourneyPage.jsx). Back is to where
+    // it was opened from.
     content = (
-      <SeeJourneyPage
+      <JourneyPage
         journey={journey}
+        saved={saved.includes(journey.id)}
+        onToggleSaved={() => toggleSaved(journey.id)}
         onClose={() => setPage(journeyOpenedFrom)}
         onBeginJourney={() => beginJourney('getReady')}
         onResume={resumeJourney}
@@ -928,28 +918,6 @@ function App() {
   )
 }
 
-// A journey's three facts on Home, after the feed's mockup: about how long it
-// takes, how hard it is, and what kind of journey it is, each a soft orange
-// symbol over its value, side by side with a faint line between.
-function FeedFacts({ journey }) {
-  const kind = mainExperience(journey)
-  const facts = [
-    { Icon: ClockIcon, value: journey.time.replace('hours', 'hrs') },
-    { Icon: SolidWalkIcon, value: journey.difficulty },
-    { Icon: EXPERIENCE_ICONS[kind], value: kind },
-  ]
-  return (
-    <div className="feedFacts">
-      {facts.map(({ Icon, value }) => (
-        <div className="feedFact" key={value}>
-          <Icon className="feedFactIcon" />
-          <p className="feedFactValue">{value}</p>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 // Home is a feed: every journey, one screen at a time, after the feed's
 // mockup. The logo and search stay at the top, over the photo; lower down,
 // the photo fades into the page (white, or dark in dark mode) and ends there,
@@ -1027,6 +995,7 @@ function HomePage({ journeys, saved, onSelect, onToggleSaved, onSearch, position
                   <SolidPinIcon />
                   {townAndCountry(journey.location)}
                 </p>
+                <DistanceAway journey={journey} className="feedAway" away />
                 {/* The AI Generated and Unfold Verified tags (AiBadge and
                     VerifiedBadge in Header.jsx) are left off for now. Each
                     journey still says which it is (`aiMade` or `verified`),
@@ -1048,7 +1017,7 @@ function HomePage({ journeys, saved, onSelect, onToggleSaved, onSearch, position
                 </button>
               </div>
               <p className="feedTeaser">{journey.blurb}</p>
-              <FeedFacts journey={journey} />
+              <JourneyFacts journey={journey} />
               <button className="feedDiscover">
                 Unfold This Journey
                 <ArrowRightIcon />
@@ -1087,140 +1056,6 @@ function FindJourneyPage({ onStart }) {
         <ArrowRightIcon />
       </button>
     </div>
-  )
-}
-
-// Like a journey stop: the journey's photo across the top, then its name, then
-// everything about it, which scrolls: its quick facts, what it is (the hook),
-// on journeys that have them, today's weather and the best time to go
-// (BestTime.jsx), where it starts, and on journeys that have one, a preview
-// of the whole route (RoutePreview.jsx), and on journeys that have it, what
-// to know before you go (BeforeYouGo.jsx), then BEGIN JOURNEY. ✕ goes back to where you opened it
-// from. `underWay` is where you left this journey, if it's the one you're on
-// (with or without a profile): then it offers RESUME JOURNEY instead. `completed` says
-// you've finished it before, which adds a tick above BEGIN JOURNEY and VIEW
-// MEMORY below it.
-function SeeJourneyPage({
-  journey,
-  onClose,
-  onBeginJourney,
-  onResume,
-  onViewMemory,
-  completed,
-  underWay,
-}) {
-  // Its four facts on one line, a little smaller on a journey whose are
-  // longer.
-  const factsRef = useRef(null)
-  useShrinkToFit(factsRef, 10, journey.id)
-  const experience = mainExperience(journey)
-  const ExperienceIcon = EXPERIENCE_ICONS[experience]
-
-  return (
-    <PhotoScreen
-      className="journeyPage"
-      photo={journey.photo}
-      photoAlt={journey.photoAlt}
-      photoPosition={journey.photoPosition}
-      kicker="Your journey"
-      label={fullPlaceName(journey.location)}
-      title={journey.name}
-      onClose={onClose}
-      closeLabel="Close"
-    >
-      {/* Its time, walking and stops, and its main experience. */}
-      <div className="factsRow" ref={factsRef}>
-        <span className="fact">
-          <ClockIcon />
-          {journey.time}
-        </span>
-        <span className="fact">
-          <WalkIcon />
-          {journey.walking}
-        </span>
-        <span className="fact">
-          <RouteIcon />
-          {journey.stops}
-        </span>
-        <span className="fact">
-          <ExperienceIcon />
-          {experience}
-        </span>
-      </div>
-
-      {/* The hook: what the journey is, to get you excited about it. */}
-      <div className="bodyText journeyDescription">
-        {journey.description.map((paragraph, index) => (
-          <p key={index}>{paragraph}</p>
-        ))}
-      </div>
-
-      {/* Today's weather there, and the best season and time of day to go,
-          folded away like the route. */}
-      {journey.bestTime && <BestTime journey={journey} />}
-
-      {/* A journey with a route preview starts its route with where to start,
-          so it doesn't need START HERE as well. */}
-      {hasRoutePreview(journey) ? (
-        <RoutePreview journey={journey} />
-      ) : (
-        <div className="startCard">
-          <p className="startCardLabel">Start here</p>
-          <div className="startCardRow">
-            <PinIcon />
-            <div>
-              <p className="startCardName">{journey.departure.name}</p>
-              <p className="startCardArea">{journey.startArea}</p>
-              <p className="startCardNote">{journey.startNote}</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* What to bring, what it costs, getting there and back, and so on,
-          folded away the same way. */}
-      {journey.beforeYouGo && <BeforeYouGo journey={journey} />}
-
-      <div className="divider sectionBreak"></div>
-
-
-      <div className="testTakeBtnContainer">
-        {underWay ? (
-          <>
-            <p className="inProgressTag">In progress</p>
-            <h2 className="mainHook">Pick up where you left off?</h2>
-            <p className="seeJourneyWhere">{underWay.text}</p>
-            <button className="introBtn" onClick={onResume}>
-              Resume Journey
-              <ArrowRightIcon />
-            </button>
-            <div className="alreadyThere">
-              <p>Rather start again from the beginning?</p>
-              <button className="textLink" onClick={onBeginJourney}>
-                Start Over ➜
-              </button>
-            </div>
-          </>
-        ) : (
-          // Just the one button, whether or not you're at the start already:
-          // it begins with Get Ready (today's conditions), which asks whether
-          // you're there yet. After a finished run, a quiet way back to its
-          // memory.
-          <>
-            {completed && <p className="completedNote">✓ You’ve completed this journey</p>}
-            <button className="introBtn" onClick={onBeginJourney}>
-              Begin Journey
-              <ArrowRightIcon />
-            </button>
-            {completed && (
-              <button className="textLink viewMemoryLink" onClick={onViewMemory}>
-                View Memory
-              </button>
-            )}
-          </>
-        )}
-      </div>
-    </PhotoScreen>
   )
 }
 

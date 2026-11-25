@@ -277,6 +277,13 @@ export default {
     'Chichibu is a valley town in the mountains of western Saitama, where Tokyo finally gives way to hills and rivers. Its great shrine holds a winter night festival that’s been going for more than 300 years, and further down the valley, the river has worn the rocks into flat shelves like tatami mats.',
     'This journey climbs to a hill of flowers above the town, visits the festival’s shrine, takes the little railway down the valley to the rocks at Nagatoro, and ends at a painted shrine with a legend about a dog and a fire.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A valley town where Tokyo finally gives way to hills, rivers and rocks worn flat like tatami mats.',
+    significance: 'Two of Chichibu’s great shrines: one with a night festival held for more than 300 years, one with a legend of a dog and a fire.',
+    feeling: 'Fresh and unhurried: a hilltop view, a slow train down the valley, and the river running over the rocks.',
+  },
   route: [station, hitsujiyama, chichibuShrine, iwadatami, hodosan],
   wrapUp: {
     heading: 'You made it.',

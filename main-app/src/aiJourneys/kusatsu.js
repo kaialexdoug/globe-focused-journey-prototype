@@ -285,6 +285,13 @@ export default {
     'High in the mountains of Gunma, more hot water comes out of the ground at Kusatsu than anywhere else in Japan, and you can smell it before you see it. It’s been one of the country’s great hot springs for five hundred years, and a shogun once had its water carried all the way to his castle in Edo.',
     'This journey walks you through the steaming town, from a street of warm snacks to a park where hot streams run between the rocks, to the great steaming pool in the middle of town, and ends where it should: in the water.',
   ],
+  // Why It's Cool on the journey's page (JourneyPage.jsx): what you'll
+  // discover, why it matters, and what it feels like, a sentence each.
+  whyCool: {
+    discovery: 'A mountain town built around more hot water than anywhere else in Japan, steaming right in the middle of the streets.',
+    significance: 'Five hundred years as one of Japan’s great hot springs, with water once carried all the way to a shogun’s castle in Edo.',
+    feeling: 'Warm and hands-on: steamed buns from the street, hot streams in the park, and a long soak to finish.',
+  },
   route: [busTerminal, sainokawaraDori, sainokawaraPark, yubatake, otakinoyu],
   wrapUp: {
     heading: 'You made it.',
