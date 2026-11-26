@@ -1,0 +1,1879 @@
+{
+  "_about": [
+    "Every journey photo made to the Journey Engine V2 handoff (section 4): where it's from, who took it, its licence, and the treatment it got. `original` is the untouched download, here in photo-originals; `processed` is the copy the app uses, made by scripts/process-photos.mjs, which also fills in `treatment` and `qa` each time it runs.",
+    "CC BY-SA photos stay CC BY-SA once treated (the treated copy is an adaptation), and every photo is credited in the README.",
+    "`download_url` is exactly what was downloaded for `original` (the full file, or Commons' own scaled copy of a very large one). The originals themselves aren't kept in git: `npm run photos -- --fetch` downloads any that are missing."
+  ],
+  "images": [
+    {
+      "image_id": "marunouchi-hero",
+      "journey_id": "marunouchi",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Romantic",
+      "title": "Tokyo Station Marunouchi Building P5228775.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Tokyo_Station_Marunouchi_Building_P5228775.jpg",
+      "creator": "Kestrel",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons description: Tokyo Station Marunouchi Building at dusk, viewed from KITTE Garden",
+      "original": "marunouchi/hero.jpg",
+      "processed": "src/assets/journey/marunouchi/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 1,
+        "reduced": false,
+        "settings": {
+          "contrast": -0.01,
+          "saturation": -0.05,
+          "brightness": 0.02,
+          "warmth": 0.045,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1200,
+        "height": 1600,
+        "bytes": 358016
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0003,
+          "after": 0.0003
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.3004,
+          "after": 0.3007
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:03.719Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo%20Station%20Marunouchi%20Building%20P5228775.jpg"
+    },
+    {
+      "image_id": "marunouchi-ginkgo",
+      "journey_id": "marunouchi",
+      "stop_id": "hibiyaGinkgo",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "Ginkgo biloba - Hibiya Park.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Ginkgo_biloba_-_Hibiya_Park.jpg",
+      "creator": "Kakidai",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons description: Honda Seiroku's Kubikake ginkgo, Hibiya Park",
+      "original": "marunouchi/ginkgo.jpg",
+      "processed": "src/assets/journey/marunouchi/ginkgo.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 853,
+        "height": 1280,
+        "bytes": 443864
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0724,
+          "after": 0.0669
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.439,
+          "after": 0.4399
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:04.379Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ginkgo%20biloba%20-%20Hibiya%20Park.jpg"
+    },
+    {
+      "image_id": "marunouchi-crane-fountain",
+      "journey_id": "marunouchi",
+      "stop_id": "hibiyaGinkgo",
+      "role": "nearby",
+      "primary_mood": "Romantic",
+      "title": "Hibiya Park in autumn.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Hibiya_Park_in_autumn.jpg",
+      "creator": "Kakidai",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons description: the crane fountain in autumn, Hibiya Park",
+      "original": "marunouchi/crane-fountain.jpg",
+      "processed": "src/assets/journey/marunouchi/crane-fountain.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 912,
+        "height": 1280,
+        "bytes": 410543
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0199,
+          "after": 0.0177
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.4823,
+          "after": 0.4765
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:04.975Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hibiya%20Park%20in%20autumn.jpg"
+    },
+    {
+      "image_id": "marunouchi-matsumotoro",
+      "journey_id": "marunouchi",
+      "stop_id": "hibiyaGinkgo",
+      "role": "nearby",
+      "primary_mood": "Romantic",
+      "title": "Ginkgo biloba - Hibiya Park 2.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Ginkgo_biloba_-_Hibiya_Park_2.jpg",
+      "creator": "Kakidai",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons description: the Kubikake ginkgo and Matsumoto-ro, Hibiya Park",
+      "original": "marunouchi/matsumotoro.jpg",
+      "processed": "src/assets/journey/marunouchi/matsumotoro.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 873,
+        "bytes": 448642
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.047,
+          "after": 0.0425
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.4119,
+          "after": 0.4093
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:05.586Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ginkgo%20biloba%20-%20Hibiya%20Park%202.jpg"
+    },
+    {
+      "image_id": "marunouchi-nijubashi",
+      "journey_id": "marunouchi",
+      "stop_id": "nijubashi",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "Seimon Ishibashi Bridge, Imperial Palace, Tokyo.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Seimon_Ishibashi_Bridge,_Imperial_Palace,_Tokyo.jpg",
+      "creator": "Ray in Manila",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons title: Seimon Ishibashi (Main Gate Stone Bridge), Imperial Palace",
+      "original": "marunouchi/nijubashi.jpg",
+      "processed": "src/assets/journey/marunouchi/nijubashi.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 779,
+        "bytes": 257455
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0007,
+          "after": 0.0001
+        },
+        "crushed": {
+          "before": 0.0029,
+          "after": 0.003
+        },
+        "saturation": {
+          "before": 0.4088,
+          "after": 0.4181
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:06.126Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Seimon%20Ishibashi%20Bridge%2C%20Imperial%20Palace%2C%20Tokyo.jpg?width=2048"
+    },
+    {
+      "image_id": "marunouchi-wadakura",
+      "journey_id": "marunouchi",
+      "stop_id": "wadakuraFountains",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "Wadakura Fountain Park.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Wadakura_Fountain_Park.jpg",
+      "creator": "Kakidai",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons description: Wadakura Fountain Park",
+      "original": "marunouchi/wadakura.jpg",
+      "processed": "src/assets/journey/marunouchi/wadakura.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 851,
+        "bytes": 265570
+      },
+      "qa": {
+        "clipped": {
+          "before": 0,
+          "after": 0.0002
+        },
+        "crushed": {
+          "before": 0.0005,
+          "after": 0.0009
+        },
+        "saturation": {
+          "before": 0.2747,
+          "after": 0.2604
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:06.665Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Wadakura%20Fountain%20Park.jpg"
+    },
+    {
+      "image_id": "marunouchi-kitte-garden",
+      "journey_id": "marunouchi",
+      "stop_id": "kitteGarden",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "KITTE Marunouchi Rooftop garden night view 201912.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:KITTE_Marunouchi_Rooftop_garden_night_view_201912.jpg",
+      "creator": "Wpcpey",
+      "license": "CC BY 4.0",
+      "location_verified": "Commons description: KITTE Marunouchi rooftop garden at night",
+      "original": "marunouchi/kitte-garden.jpg",
+      "processed": "src/assets/journey/marunouchi/kitte-garden.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 186280
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0061,
+          "after": 0.0061
+        },
+        "crushed": {
+          "before": 0.0001,
+          "after": 0.0003
+        },
+        "saturation": {
+          "before": 0.3885,
+          "after": 0.3792
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:07.480Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/KITTE%20Marunouchi%20Rooftop%20garden%20night%20view%20201912.jpg"
+    },
+    {
+      "image_id": "marunouchi-intermediatheque",
+      "journey_id": "marunouchi",
+      "stop_id": "kitteGarden",
+      "role": "nearby",
+      "primary_mood": "Romantic",
+      "title": "Animal skeletal specimens.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Animal_skeletal_specimens.jpg",
+      "creator": "Souka Kinmei",
+      "license": "CC BY 4.0",
+      "location_verified": "Commons category: Intermediatheque",
+      "original": "marunouchi/intermediatheque.jpg",
+      "processed": "src/assets/journey/marunouchi/intermediatheque.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 720,
+        "bytes": 188488
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0108,
+          "after": 0.0034
+        },
+        "crushed": {
+          "before": 0.0001,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.3513,
+          "after": 0.3708
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:07.870Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Animal%20skeletal%20specimens.jpg"
+    },
+    {
+      "image_id": "marunouchi-station-dome",
+      "journey_id": "marunouchi",
+      "stop_id": "tokyoStationDome",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "Tokyo sta DOME.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Tokyo_sta_DOME.jpg",
+      "creator": "Kei365",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons title: Tokyo Station dome (taken 2012-10-11, just after the restoration)",
+      "original": "marunouchi/station-dome.jpg",
+      "processed": "src/assets/journey/marunouchi/station-dome.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 802,
+        "height": 1280,
+        "bytes": 237579
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0101,
+          "after": 0.0095
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.4681,
+          "after": 0.4804
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:11.543Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo%20sta%20DOME.jpg"
+    },
+    {
+      "image_id": "marunouchi-nakadori",
+      "journey_id": "marunouchi",
+      "stop_id": "tokyoStationDome",
+      "role": "nearby",
+      "primary_mood": "Romantic",
+      "title": "Christmas light of the Marunouchi Nakadori Street Dec 2019.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Christmas_light_of_the_Marunouchi_Nakadori_Street_Dec_2019.jpg",
+      "creator": "掬茶",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons category: Marunouchi Illumination 2019",
+      "original": "marunouchi/nakadori.jpg",
+      "processed": "src/assets/journey/marunouchi/nakadori.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 720,
+        "bytes": 268902
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0005,
+          "after": 0.0009
+        },
+        "crushed": {
+          "before": 0.0207,
+          "after": 0.0216
+        },
+        "saturation": {
+          "before": 0.8659,
+          "after": 0.8361
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-25T22:23:11.998Z",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Christmas%20light%20of%20the%20Marunouchi%20Nakadori%20Street%20Dec%202019.jpg?width=2048"
+    },
+    {
+      "image_id": "duluth-romantic-hero",
+      "journey_id": "duluthRomantic",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Romantic",
+      "title": "View From Hawk Ridge, photograph by Randen Pederson.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:View_From_Hawk_Ridge,_photograph_by_Randen_Pederson.jpg",
+      "creator": "Randen Pederson",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons title: view from Hawk Ridge, Duluth",
+      "original": "duluth-romantic/hero.jpg",
+      "processed": "src/assets/journey/duluth-romantic/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/View%20From%20Hawk%20Ridge%2C%20photograph%20by%20Randen%20Pederson.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 1,
+        "reduced": false,
+        "settings": {
+          "contrast": -0.01,
+          "saturation": -0.05,
+          "brightness": 0.02,
+          "warmth": 0.045,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1600,
+        "height": 1344,
+        "bytes": 869012
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0007,
+          "after": 0.0005
+        },
+        "crushed": {
+          "before": 0.0057,
+          "after": 0.0049
+        },
+        "saturation": {
+          "before": 0.4024,
+          "after": 0.3706
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:07:10.249Z"
+    },
+    {
+      "image_id": "duluth-romantic-hawk-ridge",
+      "journey_id": "duluthRomantic",
+      "stop_id": "hawkRidge",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "Hawk Ridge, Duluth, MN (29994576171).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Hawk_Ridge,_Duluth,_MN_(29994576171).jpg",
+      "creator": "Northfielder",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons GPS 46.84718,-92.03158 (the main overlook)",
+      "original": "duluth-romantic/hawk-ridge.jpg",
+      "processed": "src/assets/journey/duluth-romantic/hawk-ridge.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hawk%20Ridge%2C%20Duluth%2C%20MN%20(29994576171).jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 368109
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0688,
+          "after": 0.0022
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.5494,
+          "after": 0.5298
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:07:15.671Z"
+    },
+    {
+      "image_id": "duluth-romantic-lester-river",
+      "journey_id": "duluthRomantic",
+      "stop_id": "lesterRiverMouth",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "Lester River bridge.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lester_River_bridge.jpg",
+      "creator": "Elkman",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons description: Lester River Bridge, Bridge No. 5772, Duluth",
+      "original": "duluth-romantic/lester-river.jpg",
+      "processed": "src/assets/journey/duluth-romantic/lester-river.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lester%20River%20bridge.jpg",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 275127
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0141,
+          "after": 0.0155
+        },
+        "crushed": {
+          "before": 0.0041,
+          "after": 0.004
+        },
+        "saturation": {
+          "before": 0.1587,
+          "after": 0.167
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:07:19.954Z"
+    },
+    {
+      "image_id": "duluth-romantic-lester-park",
+      "journey_id": "duluthRomantic",
+      "stop_id": "lesterPark",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "Lester River & Japp Hole Falls (Lester Park, Minnesota, USA) (22294211225).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Lester_River_&_Japp_Hole_Falls_(Lester_Park,_Minnesota,_USA)_(22294211225).jpg",
+      "creator": "James St. John",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons title: Lester River and Japp Hole Falls, Lester Park",
+      "original": "duluth-romantic/lester-park.jpg",
+      "processed": "src/assets/journey/duluth-romantic/lester-park.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lester%20River%20%26%20Japp%20Hole%20Falls%20(Lester%20Park%2C%20Minnesota%2C%20USA)%20(22294211225).jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 628,
+        "bytes": 223076
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0007,
+          "after": 0.0009
+        },
+        "crushed": {
+          "before": 0.0047,
+          "after": 0.0049
+        },
+        "saturation": {
+          "before": 0.1623,
+          "after": 0.1908
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:07:24.947Z"
+    },
+    {
+      "image_id": "duluth-romantic-seven-bridges",
+      "journey_id": "duluthRomantic",
+      "stop_id": "sevenBridgesRoad",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "7BridgesDuluthMN.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:7BridgesDuluthMN.jpg",
+      "creator": "Jonathunder",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons description: Amity Creek, on Seven Bridges Road, flowing toward the Lester River",
+      "original": "duluth-romantic/seven-bridges.jpg",
+      "processed": "src/assets/journey/duluth-romantic/seven-bridges.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/7BridgesDuluthMN.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 338501
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0003,
+          "after": 0.0001
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.2072,
+          "after": 0.2168
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:07:28.902Z"
+    },
+    {
+      "image_id": "duluth-romantic-brighton-beach",
+      "journey_id": "duluthRomantic",
+      "stop_id": "brightonBeach",
+      "role": "stop",
+      "primary_mood": "Romantic",
+      "title": "Brighton Beach, Duluth (9697879320).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Brighton_Beach,_Duluth_(9697879320).jpg",
+      "creator": "Sharon Mollerus",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons GPS 46.84182,-91.99522 (Brighton Beach)",
+      "original": "duluth-romantic/brighton-beach.jpg",
+      "processed": "src/assets/journey/duluth-romantic/brighton-beach.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Brighton%20Beach%2C%20Duluth%20(9697879320).jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "romantic",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.015,
+          "saturation": -0.04,
+          "brightness": 0.01,
+          "warmth": 0.0275,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 155565
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0008,
+          "after": 0.0021
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.1122,
+          "after": 0.1334
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:07:39.064Z"
+    },
+    {
+      "image_id": "duluth-adventurous-hero",
+      "journey_id": "duluthAdventurous",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Adventurous",
+      "title": "Swinging bridge - 44279430334.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Swinging_bridge_-_44279430334.jpg",
+      "creator": "Joe Passe",
+      "license": "CC BY-SA 2.0",
+      "location_verified": "Commons description: swinging bridge, Jay Cooke State Park",
+      "original": "duluth-adventurous/hero.jpg",
+      "processed": "src/assets/journey/duluth-adventurous/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Swinging%20bridge%20-%2044279430334.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 1,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.12,
+          "saturation": 0.03,
+          "brightness": 0,
+          "warmth": 0.015,
+          "green": 0,
+          "sharpen": 1.1
+        }
+      },
+      "processed_size": {
+        "width": 1600,
+        "height": 900,
+        "bytes": 425375
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0041,
+          "after": 0.0039
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.2054,
+          "after": 0.2396
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:07:47.715Z"
+    },
+    {
+      "image_id": "duluth-adventurous-swinging-bridge",
+      "journey_id": "duluthAdventurous",
+      "stop_id": "jayCookeSwingingBridge",
+      "role": "stop",
+      "primary_mood": "Adventurous",
+      "title": "Swinging bridge at Jay Cooke State Park.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Swinging_bridge_at_Jay_Cooke_State_Park.jpg",
+      "creator": "Joe Passe",
+      "license": "CC BY-SA 2.0",
+      "location_verified": "Commons title: swinging bridge at Jay Cooke State Park",
+      "original": "duluth-adventurous/swinging-bridge.jpg",
+      "processed": "src/assets/journey/duluth-adventurous/swinging-bridge.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Swinging%20bridge%20at%20Jay%20Cooke%20State%20Park.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 720,
+        "bytes": 321143
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0068,
+          "after": 0.0044
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.3542,
+          "after": 0.3768
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:07:53.287Z"
+    },
+    {
+      "image_id": "duluth-adventurous-trailhead",
+      "journey_id": "duluthAdventurous",
+      "stop_id": "elysPeakTrailhead",
+      "role": "stop",
+      "primary_mood": "Adventurous",
+      "title": "DWP Trail, Ely's Peak MN Aug 2023 1.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:DWP_Trail,_Ely's_Peak_MN_Aug_2023_1.jpg",
+      "creator": "Thomson200",
+      "license": "CC0",
+      "location_verified": "Commons title: DWP Trail, Ely's Peak",
+      "original": "duluth-adventurous/trailhead.jpg",
+      "processed": "src/assets/journey/duluth-adventurous/trailhead.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/DWP%20Trail%2C%20Ely's%20Peak%20MN%20Aug%202023%201.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 326414
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0191,
+          "after": 0.0105
+        },
+        "crushed": {
+          "before": 0.0007,
+          "after": 0.0049
+        },
+        "saturation": {
+          "before": 0.3283,
+          "after": 0.375
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:04.282Z"
+    },
+    {
+      "image_id": "duluth-adventurous-tunnel",
+      "journey_id": "duluthAdventurous",
+      "stop_id": "dwpTunnel",
+      "role": "stop",
+      "primary_mood": "Adventurous",
+      "title": "Ely's Peak DWP Trail Tunnel, Aug 2023 1.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Ely's_Peak_DWP_Trail_Tunnel,_Aug_2023_1.jpg",
+      "creator": "Thomson200",
+      "license": "CC0",
+      "location_verified": "Commons description: Ely's Peak Duluth, Winnipeg and Pacific Railway trail tunnel",
+      "original": "duluth-adventurous/tunnel.jpg",
+      "processed": "src/assets/journey/duluth-adventurous/tunnel.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ely's%20Peak%20DWP%20Trail%20Tunnel%2C%20Aug%202023%201.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 379174
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0086,
+          "after": 0.0124
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.2408,
+          "after": 0.2719
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:10.408Z"
+    },
+    {
+      "image_id": "duluth-adventurous-summit",
+      "journey_id": "duluthAdventurous",
+      "stop_id": "elysPeakSummit",
+      "role": "stop",
+      "primary_mood": "Adventurous",
+      "title": "View from DWP Trail near Ely's Peak, Aug 2023.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:View_from_DWP_Trail_near_Ely's_Peak,_Aug_2023.jpg",
+      "creator": "Thomson200",
+      "license": "CC0",
+      "location_verified": "Commons title: view from the DWP Trail near Ely's Peak (not the summit itself)",
+      "original": "duluth-adventurous/summit.jpg",
+      "processed": "src/assets/journey/duluth-adventurous/summit.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/View%20from%20DWP%20Trail%20near%20Ely's%20Peak%2C%20Aug%202023.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 478384
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0186,
+          "after": 0.0119
+        },
+        "crushed": {
+          "before": 0.0003,
+          "after": 0.0028
+        },
+        "saturation": {
+          "before": 0.4886,
+          "after": 0.5283
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:18.566Z"
+    },
+    {
+      "image_id": "duluth-adventurous-oldenburg-point",
+      "journey_id": "duluthAdventurous",
+      "stop_id": "oldenburgPoint",
+      "role": "stop",
+      "primary_mood": "Adventurous",
+      "title": "Oldenburg Point.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Oldenburg_Point.jpg",
+      "creator": "Joe Passe",
+      "license": "CC BY-SA 2.0",
+      "location_verified": "Commons title: Oldenburg Point, Jay Cooke State Park",
+      "original": "duluth-adventurous/oldenburg-point.jpg",
+      "processed": "src/assets/journey/duluth-adventurous/oldenburg-point.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Oldenburg%20Point.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 720,
+        "bytes": 262244
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0165,
+          "after": 0.0151
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.2788,
+          "after": 0.3113
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:26.166Z"
+    },
+    {
+      "image_id": "duluth-curious-hero",
+      "journey_id": "duluthCurious",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Curious",
+      "title": "Duluth Armory SW.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Duluth_Armory_SW.jpg",
+      "creator": "McGhiever",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons GPS 46.7986,-92.0813 (the Duluth Armory)",
+      "original": "duluth-curious/armory.jpg",
+      "processed": "src/assets/journey/duluth-curious/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Duluth%20Armory%20SW.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 1,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.09,
+          "saturation": -0.07,
+          "brightness": -0.02,
+          "warmth": 0,
+          "green": 0,
+          "sharpen": 0.9
+        }
+      },
+      "processed_size": {
+        "width": 1600,
+        "height": 874,
+        "bytes": 384356
+      },
+      "qa": {
+        "clipped": {
+          "before": 0,
+          "after": 0
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.4205,
+          "after": 0.4333
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:33.218Z"
+    },
+    {
+      "image_id": "duluth-curious-armory",
+      "journey_id": "duluthCurious",
+      "stop_id": "duluthArmory",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Duluth Armory SW.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Duluth_Armory_SW.jpg",
+      "creator": "McGhiever",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons GPS 46.7986,-92.0813 (the Duluth Armory)",
+      "original": "duluth-curious/armory.jpg",
+      "processed": "src/assets/journey/duluth-curious/armory.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Duluth%20Armory%20SW.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 699,
+        "bytes": 231910
+      },
+      "qa": {
+        "clipped": {
+          "before": 0,
+          "after": 0
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.4235,
+          "after": 0.436
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:33.810Z"
+    },
+    {
+      "image_id": "duluth-curious-depot",
+      "journey_id": "duluthCurious",
+      "stop_id": "duluthDepot",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Duluth Depot.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Duluth_Depot.jpg",
+      "creator": "McGhiever",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons GPS 46.7819,-92.1040 (the Depot)",
+      "original": "duluth-curious/depot.jpg",
+      "processed": "src/assets/journey/duluth-curious/depot.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Duluth%20Depot.jpg",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 793,
+        "bytes": 174960
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0041,
+          "after": 0.0025
+        },
+        "crushed": {
+          "before": 0.0006,
+          "after": 0.001
+        },
+        "saturation": {
+          "before": 0.2419,
+          "after": 0.24
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:39.441Z"
+    },
+    {
+      "image_id": "duluth-curious-memorial",
+      "journey_id": "duluthCurious",
+      "stop_id": "claytonJacksonMcGhie",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Clayton Jackson McGhie Memorial site 01.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Clayton_Jackson_McGhie_Memorial_site_01.jpg",
+      "creator": "Myotus",
+      "license": "CC0",
+      "location_verified": "Commons GPS 46.7894,-92.0970 (the memorial)",
+      "original": "duluth-curious/memorial.jpg",
+      "processed": "src/assets/journey/duluth-curious/memorial.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Clayton%20Jackson%20McGhie%20Memorial%20site%2001.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 218699
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.057,
+          "after": 0.0012
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.2605,
+          "after": 0.2623
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:46.508Z"
+    },
+    {
+      "image_id": "duluth-curious-dylan-home",
+      "journey_id": "duluthCurious",
+      "stop_id": "dylanFirstHome",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Boyhood home of Bob Dylan in Duluth, Minnesota.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Boyhood_home_of_Bob_Dylan_in_Duluth,_Minnesota.jpg",
+      "creator": "Lorie Shaull",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons description: boyhood home of Robert Zimmerman (Bob Dylan), Duluth",
+      "original": "duluth-curious/dylan-home.jpg",
+      "processed": "src/assets/journey/duluth-curious/dylan-home.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Boyhood%20home%20of%20Bob%20Dylan%20in%20Duluth%2C%20Minnesota.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 295436
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0022,
+          "after": 0.004
+        },
+        "crushed": {
+          "before": 0.0011,
+          "after": 0.0033
+        },
+        "saturation": {
+          "before": 0.1771,
+          "after": 0.1889
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:51.395Z"
+    },
+    {
+      "image_id": "duluth-curious-rose-garden",
+      "journey_id": "duluthCurious",
+      "stop_id": "duluthRoseGarden",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Duluth Rose Garden, Duluth, Minnesota.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Duluth_Rose_Garden,_Duluth,_Minnesota.jpg",
+      "creator": "Sharon Mollerus",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons title: Duluth Rose Garden",
+      "original": "duluth-curious/rose-garden.jpg",
+      "processed": "src/assets/journey/duluth-curious/rose-garden.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Duluth%20Rose%20Garden%2C%20Duluth%2C%20Minnesota.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.25,
+        "reduced": true,
+        "settings": {
+          "contrast": 0.0525,
+          "saturation": -0.04,
+          "brightness": -0.005,
+          "warmth": 0.0075,
+          "green": 0,
+          "sharpen": 0.675
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 1093,
+        "bytes": 208102
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0772,
+          "after": 0.0878
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.356,
+          "after": 0.3642
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:08:56.945Z"
+    },
+    {
+      "image_id": "eden-prairie-hero",
+      "journey_id": "edenPrairie",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Playful",
+      "title": "Mustang 1751D - Sierra Sue II - Wings of the North Pancake Breakfast (17462855154).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Mustang_1751D_-_Sierra_Sue_II_-_Wings_of_the_North_Pancake_Breakfast_(17462855154).jpg",
+      "creator": "Pete Markham",
+      "license": "CC BY-SA 2.0",
+      "location_verified": "Commons description: P-51 Mustang Sierra Sue II at Wings of the North's hangar, Flying Cloud Airport",
+      "original": "eden-prairie/hero.jpg",
+      "processed": "src/assets/journey/eden-prairie/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mustang%201751D%20-%20Sierra%20Sue%20II%20-%20Wings%20of%20the%20North%20Pancake%20Breakfast%20(17462855154).jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 1,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.07,
+          "saturation": 0.05,
+          "brightness": 0.04,
+          "warmth": 0.03,
+          "green": 0,
+          "sharpen": 0.8
+        }
+      },
+      "processed_size": {
+        "width": 1600,
+        "height": 1060,
+        "bytes": 224556
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.002,
+          "after": 0.0023
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0002
+        },
+        "saturation": {
+          "before": 0.22,
+          "after": 0.2193
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:09:06.027Z"
+    },
+    {
+      "image_id": "eden-prairie-wings-of-the-north",
+      "journey_id": "edenPrairie",
+      "stop_id": "wingsOfTheNorth",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "Wings of the North Air Museum interior-03.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Wings_of_the_North_Air_Museum_interior-03.jpg",
+      "creator": "Myotus",
+      "license": "CC BY 4.0",
+      "location_verified": "Commons title: Wings of the North Air Museum, interior",
+      "original": "eden-prairie/wings-of-the-north.jpg",
+      "processed": "src/assets/journey/eden-prairie/wings-of-the-north.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Wings%20of%20the%20North%20Air%20Museum%20interior-03.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 156352
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.011,
+          "after": 0.0155
+        },
+        "crushed": {
+          "before": 0.0011,
+          "after": 0.003
+        },
+        "saturation": {
+          "before": 0.091,
+          "after": 0.1199
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:09:10.915Z"
+    },
+    {
+      "image_id": "eden-prairie-purgatory-creek",
+      "journey_id": "edenPrairie",
+      "stop_id": "purgatoryCreek",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "Purgatory Creek Park, Eden Prairie, MN Aug 2023 02.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Purgatory_Creek_Park,_Eden_Prairie,_MN_Aug_2023_02.jpg",
+      "creator": "Thomson200",
+      "license": "CC0",
+      "location_verified": "Commons title: Purgatory Creek Park, Eden Prairie",
+      "original": "eden-prairie/purgatory-creek.jpg",
+      "processed": "src/assets/journey/eden-prairie/purgatory-creek.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Purgatory%20Creek%20Park%2C%20Eden%20Prairie%2C%20MN%20Aug%202023%2002.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 163470
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0001,
+          "after": 0.0005
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0002
+        },
+        "saturation": {
+          "before": 0.165,
+          "after": 0.1681
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:09:16.310Z"
+    },
+    {
+      "image_id": "eden-prairie-jean-harris-bridge",
+      "journey_id": "edenPrairie",
+      "stop_id": "jeanHarrisBridge",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "Mayor Jean Harris Bridge.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Mayor_Jean_Harris_Bridge.jpg",
+      "creator": "Kevin Rofidal",
+      "license": "CC BY 3.0",
+      "location_verified": "Commons description: the bridge in Purgatory Creek Park built as a memorial to Mayor Jean Harris",
+      "original": "eden-prairie/jean-harris-bridge.jpg",
+      "processed": "src/assets/journey/eden-prairie/jean-harris-bridge.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mayor%20Jean%20Harris%20Bridge.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 850,
+        "bytes": 196299
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0001,
+          "after": 0.0001
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.118,
+          "after": 0.1232
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:09:21.316Z"
+    },
+    {
+      "image_id": "eden-prairie-cummins-farm",
+      "journey_id": "edenPrairie",
+      "stop_id": "cumminsFarm",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "John R. Cummins Farmhouse.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:John_R._Cummins_Farmhouse.jpg",
+      "creator": "McGhiever",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons description: John R. Cummins Farmhouse, Silverness Park, 13600 Pioneer Trail",
+      "original": "eden-prairie/cummins-farm.jpg",
+      "processed": "src/assets/journey/eden-prairie/cummins-farm.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20R.%20Cummins%20Farmhouse.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 849,
+        "bytes": 248077
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.2003,
+          "after": 0.1025
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.2574,
+          "after": 0.2809
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:09:26.601Z"
+    },
+    {
+      "image_id": "eden-prairie-bryant-lake",
+      "journey_id": "edenPrairie",
+      "stop_id": "bryantLake",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "MN 240720095090 bryant lake.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:MN_240720095090_bryant_lake.jpg",
+      "creator": "Bjoertvedt",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons description: photo from Eden Prairie (Bryant Lake)",
+      "original": "eden-prairie/bryant-lake.jpg",
+      "processed": "src/assets/journey/eden-prairie/bryant-lake.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-26",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/MN%20240720095090%20bryant%20lake.jpg?width=2048",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 702,
+        "bytes": 164155
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0018,
+          "after": 0.003
+        },
+        "crushed": {
+          "before": 0.0045,
+          "after": 0.0064
+        },
+        "saturation": {
+          "before": 0.3407,
+          "after": 0.3532
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-26T01:09:30.506Z"
+    }
+  ]
+}

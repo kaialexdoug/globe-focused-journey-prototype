@@ -45,7 +45,7 @@ Unfold is a phone-first web app of **guided walking journeys**. Each journey is 
 
 Every journey is a hand-written JS object, one per file.
 - `main-app/src/journeyStops.js` holds the two verified journeys and builds `ALL_JOURNEYS`.
-- `main-app/src/aiJourneys/*.js` holds 24 AI-made journeys, listed in `aiJourneys/index.js`.
+- `main-app/src/aiJourneys/*.js` holds 29 AI-made journeys, listed in `aiJourneys/index.js`.
 - `testJourney.js` (Waseda), `miamiJourney.js` and `nassauJourney.js` hold the other three.
 - `aiJourneys/parts.js` has the shared headings and labels for each part's screens.
 
@@ -78,23 +78,24 @@ All times and distances are estimates, worked out once from Google walking route
 
 ---
 
-## 4. The journeys (29 in total)
+## 4. The journeys (34 in total)
 
 **UNFOLD VERIFIED (walked by the developer):**
 - *Where the Old Road Meets the Sea*, Odawara, Kanagawa.
 - *Adventure in Kawagoe*, Kawagoe, Saitama.
 
-**AI GENERATED (27).** The history in each was checked against published sources, but none has been walked.
+**AI GENERATED (28).** The history in each was checked against published sources, but none has been walked.
 
 | Region | Journeys |
 | --- | --- |
 | Tokyo area / Kanto (10) | Kamakura *Bamboo, Bronze and the Bay*, Hakone *Up the Mountain, Down to the Lake*, Yokohama *Where the Harbor Lights Come On*, Yanaka *The Tokyo That Stayed*, Mt Takao *A Mountain on the Edge of Tokyo*, Nikko *The Shrines in the Cedars*, Narita *The Temple Town Before Your Flight*, Chichibu *Into the Chichibu Hills*, Kusatsu *The Town That Steams*, Fujiyoshida *In the Shadow of Fuji* |
 | Minnesota (10) | Duluth *At the Edge of the Big Lake*, North Shore *Up the North Shore*, Minneapolis *Where the City Began*, St. Paul *Up on Summit Avenue*, Stillwater *Down by the St. Croix*, Minnehaha *The Falls in the City*, Red Wing *The River Town Under the Bluff*, Taylors Falls *Cliffs Over the St. Croix*, Itasca *Where the Mississippi Begins*, Grand Marais *The Harbor at the Edge of the Woods* |
 | Cumberland, Wisconsin (4, the newest) | *The Island City’s Main Street* (History), *A Church a Mile South* (Culture), *Water on Every Side* (Scenic), *Where the Hay River Begins* (Nature) |
+| Journey Engine V2 (5 so far, the newest) | *The Carriage Road at Dusk* (Marunouchi, Tokyo): Romantic, for a couple, the V2 gold standard. Then the Minnesota group: *Seven Bridges to the Ridge* (Duluth, Romantic, a drive), *Through the Peak, Over the Rapids* (Duluth, Adventurous, a hike and a drive) and *Where Bob Dylan Began* (Duluth, Curious, a walk), all for couples, and *From Purgatory to the Clouds* (Eden Prairie, Playful, for a family, by car). Made to the V2 handoff: peak chosen first, every fact checked against official or published sources, Google Routes legs, and licensed photos through Unfold's mood treatment. Their records (peak, sources, uncertainties, self-check, rejected candidates) are in `JOURNEY_ENGINE_LOG.md`. |
 | Other | *The Edge of Old Edo* (Takadanobaba–Waseda, Tokyo, the **pilot journey** where new features are tried first), *From Mangroves to Neon* (Miami Beach), *Forward, Upward, Onward* (Nassau, Bahamas) |
 
 - Every journey has `bestTime`, `beforeYouGo`, an exact `mapPoint` on every stop, and the walk data the route preview needs.
-- Every journey except the four Cumberland ones has at least one detour.
+- Every journey except the four Cumberland ones and The Carriage Road at Dusk has at least one detour (the V2 handoff doesn't ask for one).
 - Photos are mostly from Wikimedia Commons, credited in the README.
 
 ---
@@ -155,7 +156,7 @@ There's a bottom **navbar with four tabs**: **Home (Feed)**, **Find My Journey**
   - the temperature now with an icon, plus sunrise and sunset;
   - a sideways strip of the **next 24 hours** (icon, temperature and hour for each);
   - a note if the place's time zone differs from the phone's;
-  - a **verdict** box, one of four levels: "Good conditions for this journey", "Mostly good conditions", "Risky conditions" or "Poor conditions for this journey", with advice. It weighs rain chance, how warm or cold it feels, and wind gusts against how long the journey takes (`conditionsVerdict` in `weather.js`).
+  - a **forecast summary** (since 26 Nov 2026, `forecastSummary` in `weather.js`). It describes the weather for as long as the journey takes and doesn't judge it, since a cold or snowy walk can be exactly what someone wants (the dad's and the developer's call; it replaced a Good / Mostly good / Risky / Poor verdict). It's one box after the mockup: an icon on the left, a title ("Cold conditions today") and a line saying more ("Feels like 14°F for most of your walk."). It's about the first of these found during the walk: thunderstorms, snow, freezing rain, rain (forecast, or a 60%+ chance), drizzle, hot (feels like 31°C / 88°F or more), cold (feels like 3°C / 37°F or less), windy (gusts of 50 km/h / 31 mph or more), fog. A second kind from another family can be added ("…and it'll feel like 25°F"). Otherwise it describes the sky: clear, clear night, partly cloudy (day or night) or cloudy, with the temperature range, plus anything expected later the same day ("Rain is likely later, from 6 PM."). Icons and colours, as chosen: thunderstorm (cloud and bolt), rain, drizzle in blue; snow, freezing rain, cold (thermometer and snowflake) in light blue; hot (thermometer and sun) in red-orange; windy, fog, cloudy in gray; clear, clear night and partly cloudy in the app's usual orange on gray (`SUMMARY_LOOKS` in `WeatherReport.jsx`, `--wx-*` colours in `index.css`).
 - Then the journey's length and effort.
 - **I'M HERE** (already at the start) or **GET DIRECTIONS** (directions to the Departure stop).
 
@@ -166,7 +167,7 @@ Every stop uses the same two screens, filled in from its card.
 - A photo header with ✕, then the part and step ("Discovery · Step 2 of 5") and the stop name.
 - **SEE CURRENT WEATHER FORECAST** (the newest feature, `StopWeather.jsx`).
   - A small, quiet pill button above the map that drops down.
-  - It shows a compact version of Get Ready's weather for that stop's exact spot: the temperature and icon, sunrise and sunset, the 24-hour strip, and a verdict for **the rest of the journey from this stop on**, worded "for the rest of the journey".
+  - It shows a compact version of Get Ready's weather for that stop's exact spot: the temperature and icon, sunrise and sunset, the 24-hour strip, and the forecast summary for **the rest of the journey from this stop on** ("for the rest of your walk").
   - It's only looked up when opened, and cached for 10 minutes. It has a "Try Again" state if the lookup fails.
   - It's on **every stop of every journey**, detours included.
 - **The live map** (`LiveMap.jsx`):
@@ -253,6 +254,7 @@ Every stop uses the same two screens, filled in from its card.
    - Five hero and stop photos were swapped for ones the developer found by web search (church, cemetery, library, autumn pond, lake sunset). Their licences aren't confirmed yet; they're listed in the README.
 9. **The stop weather forecast button** on every directions screen (tried on Waseda first, then rolled out to all journeys).
 10. **The new tabbed journey page** (25 Nov 2026), after a mockup, piloted on Waseda and then rolled out to all 29 journeys: back and save on the photo, Overview / Route / Details tabs, and Why It's Cool. Journey titles switched to Times New Roman.
+11. **Journey Engine V2** (26 Nov 2026), from the developer's V2 handoff (33 test journeys across Broward County, Duluth, Tokyo, Japan, 11 flagship destinations, the Bahamas, Castaway Cay and Eden Prairie). Started with one gold-standard journey, *The Carriage Road at Dusk*, then the rest group by group: Minnesota done (three Duluth journeys for couples and one Eden Prairie family day); Japan, the Bahamas and Castaway Cay, Broward County and the flagships to come. Built with it: the photo treatment pipeline (`main-app/photo-originals/`, `npm run photos`): untouched originals, a base look plus six mood recipes (starting values, to be approved), a manifest of every photo's source, licence, treatment and automatic quality check, and treated copies for the app. The developer approved Google Routes API use and photo downloads for this. The evaluation report comes once the journeys are made (the developer will say when).
 
 ---
 

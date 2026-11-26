@@ -1,7 +1,9 @@
 import {
   CloudIcon,
+  ColdIcon,
+  DrizzleIcon,
   FogIcon,
-  InfoIcon,
+  HotIcon,
   MoonCloudIcon,
   MoonIcon,
   RainIcon,
@@ -18,8 +20,8 @@ import { clockText, conditionWords, degreesText, sameTimeAsPhone, temperatureTex
 // The weather, as Get Ready shows it (GetReadyPage.jsx), and a stop's
 // directions screen in a smaller size (StopWeather.jsx): the temperature now,
 // sunrise and sunset, the next 24 hours an hour at a time (the first few in
-// view, and the rest a swipe away), and the verdict on how the weather suits
-// the journey (weather.js). Just the weather once it's in: each page says in
+// view, and the rest a swipe away), and a summary of the weather while the
+// journey takes (forecastSummary in weather.js). Just the weather once it's in: each page says in
 // its own words when it's still coming, or couldn't be had.
 
 // The picture for each kind of weather (weatherKind in weather.js).
@@ -41,17 +43,32 @@ export function WeatherPicture({ weather, className }) {
   return <Picture className={className} />
 }
 
-// The verdict's colours, by its level (weather.js).
-const VERDICT_CLASSES = {
-  good: 'isGood',
-  mostlyGood: 'isMostlyGood',
-  risky: 'isRisky',
-  poor: 'isPoor',
+// The summary's icon and colour, for each kind of weather it can be about
+// (forecastSummary in weather.js), as Dad and the developer picked them:
+// blue for thunderstorms, rain and drizzle; light blue for snow, freezing
+// rain and cold; red-orange for heat; gray for wind, fog and cloud; and the
+// app's usual orange on gray for a clear or partly cloudy sky.
+const SUMMARY_LOOKS = {
+  storm: { Icon: StormIcon, tone: 'isBlue' },
+  snow: { Icon: SnowIcon, tone: 'isIce' },
+  freezingRain: { Icon: RainIcon, tone: 'isIce' },
+  rain: { Icon: RainIcon, tone: 'isBlue' },
+  drizzle: { Icon: DrizzleIcon, tone: 'isBlue' },
+  hot: { Icon: HotIcon, tone: 'isHeat' },
+  cold: { Icon: ColdIcon, tone: 'isIce' },
+  wind: { Icon: WindIcon, tone: 'isGray' },
+  fog: { Icon: FogIcon, tone: 'isGray' },
+  clear: { Icon: SunIcon, tone: 'isFair' },
+  clearNight: { Icon: MoonIcon, tone: 'isFair' },
+  partly: { Icon: WeatherIcon, tone: 'isFair' },
+  partlyNight: { Icon: MoonCloudIcon, tone: 'isFair' },
+  cloudy: { Icon: CloudIcon, tone: 'isGray' },
 }
 
 // `place` is where the times are local to, if that isn't the phone's time
-// ("Waseda"), and `verdict` is from conditionsVerdict.
-function WeatherReport({ conditions, verdict, place, units }) {
+// ("Waseda"), and `summary` is from forecastSummary.
+function WeatherReport({ conditions, summary, place, units }) {
+  const { Icon: SummaryIcon, tone } = SUMMARY_LOOKS[summary.type]
   return (
     <>
       <div className="readyNow">
@@ -93,11 +110,11 @@ function WeatherReport({ conditions, verdict, place, units }) {
       </ol>
       {!sameTimeAsPhone(conditions) && <p className="readyNote">Times are local to {place}.</p>}
 
-      <div className={`readyVerdict ${VERDICT_CLASSES[verdict.level]}`} role="status">
-        <InfoIcon className="readyVerdictIcon" />
+      <div className={`readyNotice ${tone}`} role="status">
+        <SummaryIcon className="readyNoticeIcon" />
         <div>
-          <p className="readyVerdictTitle">{verdict.title}</p>
-          <p className="readyVerdictText">{verdict.text}</p>
+          <p className="readyNoticeTitle">{summary.title}</p>
+          <p className="readyNoticeText">{summary.text}</p>
         </div>
       </div>
       <p className="readyCredit">Weather from Open-Meteo.com</p>

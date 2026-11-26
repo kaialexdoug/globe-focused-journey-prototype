@@ -166,6 +166,50 @@ export function RainIcon({ className }) {
   )
 }
 
+// Drizzle: the rain cloud with just a few short drops.
+export function DrizzleIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d={HIGH_CLOUD} />
+      <path d="M9.3 18.2l-.5 1.3M14.8 18.2l-.5 1.3M12 20.6l-.5 1.3" />
+    </Icon>
+  )
+}
+
+// Hot and cold, in the weather's summary: a thermometer, with the sun
+// beside it, or a snowflake.
+const THERMOMETER = 'M5.5 13.6V4.5a2 2 0 0 1 4 0v9.1a3.6 3.6 0 1 1-4 0z'
+
+function Thermometer() {
+  return (
+    <>
+      <path d={THERMOMETER} />
+      <path d="M7.5 8.5v7" />
+      <circle cx="7.5" cy="16.6" r="1.4" fill="currentColor" stroke="none" />
+    </>
+  )
+}
+
+export function HotIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <Thermometer />
+      <circle cx="17" cy="8" r="2.5" />
+      <path d="M17 3.3v1.3M17 11.4v1.3M12.3 8h1.3M20.4 8h1.3M13.7 4.7l.9.9M20.3 4.7l-.9.9M13.7 11.3l.9-.9M20.3 11.3l-.9-.9" />
+    </Icon>
+  )
+}
+
+export function ColdIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <Thermometer />
+      <path d="M17 3.5v9M13.1 5.75l7.8 4.5M13.1 10.25l7.8-4.5" />
+      <path d="M15.8 4.3 17 5.3l1.2-1M15.8 11.7 17 10.7l1.2 1" />
+    </Icon>
+  )
+}
+
 export function SnowIcon({ className }) {
   return (
     <Icon className={className}>
@@ -221,7 +265,8 @@ export function SunsetIcon({ className }) {
   )
 }
 
-// An "i" in a circle, for the verdict on Get Ready.
+// An "i" in a circle, for when the weather couldn't be had (Get Ready, and a
+// stop's weather).
 export function InfoIcon({ className }) {
   return (
     <Icon className={className}>

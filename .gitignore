@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# The untouched photo downloads (Journey Engine V2): kept on the computer
+# that made them, and re-downloadable from their source with
+# `npm run photos -- --fetch` (see photo-originals/manifest.json). The
+# manifest and looks are kept in git.
+main-app/photo-originals/*/
