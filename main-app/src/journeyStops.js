@@ -846,11 +846,13 @@ export const odawaraJourney = {
 }
 
 // A journey's `location`, kept in capitals ("KAMAKURA · KANAGAWA, JAPAN"),
-// in normal capitalisation to show: "Kamakura · Kanagawa, Japan".
+// in normal capitalisation to show: "Kamakura · Kanagawa, Japan". Every word
+// starts with a capital, including ones that begin with an accented letter
+// ("ŌHARA" as "Ōhara"), but not after an apostrophe ("St. John's").
 function titleCase(text) {
   return text
     .toLowerCase()
-    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
+    .replace(/(^|[^\p{L}\p{M}'’])(\p{Ll})/gu, (_, before, letter) => before + letter.toUpperCase())
     .replace('Usa', 'USA')
 }
 

@@ -81,6 +81,29 @@ import duluthRomantic from './duluthRomantic.js'
 import duluthAdventurous from './duluthAdventurous.js'
 import duluthCurious from './duluthCurious.js'
 import edenPrairie from './edenPrairie.js'
+import ohara from './ohara.js'
+import nara from './nara.js'
+import miyajima from './miyajima.js'
+import kanazawa from './kanazawa.js'
+import grandBahama from './grandBahama.js'
+import harbourIsland from './harbourIsland.js'
+import castawayCay from './castawayCay.js'
+import fortLauderdaleRiver from './fortLauderdaleRiver.js'
+import bonnetHouse from './bonnetHouse.js'
+import wadeIns from './wadeIns.js'
+import barefootMailman from './barefootMailman.js'
+import hollywoodBeach from './hollywoodBeach.js'
+import boraBora from './boraBora.js'
+import montSaintMichel from './montSaintMichel.js'
+import florence from './florence.js'
+import chefchaouen from './chefchaouen.js'
+import newYork from './newYork.js'
+import sanFrancisco from './sanFrancisco.js'
+import laJolla from './laJolla.js'
+import banff from './banff.js'
+import varanasi from './varanasi.js'
+import chiangMai from './chiangMai.js'
+import capeTown from './capeTown.js'
 
 // The Kanto ones first, then Minnesota, then Cumberland, Wisconsin, then the
 // ones made to the V2 handoff.
@@ -89,4 +112,9 @@ export const AI_JOURNEYS = [
   duluth, northShore, minneapolis, stPaul, stillwater, minnehaha, redWing, taylorsFalls, itasca, grandMarais,
   cumberlandHistory, cumberlandCulture, cumberlandScenic, cumberlandNature,
   marunouchi, duluthRomantic, duluthAdventurous, duluthCurious, edenPrairie,
+  ohara, nara, miyajima, kanazawa,
+  grandBahama, harbourIsland, castawayCay,
+  fortLauderdaleRiver, bonnetHouse, wadeIns, barefootMailman, hollywoodBeach,
+  boraBora, montSaintMichel, florence, chefchaouen, newYork, sanFrancisco,
+  laJolla, banff, varanasi, chiangMai, capeTown,
 ]
