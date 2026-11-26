@@ -370,6 +370,39 @@ too.
 | [Sanborn Fire Insurance Map from Cumberland, Barron County, Wisconsin. LOC sanborn09525 003-3](https://commons.wikimedia.org/wiki/File:Sanborn_Fire_Insurance_Map_from_Cumberland,_Barron_County,_Wisconsin._LOC_sanborn09525_003-3.jpg) | `cumberland/map-1909-downtown.jpg` | Sanborn Map Company (Library of Congress) | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
 | [Sanborn Fire Insurance Map from Cumberland, Barron County, Wisconsin. LOC sanborn09525 003-4](https://commons.wikimedia.org/wiki/File:Sanborn_Fire_Insurance_Map_from_Cumberland,_Barron_County,_Wisconsin._LOC_sanborn09525_003-4.jpg) | `cumberland/map-1909-lumber.jpg` | Sanborn Map Company (Library of Congress) | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
 | [Sanborn Fire Insurance Map from Cumberland, Barron County, Wisconsin. LOC sanborn09525 003-1](https://commons.wikimedia.org/wiki/File:Sanborn_Fire_Insurance_Map_from_Cumberland,_Barron_County,_Wisconsin._LOC_sanborn09525_003-1.jpg) | `cumberland/map-1909-key.jpg` | Sanborn Map Company (Library of Congress) | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+| [Tokyo Station Marunouchi Building P5228775](https://commons.wikimedia.org/wiki/File:Tokyo_Station_Marunouchi_Building_P5228775.jpg) | `marunouchi/hero.jpg` | Kestrel | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Ginkgo biloba - Hibiya Park](https://commons.wikimedia.org/wiki/File:Ginkgo_biloba_-_Hibiya_Park.jpg) | `marunouchi/ginkgo.jpg` | Kakidai | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Hibiya Park in autumn](https://commons.wikimedia.org/wiki/File:Hibiya_Park_in_autumn.jpg) | `marunouchi/crane-fountain.jpg` | Kakidai | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Ginkgo biloba - Hibiya Park 2](https://commons.wikimedia.org/wiki/File:Ginkgo_biloba_-_Hibiya_Park_2.jpg) | `marunouchi/matsumotoro.jpg` | Kakidai | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Seimon Ishibashi Bridge, Imperial Palace, Tokyo](https://commons.wikimedia.org/wiki/File:Seimon_Ishibashi_Bridge,_Imperial_Palace,_Tokyo.jpg) | `marunouchi/nijubashi.jpg` | Ray in Manila | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Wadakura Fountain Park](https://commons.wikimedia.org/wiki/File:Wadakura_Fountain_Park.jpg) | `marunouchi/wadakura.jpg` | Kakidai | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [KITTE Marunouchi Rooftop garden night view 201912](https://commons.wikimedia.org/wiki/File:KITTE_Marunouchi_Rooftop_garden_night_view_201912.jpg) | `marunouchi/kitte-garden.jpg` | Wpcpey | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
+| [Animal skeletal specimens](https://commons.wikimedia.org/wiki/File:Animal_skeletal_specimens.jpg) | `marunouchi/intermediatheque.jpg` | Souka Kinmei | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
+| [Tokyo sta DOME](https://commons.wikimedia.org/wiki/File:Tokyo_sta_DOME.jpg) | `marunouchi/station-dome.jpg` | Kei365 | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Christmas light of the Marunouchi Nakadori Street Dec 2019](https://commons.wikimedia.org/wiki/File:Christmas_light_of_the_Marunouchi_Nakadori_Street_Dec_2019.jpg) | `marunouchi/nakadori.jpg` | 掬茶 | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [View From Hawk Ridge, photograph by Randen Pederson](https://commons.wikimedia.org/wiki/File:View_From_Hawk_Ridge,_photograph_by_Randen_Pederson.jpg) | `duluth-romantic/hero.jpg` | Randen Pederson | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Hawk Ridge, Duluth, MN (29994576171)](https://commons.wikimedia.org/wiki/File:Hawk_Ridge,_Duluth,_MN_%2829994576171%29.jpg) | `duluth-romantic/hawk-ridge.jpg` | Northfielder | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Lester River bridge](https://commons.wikimedia.org/wiki/File:Lester_River_bridge.jpg) | `duluth-romantic/lester-river.jpg` | Elkman | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Lester River & Japp Hole Falls (Lester Park, Minnesota, USA) (22294211225)](https://commons.wikimedia.org/wiki/File:Lester_River_&_Japp_Hole_Falls_%28Lester_Park,_Minnesota,_USA%29_%2822294211225%29.jpg) | `duluth-romantic/lester-park.jpg` | James St. John | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [7BridgesDuluthMN](https://commons.wikimedia.org/wiki/File:7BridgesDuluthMN.jpg) | `duluth-romantic/seven-bridges.jpg` | Jonathunder | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Brighton Beach, Duluth (9697879320)](https://commons.wikimedia.org/wiki/File:Brighton_Beach,_Duluth_%289697879320%29.jpg) | `duluth-romantic/brighton-beach.jpg` | Sharon Mollerus | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Swinging bridge - 44279430334](https://commons.wikimedia.org/wiki/File:Swinging_bridge_-_44279430334.jpg) | `duluth-adventurous/hero.jpg` | Joe Passe | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) |
+| [Swinging bridge at Jay Cooke State Park](https://commons.wikimedia.org/wiki/File:Swinging_bridge_at_Jay_Cooke_State_Park.jpg) | `duluth-adventurous/swinging-bridge.jpg` | Joe Passe | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) |
+| [DWP Trail, Ely's Peak MN Aug 2023 1](https://commons.wikimedia.org/wiki/File:DWP_Trail,_Ely%27s_Peak_MN_Aug_2023_1.jpg) | `duluth-adventurous/trailhead.jpg` | Thomson200 | [CC0](https://creativecommons.org/publicdomain/zero/1.0) |
+| [Ely's Peak DWP Trail Tunnel, Aug 2023 1](https://commons.wikimedia.org/wiki/File:Ely%27s_Peak_DWP_Trail_Tunnel,_Aug_2023_1.jpg) | `duluth-adventurous/tunnel.jpg` | Thomson200 | [CC0](https://creativecommons.org/publicdomain/zero/1.0) |
+| [View from DWP Trail near Ely's Peak, Aug 2023](https://commons.wikimedia.org/wiki/File:View_from_DWP_Trail_near_Ely%27s_Peak,_Aug_2023.jpg) | `duluth-adventurous/summit.jpg` | Thomson200 | [CC0](https://creativecommons.org/publicdomain/zero/1.0) |
+| [Oldenburg Point](https://commons.wikimedia.org/wiki/File:Oldenburg_Point.jpg) | `duluth-adventurous/oldenburg-point.jpg` | Joe Passe | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) |
+| [Duluth Armory SW](https://commons.wikimedia.org/wiki/File:Duluth_Armory_SW.jpg) | `duluth-curious/hero.jpg`, `duluth-curious/armory.jpg` | McGhiever | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Duluth Depot](https://commons.wikimedia.org/wiki/File:Duluth_Depot.jpg) | `duluth-curious/depot.jpg` | McGhiever | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Clayton Jackson McGhie Memorial site 01](https://commons.wikimedia.org/wiki/File:Clayton_Jackson_McGhie_Memorial_site_01.jpg) | `duluth-curious/memorial.jpg` | Myotus | [CC0](https://creativecommons.org/publicdomain/zero/1.0) |
+| [Boyhood home of Bob Dylan in Duluth, Minnesota](https://commons.wikimedia.org/wiki/File:Boyhood_home_of_Bob_Dylan_in_Duluth,_Minnesota.jpg) | `duluth-curious/dylan-home.jpg` | Lorie Shaull | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Duluth Rose Garden, Duluth, Minnesota](https://commons.wikimedia.org/wiki/File:Duluth_Rose_Garden,_Duluth,_Minnesota.jpg) | `duluth-curious/rose-garden.jpg` | Sharon Mollerus | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Mustang 1751D - Sierra Sue II - Wings of the North Pancake Breakfast (17462855154)](https://commons.wikimedia.org/wiki/File:Mustang_1751D_-_Sierra_Sue_II_-_Wings_of_the_North_Pancake_Breakfast_%2817462855154%29.jpg) | `eden-prairie/hero.jpg` | Pete Markham | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) |
+| [Wings of the North Air Museum interior-03](https://commons.wikimedia.org/wiki/File:Wings_of_the_North_Air_Museum_interior-03.jpg) | `eden-prairie/wings-of-the-north.jpg` | Myotus | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |
+| [Purgatory Creek Park, Eden Prairie, MN Aug 2023 02](https://commons.wikimedia.org/wiki/File:Purgatory_Creek_Park,_Eden_Prairie,_MN_Aug_2023_02.jpg) | `eden-prairie/purgatory-creek.jpg` | Thomson200 | [CC0](https://creativecommons.org/publicdomain/zero/1.0) |
+| [Mayor Jean Harris Bridge](https://commons.wikimedia.org/wiki/File:Mayor_Jean_Harris_Bridge.jpg) | `eden-prairie/jean-harris-bridge.jpg` | Kevin Rofidal | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0) |
+| [John R. Cummins Farmhouse](https://commons.wikimedia.org/wiki/File:John_R._Cummins_Farmhouse.jpg) | `eden-prairie/cummins-farm.jpg` | McGhiever | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [MN 240720095090 bryant lake](https://commons.wikimedia.org/wiki/File:MN_240720095090_bryant_lake.jpg) | `eden-prairie/bryant-lake.jpg` | Bjoertvedt | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
 
 These five Cumberland photos were found in a web search in November 2026,
 for the Cumberland test. Who took them, where the sunset and the pond were
@@ -383,3 +416,18 @@ permission or replace them, before the app goes public.
 | The Thomas St. Angelo Public Library, from the corner | `cumberland/library-front.webp` |
 | Autumn woods reflected in still water | `cumberland/autumn-pond.jpg` |
 | A lake sunset with a dock (cropped to remove a car hood) | `cumberland/lake-sunset-dock.jpg` |
+
+### Photo treatment (Journey Engine V2)
+
+The journeys made to the V2 handoff (so far `marunouchi/`, `duluth-romantic/`,
+`duluth-adventurous/`, `duluth-curious/` and `eden-prairie/`) keep their
+untouched downloads in `main-app/photo-originals/` (on the computer that made
+them, not in git: `npm run photos -- --fetch` downloads any that are missing,
+from exactly where they came from), and the app uses treated copies: Unfold's base look plus the journey's mood on top, at full strength
+for its main photo and half for the rest. The looks are in
+`photo-originals/looks.json` (starting recipes, to be approved), and every
+photo's source, licence, treatment and check results are in
+`photo-originals/manifest.json`. `npm run photos` (in `main-app`) remakes
+the treated copies from the originals, so changing a look and running it
+again updates every photo. A treated copy of a CC BY-SA photo is an
+adaptation, so it stays under CC BY-SA, credited as above.

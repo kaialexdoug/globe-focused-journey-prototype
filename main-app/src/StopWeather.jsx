@@ -5,13 +5,13 @@ import WeatherReport from './WeatherReport.jsx'
 import { journeyPlaceName } from './journeyPlaces.js'
 import { hoursFrom } from './journeyTimes.js'
 import { useUnits } from './units.js'
-import { conditionsVerdict, lookUpConditions, savedConditions } from './weather.js'
+import { forecastSummary, lookUpConditions, savedConditions } from './weather.js'
 
 // The weather where a stop is, on its directions screen (DirectionsPage in
 // StopPages.jsx): SEE CURRENT WEATHER FORECAST, a small button above the map,
 // unfolds a smaller Get Ready (WeatherReport.jsx). The temperature now,
-// sunrise and sunset, the next 24 hours, and how the weather suits the rest
-// of the journey, from this stop on. It's for the stop's own spot
+// sunrise and sunset, the next 24 hours, and a summary of the weather for
+// the rest of the journey, from this stop on. It's for the stop's own spot
 // (`mapPoint`), and only looked up once it's opened (weather.js keeps it for
 // a few minutes, so opening it again doesn't look it up again).
 function StopWeather({ journey, stop }) {
@@ -49,7 +49,7 @@ function StopWeather({ journey, stop }) {
   }
 
   const foldId = `stopWeather-${stop.id}`
-  const verdict = conditions ? conditionsVerdict(conditions, hoursFrom(journey, stop), units, { rest: true }) : null
+  const summary = conditions ? forecastSummary(conditions, hoursFrom(journey, stop), units, { rest: true }) : null
 
   return (
     <div className="stopWeather">
@@ -69,14 +69,14 @@ function StopWeather({ journey, stop }) {
         <div className="routeFoldInner">
           <div className="stopWeatherBody">
             {conditions ? (
-              <WeatherReport conditions={conditions} verdict={verdict} place={journeyPlaceName(journey)} units={units} />
+              <WeatherReport conditions={conditions} summary={summary} place={journeyPlaceName(journey)} units={units} />
             ) : failed ? (
               // With TRY AGAIN in the middle, under the words.
-              <div className="readyVerdict isUnknown" role="status">
-                <InfoIcon className="readyVerdictIcon" />
+              <div className="readyNotice isUnknown" role="status">
+                <InfoIcon className="readyNoticeIcon" />
                 <div>
-                  <p className="readyVerdictTitle">Couldn’t get the weather here</p>
-                  <p className="readyVerdictText">Have a look at the sky before you head on.</p>
+                  <p className="readyNoticeTitle">Couldn’t get the weather here</p>
+                  <p className="readyNoticeText">Have a look at the sky before you head on.</p>
                 </div>
                 <button className="readyRetry" onClick={tryAgain}>
                   Try Again

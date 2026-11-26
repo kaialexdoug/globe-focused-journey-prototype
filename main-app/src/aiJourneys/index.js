@@ -73,10 +73,20 @@ import cumberlandHistory from './cumberlandHistory.js'
 import cumberlandCulture from './cumberlandCulture.js'
 import cumberlandScenic from './cumberlandScenic.js'
 import cumberlandNature from './cumberlandNature.js'
+// Made to the Journey Engine V2 handoff (peak first, checked sources, and
+// photos with Unfold's mood treatment: see photo-originals/), starting with
+// its gold-standard journey.
+import marunouchi from './marunouchi.js'
+import duluthRomantic from './duluthRomantic.js'
+import duluthAdventurous from './duluthAdventurous.js'
+import duluthCurious from './duluthCurious.js'
+import edenPrairie from './edenPrairie.js'
 
-// The Kanto ones first, then Minnesota, then Cumberland, Wisconsin.
+// The Kanto ones first, then Minnesota, then Cumberland, Wisconsin, then the
+// ones made to the V2 handoff.
 export const AI_JOURNEYS = [
   kamakura, hakone, yokohama, yanaka, takao, nikko, narita, chichibu, kusatsu, fujiyoshida,
   duluth, northShore, minneapolis, stPaul, stillwater, minnehaha, redWing, taylorsFalls, itasca, grandMarais,
   cumberlandHistory, cumberlandCulture, cumberlandScenic, cumberlandNature,
+  marunouchi, duluthRomantic, duluthAdventurous, duluthCurious, edenPrairie,
 ]

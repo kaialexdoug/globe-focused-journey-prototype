@@ -10,9 +10,8 @@
 // Times are the journey's local time, as Open-Meteo gives them ("13:00"),
 // whatever time zone the phone is in.
 //
-// And the verdict on whether now is a good time for the journey: whether
-// it'll stay dry and comfortable for as long as the journey takes, and for
-// the rest of the day.
+// And a summary of the weather for as long as the journey takes, and
+// anything on its way later that day (forecastSummary, at the end).
 
 import { isImperial, toFahrenheit } from './units.js'
 
@@ -20,12 +19,12 @@ const WEATHER_URL = 'https://api.open-meteo.com/v1/forecast'
 const KEEP_FOR = 10 * 60 * 1000
 const GIVE_UP_AFTER = 15 * 1000
 
-// What counts as uncomfortable, by how warm it feels ("apparent
-// temperature", which takes in the wind and the humidity), and how windy is
-// too windy, in gusts.
-export const TOO_COLD = 3
-export const TOO_HOT = 31
-export const TOO_WINDY = 50
+// What counts as cold or hot, by how warm it feels ("apparent temperature",
+// which takes in the wind and the humidity): 3°C (37°F) and 31°C (88°F).
+// And windy, in gusts: 50 km/h (31 mph).
+const COLD = 3
+const HOT = 31
+const WINDY = 50
 // How windy it has to be, in gusts, for the hour's icon to be the wind.
 const WINDY_ICON = 40
 // How likely rain has to be (%) to count, even when the forecast's own
@@ -194,54 +193,94 @@ export function sameTimeAsPhone(conditions) {
   return -new Date().getTimezoneOffset() * 60 === conditions.offsetSeconds
 }
 
-// --- The verdict ---
+// --- The forecast for the journey ---
+//
+// Not a verdict on whether to go (someone out for a winter walk doesn't mind
+// the cold), just what the weather's going to be: the one thing most worth
+// knowing about it while the journey takes, with its own icon and colour
+// (WeatherReport.jsx), and a line saying more.
 
-// What's wrong with an hour, if anything, most serious first: 'storm',
-// 'snow', 'rain', 'hot', 'cold' or 'wind', or null if it's fine.
-function hourProblem(hour) {
-  if (isStorm(hour.code)) return 'storm'
-  if (isSnow(hour.code)) return 'snow'
-  if (isRain(hour.code) || hour.rainChance >= RAIN_LIKELY) return 'rain'
-  if (hour.feelsLike >= TOO_HOT) return 'hot'
-  if (hour.feelsLike <= TOO_COLD) return 'cold'
-  if (hour.gusts >= TOO_WINDY) return 'wind'
-  return null
+// The kinds of weather worth a mention, the first of them found the one the
+// summary's about. If none of them come up, it's about the sky instead
+// (calmType, below).
+const NOTABLE = ['storm', 'snow', 'freezingRain', 'rain', 'drizzle', 'hot', 'cold', 'wind', 'fog']
+
+// Which go together. A summary can mention a second kind from another family
+// ("Snow… and it'll feel like 25°F"), but not two from the same one
+// (thunderstorms bring rain, so the rain isn't said as well).
+const FAMILY = {
+  storm: 'wet',
+  snow: 'wet',
+  freezingRain: 'wet',
+  rain: 'wet',
+  drizzle: 'wet',
+  hot: 'feel',
+  cold: 'feel',
+  wind: 'wind',
+  fog: 'fog',
 }
 
-const PROBLEM_ORDER = ['storm', 'snow', 'rain', 'hot', 'cold', 'wind']
+const isFreezingRain = (code) => code === 56 || code === 57 || code === 66 || code === 67
+const isDrizzle = (code) => code >= 51 && code <= 55
+const isFog = (code) => code === 45 || code === 48
 
-// The most serious problem among some hours.
-function worstProblem(problems) {
-  return PROBLEM_ORDER.find((problem) => problems.includes(problem))
+// Everything worth a mention in an hour: one kind of rain or snow at most,
+// and how it feels, the wind and fog besides.
+function hourTypes(hour) {
+  const { code } = hour
+  const types = []
+  if (isStorm(code)) types.push('storm')
+  else if (isSnow(code)) types.push('snow')
+  else if (isFreezingRain(code)) types.push('freezingRain')
+  else if ((code >= 61 && code <= 65) || (code >= 80 && code <= 82)) types.push('rain')
+  else if (isDrizzle(code)) types.push('drizzle')
+  else if (hour.rainChance >= RAIN_LIKELY) types.push('rain')
+  if (hour.feelsLike >= HOT) types.push('hot')
+  if (hour.feelsLike <= COLD) types.push('cold')
+  if (hour.gusts >= WINDY) types.push('wind')
+  if (isFog(code)) types.push('fog')
+  return types
 }
 
-// "around 2 PM", or "right now" for this hour.
-function whenText(hour, index) {
-  return index === 0 ? 'right now' : `around ${clockText(hour.time)}`
+// The hours with a kind of weather.
+function hoursWith(type, hours) {
+  return hours.filter((hour) => hourTypes(hour).includes(type))
 }
 
-// How the verdict talks about the walk: all of it, from Get Ready, or what's
+// The summary's title, for each kind of weather.
+const TITLES = {
+  storm: 'Thunderstorms likely',
+  snow: 'Snowy conditions today',
+  freezingRain: 'Freezing rain today',
+  rain: 'Rain likely today',
+  drizzle: 'Drizzle today',
+  hot: 'Hot conditions today',
+  cold: 'Cold conditions today',
+  wind: 'Windy today',
+  fog: 'Foggy today',
+  clear: 'Clear skies today',
+  clearNight: 'Clear skies tonight',
+  partly: 'Partly cloudy today',
+  partlyNight: 'Partly cloudy tonight',
+  cloudy: 'Cloudy today',
+}
+
+// How the summary talks about the walk: all of it, from Get Ready, or what's
 // left of it, from a stop on the way (StopWeather.jsx).
 const WHOLE_WALK = {
-  walk: 'your walk',
   mostOf: 'most of your walk',
   all: 'your whole walk',
   start: 'at the start of your walk',
   partway: 'partway through your walk',
   end: 'toward the end of your walk',
-  poorTitle: 'Poor conditions for this journey',
-  goodTitle: 'Good conditions for this journey',
 }
 
 const REST_OF_WALK = {
-  walk: 'the rest of your walk',
   mostOf: 'most of the rest of your walk',
   all: 'the rest of your walk',
   start: 'as you head to this stop',
   partway: 'later in your journey',
   end: 'toward the end of your journey',
-  poorTitle: 'Poor conditions for the rest of the journey',
-  goodTitle: 'Good conditions for the rest of the journey',
 }
 
 // Where in the walk an hour is: at the start, toward the end, or partway.
@@ -251,17 +290,13 @@ function partOfWalk(index, walkLength, words) {
   return words.partway
 }
 
-function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1)
+// "around 2 PM", or "right now" for this hour.
+function whenText(hour, index) {
+  return index === 0 ? 'right now' : `around ${clockText(hour.time)}`
 }
 
-// What the sky's like, for a fine day: "Clear skies", "Some cloud"...
-function skyWords(hours) {
-  const kinds = hours.map(weatherKind)
-  if (kinds.every((kind) => kind === 'clear' || kind === 'clearNight')) return 'Clear skies'
-  if (kinds.includes('fog')) return 'A little mist, but dry'
-  if (kinds.every((kind) => kind === 'cloudy')) return 'Cloudy but dry'
-  return 'Some cloud, but dry'
+function capitalize(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
 // "between 14 and 17°C", or "around 15°C".
@@ -273,117 +308,134 @@ function rangeText(hours, units) {
   return low === high ? `around ${low}${mark}` : `between ${low} and ${high}${mark}`
 }
 
-// The problem during the walk, in words: "rain is likely around 2 PM".
-function problemText(problem, hour, index, units) {
+// For most of the walk, or all of it (`span`), from the hours with it:
+// "Snow is likely for most of your walk", or "Feels like 14°F for most of
+// your walk" (the coldest it'll feel, or the hottest).
+function mostlyText(type, hours, units, span) {
+  const feels = hours.map((hour) => hour.feelsLike)
+  return {
+    storm: `Thunderstorms are likely for ${span}`,
+    snow: `Snow is likely for ${span}`,
+    freezingRain: `Freezing rain is likely for ${span}`,
+    rain: `Rain is likely for ${span}`,
+    drizzle: `Drizzle is likely for ${span}`,
+    hot: `Feels like ${temperatureText(Math.max(...feels), units)} for ${span}`,
+    cold: `Feels like ${temperatureText(Math.min(...feels), units)} for ${span}`,
+    wind: `Strong gusts are likely for ${span}`,
+    fog: `Fog is likely for ${span}`,
+  }[type]
+}
+
+// For some of it, from when it starts: "Rain is likely around 1 PM".
+function atText(type, hour, index, units) {
   const when = whenText(hour, index)
   const feels = temperatureText(hour.feelsLike, units)
   return {
-    storm: `thunderstorms are likely ${when}`,
-    snow: `snow is likely ${when}`,
-    rain: `rain is likely ${when}`,
-    hot: `it’ll feel like ${feels} ${when}`,
-    cold: `it’ll feel like ${feels} ${when}`,
-    wind: `strong gusts are likely ${when}`,
-  }[problem]
+    storm: `Thunderstorms are likely ${when}`,
+    snow: `Snow is likely ${when}`,
+    freezingRain: `Freezing rain is likely ${when}`,
+    rain: `Rain is likely ${when}`,
+    drizzle: `Drizzle is likely ${when}`,
+    hot: `It’ll feel like ${feels} ${when}`,
+    cold: `It’ll feel like ${feels} ${when}`,
+    wind: `Strong gusts are likely ${when}`,
+    fog: `Fog is likely ${when}`,
+  }[type]
 }
 
-// After the walk, from when: "rain is likely from 6 PM".
-function laterText(problem, hour, units) {
+// The second kind of weather, after "and": never rain or snow, as those
+// always come first.
+function alsoText(type, hours, units) {
+  const feels = hours.map((hour) => hour.feelsLike)
+  return {
+    hot: `it’ll feel like ${temperatureText(Math.max(...feels), units)}`,
+    cold: `it’ll feel like ${temperatureText(Math.min(...feels), units)}`,
+    wind: 'strong gusts are likely too',
+    fog: 'there may be fog too',
+  }[type]
+}
+
+// After the walk, later the same day, from when: "Rain is likely later,
+// from 6 PM."
+function laterText(type, hour, units) {
   const time = clockText(hour.time)
   const feels = temperatureText(hour.feelsLike, units)
   return {
-    storm: `thunderstorms are likely from ${time}`,
-    snow: `snow is likely from ${time}`,
-    rain: `rain is likely from ${time}`,
-    hot: `it’ll get hot later, feeling like ${feels} by ${time}`,
-    cold: `it’ll turn cold later, feeling like ${feels} by ${time}`,
-    wind: `strong gusts are likely from ${time}`,
-  }[problem]
+    storm: `Thunderstorms are likely later, from ${time}.`,
+    snow: `Snow is likely later, from ${time}.`,
+    freezingRain: `Freezing rain is likely later, from ${time}.`,
+    rain: `Rain is likely later, from ${time}.`,
+    drizzle: `Drizzle is likely later, from ${time}.`,
+    hot: `It’ll get hot later, feeling like ${feels} by ${time}.`,
+    cold: `It’ll turn cold later, feeling like ${feels} by ${time}.`,
+    wind: `Strong gusts are likely later, from ${time}.`,
+    fog: `Fog is likely later, from ${time}.`,
+  }[type]
 }
 
-// What to do about it, during the walk (the verdict's `advice`).
-const ADVICE = {
-  storm: 'Keep an eye on the sky, and find shelter if it turns.',
-  snow: 'Dress warmly, and watch your step.',
-  rain: 'Bring an umbrella, or start a little later.',
-  hot: 'Bring water, and take it slowly in the heat.',
-  cold: 'Dress warmly, with a hat and gloves.',
-  wind: 'Expect strong gusts in open places.',
+// The sky, when there's nothing else to mention: clear, cloudy, or some of
+// each, at night if most of the walk's after dark.
+function calmType(hours) {
+  const night = hours.filter((hour) => !hour.isDay).length > hours.length / 2
+  if (hours.every((hour) => hour.code <= 1)) return night ? 'clearNight' : 'clear'
+  if (hours.every((hour) => hour.code === 3)) return 'cloudy'
+  return night ? 'partlyNight' : 'partly'
 }
 
-// For most of the walk.
-function mostlyText(problem, hours, units, words) {
-  const feels = hours.map((hour) => degrees(hour.feelsLike, units))
-  const mark = degreeMark(units)
-  return {
-    storm: `Thunderstorms are likely during ${words.walk}.`,
-    snow: `Snow is likely for ${words.mostOf}.`,
-    rain: `Rain is likely for ${words.mostOf}.`,
-    hot: `It’ll feel like ${Math.max(...feels)}${mark} for ${words.mostOf}.`,
-    cold: `It’ll feel like ${Math.min(...feels)}${mark} for ${words.mostOf}.`,
-    wind: `Strong winds are likely for ${words.mostOf}.`,
-  }[problem]
-}
-
-// The verdict for setting off now, on a journey taking `journeyHours`, with
-// its temperatures in `units`. With `rest`, it's for what's left of a journey
-// already under way, and `journeyHours` is how long that takes; it says so
-// ("the rest of your walk").
+// The weather while the journey takes, setting off now, on a journey taking
+// `journeyHours`, with its temperatures in `units`. With `rest`, it's for
+// what's left of a journey already under way, and `journeyHours` is how
+// long that takes; it says so ("the rest of your walk").
 //
-// It's { level, title, text, advice }, where level is 'good', 'mostlyGood', 'risky'
-// or 'poor':
-//   good        dry and comfortable for the walk, and the rest of the day
-//   mostlyGood  fine for the walk, but rain (or cold, or heat, or wind)
-//               later, within the next day
-//   risky       some of the walk in it, but most of it fine
-//   poor        most of the walk in it
-// `text` just says why, briefly. `advice` is what to do about it, for risky
-// and poor: kept apart from `text`, and not shown on Get Ready for now, so
-// the notice stays short (it may come back in another form).
-export function conditionsVerdict(conditions, journeyHours, units, { rest = false } = {}) {
+// It's { type, title, text }. `type` is the kind of weather it's about, for
+// its icon and colour: one of NOTABLE above if any of them come up during
+// the walk (the first of them that does), or otherwise the sky ('clear',
+// 'clearNight', 'partly', 'partlyNight' or 'cloudy'). `title` names it
+// ("Cold conditions today"), and `text` says more ("Feels like 14°F for
+// most of your walk."). When the walk's own weather is calm, `text` also
+// says if anything's on its way later that day.
+export function forecastSummary(conditions, journeyHours, units, { rest = false } = {}) {
   const { hours } = conditions
   const words = rest ? REST_OF_WALK : WHOLE_WALK
   // The hours the walk takes up, counting this one: 2½ hours is this hour
   // and the next two.
   const walkHours = hours.slice(0, Math.max(1, Math.ceil(journeyHours)))
-  const laterHours = hours.slice(walkHours.length)
-  const walkProblems = walkHours.map(hourProblem)
-  const badCount = walkProblems.filter(Boolean).length
+  const found = new Set(walkHours.flatMap(hourTypes))
+  const main = NOTABLE.find((type) => found.has(type))
 
-  if (badCount > walkHours.length / 2) {
-    const problem = worstProblem(walkProblems)
-    return {
-      level: 'poor',
-      title: words.poorTitle,
-      text: mostlyText(problem, walkHours, units, words),
-      advice: 'Another day, or a later start, may be better.',
+  if (main) {
+    const withMain = hoursWith(main, walkHours)
+    let text
+    if (withMain.length === walkHours.length) {
+      text = mostlyText(main, withMain, units, words.all)
+    } else if (withMain.length > walkHours.length / 2) {
+      text = mostlyText(main, withMain, units, words.mostOf)
+    } else {
+      const index = walkHours.indexOf(withMain[0])
+      text = `${atText(main, withMain[0], index, units)}, ${partOfWalk(index, walkHours.length, words)}`
     }
-  }
-
-  if (badCount > 0) {
-    const problem = worstProblem(walkProblems)
-    const index = walkProblems.indexOf(problem)
-    return {
-      level: 'risky',
-      title: 'Risky conditions',
-      text: `${capitalize(problemText(problem, walkHours[index], index, units))}, ${partOfWalk(index, walkHours.length, words)}.`,
-      advice: ADVICE[problem],
+    const also = NOTABLE.find((type) => found.has(type) && FAMILY[type] !== FAMILY[main])
+    if (also) {
+      text += `, and ${alsoText(also, hoursWith(also, walkHours), units)}`
     }
-  }
-
-  const laterIndex = laterHours.findIndex((hour) => hourProblem(hour))
-  if (laterIndex >= 0) {
-    const hour = laterHours[laterIndex]
-    return {
-      level: 'mostlyGood',
-      title: 'Mostly good conditions',
-      text: `Fine for ${words.walk}, but ${laterText(hourProblem(hour), hour, units)}.`,
+    text += '.'
+    if (main === 'freezingRain') {
+      text += ' Paths may be icy.'
     }
+    return { type: main, title: TITLES[main], text }
   }
 
-  return {
-    level: 'good',
-    title: words.goodTitle,
-    text: `${skyWords(walkHours)}, and ${rangeText(walkHours, units)} for ${words.all}.`,
+  const type = calmType(walkHours)
+  const range = rangeText(walkHours, units)
+  let text = type === 'clear' || type === 'clearNight' ? `${capitalize(range)} for ${words.all}.` : `Dry, ${range} for ${words.all}.`
+  // Anything later the same day, after the walk.
+  const today = walkHours[0].time.slice(0, 10)
+  const laterHour = hours
+    .slice(walkHours.length)
+    .find((hour) => hour.time.slice(0, 10) === today && hourTypes(hour).length > 0)
+  if (laterHour) {
+    const later = NOTABLE.find((each) => hourTypes(laterHour).includes(each))
+    text += ` ${laterText(later, laterHour, units)}`
   }
+  return { type, title: TITLES[type], text }
 }

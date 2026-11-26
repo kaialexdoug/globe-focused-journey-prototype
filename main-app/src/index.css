@@ -163,20 +163,22 @@
   --track: rgb(229, 221, 220);
   --track-cool: rgb(238, 239, 243);
   --pressed: rgb(236, 238, 241);
-  /* The weather's verdict (Get Ready, and a stop's weather): good, mostly
-     good ("fair"), risky and poor, each a pale wash, its edge and its icon. */
-  --good-bg: rgb(234, 246, 237);
-  --good-edge: rgb(196, 226, 205);
-  --good-ink: rgb(30, 135, 75);
-  --fair-bg: rgb(253, 247, 220);
-  --fair-edge: rgb(238, 222, 160);
-  --fair-ink: rgb(190, 145, 0);
-  --risky-bg: rgb(255, 238, 225);
-  --risky-edge: rgb(248, 206, 172);
-  --risky-ink: rgb(230, 105, 15);
-  --poor-bg: rgb(253, 232, 232);
-  --poor-edge: rgb(240, 196, 196);
-  --poor-ink: rgb(200, 40, 40);
+  /* The weather's summary (Get Ready, and a stop's weather), a pale wash,
+     its edge and its icon for each kind of weather: blue for thunderstorms,
+     rain and drizzle, light blue ("ice") for snow, freezing rain and cold,
+     red-orange for heat, and gray for wind, fog and cloud. */
+  --wx-blue-bg: rgb(232, 240, 253);
+  --wx-blue-edge: rgb(193, 212, 244);
+  --wx-blue-ink: rgb(37, 99, 205);
+  --wx-ice-bg: rgb(234, 246, 252);
+  --wx-ice-edge: rgb(188, 224, 241);
+  --wx-ice-ink: rgb(14, 116, 160);
+  --wx-heat-bg: rgb(255, 237, 229);
+  --wx-heat-edge: rgb(249, 198, 178);
+  --wx-heat-ink: rgb(222, 72, 34);
+  --wx-gray-bg: rgb(241, 242, 245);
+  --wx-gray-edge: rgb(214, 218, 226);
+  --wx-gray-ink: rgb(98, 106, 122);
   /* The main buttons, after the feed's mockup: orange, with the words in
      white. Ever so slightly paler at the top and darker at the bottom (the
      mockup's own colours, top to bottom), with the faintest light along the
@@ -313,18 +315,18 @@
   --track: rgb(52, 56, 66);
   --track-cool: rgb(46, 50, 60);
   --pressed: rgb(38, 42, 52);
-  --good-bg: rgb(22, 46, 32);
-  --good-edge: rgb(40, 84, 58);
-  --good-ink: rgb(100, 200, 135);
-  --fair-bg: rgb(50, 43, 16);
-  --fair-edge: rgb(96, 82, 30);
-  --fair-ink: rgb(230, 190, 60);
-  --risky-bg: rgb(56, 33, 18);
-  --risky-edge: rgb(110, 62, 28);
-  --risky-ink: rgb(245, 140, 60);
-  --poor-bg: rgb(56, 24, 26);
-  --poor-edge: rgb(110, 44, 48);
-  --poor-ink: rgb(240, 110, 110);
+  --wx-blue-bg: rgb(22, 34, 58);
+  --wx-blue-edge: rgb(44, 68, 112);
+  --wx-blue-ink: rgb(125, 168, 245);
+  --wx-ice-bg: rgb(17, 40, 52);
+  --wx-ice-edge: rgb(36, 80, 102);
+  --wx-ice-ink: rgb(110, 200, 235);
+  --wx-heat-bg: rgb(58, 28, 20);
+  --wx-heat-edge: rgb(112, 50, 32);
+  --wx-heat-ink: rgb(250, 122, 82);
+  --wx-gray-bg: rgb(32, 36, 45);
+  --wx-gray-edge: rgb(58, 64, 76);
+  --wx-gray-ink: rgb(170, 178, 192);
   --effort-easy-bg: rgba(110, 200, 140, 0.16);
   --effort-moderate-bg: rgba(230, 170, 60, 0.18);
   --effort-moderate-ink: rgb(232, 180, 80);

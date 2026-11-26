@@ -13,14 +13,14 @@ import {
 import WeatherReport from './WeatherReport.jsx'
 import { journeyPlaceName } from './journeyPlaces.js'
 import { durationText, journeyHours, metersText, rideTotals, walkingTotals } from './journeyTimes.js'
-import { conditionsVerdict, lookUpConditions, savedConditions } from './weather.js'
+import { forecastSummary, lookUpConditions, savedConditions } from './weather.js'
 import { useUnits } from './units.js'
 
 // Get Ready, between BEGIN JOURNEY and the first stop: today's conditions
-// where the journey starts (weather.js), so you can tell whether now's a good
-// time to go. The temperature now, sunrise and sunset, the next 24 hours an
-// hour at a time, and a verdict on how the weather suits the journey, from
-// now until it'd end (all in WeatherReport.jsx). Then how long it takes and
+// where the journey starts (weather.js), so you know what to expect. The
+// temperature now, sunrise and sunset, the next 24 hours an hour at a time,
+// and a summary of the weather from now until the journey would end (all in
+// WeatherReport.jsx). Then how long it takes and
 // how hard it is, and whether you're at the starting point: I'M HERE goes
 // straight to the first stop, and GET DIRECTIONS to the way there.
 
@@ -66,7 +66,7 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
   const hours = journeyHours(journey)
   const walking = walkingTotals(journey)
   const ride = rideTotals(journey)
-  const verdict = conditions ? conditionsVerdict(conditions, hours, units) : null
+  const summary = conditions ? forecastSummary(conditions, hours, units) : null
 
   return (
     <div className="stepPage getReadyPage">
@@ -84,14 +84,14 @@ function GetReadyPage({ journey, onBack, onStopJourney, onImHere, onDirections }
       <p className="stepText">Today’s conditions for {place}</p>
 
       {conditions ? (
-        <WeatherReport conditions={conditions} verdict={verdict} place={place} units={units} />
+        <WeatherReport conditions={conditions} summary={summary} place={place} units={units} />
       ) : failed ? (
         // With TRY AGAIN in the middle, under the words.
-        <div className="readyVerdict isUnknown" role="status">
-          <InfoIcon className="readyVerdictIcon" />
+        <div className="readyNotice isUnknown" role="status">
+          <InfoIcon className="readyNoticeIcon" />
           <div>
-            <p className="readyVerdictTitle">Couldn’t get today’s weather</p>
-            <p className="readyVerdictText">Have a look at the sky, and the forecast, before you set off.</p>
+            <p className="readyNoticeTitle">Couldn’t get today’s weather</p>
+            <p className="readyNoticeText">Have a look at the sky, and the forecast, before you set off.</p>
           </div>
           {point && (
             <button className="readyRetry" onClick={tryAgain}>

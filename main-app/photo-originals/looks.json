@@ -1,0 +1,97 @@
+{
+  "_about": [
+    "Unfold's photographic treatment (Journey Engine V2 handoff, section 4.2): every journey photo gets the base look, then its journey's primary mood on top, at full strength for the hero (the journey's main photo) and at half strength for stop and nearby photos, so they're recognisably the same journey without being over-processed.",
+    "These are starting recipes, not approved ones: the handoff leaves the exact grade and the six mood recipes to be decided (section 12). Change a number here, bump its version, and run `npm run photos` to reprocess every photo from its untouched original.",
+    "Each step is a small, realistic change: contrast is around the middle grey (+0.05 is 5% more), saturation and brightness are multipliers' distance from 1 (+0.05 is 5% more), warmth tips red up and blue down by that much, highlights first (it's a gain, so bright tones move most), green tips green up (for foliage), and sharpen is the sigma of a gentle unsharp mask (0 is none). Nothing changes the weather, season or colours of a place."
+  ],
+  "base": {
+    "id": "unfold-base",
+    "version": 1,
+    "contrast": 0.04,
+    "saturation": -0.03,
+    "brightness": 0,
+    "warmth": 0.01,
+    "green": 0,
+    "sharpen": 0.6
+  },
+  "moods": {
+    "Peaceful": {
+      "id": "peaceful",
+      "version": 1,
+      "intent": "Soft natural contrast, gentle greens and blues, restrained saturation, calm tonal transitions",
+      "contrast": -0.06,
+      "saturation": -0.08,
+      "brightness": 0.02,
+      "warmth": -0.015,
+      "green": 0.01,
+      "sharpen": 0
+    },
+    "Adventurous": {
+      "id": "adventurous",
+      "version": 1,
+      "intent": "Slightly stronger contrast and clarity, dimensional highlights, energetic but realistic colour",
+      "contrast": 0.08,
+      "saturation": 0.06,
+      "brightness": 0,
+      "warmth": 0.005,
+      "green": 0,
+      "sharpen": 0.5
+    },
+    "Romantic": {
+      "id": "romantic",
+      "version": 1,
+      "intent": "Warm highlights, softer contrast, flattering natural light, gentle saturation",
+      "contrast": -0.05,
+      "saturation": -0.02,
+      "brightness": 0.02,
+      "warmth": 0.035,
+      "green": 0,
+      "sharpen": 0
+    },
+    "Curious": {
+      "id": "curious",
+      "version": 1,
+      "intent": "Atmospheric depth, nuanced shadows, intriguing detail, natural colour fidelity",
+      "contrast": 0.05,
+      "saturation": -0.04,
+      "brightness": -0.02,
+      "warmth": -0.01,
+      "green": 0,
+      "sharpen": 0.3
+    },
+    "Playful": {
+      "id": "playful",
+      "version": 1,
+      "intent": "Bright, lively but controlled colour, clean contrast, welcoming warmth",
+      "contrast": 0.03,
+      "saturation": 0.08,
+      "brightness": 0.04,
+      "warmth": 0.02,
+      "green": 0,
+      "sharpen": 0.2
+    },
+    "Cultural": {
+      "id": "cultural",
+      "version": 1,
+      "intent": "Rich natural textures, balanced warm and cool tones, faithful depiction of architecture and art",
+      "contrast": 0.04,
+      "saturation": 0.02,
+      "brightness": 0,
+      "warmth": 0.015,
+      "green": 0,
+      "sharpen": 0.3
+    }
+  },
+  "strength": { "hero": 1, "stop": 0.5, "nearby": 0.5 },
+  "export": {
+    "hero": { "longEdge": 1600, "quality": 82 },
+    "stop": { "longEdge": 1280, "quality": 82 },
+    "nearby": { "longEdge": 1280, "quality": 82 }
+  },
+  "qa": {
+    "_about": "Checked on each processed photo against its original: it's flagged for a look if the treatment clips more of the highlights, crushes more of the shadows, or shifts saturation further than these allow.",
+    "maxExtraClipped": 0.015,
+    "maxExtraCrushed": 0.015,
+    "maxSaturationShift": 0.12
+  }
+}
