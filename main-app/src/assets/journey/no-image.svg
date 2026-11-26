@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 960" width="1280" height="960">
+  <!-- Stands in for a stop's photo until a licensed one is found: a plain
+       card with a picture outline, so it reads as "no photo yet" rather
+       than as a photo of the place. -->
+  <rect width="1280" height="960" fill="#DCD6CC"/>
+  <g fill="none" stroke="#968D80" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="500" y="330" width="280" height="210" rx="22"/>
+    <path d="M520 512 L600 432 L660 492 L700 452 L760 512"/>
+    <circle cx="712" cy="392" r="20"/>
+  </g>
+  <text x="640" y="630" text-anchor="middle" fill="#6F675C" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="46" font-weight="600">No image available</text>
+  <text x="640" y="690" text-anchor="middle" fill="#857C70" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="32">A photo of this stop is coming</text>
+</svg>

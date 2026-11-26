@@ -31,21 +31,23 @@ function normalize(name) {
   return COUNTRY_NAMES[plain] ?? plain
 }
 
+// Each word starting with a capital, including ones that begin with an
+// accented letter ("ŌHARA" as "Ōhara"), but not after an apostrophe.
+function capitalised(text) {
+  return text
+    .toLowerCase()
+    .replace(/(^|[^\p{L}\p{M}'’])(\p{Ll})/gu, (_, before, letter) => before + letter.toUpperCase())
+}
+
 // "ST. PAUL" as "St. Paul", and "USA" left as it is.
 function titleCase(name) {
-  return name
-    .toLowerCase()
-    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase())
-    .replace('Usa', 'USA')
+  return capitalised(name).replace('Usa', 'USA')
 }
 
 // Where a journey is, in words, for Get Ready and a stop's weather ("Times are
 // local to Waseda."): "WASEDA · TOKYO, JAPAN" becomes "Waseda".
 export function journeyPlaceName(journey) {
-  return journey.location
-    .split(' · ')[0]
-    .toLowerCase()
-    .replace(/(^|[\s.-])([a-z])/g, (_, before, letter) => before + letter.toUpperCase())
+  return capitalised(journey.location.split(' · ')[0])
 }
 
 // A journey's places, from the most local to the country: the area it's in,

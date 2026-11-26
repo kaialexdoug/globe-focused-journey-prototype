@@ -48,8 +48,17 @@ async function fetchOriginal(image, file) {
   // Wikimedia sometimes answers a quick run of requests with an error page,
   // so a failed try waits a little longer each time, up to four tries.
   for (let attempt = 1; ; attempt += 1) {
-    const response = await fetch(image.download_url, { headers: { 'User-Agent': 'UnfoldPhotoPipeline/1.0' } })
-    const bytes = Buffer.from(await response.arrayBuffer())
+    // A dropped connection is tried again like a refused download.
+    let response
+    let bytes
+    try {
+      response = await fetch(image.download_url, { headers: { 'User-Agent': 'UnfoldPhotoPipeline/1.0' } })
+      bytes = Buffer.from(await response.arrayBuffer())
+    } catch (error) {
+      if (attempt === 4) throw new Error(`${image.image_id}: download failed (${error.message})`)
+      await new Promise((resolve) => setTimeout(resolve, 4000 * attempt))
+      continue
+    }
     if (response.ok && bytes[0] === 0xff && bytes[1] === 0xd8) {
       fs.mkdirSync(path.dirname(file), { recursive: true })
       fs.writeFileSync(file, bytes)
@@ -59,7 +68,12 @@ async function fetchOriginal(image, file) {
       return
     }
     if (attempt === 4) throw new Error(`${image.image_id}: download failed (${response.status}, or not a JPEG)`)
-    await new Promise((resolve) => setTimeout(resolve, 4000 * attempt))
+    // When Wikimedia says how long to wait (it asks for 10 minutes after too
+    // many full-size downloads), wait that long, up to 15 minutes.
+    const asked = Number(response.headers.get('retry-after'))
+    const wait = asked > 0 ? Math.min(asked, 900) * 1000 : 4000 * attempt
+    if (asked > 0) console.log(`${image.image_id}: Wikimedia asked to wait ${Math.round(wait / 60000)} min; waiting`)
+    await new Promise((resolve) => setTimeout(resolve, wait))
   }
 }
 
