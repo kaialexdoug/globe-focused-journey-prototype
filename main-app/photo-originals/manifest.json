@@ -9039,6 +9039,1711 @@
       },
       "quality_status": "passed",
       "processed_at": "2026-11-26T14:47:13.746Z"
+    },
+    {
+      "image_id": "key-biscayne-hero",
+      "journey_id": "keyBiscayne",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Playful",
+      "title": "Pavo cristatus (Indian Peafowl) 32.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pavo_cristatus_(Indian_Peafowl)_32.jpg",
+      "creator": "gary_leavens",
+      "license": "CC BY-SA 2.0",
+      "location_verified": "Commons GPS 25.70889,-80.15339 (Crandon Park, 2019)",
+      "original": "key-biscayne/hero.jpg",
+      "processed": "src/assets/journey/key-biscayne/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Pavo%20cristatus%20(Indian%20Peafowl)%2032.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0,
+        "reduced": true,
+        "settings": {
+          "contrast": 0.04,
+          "saturation": -0.03,
+          "brightness": 0,
+          "warmth": 0.01,
+          "green": 0,
+          "sharpen": 0.6
+        }
+      },
+      "processed_size": {
+        "width": 1600,
+        "height": 1067,
+        "bytes": 265840
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.1231,
+          "after": 0.1142
+        },
+        "crushed": {
+          "before": 0.0025,
+          "after": 0.0029
+        },
+        "saturation": {
+          "before": 0.187,
+          "after": 0.1872
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:41:51.920Z"
+    },
+    {
+      "image_id": "key-biscayne-skyline",
+      "journey_id": "keyBiscayne",
+      "stop_id": "hobieSkyline",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "Miami skyline from rusty pelican 1.JPG",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Miami_skyline_from_rusty_pelican_1.JPG",
+      "creator": "Captain-tucker",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons GPS 25.74785,-80.17569 (Virginia Key, by Hobie Island Beach Park)",
+      "original": "key-biscayne/skyline.jpg",
+      "processed": "src/assets/journey/key-biscayne/skyline.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Miami%20skyline%20from%20rusty%20pelican%201.JPG?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 811,
+        "bytes": 177524
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0001,
+          "after": 0.0003
+        },
+        "crushed": {
+          "before": 0.0102,
+          "after": 0.016
+        },
+        "saturation": {
+          "before": 0.3934,
+          "after": 0.3862
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:41:55.110Z"
+    },
+    {
+      "image_id": "key-biscayne-rusty-pelican",
+      "journey_id": "keyBiscayne",
+      "stop_id": "hobieSkyline",
+      "role": "nearby",
+      "primary_mood": "Playful",
+      "title": "Miami skyline from rusty pelican 2.JPG",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Miami_skyline_from_rusty_pelican_2.JPG",
+      "creator": "Captain-tucker",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons description: the skyline taken from the Rusty Pelican restaurant",
+      "original": "key-biscayne/rusty-pelican.jpg",
+      "processed": "src/assets/journey/key-biscayne/rusty-pelican.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Miami%20skyline%20from%20rusty%20pelican%202.JPG?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 193343
+      },
+      "qa": {
+        "clipped": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.3597,
+          "after": 0.3528
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:41:57.929Z"
+    },
+    {
+      "image_id": "key-biscayne-beach",
+      "journey_id": "keyBiscayne",
+      "stop_id": "crandonBeach",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "Crandon Beach.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Crandon_Beach.jpg",
+      "creator": "Mathieu Plourde",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons title and category: Crandon Park beach",
+      "original": "key-biscayne/beach.jpg",
+      "processed": "src/assets/journey/key-biscayne/beach.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Crandon%20Beach.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 165510
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0004,
+          "after": 0.0009
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.3322,
+          "after": 0.3426
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:00.771Z"
+    },
+    {
+      "image_id": "key-biscayne-palms",
+      "journey_id": "keyBiscayne",
+      "stop_id": "crandonBeach",
+      "role": "nearby",
+      "primary_mood": "Playful",
+      "title": "Crandon Park Modified.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Crandon_Park_Modified.jpg",
+      "creator": "Paulkondratuk3194",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons description: view west from the beach into Crandon Park",
+      "original": "key-biscayne/palms.jpg",
+      "processed": "src/assets/journey/key-biscayne/palms.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Crandon%20Park%20Modified.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 973,
+        "bytes": 250504
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0163,
+          "after": 0.0211
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.2841,
+          "after": 0.2835
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:03.663Z"
+    },
+    {
+      "image_id": "key-biscayne-peacock",
+      "journey_id": "keyBiscayne",
+      "stop_id": "crandonGardens",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "Pavo cristatus (Indian Peafowl) 31.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Pavo_cristatus_(Indian_Peafowl)_31.jpg",
+      "creator": "gary_leavens",
+      "license": "CC BY-SA 2.0",
+      "location_verified": "Commons GPS 25.70889,-80.15339 (Crandon Park, 2019)",
+      "original": "key-biscayne/peacock.jpg",
+      "processed": "src/assets/journey/key-biscayne/peacock.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Pavo%20cristatus%20(Indian%20Peafowl)%2031.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 818,
+        "bytes": 202803
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0638,
+          "after": 0.0354
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "saturation": {
+          "before": 0.2199,
+          "after": 0.2301
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:06.535Z"
+    },
+    {
+      "image_id": "key-biscayne-sunset",
+      "journey_id": "keyBiscayne",
+      "stop_id": "noNameHarbor",
+      "role": "stop",
+      "primary_mood": "Playful",
+      "title": "SUNSET AT BISCAYNE BAY, MIAMI, FLORIDA. - panoramio.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:SUNSET_AT_BISCAYNE_BAY,_MIAMI,_FLORIDA._-_panoramio.jpg",
+      "creator": "Rodolfo L. Hernandez",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons GPS 25.67546,-80.16484 (No Name Harbor)",
+      "original": "key-biscayne/sunset.jpg",
+      "processed": "src/assets/journey/key-biscayne/sunset.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/SUNSET%20AT%20BISCAYNE%20BAY%2C%20MIAMI%2C%20FLORIDA.%20-%20panoramio.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 963,
+        "bytes": 181967
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.072,
+          "after": 0.0786
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.4056,
+          "after": 0.4476
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:09.641Z"
+    },
+    {
+      "image_id": "key-biscayne-boaters-grill",
+      "journey_id": "keyBiscayne",
+      "stop_id": "noNameHarbor",
+      "role": "nearby",
+      "primary_mood": "Playful",
+      "title": "SUNSET AT BOATER'S GRILL - panoramio.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:SUNSET_AT_BOATER'S_GRILL_-_panoramio.jpg",
+      "creator": "Rodolfo L. Hernandez",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons GPS 25.67536,-80.16160 (Boater's Grill, No Name Harbor)",
+      "original": "key-biscayne/boaters-grill.jpg",
+      "processed": "src/assets/journey/key-biscayne/boaters-grill.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/SUNSET%20AT%20BOATER'S%20GRILL%20-%20panoramio.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 189544
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0136,
+          "after": 0.0172
+        },
+        "crushed": {
+          "before": 0.0019,
+          "after": 0.0029
+        },
+        "saturation": {
+          "before": 0.179,
+          "after": 0.2029
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:12.594Z"
+    },
+    {
+      "image_id": "key-biscayne-lighthouse",
+      "journey_id": "keyBiscayne",
+      "stop_id": "noNameHarbor",
+      "role": "nearby",
+      "primary_mood": "Playful",
+      "title": "Cape Florida Lighthouse from the beach.JPG",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Cape_Florida_Lighthouse_from_the_beach.JPG",
+      "creator": "Bradleyjs34",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons GPS 25.66611,-80.15611 (Cape Florida Light)",
+      "original": "key-biscayne/lighthouse.jpg",
+      "processed": "src/assets/journey/key-biscayne/lighthouse.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cape%20Florida%20Lighthouse%20from%20the%20beach.JPG?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "playful",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.055,
+          "saturation": 0.01,
+          "brightness": 0.02,
+          "warmth": 0.02,
+          "green": 0,
+          "sharpen": 0.7
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 92248
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0011,
+          "after": 0.0025
+        },
+        "crushed": {
+          "before": 0.0817,
+          "after": 0.0857
+        },
+        "saturation": {
+          "before": 0.5661,
+          "after": 0.5663
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:15.501Z"
+    },
+    {
+      "image_id": "miami-downtown-hero",
+      "journey_id": "miamiDowntown",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Curious",
+      "title": "20170829 Miami 1881 Frost Science Museum sRGB.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:20170829_Miami_1881_Frost_Science_Museum_sRGB.jpg",
+      "creator": "Dan Lundberg",
+      "license": "CC BY-SA 2.0",
+      "location_verified": "Commons GPS 25.78514,-80.18794 and description: the oculus under the Gulf Stream Aquarium, Frost Science",
+      "original": "miami-downtown/hero.jpg",
+      "processed": "src/assets/journey/miami-downtown/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/20170829%20Miami%201881%20Frost%20Science%20Museum%20sRGB.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 1,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.09,
+          "saturation": -0.07,
+          "brightness": -0.02,
+          "warmth": 0,
+          "green": 0,
+          "sharpen": 0.9
+        }
+      },
+      "processed_size": {
+        "width": 1600,
+        "height": 1200,
+        "bytes": 313059
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0129,
+          "after": 0.0227
+        },
+        "crushed": {
+          "before": 0.0001,
+          "after": 0.0008
+        },
+        "saturation": {
+          "before": 0.6804,
+          "after": 0.6563
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:20.872Z"
+    },
+    {
+      "image_id": "miami-downtown-miami-circle",
+      "journey_id": "miamiDowntown",
+      "stop_id": "miamiCircle",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Miami Circle 20110307.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Miami_Circle_20110307.jpg",
+      "creator": "Averette",
+      "license": "CC BY 3.0",
+      "location_verified": "Commons title and category: Miami Circle",
+      "original": "miami-downtown/miami-circle.jpg",
+      "processed": "src/assets/journey/miami-downtown/miami-circle.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Miami%20Circle%2020110307.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 717,
+        "bytes": 326533
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.005,
+          "after": 0.0047
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.3788,
+          "after": 0.3802
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:23.970Z"
+    },
+    {
+      "image_id": "miami-downtown-bridge-view",
+      "journey_id": "miamiDowntown",
+      "stop_id": "miamiCircle",
+      "role": "nearby",
+      "primary_mood": "Curious",
+      "title": "Miami FL Miami Circle from Brickell Ave Bridge01.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Miami_FL_Miami_Circle_from_Brickell_Ave_Bridge01.jpg",
+      "creator": "Ebyabe",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons title: the Miami Circle seen from the Brickell Avenue Bridge",
+      "original": "miami-downtown/bridge-view.jpg",
+      "processed": "src/assets/journey/miami-downtown/bridge-view.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Miami%20FL%20Miami%20Circle%20from%20Brickell%20Ave%20Bridge01.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 371586
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0561,
+          "after": 0.0409
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.2785,
+          "after": 0.2811
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:27.127Z"
+    },
+    {
+      "image_id": "miami-downtown-metromover",
+      "journey_id": "miamiDowntown",
+      "stop_id": "metromoverRide",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Metromover Miami river bridge 2012-04.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Metromover_Miami_river_bridge_2012-04.jpg",
+      "creator": "Ed Webster",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons GPS 25.76951,-80.19233 (the Metromover bridge over the Miami River)",
+      "original": "miami-downtown/metromover.jpg",
+      "processed": "src/assets/journey/miami-downtown/metromover.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Metromover%20Miami%20river%20bridge%202012-04.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 721,
+        "bytes": 180986
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0001,
+          "after": 0.0002
+        },
+        "crushed": {
+          "before": 0.0004,
+          "after": 0.0017
+        },
+        "saturation": {
+          "before": 0.2988,
+          "after": 0.2978
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:30.070Z"
+    },
+    {
+      "image_id": "miami-downtown-bayfront",
+      "journey_id": "miamiDowntown",
+      "stop_id": "bayfrontPark",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Bayfront Park - panoramio (5).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Bayfront_Park_-_panoramio_(5).jpg",
+      "creator": "Pietro Valocchi",
+      "license": "CC BY 3.0",
+      "location_verified": "Commons GPS 25.77597,-80.18492 (Bayfront Park)",
+      "original": "miami-downtown/bayfront.jpg",
+      "processed": "src/assets/journey/miami-downtown/bayfront.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bayfront%20Park%20-%20panoramio%20(5).jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 261145
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0116,
+          "after": 0.003
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0006
+        },
+        "saturation": {
+          "before": 0.2461,
+          "after": 0.2502
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:33.087Z"
+    },
+    {
+      "image_id": "miami-downtown-bayside",
+      "journey_id": "miamiDowntown",
+      "stop_id": "bayfrontPark",
+      "role": "nearby",
+      "primary_mood": "Curious",
+      "title": "Bayside Miami.JPG",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Bayside_Miami.JPG",
+      "creator": "Jorfer",
+      "license": "Public domain",
+      "location_verified": "Commons description and category: Bayside Marketplace",
+      "original": "miami-downtown/bayside.jpg",
+      "processed": "src/assets/journey/miami-downtown/bayside.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bayside%20Miami.JPG?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 221578
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0023,
+          "after": 0.0026
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0007
+        },
+        "saturation": {
+          "before": 0.35,
+          "after": 0.3674
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:35.982Z"
+    },
+    {
+      "image_id": "miami-downtown-pamm-terrace",
+      "journey_id": "miamiDowntown",
+      "stop_id": "pammTerrace",
+      "role": "stop",
+      "primary_mood": "Curious",
+      "title": "Perez museum, Miami, Florida, Usa (51015332721).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Perez_museum,_Miami,_Florida,_Usa_(51015332721).jpg",
+      "creator": "Paolo Gamba",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons category: Pérez Art Museum Miami",
+      "original": "miami-downtown/pamm-terrace.jpg",
+      "processed": "src/assets/journey/miami-downtown/pamm-terrace.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Perez%20museum%2C%20Miami%2C%20Florida%2C%20Usa%20(51015332721).jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 896,
+        "bytes": 242964
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0032,
+          "after": 0.0047
+        },
+        "crushed": {
+          "before": 0.0025,
+          "after": 0.0069
+        },
+        "saturation": {
+          "before": 0.4188,
+          "after": 0.4083
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:38.994Z"
+    },
+    {
+      "image_id": "miami-downtown-verde",
+      "journey_id": "miamiDowntown",
+      "stop_id": "pammTerrace",
+      "role": "nearby",
+      "primary_mood": "Curious",
+      "title": "Perez Museum, Maimi, Florida, USA (51019280686).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Perez_Museum,_Maimi,_Florida,_USA_(51019280686).jpg",
+      "creator": "Paolo Gamba",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons category and description: the Pérez Art Museum’s hanging gardens",
+      "original": "miami-downtown/verde.jpg",
+      "processed": "src/assets/journey/miami-downtown/verde.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Perez%20Museum%2C%20Maimi%2C%20Florida%2C%20USA%20(51019280686).jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "curious",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.065,
+          "saturation": -0.05,
+          "brightness": -0.01,
+          "warmth": 0.005,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 1280,
+        "bytes": 626268
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0002,
+          "after": 0.0003
+        },
+        "crushed": {
+          "before": 0.0011,
+          "after": 0.0036
+        },
+        "saturation": {
+          "before": 0.6,
+          "after": 0.5681
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:42.491Z"
+    },
+    {
+      "image_id": "little-havana-hero",
+      "journey_id": "littleHavana",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Cultural",
+      "title": "Domino Park Little Havana, Miami FL, Feb 2024.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Domino_Park_Little_Havana,_Miami_FL,_Feb_2024.jpg",
+      "creator": "Phillip Pessar",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons GPS 25.76566,-80.21931 (Domino Park, 2024)",
+      "original": "little-havana/hero.jpg",
+      "processed": "src/assets/journey/little-havana/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Domino%20Park%20Little%20Havana%2C%20Miami%20FL%2C%20Feb%202024.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "cultural",
+        "mood_filter_version": 1,
+        "strength": 1,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": -0.01,
+          "brightness": 0,
+          "warmth": 0.025,
+          "green": 0,
+          "sharpen": 0.9
+        }
+      },
+      "processed_size": {
+        "width": 1600,
+        "height": 1200,
+        "bytes": 670449
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0106,
+          "after": 0.0063
+        },
+        "crushed": {
+          "before": 0.0155,
+          "after": 0.0212
+        },
+        "saturation": {
+          "before": 0.2855,
+          "after": 0.2932
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:54.497Z"
+    },
+    {
+      "image_id": "little-havana-memorial",
+      "journey_id": "littleHavana",
+      "stop_id": "cubanMemorial",
+      "role": "stop",
+      "primary_mood": "Cultural",
+      "title": "Cubanmemorialplaza.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Cubanmemorialplaza.jpg",
+      "creator": "Averette",
+      "license": "Public domain",
+      "location_verified": "Commons description: Cuban Memorial Plaza, Little Havana",
+      "original": "little-havana/memorial.jpg",
+      "processed": "src/assets/journey/little-havana/memorial.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cubanmemorialplaza.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "cultural",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.06,
+          "saturation": -0.02,
+          "brightness": 0,
+          "warmth": 0.0175,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 229160
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0355,
+          "after": 0.0163
+        },
+        "crushed": {
+          "before": 0.0014,
+          "after": 0.0018
+        },
+        "saturation": {
+          "before": 0.1985,
+          "after": 0.2027
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:42:57.487Z"
+    },
+    {
+      "image_id": "little-havana-cuba-map",
+      "journey_id": "littleHavana",
+      "stop_id": "cubanMemorial",
+      "role": "nearby",
+      "primary_mood": "Cultural",
+      "title": "Islandofcubamonument.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Islandofcubamonument.jpg",
+      "creator": "Averette",
+      "license": "Public domain",
+      "location_verified": "Commons description: the island of Cuba memorial, Cuban Memorial Boulevard",
+      "original": "little-havana/cuba-map.jpg",
+      "processed": "src/assets/journey/little-havana/cuba-map.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Islandofcubamonument.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "cultural",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.06,
+          "saturation": -0.02,
+          "brightness": 0,
+          "warmth": 0.0175,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 250429
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0868,
+          "after": 0.0835
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.1884,
+          "after": 0.2095
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:00.437Z"
+    },
+    {
+      "image_id": "little-havana-star",
+      "journey_id": "littleHavana",
+      "stop_id": "walkOfFame",
+      "role": "stop",
+      "primary_mood": "Cultural",
+      "title": "Thalia Star Little Havana Latin Walk Of Fame.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Thalia_Star_Little_Havana_Latin_Walk_Of_Fame.jpg",
+      "creator": "Phillip Pessar",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons GPS 25.76563,-80.21899 (the Walk of Fame on Calle Ocho)",
+      "original": "little-havana/star.jpg",
+      "processed": "src/assets/journey/little-havana/star.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Thalia%20Star%20Little%20Havana%20Latin%20Walk%20Of%20Fame.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "cultural",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.06,
+          "saturation": -0.02,
+          "brightness": 0,
+          "warmth": 0.0175,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 527660
+      },
+      "qa": {
+        "clipped": {
+          "before": 0,
+          "after": 0
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0
+        },
+        "saturation": {
+          "before": 0.2016,
+          "after": 0.218
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:03.833Z"
+    },
+    {
+      "image_id": "little-havana-rooster",
+      "journey_id": "littleHavana",
+      "stop_id": "walkOfFame",
+      "role": "nearby",
+      "primary_mood": "Cultural",
+      "title": "Welcome To Calle Ocho Rooster.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Welcome_To_Calle_Ocho_Rooster.jpg",
+      "creator": "Phillip Pessar",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons title: a Calle Ocho rooster, Miami",
+      "original": "little-havana/rooster.jpg",
+      "processed": "src/assets/journey/little-havana/rooster.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Welcome%20To%20Calle%20Ocho%20Rooster.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "cultural",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.06,
+          "saturation": -0.02,
+          "brightness": 0,
+          "warmth": 0.0175,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 859,
+        "bytes": 350690
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0004,
+          "after": 0.0018
+        },
+        "crushed": {
+          "before": 0.0078,
+          "after": 0.0119
+        },
+        "saturation": {
+          "before": 0.3561,
+          "after": 0.3674
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:07.578Z"
+    },
+    {
+      "image_id": "little-havana-tower-theater",
+      "journey_id": "littleHavana",
+      "stop_id": "towerTheater",
+      "role": "stop",
+      "primary_mood": "Cultural",
+      "title": "Tower Theater (Miami, Florida).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Tower_Theater_(Miami,_Florida).jpg",
+      "creator": "Tamanoeconomico",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons GPS 25.76562,-80.21935 (Tower Theater)",
+      "original": "little-havana/tower-theater.jpg",
+      "processed": "src/assets/journey/little-havana/tower-theater.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tower%20Theater%20(Miami%2C%20Florida).jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "cultural",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.06,
+          "saturation": -0.02,
+          "brightness": 0,
+          "warmth": 0.0175,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 1024,
+        "bytes": 184506
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0508,
+          "after": 0.0058
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0003
+        },
+        "saturation": {
+          "before": 0.2338,
+          "after": 0.2345
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:10.935Z"
+    },
+    {
+      "image_id": "little-havana-domino-park",
+      "journey_id": "littleHavana",
+      "stop_id": "dominoPark",
+      "role": "stop",
+      "primary_mood": "Cultural",
+      "title": "Domino Park (Miami, Florida).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Domino_Park_(Miami,_Florida).jpg",
+      "creator": "Tamanoeconomico",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons GPS 25.76562,-80.21935 (Domino Park)",
+      "original": "little-havana/domino-park.jpg",
+      "processed": "src/assets/journey/little-havana/domino-park.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Domino%20Park%20(Miami%2C%20Florida).jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "cultural",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.06,
+          "saturation": -0.02,
+          "brightness": 0,
+          "warmth": 0.0175,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 1024,
+        "bytes": 291217
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.083,
+          "after": 0.0122
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0002
+        },
+        "saturation": {
+          "before": 0.2391,
+          "after": 0.2556
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:13.987Z"
+    },
+    {
+      "image_id": "little-havana-versailles",
+      "journey_id": "littleHavana",
+      "stop_id": "versailles",
+      "role": "stop",
+      "primary_mood": "Cultural",
+      "title": "Versailles Restaurant - Little Havana, Miami, October 2010.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Versailles_Restaurant_-_Little_Havana,_Miami,_October_2010.jpg",
+      "creator": "Eugene Kim",
+      "license": "CC BY 2.0",
+      "location_verified": "Commons title: Versailles Restaurant, Little Havana",
+      "original": "little-havana/versailles.jpg",
+      "processed": "src/assets/journey/little-havana/versailles.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Versailles%20Restaurant%20-%20Little%20Havana%2C%20Miami%2C%20October%202010.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "cultural",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.06,
+          "saturation": -0.02,
+          "brightness": 0,
+          "warmth": 0.0175,
+          "green": 0,
+          "sharpen": 0.75
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 225886
+      },
+      "qa": {
+        "clipped": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "crushed": {
+          "before": 0.0476,
+          "after": 0.0576
+        },
+        "saturation": {
+          "before": 0.2172,
+          "after": 0.2124
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:16.943Z"
+    },
+    {
+      "image_id": "miccosukee-hero",
+      "journey_id": "miccosukee",
+      "stop_id": null,
+      "role": "hero",
+      "primary_mood": "Adventurous",
+      "title": "Miccosukee airboat tour.JPG",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Miccosukee_airboat_tour.JPG",
+      "creator": "Palmtreeshadows",
+      "license": "CC BY-SA 4.0",
+      "location_verified": "Commons title and description: a Miccosukee airboat tour in the Everglades (2015)",
+      "original": "miccosukee/hero.jpg",
+      "processed": "src/assets/journey/miccosukee/hero.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Miccosukee%20airboat%20tour.JPG?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 1,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.12,
+          "saturation": 0.03,
+          "brightness": 0,
+          "warmth": 0.015,
+          "green": 0,
+          "sharpen": 1.1
+        }
+      },
+      "processed_size": {
+        "width": 1600,
+        "height": 1200,
+        "bytes": 520139
+      },
+      "qa": {
+        "clipped": {
+          "before": 0,
+          "after": 0.0001
+        },
+        "crushed": {
+          "before": 0,
+          "after": 0.0002
+        },
+        "saturation": {
+          "before": 0.2452,
+          "after": 0.2739
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:22.503Z"
+    },
+    {
+      "image_id": "miccosukee-village",
+      "journey_id": "miccosukee",
+      "stop_id": "tamiamiTrail",
+      "role": "stop",
+      "primary_mood": "Adventurous",
+      "title": "Miccosukee Indian Village, Miccosukee Indian Reservation, Florida. - panoramio.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Miccosukee_Indian_Village,_Miccosukee_Indian_Reservation,_Florida._-_panoramio.jpg",
+      "creator": "olekinderhook",
+      "license": "CC BY 3.0",
+      "location_verified": "Commons GPS 25.76129,-80.77519 (the village entrance on the Tamiami Trail)",
+      "original": "miccosukee/village.jpg",
+      "processed": "src/assets/journey/miccosukee/village.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Miccosukee%20Indian%20Village%2C%20Miccosukee%20Indian%20Reservation%2C%20Florida.%20-%20panoramio.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 857,
+        "bytes": 383294
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0465,
+          "after": 0.0333
+        },
+        "crushed": {
+          "before": 0.0003,
+          "after": 0.0012
+        },
+        "saturation": {
+          "before": 0.2641,
+          "after": 0.295
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:25.774Z"
+    },
+    {
+      "image_id": "miccosukee-baby-gator",
+      "journey_id": "miccosukee",
+      "stop_id": "alligatorShow",
+      "role": "stop",
+      "primary_mood": "Adventurous",
+      "title": "Miccosukee guide & baby A. mississippiensis.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Miccosukee_guide_%26_baby_A._mississippiensis.jpg",
+      "creator": "Ianaré Sévi",
+      "license": "CC BY-SA 3.0",
+      "location_verified": "Commons GPS 25.76010,-80.77564 (Miccosukee Indian Village)",
+      "original": "miccosukee/baby-gator.jpg",
+      "processed": "src/assets/journey/miccosukee/baby-gator.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Miccosukee%20guide%20%26%20baby%20A.%20mississippiensis.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 940,
+        "height": 1280,
+        "bytes": 231998
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0166,
+          "after": 0.0144
+        },
+        "crushed": {
+          "before": 0.0086,
+          "after": 0.0115
+        },
+        "saturation": {
+          "before": 0.3947,
+          "after": 0.4234
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:28.944Z"
+    },
+    {
+      "image_id": "miccosukee-boardwalk",
+      "journey_id": "miccosukee",
+      "stop_id": "sharkValley",
+      "role": "stop",
+      "primary_mood": "Adventurous",
+      "title": "Bobcat Boardwalk Opening with Sign (30810716888).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Bobcat_Boardwalk_Opening_with_Sign_(30810716888).jpg",
+      "creator": "National Park Service (evergladesnps)",
+      "license": "Public domain",
+      "location_verified": "Commons category: Shark Valley (an NPS photo of the Bobcat Boardwalk)",
+      "original": "miccosukee/boardwalk.jpg",
+      "processed": "src/assets/journey/miccosukee/boardwalk.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bobcat%20Boardwalk%20Opening%20with%20Sign%20(30810716888).jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.25,
+        "reduced": true,
+        "settings": {
+          "contrast": 0.06,
+          "saturation": -0.015,
+          "brightness": 0,
+          "warmth": 0.0113,
+          "green": 0,
+          "sharpen": 0.725
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 960,
+        "bytes": 366230
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0177,
+          "after": 0.0094
+        },
+        "crushed": {
+          "before": 0.0268,
+          "after": 0.0393
+        },
+        "saturation": {
+          "before": 0.3881,
+          "after": 0.3818
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:32.630Z"
+    },
+    {
+      "image_id": "miccosukee-marsh-sunset",
+      "journey_id": "miccosukee",
+      "stop_id": "sharkValley",
+      "role": "nearby",
+      "primary_mood": "Adventurous",
+      "title": "Watching Sunset Over Marshes.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Watching_Sunset_Over_Marshes.jpg",
+      "creator": "Wing-Chi Poon",
+      "license": "CC BY-SA 2.5",
+      "location_verified": "Commons GPS 25.75572,-80.76650 (Shark Valley)",
+      "original": "miccosukee/marsh-sunset.jpg",
+      "processed": "src/assets/journey/miccosukee/marsh-sunset.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Watching%20Sunset%20Over%20Marshes.jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 850,
+        "bytes": 340363
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.2066,
+          "after": 0.2089
+        },
+        "crushed": {
+          "before": 0.0062,
+          "after": 0.016
+        },
+        "saturation": {
+          "before": 0.6349,
+          "after": 0.6248
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:35.668Z"
+    },
+    {
+      "image_id": "miccosukee-gator",
+      "journey_id": "miccosukee",
+      "stop_id": "sharkValley",
+      "role": "nearby",
+      "primary_mood": "Adventurous",
+      "title": "Watchful Alligator (6743023761).jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Watchful_Alligator_(6743023761).jpg",
+      "creator": "KimonBerlin",
+      "license": "CC BY-SA 2.0",
+      "location_verified": "Commons description: the Shark Valley Trail",
+      "original": "miccosukee/gator.jpg",
+      "processed": "src/assets/journey/miccosukee/gator.jpg",
+      "crop_focal_point": "center",
+      "approved_at": "2026-11-28",
+      "download_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Watchful%20Alligator%20(6743023761).jpg?width=1920",
+      "treatment": {
+        "base_look_id": "unfold-base",
+        "base_look_version": 1,
+        "mood_filter_id": "adventurous",
+        "mood_filter_version": 1,
+        "strength": 0.5,
+        "reduced": false,
+        "settings": {
+          "contrast": 0.08,
+          "saturation": 0,
+          "brightness": 0,
+          "warmth": 0.0125,
+          "green": 0,
+          "sharpen": 0.85
+        }
+      },
+      "processed_size": {
+        "width": 1280,
+        "height": 853,
+        "bytes": 240537
+      },
+      "qa": {
+        "clipped": {
+          "before": 0.0001,
+          "after": 0.0003
+        },
+        "crushed": {
+          "before": 0.0009,
+          "after": 0.0026
+        },
+        "saturation": {
+          "before": 0.2708,
+          "after": 0.3077
+        },
+        "reasons": []
+      },
+      "quality_status": "passed",
+      "processed_at": "2026-11-27T15:43:38.672Z"
     }
   ]
 }

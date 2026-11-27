@@ -4461,6 +4461,42 @@ button.detailBar:active {
   );
 }
 
+/* Its kind (a photo spot, food and drink, or museums and culture), as a small
+   frosted tag in the photo's top corner; in the simple list, a quiet line
+   above the name. */
+.nearbyKind {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.nearbyKind svg {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  stroke-width: 2;
+}
+
+.nearbyCardPhoto .nearbyKind {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 9px 5px 7px;
+  border-radius: 999px;
+  background-color: rgba(10, 14, 22, 0.62);
+  backdrop-filter: blur(6px);
+  color: white;
+}
+
+.nearbyList .nearbyKind {
+  margin-bottom: 4px;
+  color: var(--ink-muted);
+}
+
 .nearbyCardName {
   font-size: 17px;
   font-weight: 500;

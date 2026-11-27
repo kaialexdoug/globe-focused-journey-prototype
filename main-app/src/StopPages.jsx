@@ -1,7 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import Header, { SectionHeader } from './Header.jsx'
-import { ArrowRightIcon, ChevronRightIcon, ClockIcon, NavigateIcon, PinIcon } from './Icons.jsx'
+import {
+  ArrowRightIcon,
+  CameraIcon,
+  ChevronRightIcon,
+  ClockIcon,
+  CulinaryIcon,
+  NavigateIcon,
+  ParthenonIcon,
+  PinIcon,
+} from './Icons.jsx'
 import LiveMap from './LiveMap.jsx'
 import Narration from './Narration.jsx'
 import PhotoScreen from './PhotoScreen.jsx'
@@ -229,6 +238,29 @@ function distanceText(meters, units) {
   return `about ${Math.round(meters / 100) / 10} km away`
 }
 
+// What kind of spot a nearby one is (`kind`), after the V2 handoff's three
+// groups: a photo spot or view, somewhere to eat or drink, or a museum or
+// monument. It's a small tag on the spot's photo (or before its name, in the
+// simple list). A spot without a `kind` has no tag.
+const NEARBY_KINDS = {
+  photo: { label: 'Photo spot', Icon: CameraIcon },
+  food: { label: 'Food & drink', Icon: CulinaryIcon },
+  culture: { label: 'Museums & culture', Icon: ParthenonIcon },
+}
+
+function NearbyKind({ kind }) {
+  const each = NEARBY_KINDS[kind]
+  if (!each) {
+    return null
+  }
+  return (
+    <span className="nearbyKind">
+      <each.Icon />
+      {each.label}
+    </span>
+  )
+}
+
 // Interesting spots close to a stop (`nearby` on its card), after the
 // suggested time: each one's name, how far it is, and what it is.
 //
@@ -259,6 +291,7 @@ function NearbySpots({ spots }) {
         <ul className="nearbyList">
           {spots.map((spot) => (
             <li key={spot.name}>
+              <NearbyKind kind={spot.kind} />
               <p className="nearbyName">
                 {spot.name} <span className="nearbyDistance">{distanceText(spot.meters, units)}</span>
               </p>
@@ -299,6 +332,7 @@ function NearbyCard({ spot, open, onToggle }) {
     <div className="nearbyCard">
       <div className="nearbyCardPhoto">
         <img src={spot.photo} alt={spot.photoAlt ?? ''} style={{ objectPosition: spot.photoPosition }} loading="lazy" />
+        <NearbyKind kind={spot.kind} />
         <p className="nearbyCardName">{spot.name}</p>
         <p className="nearbyCardDistance">
           <PinIcon />

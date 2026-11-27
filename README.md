@@ -524,13 +524,46 @@ too.
 | [Cape Town (ZA), Wale Street -- 2024 -- 3536](https://commons.wikimedia.org/wiki/File:Cape_Town_%28ZA%29,_Wale_Street_--_2024_--_3536.jpg) | `cape-town/wale-street.jpg` | Dietmar Rabich | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
 | [Dorp Street, Bo-Kaap, Cape Town](https://commons.wikimedia.org/wiki/File:Dorp_Street,_Bo-Kaap,_Cape_Town.JPG) | `cape-town/dorp-street.jpg` | Martinvl | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
 | [Sunset from Signal Hill 2019](https://commons.wikimedia.org/wiki/File:Sunset_from_Signal_Hill_2019.jpg) | `cape-town/signal-hill.jpg` | kallerna | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Pavo cristatus (Indian Peafowl) 32](https://commons.wikimedia.org/wiki/File:Pavo_cristatus_%28Indian_Peafowl%29_32.jpg) | `key-biscayne/hero.jpg` | gary_leavens | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) |
+| [Miami skyline from rusty pelican 1](https://commons.wikimedia.org/wiki/File:Miami_skyline_from_rusty_pelican_1.JPG) | `key-biscayne/skyline.jpg` | Captain-tucker | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Miami skyline from rusty pelican 2](https://commons.wikimedia.org/wiki/File:Miami_skyline_from_rusty_pelican_2.JPG) | `key-biscayne/rusty-pelican.jpg` | Captain-tucker | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Crandon Beach](https://commons.wikimedia.org/wiki/File:Crandon_Beach.jpg) | `key-biscayne/beach.jpg` | Mathieu Plourde | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Crandon Park Modified](https://commons.wikimedia.org/wiki/File:Crandon_Park_Modified.jpg) | `key-biscayne/palms.jpg` | Paulkondratuk3194 | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Pavo cristatus (Indian Peafowl) 31](https://commons.wikimedia.org/wiki/File:Pavo_cristatus_%28Indian_Peafowl%29_31.jpg) | `key-biscayne/peacock.jpg` | gary_leavens | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) |
+| [SUNSET AT BISCAYNE BAY, MIAMI, FLORIDA. - panoramio](https://commons.wikimedia.org/wiki/File:SUNSET_AT_BISCAYNE_BAY,_MIAMI,_FLORIDA._-_panoramio.jpg) | `key-biscayne/sunset.jpg` | Rodolfo L. Hernandez | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [SUNSET AT BOATER'S GRILL - panoramio](https://commons.wikimedia.org/wiki/File:SUNSET_AT_BOATER%27S_GRILL_-_panoramio.jpg) | `key-biscayne/boaters-grill.jpg` | Rodolfo L. Hernandez | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Cape Florida Lighthouse from the beach](https://commons.wikimedia.org/wiki/File:Cape_Florida_Lighthouse_from_the_beach.JPG) | `key-biscayne/lighthouse.jpg` | Bradleyjs34 | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [20170829 Miami 1881 Frost Science Museum sRGB](https://commons.wikimedia.org/wiki/File:20170829_Miami_1881_Frost_Science_Museum_sRGB.jpg) | `miami-downtown/hero.jpg` | Dan Lundberg | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) |
+| [Miami Circle 20110307](https://commons.wikimedia.org/wiki/File:Miami_Circle_20110307.jpg) | `miami-downtown/miami-circle.jpg` | Averette | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0) |
+| [Miami FL Miami Circle from Brickell Ave Bridge01](https://commons.wikimedia.org/wiki/File:Miami_FL_Miami_Circle_from_Brickell_Ave_Bridge01.jpg) | `miami-downtown/bridge-view.jpg` | Ebyabe | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Metromover Miami river bridge 2012-04](https://commons.wikimedia.org/wiki/File:Metromover_Miami_river_bridge_2012-04.jpg) | `miami-downtown/metromover.jpg` | Ed Webster | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Bayfront Park - panoramio (5)](https://commons.wikimedia.org/wiki/File:Bayfront_Park_-_panoramio_%285%29.jpg) | `miami-downtown/bayfront.jpg` | Pietro Valocchi | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0) |
+| [Bayside Miami](https://commons.wikimedia.org/wiki/File:Bayside_Miami.JPG) | `miami-downtown/bayside.jpg` | Jorfer | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+| [Perez museum, Miami, Florida, Usa (51015332721)](https://commons.wikimedia.org/wiki/File:Perez_museum,_Miami,_Florida,_Usa_%2851015332721%29.jpg) | `miami-downtown/pamm-terrace.jpg` | Paolo Gamba | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Perez Museum, Maimi, Florida, USA (51019280686)](https://commons.wikimedia.org/wiki/File:Perez_Museum,_Maimi,_Florida,_USA_%2851019280686%29.jpg) | `miami-downtown/verde.jpg` | Paolo Gamba | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Domino Park Little Havana, Miami FL, Feb 2024](https://commons.wikimedia.org/wiki/File:Domino_Park_Little_Havana,_Miami_FL,_Feb_2024.jpg) | `little-havana/hero.jpg` | Phillip Pessar | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Cubanmemorialplaza](https://commons.wikimedia.org/wiki/File:Cubanmemorialplaza.jpg) | `little-havana/memorial.jpg` | Averette | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+| [Islandofcubamonument](https://commons.wikimedia.org/wiki/File:Islandofcubamonument.jpg) | `little-havana/cuba-map.jpg` | Averette | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+| [Thalia Star Little Havana Latin Walk Of Fame](https://commons.wikimedia.org/wiki/File:Thalia_Star_Little_Havana_Latin_Walk_Of_Fame.jpg) | `little-havana/star.jpg` | Phillip Pessar | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Welcome To Calle Ocho Rooster](https://commons.wikimedia.org/wiki/File:Welcome_To_Calle_Ocho_Rooster.jpg) | `little-havana/rooster.jpg` | Phillip Pessar | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Tower Theater (Miami, Florida)](https://commons.wikimedia.org/wiki/File:Tower_Theater_%28Miami,_Florida%29.jpg) | `little-havana/tower-theater.jpg` | Tamanoeconomico | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Domino Park (Miami, Florida)](https://commons.wikimedia.org/wiki/File:Domino_Park_%28Miami,_Florida%29.jpg) | `little-havana/domino-park.jpg` | Tamanoeconomico | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Versailles Restaurant - Little Havana, Miami, October 2010](https://commons.wikimedia.org/wiki/File:Versailles_Restaurant_-_Little_Havana,_Miami,_October_2010.jpg) | `little-havana/versailles.jpg` | Eugene Kim | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0) |
+| [Miccosukee airboat tour](https://commons.wikimedia.org/wiki/File:Miccosukee_airboat_tour.JPG) | `miccosukee/hero.jpg` | Palmtreeshadows | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0) |
+| [Miccosukee Indian Village, Miccosukee Indian Reservation, Florida. - panoramio](https://commons.wikimedia.org/wiki/File:Miccosukee_Indian_Village,_Miccosukee_Indian_Reservation,_Florida._-_panoramio.jpg) | `miccosukee/village.jpg` | olekinderhook | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0) |
+| [Miccosukee guide & baby A. mississippiensis](https://commons.wikimedia.org/wiki/File:Miccosukee_guide_%26_baby_A._mississippiensis.jpg) | `miccosukee/baby-gator.jpg` | Ianaré Sévi | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0) |
+| [Bobcat Boardwalk Opening with Sign (30810716888)](https://commons.wikimedia.org/wiki/File:Bobcat_Boardwalk_Opening_with_Sign_%2830810716888%29.jpg) | `miccosukee/boardwalk.jpg` | National Park Service (evergladesnps) | [Public domain](https://en.wikipedia.org/wiki/Public_domain) |
+| [Watching Sunset Over Marshes](https://commons.wikimedia.org/wiki/File:Watching_Sunset_Over_Marshes.jpg) | `miccosukee/marsh-sunset.jpg` | Wing-Chi Poon | [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5) |
+| [Watchful Alligator (6743023761)](https://commons.wikimedia.org/wiki/File:Watchful_Alligator_%286743023761%29.jpg) | `miccosukee/gator.jpg` | KimonBerlin | [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0) |
 
 Stops with no licensed photo yet show `journey/no-image.svg`, a plain
 "No image available" card made for the app (no credit needed): Dunmore Town on
 Harbour Island, the Observation Tower and post office on Castaway Cay, the
 beach at the end of the Bonnet House journey, the Alphonso Giles Boat Ramp, the
-evening stop at Matira on Bora Bora, and Harishchandra Ghat in Varanasi (a
-cremation ghat, left without a photo on purpose).
+evening stop at Matira on Bora Bora, Harishchandra Ghat in Varanasi (a
+cremation ghat, left without a photo on purpose), the nature center and fossil
+reef on Key Biscayne, and the Miccosukee museum and the Miccosukee Restaurant
+(a nearby spot) on the Tamiami Trail.
 Real photos can replace it later.
 
 These five Cumberland photos were found in a web search in November 2026,
@@ -554,7 +587,8 @@ The journeys made to the V2 handoff (so far `marunouchi/`, `duluth-romantic/`,
 `harbour-island/`, `castaway-cay/`, `ftl-river/`, `bonnet-house/`,
 `wade-ins/`, `barefoot-mailman/`, `hollywood-beach/` and the eleven flagship
 folders: `bora-bora/`, `mont-saint-michel/`, `florence/`, `chefchaouen/`, `new-york/`,
-`san-francisco/`, `la-jolla/`, `banff/`, `varanasi/`, `chiang-mai/` and `cape-town/`) keep their
+`san-francisco/`, `la-jolla/`, `banff/`, `varanasi/`, `chiang-mai/`, `cape-town/`, and the four
+Miami family journeys' `key-biscayne/`, `miami-downtown/`, `little-havana/` and `miccosukee/`) keep their
 untouched downloads in `main-app/photo-originals/` (on the computer that made
 them, not in git: `npm run photos -- --fetch` downloads any that are missing,
 from exactly where they came from), and the app uses treated copies: Unfold's base look plus the journey's mood on top, at full strength

@@ -4,7 +4,8 @@ The record the V2 handoff asks for (sections 3.9, 7 and 10): for each journey
 attempted, its test group, mood and audience, the peak and why, what was
 checked and what's still uncertain, a self-check against the quality gate,
 and the candidates turned down and why. It's the raw material for the
-evaluation report, which comes once the journeys are made.
+evaluation report (27 Nov 2026): *Journey Engine V2 Evaluation Report*, a Claude
+Doc at https://claude.ai/artifact/CXo7TVTup9nKmHfqRgrQpr
 
 The scores are Claude's own check against the handoff's weights, not the
 independent review it asks for: each journey still needs that, and ideally a
@@ -974,3 +975,133 @@ so they'd need looking at again.
 - **Uncertain, and marked so:** admission prices (left to Iziko and the
   Bo-Kaap Museum).
 - **Self-check scores:** 22, 22, 18, 14, 9, 5. **90/100.**
+
+---
+
+## The Miami family group (28 Nov 2026)
+
+Not part of the 33-case suite: the developer asked for three family journeys
+in Miami (one on Key Biscayne) and a fourth with a Miccosukee airboat ride,
+with photo and drone spots recommended where possible, at least one
+restaurant per journey, and a parking tip in each Before You Go. Unfold's
+existing Miami Beach journey (*From Mangroves to Neon*) already covers South
+Beach, so these go elsewhere. All four are for families, each with a
+different mood.
+
+| Candidate | Outcome | Why |
+| --- | --- | --- |
+| Key Biscayne: Crandon Park and No Name Harbor | **Made** (29) | The requested Key Biscayne journey, rebuilt around Crandon (below). |
+| The Cape Florida Lighthouse as Key Biscayne's peak | Rejected | Florida State Parks: the lighthouse grounds have been closed since 28 Oct 2026 after king-tide flooding, with tours cancelled. It's a photo spot instead. |
+| Downtown: the Miami Circle, Metromover and Frost Science | **Made** (30) | Year-round, free transport, and a strong peak for children. |
+| Little Havana and Calle Ocho | **Made** (31) | Miami's best-known culture, kept to the family side of the street. |
+| The Miccosukee airboats and Shark Valley | **Made** (32) | The requested airboat journey. |
+| The Venetian Pool, Coral Gables | Rejected | The city expects it to be closed every December and January: a family's peak shut for two winter months. |
+| Virginia Key Beach Park's carousel and mini train | Rejected | A March 2026 visitor reported neither was running, and the park's own pages don't say. |
+| Azúcar Ice Cream, Little Havana | Left out | Its Calle Ocho shop may have closed (one listing marks it closed; the owner told the Herald sales had fallen). |
+
+**Drone spots:** none could be recommended, after checking the official rules
+for every stop:
+- Florida state parks (Bill Baggs) ban launching drones, under 62D-2.014.
+- Miami-Dade County parks (Crandon) ban launching any aircraft without the
+  parks director's written permission (Code 26-1, Rule 12; $100 fine).
+- Everglades National Park (Shark Valley) bans them.
+- City of Miami parks need a special events permit, by third-party summaries
+  (the city's own text wasn't found).
+- Miami International Airport bans drones within a mile of county airports
+  and asks flyers within five miles to call the tower.
+
+Each journey says so in Before You Go, and recommends photo spots instead.
+
+**Nearby spots** now carry a `kind` (`photo`, `food` or `culture`, the V2
+update's three groups), shown as a small tag on the card. Each journey has
+at least one restaurant: the Rusty Pelican and Boater's Grill (Key Biscayne),
+Bayside and Verde (downtown), Versailles (Little Havana, as the last stop) and
+the Miccosukee Restaurant.
+
+**Photos:** 31 from Wikimedia Commons (CC BY, CC BY-SA, public domain), at
+1920 pixels; all passed the automatic check (the Shark Valley boardwalk at a
+quarter-strength mood). Placeholders: the Biscayne Nature Center and fossil
+reef, the Miccosukee museum, and the Miccosukee Restaurant (a nearby spot). A
+1972 aerial labelled only "Everglades National Park" was turned down, since
+it couldn't be confirmed to show the Miccosukee village.
+
+## 29. The Island the Zoo Left Behind (`keyBiscayne`)
+
+- **Primary mood:** Playful (secondary: Curious). **Audience:** a family.
+  **Tags:** Nature, Interactive, Hidden Gems, Scenic. **Level:** Local
+  Discovery.
+- **Route:** the causeway view at Hobie Island (Departure) → the Biscayne
+  Nature Center and fossil reef (Discovery, placeholder photo) → Crandon
+  Beach and its sandbar (Build) → the Gardens at Crandon Park (Peak) → No
+  Name Harbor at sunset (Afterglow). About 11 km by car, plus a 1.5 km trail
+  each way to the reef overlook.
+- **Peak, and why:** the gardens where Miami's first zoo stood (1948 to about
+  1980), with its peacocks still there. The thread is what the island keeps.
+- **Checked against:** Miami-Dade Parks (Crandon's fees, sandbar, carousel,
+  the zoo's beginning, Rule 12), Florida State Parks (Bill Baggs: fees, the
+  closure, drones), Wikipedia (the 1940 gift, the 1947 causeway), an FIU
+  geology guide (the reef's age), Miami-Dade's causeway page (the toll).
+- **Uncertain, and marked so:** the gardens' spot (from the government's
+  survey of the zoo's old station); the carousel's hours (call ahead); Hobie
+  Island's free parking ("by most accounts"); when the zoo moved (1980 or
+  1981 by source, "around 1980").
+- **Self-check scores:** 21, 20, 17, 14, 8, 5. **85/100.** Held back by: a
+  lot of driving, a placeholder, and a peak that's charming more than grand.
+
+## 30. The Free Train to the Gulf Stream (`miamiDowntown`)
+
+- **Primary mood:** Curious (secondary: Playful). **Audience:** a family.
+  **Tags:** Interactive, Historical, Nature, Scenic. **Level:** Rich
+  Experience.
+- **Route:** the Miami Circle (Departure) → Metromover from Fifth Street,
+  over the river (Discovery) → Bayfront Park (Build) → Frost Science's Gulf
+  Stream Aquarium (Peak) → the Pérez Art Museum's terrace (Afterglow). About
+  2.8 km on foot, plus three stops on Metromover.
+- **Peak, and why:** standing under a 500,000-gallon tank, looking up through
+  its oculus. The thread is the water Miami grew from.
+- **Checked against:** Miami-Dade County (Metromover), Frost Science
+  (aquarium, tickets, hours, parking), PAMM (Verde), Wikipedia and the Florida
+  Trail of Indian Heritage (the Miami Circle).
+- **Uncertain, and marked so:** Frost's hours (sources differ); Verde's hours
+  ("check before"); Metromover's repair-work closures (alerts linked).
+- **Self-check scores:** 22, 22, 18, 14, 9, 5. **90/100.**
+
+## 31. Follow the Roosters Down Calle Ocho (`littleHavana`)
+
+- **Primary mood:** Cultural (secondary: Playful). **Audience:** a family.
+  **Tags:** Cultural, Historical, Culinary, Interactive. **Level:** Rich
+  Experience.
+- **Route:** Cuban Memorial Boulevard (Departure) → the Walk of Fame
+  (Discovery) → the Tower Theater (Build) → Domino Park (Peak) → Versailles
+  (Afterglow, dinner). About 450 m on foot, then a 4 km drive.
+- **Peak, and why:** Domino Park, the exiles' old game kept alive. Versailles
+  is a core stop because it's essential to the exile story. A rooster hunt
+  runs the whole way for the children.
+- **Checked against:** Greater Miami's tourism board (roosters, Walk of Fame,
+  Tower Theater, Domino Park, Versailles), Visit Florida, Lonely Planet (the
+  memorial boulevard), the Michelin Guide (Versailles' price).
+- **Uncertain, and marked so:** Domino Park's opening year ("since the
+  1970s"); the memorial's spot on the boulevard; the free trolley's current
+  route ("check its schedule").
+- **Self-check scores:** 21, 21, 19, 14, 9, 5. **89/100.**
+
+## 32. Across the River of Grass (`miccosukee`)
+
+- **Primary mood:** Adventurous (secondary: Curious). **Audience:** a family.
+  **Tags:** Adventure, Cultural, Nature, Interactive. **Level:** Rich
+  Experience.
+- **Route:** the village on the Tamiami Trail (Departure) → the museum
+  (Discovery, placeholder photo) → the alligator show (Build) → the airboat
+  to the island camp (Peak) → Shark Valley's Bobcat Boardwalk (Afterglow).
+  About 50 minutes' drive from Miami, then the tour and a 1.6 km drive.
+- **Peak, and why:** the airboat with tribal guides across the sawgrass to a
+  camp owned by one family for more than 100 years.
+- **Checked against:** the Miccosukee Tribe's sites (the all-inclusive tour,
+  prices, hours, the village's hours and closures, the 1983 museum), the NPS
+  (Shark Valley's hours and fees, the drone ban), Wikipedia (the Trail
+  Indians, recognition in 1962).
+- **Uncertain, and marked so:** where in the village the museum and show are
+  (approximate spots; the tour's guides set the order); whether the tour's
+  "history museum" is the village's own; the restaurant's hours.
+- **Self-check scores:** 22, 23, 17, 13, 8, 5. **88/100.** Held back by: one
+  placeholder stop, and the village's layout unconfirmed.
