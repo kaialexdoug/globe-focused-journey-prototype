@@ -152,6 +152,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Nature', 'Interactive', 'Scenic', 'Hidden Gems'],
   departure: pool,
   discovery: seals,

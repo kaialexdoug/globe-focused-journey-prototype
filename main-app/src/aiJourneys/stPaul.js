@@ -217,6 +217,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Historical', 'Cultural'],
   departure: grandAvenue,
   discovery: summitAvenue,

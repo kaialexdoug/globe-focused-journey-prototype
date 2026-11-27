@@ -158,6 +158,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Scenic', 'Nature', 'Historical', 'Hidden Gems'],
   departure: harbourFront,
   discovery: dunmoreTown,

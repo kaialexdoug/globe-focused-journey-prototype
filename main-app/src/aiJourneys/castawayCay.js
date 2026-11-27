@@ -163,6 +163,7 @@ export default {
   walking: 'Moderate walking',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'localDiscovery',
   experiences: ['Interactive', 'Scenic', 'Nature', 'Hidden Gems'],
   departure: pier,
   discovery: tower,

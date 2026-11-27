@@ -369,6 +369,7 @@ export const kawagoeJourney = {
   // For its tags on Home. How hard it is: 'Easy', 'Moderate' or 'Active'. What
   // it's mostly about: 'Scenic', 'Foodie' or 'Cultural' (each has its own symbol).
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Historical', 'Cultural', 'Culinary'],
 
   // Its stops, part by part. "Already at the starting point?" skips straight
@@ -754,6 +755,7 @@ export const odawaraJourney = {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Historical', 'Culinary', 'Cultural', 'Scenic'],
 
   departure: odawaraStation,

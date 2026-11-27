@@ -166,6 +166,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Cultural', 'Historical', 'Nature', 'Scenic'],
   departure: approach,
   discovery: sanzenIn,

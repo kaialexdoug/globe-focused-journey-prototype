@@ -225,6 +225,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'localDiscovery',
   experiences: ['Hidden Gems', 'Historical', 'Adventure', 'Scenic'],
   departure: depot,
   discovery: shoeStore,

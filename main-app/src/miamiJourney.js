@@ -257,6 +257,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Historical', 'Cultural', 'Scenic', 'Culinary'],
   departure: lincolnRoad,
   discovery: espanolaWay,

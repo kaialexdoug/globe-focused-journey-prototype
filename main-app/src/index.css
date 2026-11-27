@@ -105,11 +105,16 @@
   --feed-symbol: rgb(226, 140, 68);
   /* A journey's page (JourneyPage.jsx), after its mockup: the stronger
      orange of the bar under the tab you're on and Why It's Cool's sparkle
-     (the main buttons' own orange), and Why It's Cool's panel, a light gray,
-     with its three rows on white inside it. */
+     (the main buttons' own orange), and the white panel of Why It's Cool's
+     three rows. Then Expectations: its panel's mountains at sunset, fading
+     up into the pale sky they're painted with (the sky's own colour at the
+     top of the picture), and its pill's orange. */
   --orange-mark: rgb(218, 102, 42);
-  --panel: var(--box-gray);
   --panel-inner: white;
+  --expect-art: url('./assets/expectations/light.jpg');
+  --expect-sky: rgb(246, 242, 234);
+  --expect-sky-clear: rgba(246, 242, 234, 0);
+  --expect-pill: linear-gradient(to right, rgb(245, 160, 62), rgb(230, 112, 44));
   /* The symbols on a journey's tags on the Home feed. */
   --tag-yellow: rgb(245, 190, 65);
   --tag-green: rgb(90, 215, 110);
@@ -295,11 +300,15 @@
   --photo-panel-soft: rgba(20, 24, 32, 0.55);
   --photo-top-shade: rgba(16, 19, 26, 0.6);
   --feed-symbol: rgb(232, 168, 104);
-  /* Brighter on the dark, and the panel's rows a step lighter than it, as
-     in the mockup (in the app's own blue-blacks, not its browns). */
+  /* Brighter on the dark, and the panel a step lighter than the page (in
+     the app's own blue-blacks, not its browns). Expectations has the same
+     mountains after sunset, under a night sky. */
   --orange-mark: rgb(238, 128, 62);
-  --panel: rgb(25, 29, 38);
   --panel-inner: rgb(34, 39, 50);
+  --expect-art: url('./assets/expectations/dark.jpg');
+  --expect-sky: rgb(10, 23, 40);
+  --expect-sky-clear: rgba(10, 23, 40, 0);
+  --expect-pill: linear-gradient(to right, rgb(240, 150, 60), rgb(222, 104, 40));
 
   --night: rgb(236, 239, 245);
   --spoken-bg: rgba(249, 160, 110, 0.32);

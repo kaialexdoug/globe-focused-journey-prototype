@@ -218,6 +218,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Interactive', 'Cultural', 'Scenic'],
   departure: busTerminal,
   discovery: sainokawaraDori,

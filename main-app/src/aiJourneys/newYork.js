@@ -152,6 +152,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Hidden Gems', 'Historical', 'Interactive', 'Cultural'],
   departure: lions,
   discovery: bryant,

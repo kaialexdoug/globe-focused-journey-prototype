@@ -166,6 +166,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'simpleEscape',
   experiences: ['Scenic', 'Nature', 'Historical', 'Hidden Gems'],
   departure: lesterMouth,
   discovery: lesterPark,

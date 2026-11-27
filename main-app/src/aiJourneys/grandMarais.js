@@ -234,6 +234,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'simpleEscape',
   experiences: ['Scenic', 'Hidden Gems', 'Interactive', 'Culinary', 'Nature'],
   departure: harbor,
   discovery: donuts,

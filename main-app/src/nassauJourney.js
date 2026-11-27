@@ -238,6 +238,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'richExperience',
   experiences: ['Historical', 'Culinary', 'Cultural'],
   departure: parliamentSquare,
   discovery: queensStaircase,

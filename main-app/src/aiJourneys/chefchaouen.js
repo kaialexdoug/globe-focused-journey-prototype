@@ -150,6 +150,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'standoutJourney',
   experiences: ['Scenic', 'Cultural', 'Historical', 'Hidden Gems'],
   departure: kasbah,
   discovery: blueLanes,

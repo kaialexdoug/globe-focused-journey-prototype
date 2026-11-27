@@ -223,6 +223,7 @@ export default {
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Nature', 'Adventure', 'Interactive'],
   departure: douglasLodge,
   discovery: preachersGrove,

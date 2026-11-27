@@ -215,6 +215,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'standoutJourney',
   experiences: ['Scenic', 'Cultural', 'Historical'],
   departure: station,
   discovery: honchoDori,

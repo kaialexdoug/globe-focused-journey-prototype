@@ -11,12 +11,14 @@ import {
   BookmarkIcon,
   ChecklistIcon,
   ChevronLeftIcon,
+  ExpectationsIcon,
   HeartIcon,
   LayersIcon,
   PinIcon,
   SparkleIcon,
   WeatherIcon,
 } from './Icons.jsx'
+import { experienceLevel } from './experienceLevels.js'
 import { hasRoutePreview } from './journeyTimes.js'
 import { fullPlaceName } from './journeyStops'
 
@@ -27,7 +29,8 @@ import { fullPlaceName } from './journeyStops'
 //   the left, the logo, and save on the right, and its name in the serif
 //   with where it is under it, on the photo's shaded bottom edge.
 // - Three tabs: Overview (its facts, then Why It's Cool: what it's about,
-//   and The Discovery, The Significance and The Feeling), Route (each stop
+//   and The Discovery, The Significance and The Feeling, then Expectations:
+//   what kind of experience it is, experienceLevels.js), Route (each stop
 //   and the walk between them, then the map: RoutePreview.jsx), and Details
 //   (the weather and the best time to go: BestTime.jsx, then Before You Go:
 //   BeforeYouGo.jsx).
@@ -175,9 +178,11 @@ function JourneyPage({ journey, saved, onToggleSaved, onClose, ...buttons }) {
   )
 }
 
-// Its facts, then Why It's Cool, in a panel: what the journey's about (its
-// description), then The Discovery, The Significance and The Feeling.
+// Its facts, then Why It's Cool: what the journey's about (its description),
+// then The Discovery, The Significance and The Feeling in a panel, then
+// Expectations in a panel of its own.
 function Overview({ journey }) {
+  const level = experienceLevel(journey)
   return (
     <>
       <JourneyFacts journey={journey} withStops />
@@ -204,6 +209,19 @@ function Overview({ journey }) {
             ))}
           </ul>
         )}
+      </section>
+      <section className="expectations" aria-labelledby="expectationsTitle">
+        <ExpectationsIcon className="expectationsCompass" />
+        <div className="expectationsHead">
+          <h2 className="expectationsTitle" id="expectationsTitle">
+            Expectations
+          </h2>
+          <p className="expectationsLevel">
+            <level.Icon />
+            {level.label}
+          </p>
+        </div>
+        <p className="expectationsText">{level.text}</p>
       </section>
     </>
   )

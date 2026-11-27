@@ -280,6 +280,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Hidden Gems', 'Cultural', 'Historical', 'Interactive'],
   departure: takadanobaba,
   discovery: kansenen,

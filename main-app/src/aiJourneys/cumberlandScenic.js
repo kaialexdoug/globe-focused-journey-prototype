@@ -176,6 +176,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'simpleEscape',
   experiences: ['Scenic', 'Nature', 'Historical'],
   departure: downtown,
   discovery: eastShore,

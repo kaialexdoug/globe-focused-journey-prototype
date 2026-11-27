@@ -174,6 +174,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Historical', 'Cultural', 'Hidden Gems'],
   departure: library,
   discovery: stateBank,

@@ -221,6 +221,7 @@ export default {
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Adventure', 'Nature', 'Scenic', 'Hidden Gems'],
   departure: angelHill,
   discovery: benchStreet,

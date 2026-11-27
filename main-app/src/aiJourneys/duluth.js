@@ -232,6 +232,7 @@ export default {
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Scenic', 'Nature', 'Historical'],
   departure: canalPark,
   discovery: liftBridge,

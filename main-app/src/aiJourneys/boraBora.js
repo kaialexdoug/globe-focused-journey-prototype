@@ -157,6 +157,7 @@ export default {
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'standoutJourney',
   experiences: ['Scenic', 'Historical', 'Cultural', 'Nature'],
   departure: vaitape,
   discovery: marae,

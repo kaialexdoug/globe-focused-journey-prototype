@@ -211,6 +211,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'simpleEscape',
   experiences: ['Nature', 'Scenic', 'Cultural', 'Hidden Gems'],
   departure: station,
   discovery: hitsujiyama,

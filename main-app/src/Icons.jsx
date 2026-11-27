@@ -408,6 +408,40 @@ export function LayersIcon({ className }) {
   )
 }
 
+// Expectations, on a journey's page, after its mockup: a compass, its ring and
+// one half of its needle in the text colour and the other half filled orange
+// (set `--needle` on it, or it's the text colour too).
+export function ExpectationsIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M16.6 7.4 13.4 13.4 10.6 10.6z" fill="var(--needle, currentColor)" stroke="var(--needle, currentColor)" />
+      <path d="M7.4 16.6 10.6 10.6 13.4 13.4z" />
+    </Icon>
+  )
+}
+
+// What kind of experience a journey is, in its orange pill on Expectations
+// (experienceLevels.js): a leaf for a Simple Escape, a magnifying glass
+// (SearchIcon) for a Local Discovery, a castle for a Rich Experience and a
+// five-pointed star for a Standout Journey.
+export function CastleIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="M3 21V5.5h1.8v2h1.7v-2h1.8v6h2.4V9.8h2.6v1.7h2.4v-6h1.8v2h1.7v-2H21V21z" />
+      <path d="M10 21v-3.5a2 2 0 0 1 4 0V21" />
+    </Icon>
+  )
+}
+
+export function StarIcon({ className }) {
+  return (
+    <Icon className={className}>
+      <path d="m12 2.8 2.8 5.7 6.3.9-4.55 4.45 1.07 6.27L12 17.15l-5.62 2.97 1.07-6.27L2.9 9.4l6.3-.9z" />
+    </Icon>
+  )
+}
+
 // The ✕ in the corner of a journey stop, for stopping the journey.
 export function CloseIcon({ className }) {
   return (
