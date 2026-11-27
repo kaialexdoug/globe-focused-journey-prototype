@@ -104,6 +104,12 @@ import banff from './banff.js'
 import varanasi from './varanasi.js'
 import chiangMai from './chiangMai.js'
 import capeTown from './capeTown.js'
+// Miami, for families (28 Nov 2026): Key Biscayne, downtown, Little Havana,
+// and the Miccosukee airboats out on the Tamiami Trail.
+import keyBiscayne from './keyBiscayne.js'
+import miamiDowntown from './miamiDowntown.js'
+import littleHavana from './littleHavana.js'
+import miccosukee from './miccosukee.js'
 
 // The Kanto ones first, then Minnesota, then Cumberland, Wisconsin, then the
 // ones made to the V2 handoff.
@@ -117,4 +123,5 @@ export const AI_JOURNEYS = [
   fortLauderdaleRiver, bonnetHouse, wadeIns, barefootMailman, hollywoodBeach,
   boraBora, montSaintMichel, florence, chefchaouen, newYork, sanFrancisco,
   laJolla, banff, varanasi, chiangMai, capeTown,
+  keyBiscayne, miamiDowntown, littleHavana, miccosukee,
 ]
