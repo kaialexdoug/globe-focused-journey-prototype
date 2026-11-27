@@ -149,6 +149,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Interactive', 'Historical', 'Scenic', 'Hidden Gems'],
   departure: powell,
   discovery: lombard,

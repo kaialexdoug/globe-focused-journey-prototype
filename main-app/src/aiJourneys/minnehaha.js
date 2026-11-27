@@ -206,6 +206,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'simpleEscape',
   experiences: ['Nature', 'Scenic', 'Historical'],
   departure: park,
   discovery: depot,

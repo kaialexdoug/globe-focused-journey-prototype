@@ -162,6 +162,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Nature', 'Hidden Gems', 'Historical', 'Scenic'],
   departure: entrance,
   discovery: bensCave,

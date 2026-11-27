@@ -234,6 +234,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'standoutJourney',
   experiences: ['Scenic', 'Nature', 'Historical', 'Cultural', 'Adventure'],
   departure: yumoto,
   discovery: openAirMuseum,

@@ -226,6 +226,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Scenic', 'Historical', 'Cultural', 'Interactive'],
   departure: hibiyaPark,
   discovery: nijubashi,

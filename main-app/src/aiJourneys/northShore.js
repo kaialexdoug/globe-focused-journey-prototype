@@ -244,6 +244,7 @@ export default {
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Scenic', 'Nature', 'Adventure', 'Historical'],
   departure: lighthouse,
   discovery: ednaG,

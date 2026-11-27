@@ -153,6 +153,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Active',
+  experienceLevel: 'standoutJourney',
   experiences: ['Adventure', 'Historical', 'Scenic', 'Nature'],
   departure: bec,
   discovery: sands,

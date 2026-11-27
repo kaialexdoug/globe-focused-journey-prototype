@@ -167,6 +167,7 @@ export default {
   walking: 'Moderate walking',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'localDiscovery',
   experiences: ['Historical', 'Cultural', 'Hidden Gems'],
   departure: depot,
   discovery: memorial,

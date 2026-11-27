@@ -2496,14 +2496,11 @@ button.detailBar:active {
   font-size: 13.5px;
 }
 
-/* Why It's Cool: a panel with its sparkle and heading, what the journey's
-   about, then The Discovery, The Significance and The Feeling in a box of
-   their own inside it, split by faint lines. */
+/* Why It's Cool, straight on the page as in the mockup: its sparkle and
+   heading, what the journey's about, then The Discovery, The Significance and
+   The Feeling in a white panel, split by faint lines. */
 .whyCool {
-  padding: 20px 18px 18px;
-  border: 1px solid var(--outline);
-  border-radius: 18px;
-  background-color: var(--panel);
+  padding: 4px 2px 0;
 }
 
 .whyCoolTitle {
@@ -2534,12 +2531,13 @@ button.detailBar:active {
 }
 
 .whyCoolList {
-  margin: 18px 0 0;
+  margin: 18px -2px 0;
   padding: 2px 16px;
   list-style: none;
   background-color: var(--panel-inner);
   border: 1px solid var(--outline);
-  border-radius: 14px;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(30, 36, 50, 0.06);
 }
 
 .whyCoolItem {
@@ -2575,6 +2573,89 @@ button.detailBar:active {
   font-size: 14px;
   line-height: 1.42;
   color: var(--ink-muted);
+}
+
+/* Expectations (experienceLevels.js), in a panel of its own after the
+   mockup: the compass at the top left, the heading, and what kind of
+   experience the journey is in an orange pill at the top right (or under
+   the heading, when there isn't room beside it), with what to expect under
+   them. Mountains at sunset (at night in dark mode) fill the bottom of the
+   panel, fading up into their sky behind the words. */
+.expectations {
+  display: grid;
+  grid-template-columns: 31px 1fr;
+  column-gap: 8px;
+  align-items: start;
+  margin: 22px -2px 0;
+  padding: 18px 12px 124px;
+  border: 1px solid var(--outline);
+  border-radius: 20px;
+  background:
+    linear-gradient(to bottom, var(--expect-sky) 0%, var(--expect-sky) 30%, var(--expect-sky-clear) 62%),
+    var(--expect-art) center bottom / cover no-repeat,
+    var(--expect-sky);
+  box-shadow: 0 6px 18px rgba(30, 36, 50, 0.08);
+  overflow: hidden;
+}
+
+.expectationsCompass {
+  --needle: var(--orange-mark);
+  width: 31px;
+  height: 31px;
+  margin-top: 2px;
+  stroke-width: 1.5;
+  color: var(--ink-navy);
+}
+
+.expectationsHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 34px;
+}
+
+.expectationsTitle {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 20.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--text-h);
+}
+
+.expectationsLevel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 6px 9px 6px 7px;
+  border-radius: 999px;
+  background: var(--expect-pill);
+  box-shadow: 0 2px 8px rgba(218, 102, 42, 0.28);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: white;
+}
+
+.expectationsLevel svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  stroke-width: 2;
+}
+
+/* Across the whole panel, as far from its left edge as its right. */
+.expectationsText {
+  grid-column: 1 / -1;
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink-body);
 }
 
 /* Details: Weather & Best Time to Go, then Before You Go, each under a

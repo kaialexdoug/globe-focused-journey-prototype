@@ -155,6 +155,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Historical', 'Nature', 'Cultural', 'Hidden Gems'],
   departure: birchPark,
   discovery: lagoon,

@@ -242,6 +242,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'standoutJourney',
   experiences: ['Cultural', 'Historical', 'Nature', 'Scenic'],
   departure: station,
   discovery: shinkyo,

@@ -224,6 +224,7 @@ export default {
   walking: 'Some climbing',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'richExperience',
   experiences: ['Nature', 'Adventure', 'Scenic', 'Cultural'],
   departure: station,
   discovery: cableCar,

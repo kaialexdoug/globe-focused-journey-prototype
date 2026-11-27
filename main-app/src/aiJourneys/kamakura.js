@@ -247,6 +247,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Cultural', 'Historical', 'Nature', 'Scenic', 'Culinary'],
   departure: station,
   discovery: komachiDori,

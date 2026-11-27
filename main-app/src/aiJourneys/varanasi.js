@@ -154,6 +154,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'standoutJourney',
   experiences: ['Cultural', 'Historical', 'Scenic'],
   departure: assi,
   discovery: harishchandra,

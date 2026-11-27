@@ -222,6 +222,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Cultural', 'Culinary', 'Historical', 'Hidden Gems'],
   departure: station,
   discovery: omotesando,

@@ -167,6 +167,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Interactive', 'Historical', 'Nature', 'Hidden Gems'],
   departure: purgatoryCreek,
   discovery: jeanHarrisBridge,

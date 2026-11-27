@@ -156,6 +156,7 @@ export default {
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'richExperience',
   experiences: ['Historical', 'Cultural', 'Scenic'],
   departure: garden,
   discovery: slaveLodge,

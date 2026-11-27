@@ -153,6 +153,7 @@ export default {
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'simpleEscape',
   experiences: ['Interactive', 'Nature', 'Scenic', 'Historical'],
   departure: johnsonStreet,
   discovery: broadwalk,

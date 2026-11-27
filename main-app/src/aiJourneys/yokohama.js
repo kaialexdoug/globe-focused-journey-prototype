@@ -266,6 +266,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Scenic', 'Culinary', 'Historical'],
   departure: motomachi,
   discovery: chinatown,

@@ -157,6 +157,7 @@ export default {
   walking: 'Walk + drive',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Historical', 'Cultural', 'Nature', 'Hidden Gems'],
   departure: lasOlasBeach,
   discovery: parkEntrance,

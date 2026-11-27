@@ -218,6 +218,7 @@ export default {
   walking: 'Easy walking',
   stops: '~5 stops',
   difficulty: 'Easy',
+  experienceLevel: 'localDiscovery',
   experiences: ['Historical', 'Scenic', 'Hidden Gems'],
   departure: lowellPark,
   discovery: mainStreet,

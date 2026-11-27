@@ -147,6 +147,7 @@ export default {
   walking: 'Moderate walking',
   stops: '~5 stops',
   difficulty: 'Moderate',
+  experienceLevel: 'localDiscovery',
   experiences: ['Adventure', 'Historical', 'Scenic', 'Nature'],
   departure: pier,
   discovery: mailmansBeach,
